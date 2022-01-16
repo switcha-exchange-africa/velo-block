@@ -10,7 +10,7 @@ export const getConversionRequest=() => async (dispatch) => {
         let headers={"Content-Type": "application/json"};
         const response = await getCall(urls.fetchConversionRequest,headers )
         const { status, error, success, data} = response;
-        if (status == 200){
+        if (status === 200){
             dispatch({
                 type: types.GET_REQUEST_SUCCEEDED,
                 payload: data

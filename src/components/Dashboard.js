@@ -93,7 +93,7 @@ function Dashboard() {
             number: inputValues.number,
             network_name: inputValues.network.toUpperCase()
         }
-        const {status, data, message} = await dispatch(createConversionRequest(payload));
+        const {status, message} = await dispatch(createConversionRequest(payload));
         
         if(status) {
             toast.success(message,{
@@ -128,7 +128,8 @@ function Dashboard() {
         if(!requestList){
             getRequests()
         }
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return (
         <DashboardView>
             <div className="side-bar">
