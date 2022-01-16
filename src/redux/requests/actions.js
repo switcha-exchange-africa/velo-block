@@ -20,6 +20,9 @@ export const getConversionRequest=() => async (dispatch) => {
                 message: data
             }
         }else {
+            dispatch({
+                type: types.CREATE_REQUEST_FAILED,
+            })
             return{
                 status: false,
                 message: error,
@@ -45,7 +48,7 @@ export const createConversionRequest=(payload) => async (dispatch) => {
         let headers={"Content-Type": "application/json"};
         const response = await postCall(urls.createConversionRequest, payload, headers)
         const {success, message, error, data} = response;
-        if (!success){
+        if (success){
             dispatch({
                 type: types.CREATE_REQUEST_SUCCEEDED,
                 payload: data
@@ -55,6 +58,9 @@ export const createConversionRequest=(payload) => async (dispatch) => {
                 message: message
             }
         } else {
+            dispatch({
+                type: types.CREATE_REQUEST_FAILED,
+            })
             return{
                 status: false,
                 message: error,
