@@ -217,6 +217,9 @@
 .width-50 {
   width: 50% !important
 }
+.cursor-pointer {
+  cursor: pointer !important;
+}
 
 @media (min-width: 576px) {
   .flex-sm-row {

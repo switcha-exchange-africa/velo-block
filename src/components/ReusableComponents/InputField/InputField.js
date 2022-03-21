@@ -4,6 +4,7 @@ import styled from 'styled-components';
 function InputField({type, placeholder, className, onChange, min, value, max, label, bodyClass, name, onClick, autocomplete, small}) {
   return (
     <InputFieldView small={small}>
+        <div className = {`label ${bodyClass}`}>{label}</div>
         <div className = {`form-section ${bodyClass}`} onClick={onClick}>
             <input
                 id = "Bullets"
@@ -14,7 +15,7 @@ function InputField({type, placeholder, className, onChange, min, value, max, la
                 value={value}
                 min={min}
                 name={name}
-                autocomplete={autocomplete? autocomplete: "on"}
+                autoComplete={autocomplete? autocomplete: "on"}
             />
         </div>
     
@@ -28,9 +29,9 @@ const InputFieldView = styled.div`
     width: 100% !important;
     .form-section{
         background: #FFFFFF;
-        border: 1px solid #E2E8F0;
+        border: 1px solid #CED4DA;
         box-sizing: border-box;
-        border-radius: 16px;
+        border-radius: 4px;
         height: 56px;
         width: ${props => props.small && "150px !important"}
         
@@ -48,7 +49,7 @@ const InputFieldView = styled.div`
         border: none;
         height: 100%;
         width: 100%;
-        border-radius: 16px;
+        border-radius: 4px;
         font-size: 14px;
         line-height: 140%;
         color: #8E9BAE;
@@ -80,5 +81,12 @@ const InputFieldView = styled.div`
         :-webkit-autofill{
             -webkit-text-fill-background: #ffffff !important;
         }
+    }
+    .label {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        color: #334155;
     }
 `;

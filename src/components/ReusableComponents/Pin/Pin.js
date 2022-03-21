@@ -129,7 +129,7 @@ const Pin = ({ title, type, getPin, size, onChange, className }) => {
     return (
         <PinView>
         <div
-            className={`kuda-multi--input ${type === 1
+            className={` ${type === 1
                 ? "transaction-pin--wrap transaction-pin no-margin"
                 : "transaction-confirm-action"
                 } ${typeof className !== "undefined" ? className : ""}`}
@@ -183,7 +183,7 @@ const PinView = styled.div`
 
     .transaction-confirm-action {
         margin: 40px auto 47px;
-        max-width: 289px;
+        min-width: 289px;
     }
     .text-center {
         text-align: center;
@@ -192,8 +192,8 @@ const PinView = styled.div`
         background: var(--offWhite);
         border-radius: 3px;
         border: 0;
-        width: 56px;
-        height: 56px;
+        width: 41px;
+        height: 41px;
         max-width: 56px;
         outline: none;
         text-align: center;

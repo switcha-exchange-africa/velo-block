@@ -18,6 +18,9 @@ const OnboardingNavbarView = styled.div`
     min-width: 100%;
     display: flex;
     align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 20;
     padding: 15px 71px;
     background: #10192D;
 `;

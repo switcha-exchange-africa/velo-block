@@ -1,208 +1,471 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import {ReactComponent as NotificationBell} from  "../../../assets/Icons/NotificationBell.svg";
-import {ReactComponent as PositiveTrend} from "../../../assets/Icons/PositiveTrend.svg";
-import {ReactComponent as BitcoinLogoIcon} from  "../../../assets/Icons/BitcoinLogoIcon.svg";
-import {ReactComponent as SellLogoIcon} from  "../../../assets/Icons/SellLogoIcon.svg";
-import {ReactComponent as SendLogoIcon} from  "../../../assets/Icons/SendLogoIcon.svg"; 
-import {ReactComponent as ReceiveLogoIcon} from  "../../../assets/Icons/ReceiveLogoIcon.svg";
-import {ReactComponent as WalletEmptyState} from  "../../../assets/Icons/WalletEmptyState.svg"; 
+// import {ReactComponent as NotificationBell} from  "../../../assets/Icons/NotificationBell.svg";
+// import {ReactComponent as PositiveTrend} from "../../../assets/Icons/PositiveTrend.svg";
+// import {ReactComponent as BitcoinLogoIcon} from  "../../../assets/Icons/BitcoinLogoIcon.svg";
+// import {ReactComponent as SellLogoIcon} from  "../../../assets/Icons/SellLogoIcon.svg";
+// import {ReactComponent as SendLogoIcon} from  "../../../assets/Icons/SendLogoIcon.svg"; 
+// import {ReactComponent as ReceiveLogoIcon} from  "../../../assets/Icons/ReceiveLogoIcon.svg";
+// import {ReactComponent as WalletEmptyState} from  "../../../assets/Icons/WalletEmptyState.svg"; 
 
-import {ReactComponent as ActiveHome} from  "../../../assets/Icons/ActiveHome.svg";
-import {ReactComponent as InactiveHomeIcon} from "../../../assets/Icons/InactiveHomeIcon.svg";
-import {ReactComponent as ActiveSearchIcon} from  "../../../assets/Icons/ActiveSearchIcon.svg";
-import {ReactComponent as InactiveSearchIcon} from  "../../../assets/Icons/InactiveSearchIcon.svg";
-import {ReactComponent as ActiveSwapIcon} from  "../../../assets/Icons/ActiveSwapIcon.svg"; 
-import {ReactComponent as InactiveSwapIcon} from  "../../../assets/Icons/InactiveSwapIcon.svg";
-import {ReactComponent as ActiveAccountIcon} from  "../../../assets/Icons/ActiveAccountIcon.svg"; 
-import {ReactComponent as InactiveAccountIcon} from  "../../../assets/Icons/InactiveAccountIcon.svg";
-import Button from '../../ReusableComponents/Button/Button';
-
+// import {ReactComponent as ActiveHome} from  "../../../assets/Icons/ActiveHome.svg";
+// import {ReactComponent as InactiveHomeIcon} from "../../../assets/Icons/InactiveHomeIcon.svg";
+// import {ReactComponent as ActiveSearchIcon} from  "../../../assets/Icons/ActiveSearchIcon.svg";
+// import {ReactComponent as InactiveSearchIcon} from  "../../../assets/Icons/InactiveSearchIcon.svg";
+// import {ReactComponent as ActiveSwapIcon} from  "../../../assets/Icons/ActiveSwapIcon.svg"; 
+// import {ReactComponent as InactiveSwapIcon} from  "../../../assets/Icons/InactiveSwapIcon.svg";
+// import {ReactComponent as ActiveAccountIcon} from  "../../../assets/Icons/ActiveAccountIcon.svg"; 
+// import {ReactComponent as InactiveAccountIcon} from  "../../../assets/Icons/InactiveAccountIcon.svg";
+// import Button from '../../ReusableComponents/Button/Button';
+import {ReactComponent as PointerIcon} from "../../../assets/Icons/PointerIcon.svg";
+import {ReactComponent as P2PIcon} from "../../../assets/Icons/P2PIcon.svg";
+import {ReactComponent as SwapIcon} from "../../../assets/Icons/SwapIcon.svg";
+import {ReactComponent as WalletIcon} from "../../../assets/Icons/WalletIcon.svg";
 import balanceBackground from "../../../assets/Img/BalanceTrend.png"
 
 
 function HomePage() {
-    const {pathname} = useLocation();
+    const [pageView, setPageView] = useState("buy");
+    const [filterType, setFilterType] = useState("btc");
 
-    console.log(pathname);
-  return (
-    <HomePageView>
-    <div className="home-page mb-5">
-        <div className="header">
-            <div className="profile flex">
-                <div className="profileImage mr-2"></div>
-                <div className="normal-text flex align-center">Hi, <span className="bold">Dayo</span></div>
-            </div>
-            <div className="flex align-center"> <NotificationBell/></div>
-            
-        </div>
-        <div className="amount-section mt-5 flex-column justify-center align-center flex">
-            <div className="balance-heading">Total Wallet Balance</div>
-            <div className="balance mt-2">NGN 200,000 </div>
-            <div className="balance-heading"> <PositiveTrend/> <span className="ml-2">3,500 Today</span> </div>
-        </div>
-        <div className="flex  mt-5 justify-content-around width-80">
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    <BitcoinLogoIcon/>
+
+    const ActionItems = [
+        {
+            header: "P2P Trading",
+            subheading: "Bank Transfer, Digital Wallet Transfer.",
+            icon: <P2PIcon/>
+        },
+        {
+            header: "Quick Trade",
+            subheading: "Bank Transfer, Digital Wallet Transfer.",
+            icon: <P2PIcon/>
+        },
+        {
+            header: "Deposit",
+            subheading: "Bank Transfer, Digital Wallet Transfer.",
+            icon: <WalletIcon/>
+        },
+        {
+            header: "Withdraw",
+            subheading: "Bank Transfer, Digital Wallet Transfer.",
+            icon: <WalletIcon/>
+        },
+        
+    ]
+
+    const PriceList = [
+        {
+            conversionType: "BTC/USDT",
+            trend: "negative",
+            trendPercent: "0.60%",
+            amount: 22454.24
+        },
+        {
+            conversionType: "BTC/USDT",
+            trend: "positive",
+            trendPercent: "0.10%",
+            amount: 24524.24
+        },
+        {
+            conversionType: "BTC/USDT",
+            trend: "negative",
+            trendPercent: "0.10%",
+            amount: 24524.24
+        },
+        {
+            conversionType: "BTC/USDT",
+            trend: "positive",
+            trendPercent: "0.10%",
+            amount: 2124.24
+        },
+        {
+            conversionType: "BTC/USDT",
+            trend: "positive",
+            trendPercent: "0.10%",
+            amount: 24524.24
+        },
+        {
+            conversionType: "BTC/USDT",
+            trend: "positive",
+            trendPercent: "0.10%",
+            amount: 24524.24
+        },
+    ]
+
+    const adverts = [
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+        {
+            username: "Maximus",
+            orders: "1234",
+            completionRate: "98",
+            price: "1,235",
+            availableAmount: "2,902",
+            limit: "200 - 400",
+            paymentType: "Bank Transfer",
+            tradeType: 1
+        },
+    ]
+
+    const ActionItemCard = ({Heading, SubHeading, Icon}) => {
+        return (
+            <div className="action-card">
+                <div className="action-card-heading">{Heading}</div>
+                <div className="sub-heading mt-2">{SubHeading}</div>
+                <div className="flex justify-between mt-4">
+                    <div className="">{Icon}</div>
+                    <div className="flex justify-center align-center"><PointerIcon/></div>
                 </div>
-                <div className="normal-text mt-3 bold"> Buy</div>
             </div>
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    <SellLogoIcon/>
+        )
+    }
+
+    const PriceCard =({ConversionType, Trend, TrendPercent, Amount}) => {
+        return (
+            <div className="price-card">
+                <div className="flex heading">
+                    <div className="mr-2">{ConversionType}</div>
+                    <div className={`${Trend}`}>{TrendPercent}</div>
                 </div>
-                <div className="normal-text mt-3 bold"> Sell</div>
-            </div>
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    <SendLogoIcon/>
+                <div className={`amount ${Trend}`}>
+                    {Amount}
                 </div>
-                <div className="normal-text mt-3 bold"> Send</div>
             </div>
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    <ReceiveLogoIcon/>
+        )
+    }
+
+    const LeaderBoard =({Username, Orders, CompletionRate, Price, AvailableAmount, Limit, PaymentType, TradeType}) => {
+        return (
+            <LeaderBoardView>
+                <div className="leaderboard-body flex align-center">
+                    <div className="width-2 flex">
+                        <div className="icon flex justify-center align-center mr-2">M</div>
+                        <div>
+                            <div className="user-name">{Username}</div>
+                            <div className="user-quality">{Orders} orders | {CompletionRate}% completion</div>
+                        </div>
+                    </div>
+                    <div className="width-1 flex align-center leaderboard-text">{Price} <span className="subscript ml-2">NGN</span></div>
+                    <div className="width-1 flex align-center leaderboard-text">{AvailableAmount}</div>
+                    <div className="width-1 flex align-center leaderboard-text">{Limit} USD</div>
+                    <div className="width-1 flex align-center">
+                        <div className="payment-type">{PaymentType}</div>
+                    </div>
+                    <div className="width-1 flex align-center">
+                        <div className="trade-type">{TradeType === 1 ? "Buy BTC" : "Sell BTC"}</div>
+                    </div>
                 </div>
-                <div className="normal-text mt-3 bold"> Receive</div>
-            </div>
-        </div>
-        <div className="bold wallet-heading mt-5">My Wallets</div>
-        <div className="mt-3">
-            <div className="flex justify-center">
-            <WalletEmptyState/>
-            </div>
-            <div className="normal-text color-grey"> You do not have any asset in your wallet</div>
-        </div>
-        <div className="mt-5">
-            <Button text={"Add Wallet"} className={"mb-4 "}/>
-        </div>
-    </div>
-        <div className="bottom-nav flex justify-content-around align-center">
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    {pathname === "/home" ? <ActiveHome/> : <InactiveHomeIcon/>}
-                </div>
-                <div className={`nav-bar-text mt-1 bold ${pathname === "/home" && "orange-text"}`}> Home</div>
+            </LeaderBoardView>
+        )
+    }
+
+    return (
+        <HomePageView>
+            <div className=" flex justify-between">
+                {ActionItems.map((item, index) => (
+                    <ActionItemCard key={index} Heading={item.header} SubHeading={item.subheading} Icon={item.icon}/>
+                ))}
             </div>
 
-            <div>
-                <div className="flex justify-center align-center icon-height">
-                    {pathname === "/search" ? <ActiveSearchIcon/> : <InactiveSearchIcon/>}
-                </div>
-                <div className="nav-bar-text mt-1 bold"> Search</div>
+            <div className=" flex justify-between mt-5 width-80">
+                {PriceList.map((item, index) => (
+                    <PriceCard key={index} ConversionType={item.conversionType} Trend={item.trend} TrendPercent={item.trendPercent} Amount={item.amount} />
+                ))}
             </div>
-
-            <div>
-            <div className="flex justify-center align-center icon-height">
-                    {pathname === "/search" ? <ActiveSwapIcon/> : <InactiveSwapIcon/>}
+            <div className="advert-section flex flex-column width-100 mt-5">
+                <div className="flex justify-between mt-2">
+                    <div className="flex buy-sell cursor-pointer crypto">
+                        <div className={`${pageView === "buy" ? "black " : ""} mr-2`} onClick={()=> setPageView("buy") }>Buy </div> |
+                        <div className={`${pageView === "sell" ? "black " : ""} ml-2`} onClick={()=> setPageView("sell") }>Sell </div>
+                    </div>
+                    
                 </div>
-                <div className="nav-bar-text mt-1 bold"> Swap</div>
-            </div>
-
-            <div>
-            <div className="flex justify-center align-center icon-height">
-                    {pathname === "/search" ? <ActiveAccountIcon/> : <InactiveAccountIcon/>}
+                <div className="coins flex mt-4 cursor-pointer">
+                    <div className={`mr-5 ${filterType === "btc" ? "active" : ""}`} onClick={()=> setFilterType("btc")}>BTC</div>
+                    <div className={`mr-5 ${filterType === "eth" ? "active" : ""}`} onClick={()=> setFilterType("eth")}>ETH</div>
+                    <div className={`mr-5 ${filterType === "usdt" ? "active" : ""}`} onClick={()=> setFilterType("usdt")}>USDT</div>
+                    <div className={`mr-5 ${filterType === "usdc" ? "active" : ""}`} onClick={()=> setFilterType("usdc")}>USDC</div>
                 </div>
-                <div className="nav-bar-text mt-1 bold"> Search</div>
-            </div>
+                <LeaderBoardView>
+                    <div className="header flex align-center">
+                        <div className="width-2">Advertiser</div>
+                        <div className="width-1">Price</div>
+                        <div className="width-1">Available</div>
+                        <div className="width-1">Limit</div>
+                        <div className="width-1">Payment</div>
+                        <div className="width-1">Trade</div>
+                    </div>
+                    {adverts.map((item, index) => (
+                        <LeaderBoard  key={index} Username={item.username} Orders={item.orders} CompletionRate={item.completionRate} Price={item.price} AvailableAmount={item.availableAmount} Limit={item.limit} PaymentType={item.paymentType} TradeType={item.tradeType}/>
+                    ))}
+                    {/* <div className="leaderboard-body flex align-center">
+                        <div className="width-2 flex">
+                            <div className="icon flex justify-center align-center mr-2">M</div>
+                            <div>
+                                <div className="user-name">Maximus</div>
+                                <div className="user-quality">1534 orders | 92.19% completion</div>
+                            </div>
+                        </div>
+                        <div className="width-1 flex align-center leaderboard-text">580.50 <span className="subscript ml-1">NGN</span></div>
+                        <div className="width-1 flex align-center leaderboard-text">123,459</div>
+                        <div className="width-1 flex align-center leaderboard-text">200 - 500 USD</div>
+                        <div className="width-1 flex align-center">
+                            <div className="payment-type">Bank Transfer</div>
+                        </div>
+                        <div className="width-1 flex align-center">
+                            <div className="trade-type">Buy BTC</div>
+                        </div>
 
-        </div>
-   
-    </HomePageView>
-  )
+                    </div> */}
+                </LeaderBoardView>
+            </div>
+    
+        </HomePageView>
+    )
 }
 
 export default HomePage;
 
 const HomePageView = styled.div`
-    .home-page{
-        padding: 24px;
-    }
-    .header{
-        width: 100%;
+    max-width: 100%;
+    .action-card {
+        min-width: 20%;
+        max-width: 20%;
+        min-height: 143px;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.1);
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 10px;
+        padding: 16px 28px;
         display: flex;
-        justify-content: space-between;
-    }
-    .profileImage{
-        height: 36px;
-        width: 36px;
-        border-radius: 100%;
-        background: grey;
-    }
-    .normal-text{
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 20px;
-        color: #152C07
-    }
-    .bold{
-        font-weight: bold !important;
-    }
-    .amount-section{
-        width: 100%;
-        height: 144px;
-        left: 24px;
-        top: 134px;
-        background: #FB5E04;
-        border-radius: 20px;
-        background-image: url(${balanceBackground});
+        flex-direction: column;
+        cursor: pointer;
+        .action-card-heading {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 30px;
+            color: #000000;
+        }
+        .sub-heading {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #000000;
+        }
+        :hover {
+            transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.2);
+            background: #FFFFFF;
+        }
 
     }
-    .balance-heading{
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 24px;
-        text-align: center;
-        color: #FFFFFF;
-    }
-    .balance{
-        font-style: normal;
-        font-weight: 800;
-        font-size: 28px;
-        line-height: 120%;
-        text-align: center;
-        color: #FFFFFF;
-    }
-    .icon-height{
-        min-height: 25px;
+    .price-card {
+        min-width: 108px;
+        min-height: 60px;
+        .heading  {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 13px;
+            line-height: 16px;
+            color: #000000;
+        }
+        .negative {
+            color: #E95455 !important;
+        }
+        .positive {
+            color: #22C36B !important;
+        }
+        .amount {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 30px;
+        }
     }
     .width-80 {
         max-width: 80%;
         margin: auto;
     }
-    .wallet-heading{
-        font-size: 16px;
-        line-height: 150%;
-        color: #10192D;
-    }
-    .color-grey{
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 19px;
-        text-align: center;
-        color: #64748B;
-    }
-    .bottom-nav{
-        min-height: 90px;
+    .advert-section {
         width: 100%;
-        position: fixed;
-        bottom: 0;
-        background: #ffffff
+        min-height: 463px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 9px 28px;
+         
+        .buy-sell {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 25px;
+            color: #8B8CA7;
+        }
+        .black {
+            color: #000000;
+        }
     }
-    .orange-text{
-        color: #FB5E04 !important;
-    }
-    .nav-bar-text{
+    .coins {
         font-style: normal;
-        font-weight: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+    }
+    .active {
+        border-bottom: 1px solid #FB5E04;
+    }
+`;
+const LeaderBoardView = styled.div`
+    margin-top: 10px;
+    .header {
+        min-height: 40px;
+        min-width: 100%;
+        border-top: 1px solid #E2E8F0;
+        border-bottom: 1px solid #E2E8F0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #8E9BAE;
+    }
+    .width-1 {
+        width: 14%;
+    }
+    .width-2 {
+        width: 28%;
+    }
+    .leaderboard-body {
+        min-height: 69px;
+        border-bottom: 1px solid #E2E8F0;
+    }
+    .icon {
+        height: 32px;
+        width: 32px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FFFFFF;    
+        background: #FB5E04;
+        border-radius: 100%;
+    }
+    .user-name {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FB5E04;
+    }
+    .user-quality {
+        font-style: normal;
+        font-weight: 400;
         font-size: 12px;
-        line-height: 140%;
-        text-align: center;
-        color: #64748B;
+        line-height: 15px;
+        color: #8E9BAE;
+    }
+    .leaderboard-text {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
+    }
+    .subscript {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 8px;
+        line-height: 10px;
+        color: #000000;
+    }
+    .payment-type {
+        width: 81px;
+        height: 15px;
+        background: #E2E8F0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        line-height: 12px;
+        color: #FB5E04;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .trade-type {
+        width: 86px;
+        height: 27px;
+        background: #22C36B;
+        border-radius: 4px;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FFFFFF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `;
