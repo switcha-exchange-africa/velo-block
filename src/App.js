@@ -24,7 +24,7 @@ function App() {
           <Routes>
             <Route path="signup" element={<SignupPage/>}/>
             <Route path="login" element={<LoginPage/>}/>
-            <Route path="*" element={<PrivateRoute Component = {MainRoutes}/>} />
+            <Route path="/" element={<PrivateRoute Component = {MainRoutes}/>} />
             {/* <Route path="verifylogin" element={<LoginVerificationPage/>}/>
             <Route path="home" element={<HomePage/>}/>
             <Route path="add-wallet" element={<AddWallet/>}/>
