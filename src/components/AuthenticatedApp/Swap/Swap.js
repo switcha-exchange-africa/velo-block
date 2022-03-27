@@ -16,7 +16,7 @@ function Swap() {
     const dispatch = useDispatch()
     const swapRate = 0.0000234
     // const [swapRate, setSwapRate] = useState(0.0000234);
-    const [showFromDropdown,setShowFromDropdown] = useState(true);
+    const [showFromDropdown,setShowFromDropdown] = useState(false);
     const [showToDropdown, setShowToDropDown] = useState(false);
     const [swapLoading, setSwapLoading] = useState(false)
     const [inputValues, setInputValues] = useState({
