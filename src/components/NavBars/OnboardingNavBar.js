@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 import {ReactComponent as SwitchaLogoHeader} from '../../assets/Icons/SwitchaHeaderLogo.svg'
 
 function OnboardingNavBar() {
+  const navigate = useNavigate()
   return (
     <OnboardingNavbarView>
+      <div className="cursor-pointer flex align-center " onClick={()=> navigate("/")}>
         <SwitchaLogoHeader/>
+      </div>
     </OnboardingNavbarView>
   )
 }

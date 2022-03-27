@@ -85,17 +85,17 @@ const SidebarView = styled.div`
         height: 56px;
         width: 100%;
         border-radius: 4px;
-        background: #E2E8F0;
         :hover{
-            background-image: linear-gradient(to right, #FB5E04, #F88379);
-            box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+            /* background-image: linear-gradient(to right, #FB5E04, #F88379); */
+            box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.2);
             color: #ffffff;
-            transform: scale(1.07)
+            transform: scale(1.07);
+            background: #FB5E04;
         }
     }
     .active {
-        background-image: linear-gradient(to right, #FB5E04, #F88379);
-        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.4);
+        background: #FB5E04;
+        box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.2);
         color: #ffffff;
         transform: scale(1.07)
     }
