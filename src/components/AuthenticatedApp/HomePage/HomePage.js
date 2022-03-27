@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 // import {ReactComponent as NotificationBell} from  "../../../assets/Icons/NotificationBell.svg";
 // import {ReactComponent as PositiveTrend} from "../../../assets/Icons/PositiveTrend.svg";
@@ -20,9 +19,8 @@ import styled from 'styled-components';
 // import Button from '../../ReusableComponents/Button/Button';
 import {ReactComponent as PointerIcon} from "../../../assets/Icons/PointerIcon.svg";
 import {ReactComponent as P2PIcon} from "../../../assets/Icons/P2PIcon.svg";
-import {ReactComponent as SwapIcon} from "../../../assets/Icons/SwapIcon.svg";
+
 import {ReactComponent as WalletIcon} from "../../../assets/Icons/WalletIcon.svg";
-import balanceBackground from "../../../assets/Img/BalanceTrend.png"
 
 
 function HomePage() {
