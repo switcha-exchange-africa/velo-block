@@ -356,7 +356,7 @@ const HomePageView = styled.div`
         border-bottom: 1px solid #FB5E04;
     }
 `;
-const LeaderBoardView = styled.div`
+export const LeaderBoardView = styled.div`
     margin-top: 10px;
     .header {
         min-height: 40px;

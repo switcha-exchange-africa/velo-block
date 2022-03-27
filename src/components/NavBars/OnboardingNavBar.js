@@ -26,5 +26,6 @@ const OnboardingNavbarView = styled.div`
     top: 0;
     z-index: 20;
     padding: 15px 71px;
-    background: #10192D;
+    background: #000000;
+    /* background: #10192D; */
 `;
