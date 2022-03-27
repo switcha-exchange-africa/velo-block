@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function InputField({type, placeholder, className, onChange, min, value, max, label, bodyClass, name, onClick, autocomplete, small}) {
+function InputField({type, placeholder, className, onChange, min, value, max, label, bodyClass, name, onClick, autocomplete, small, readOnly}) {
   return (
     <InputFieldView small={small}>
         <div className = {`label ${bodyClass}`}>{label}</div>
@@ -16,6 +16,7 @@ function InputField({type, placeholder, className, onChange, min, value, max, la
                 min={min}
                 name={name}
                 autoComplete={autocomplete? autocomplete: "on"}
+                readOnly={readOnly}
             />
         </div>
     
@@ -60,7 +61,7 @@ const InputFieldView = styled.div`
 
     input :focus {
         outline: none !important;
-        border: 1px solid "#FB5E04" ;
+        border: 1px solid "#ffffff" ;
     }
     input{
 

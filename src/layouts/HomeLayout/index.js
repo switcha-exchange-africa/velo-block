@@ -1,19 +1,34 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Outlet } from "react-router";
 import Sidebar from "../../components/ReusableComponents/SideBar/Sidebar";
+import Modal from "../../components/Modals/Modal";
+import SwapSuccessModal from "../../components/Modals/SwapSuccessModal";
+import { showSwapSuccessModal } from "../../redux/swap/actions";
 
 export default function HomeLayout() {
-  return (
-    <HomeLayoutView>
-        <Sidebar/>
-        <MainView>
-            <div className="inner-container">
-                <Outlet/>
-            </div>
-        </MainView>
-    </HomeLayoutView>
-  );
+    const dispatch = useDispatch();
+    const {showSuccessModal, fromAmount, toAmount} = useSelector(state => state.swapState);
+    const hideSwapSuccessModal = () => {
+        const payload = {
+            showModal: false
+        }
+        dispatch(showSwapSuccessModal(payload))
+    }
+    return (
+        <HomeLayoutView>
+            <Sidebar/>
+            <MainView>
+                <div className="inner-container">
+                    <Outlet/>
+                </div>
+            </MainView>
+            <Modal showModal={showSuccessModal} setShowModal={hideSwapSuccessModal}>
+                <SwapSuccessModal fromAmount={fromAmount} toAmount={toAmount}/>
+            </Modal>
+        </HomeLayoutView>
+    );
 };
 
 const HomeLayoutView = styled.div`

@@ -257,28 +257,8 @@ function HomePage() {
                     {adverts.map((item, index) => (
                         <LeaderBoard  key={index} Username={item.username} Orders={item.orders} CompletionRate={item.completionRate} Price={item.price} AvailableAmount={item.availableAmount} Limit={item.limit} PaymentType={item.paymentType} TradeType={item.tradeType}/>
                     ))}
-                    {/* <div className="leaderboard-body flex align-center">
-                        <div className="width-2 flex">
-                            <div className="icon flex justify-center align-center mr-2">M</div>
-                            <div>
-                                <div className="user-name">Maximus</div>
-                                <div className="user-quality">1534 orders | 92.19% completion</div>
-                            </div>
-                        </div>
-                        <div className="width-1 flex align-center leaderboard-text">580.50 <span className="subscript ml-1">NGN</span></div>
-                        <div className="width-1 flex align-center leaderboard-text">123,459</div>
-                        <div className="width-1 flex align-center leaderboard-text">200 - 500 USD</div>
-                        <div className="width-1 flex align-center">
-                            <div className="payment-type">Bank Transfer</div>
-                        </div>
-                        <div className="width-1 flex align-center">
-                            <div className="trade-type">Buy BTC</div>
-                        </div>
-
-                    </div> */}
                 </LeaderBoardView>
             </div>
-    
         </HomePageView>
     )
 }
