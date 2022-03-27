@@ -57,7 +57,7 @@ function SignupPage() {
     useEffect(() => {
         const {password} = inputValues
         const reg = /^(?=.*[A-Za-z])(?=.*\d)(.+){8,}$/;
-        const specialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        const specialChar = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
         const specialCharTest = specialChar.test(password);
         const test = reg.test(password);
         const isUpperCase = isUpper(password)
@@ -81,7 +81,7 @@ function SignupPage() {
         }else {
             setIsUpperCase(false)
         }
-    }, [inputValues.password]);
+    }, [inputValues]);
 
     useEffect(() => {
         if (isMin && isAlphaNum && isSpecialChar && isUpperCase) {
