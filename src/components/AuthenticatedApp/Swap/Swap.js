@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {ReactComponent as USDTLogoIcon} from "../../../assets/Icons/USDTLogoIcon.svg";
 import {ReactComponent as SwapIcon} from "../../../assets/Icons/SwapIconPg.svg";
 import {ReactComponent as BTC} from "../../../assets/Icons/BTC.svg";
@@ -9,6 +9,7 @@ import {ReactComponent as EthIconDropdown} from "../../../assets/Icons/EthIconDr
 import {ReactComponent as USDCIcon} from "../../../assets/Icons/USDCIcon.svg"
 import InputField from "../../ReusableComponents/InputField/InputField";
 import { showSwapSuccessModal } from "../../../redux/swap/actions";
+import { swapCoinCall } from "../../../redux/swap/actions";
 
 
 
@@ -18,12 +19,16 @@ function Swap() {
     // const [swapRate, setSwapRate] = useState(0.0000234);
     const [showFromDropdown,setShowFromDropdown] = useState(false);
     const [showToDropdown, setShowToDropDown] = useState(false);
-    const [swapLoading, setSwapLoading] = useState(false)
+    const [swapLoading, setSwapLoading] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState("")
     const [inputValues, setInputValues] = useState({
         amount: 0,
         fromCoin: "USDT",
         toCoin: "ETH",
+        availableAmount: 0,
     })
+    const {wallets} = useSelector(state => state.accountState.user)
 
 
     const handleInput = (e)=> {
@@ -53,26 +58,42 @@ function Swap() {
     const swapCoin = () => {
         setSwapLoading(true)
         const{amount, fromCoin, toCoin} = inputValues
+        if(fromCoin === toCoin){
+            setShowErrorModal(true)
+            setShowErrorMessage(`Please select another coin you'll like to swap your ${fromCoin} for`)
+            return 
+        }
         const fromAmount = `${amount} ${" "} ${fromCoin}`
         const toAmount = `${swapRate* amount} ${" "}  ${toCoin}`
         const showModal =  true
 
-        const payload ={
+        const reduxPayload ={
             fromAmount,
             toAmount,
             showModal
         }
-        setTimeout(()=>{
-            setSwapLoading(false)
-            dispatch(showSwapSuccessModal(payload))
-        }, 4000)
+
+        const payload = {
+            amount: inputValues.amount,
+            sourceCoin: fromCoin,
+            destinationCoin: toCoin
+        }
+        const {status} = dispatch(swapCoinCall(payload))
+        setSwapLoading(false)
+        if(status){
+            dispatch(showSwapSuccessModal(reduxPayload))
+        }else {
+
+        }
+
         
     }
 
-    const setFromCoin = (e) => {
+    const setFromCoin = (coin, balance) => {
         setInputValues({
             ...inputValues,
-            fromCoin: e
+            fromCoin: coin,
+            availableAmount: balance
         })
         setShowFromDropdown(false)
     }
@@ -96,7 +117,7 @@ function Swap() {
         <div className="mt-5 conversion-card">
             <div className="flex justify-between from-to">
                 <div className="">From</div>
-                <div className="">Available:-- USDT</div>
+                <div className="">Available: {inputValues.availableAmount} {inputValues.fromCoin}</div>
             </div>
             <div className="relative">
                 <div className="input-box mt-2 p-2 flex align-center">
@@ -129,22 +150,14 @@ function Swap() {
                 </div>
                 {showFromDropdown && (
                     <div className="dropdown">
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("USDT")}>
-                            <div className="flex align-center icon"><USDTLogoIcon/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">USDT</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("BTC")}>
-                            <div className="flex align-center icon"><BTC/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">BTC</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("ETH")}>
-                            <div className="flex align-center icon"><EthIconDropdown/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">ETH</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("USDC")}>
-                            <div className="flex align-center icon"><USDCIcon/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">USDC</div>
-                        </div>
+                        {wallets && (
+                            wallets.map((item, index) => (
+                                <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin(item.coin, item.balance)} key={index}>
+                                    <div className="flex align-center icon">{getIcon(item.coin)}</div>
+                                    <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
+                                </div>
+                            )
+                        ))}
                     </div>
                 )}
             </div>
@@ -181,22 +194,14 @@ function Swap() {
                 </div>
                 {showToDropdown && (
                     <div className="dropdown">
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("USDT")}>
-                            <div className="flex align-center icon"><USDTLogoIcon/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">USDT</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("BTC")}>
-                            <div className="flex align-center icon"><BTC/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">BTC</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("ETH")}>
-                            <div className="flex align-center icon"><EthIconDropdown/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">ETH</div>
-                        </div>
-                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("USDC")}>
-                            <div className="flex align-center icon"><USDCIcon/> </div>
-                            <div className="dropdown-logo-icon ml-2 flex align-center">USDC</div>
-                        </div>
+                        {wallets && (
+                            wallets.map((item, index) => (
+                                <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin(item.coin)} key={index}>
+                                    <div className="flex align-center icon">{getIcon(item.coin)}</div>
+                                    <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
+                                </div>
+                            )
+                        ))}
                     </div>
                 )}
             </div>

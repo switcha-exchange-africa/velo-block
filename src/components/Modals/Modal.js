@@ -15,9 +15,9 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-    width: 833px;
+    width: ${props => props.width || "833px"};
     margin: auto;
-    min-height: 532px;
+    min-height: ${props => props.height || "532px"} ;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     background: #ffffff;
     color: #000;
@@ -28,14 +28,14 @@ const ModalWrapper = styled.div`
     z-index: 10;
     border-radius: 10px;
     border: 1px solid white;
-    padding: 64px 30px;
+    padding: ${props => props.padding || "64px 30px"};
     @media only screen and (max-width: 962px) {
         width: 90%;
         margin: auto;
     }
 `;
 
-export const Modal = ({ showModal, setShowModal, children }) => {
+export const Modal = ({ showModal, setShowModal, children, width, height, padding}) => {
   const modalRef = useRef();
 
 //   const animation = useSpring({
@@ -74,7 +74,7 @@ export const Modal = ({ showModal, setShowModal, children }) => {
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           <animated.div >
-            <ModalWrapper showModal={showModal}>
+            <ModalWrapper showModal={showModal} width={width} height={height} padding={padding}>
               {children}
             </ModalWrapper>
           </animated.div>

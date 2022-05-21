@@ -6,6 +6,7 @@ import Sidebar from "../../components/ReusableComponents/SideBar/Sidebar";
 import Modal from "../../components/Modals/Modal";
 import SwapSuccessModal from "../../components/Modals/SwapSuccessModal";
 import { showSwapSuccessModal } from "../../redux/swap/actions";
+import ConfirmSuccessPaymentModal from "../../components/Modals/ConfirmSuccessPaymentModal";
 
 export default function HomeLayout() {
     const dispatch = useDispatch();
@@ -27,6 +28,9 @@ export default function HomeLayout() {
             <Modal showModal={showSuccessModal} setShowModal={hideSwapSuccessModal}>
                 <SwapSuccessModal fromAmount={fromAmount} toAmount={toAmount}/>
             </Modal>
+            {/* <Modal showModal={true} setShowModal={hideSwapSuccessModal} width={"596px"} height={"717px"} padding={"0"}>
+                <ConfirmSuccessPaymentModal/>
+            </Modal> */}
         </HomeLayoutView>
     );
 };
@@ -42,7 +46,7 @@ const MainView = styled.div`
     .inner-container {
         margin: 20px;
         border-radius: 20px;
-        background: #E2E8F0;
+        background: #F8FAFC;;;
         min-height: 100vh;
         padding: 44px 34px;
     }

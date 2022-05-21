@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,9 +10,12 @@ import {ReactComponent as SuccessIcon} from '../../../assets/Icons/SuccessIcon.s
 import InputField from '../../ReusableComponents/InputField/InputField';
 import Button from '../../ReusableComponents/Button/Button';
 import Pin from '../../ReusableComponents/Pin/Pin';
+import { signupUser } from "../../../redux/sigup/actions";
+
 
 
 function SignupPage() {
+    const dispatch = useDispatch()
     const [inputValues, setInputValues] = useState({
         email: "",
         password: "",
@@ -29,8 +33,9 @@ function SignupPage() {
     const [stepTwoCheck, setStepTwoCheck] = useState(false);
     const [stepThreeCheck, setStepThreeCheck] = useState(false);
     const [stepFourCheck, setStepFourCheck] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const gotoDashboard = ()=> navigate("/")
+    const gotoDashboard = ()=> navigate("/");
 
     const handleChange = (e)=> {
         const {name,value} = e.target
@@ -52,6 +57,25 @@ function SignupPage() {
     
     const isUpper=(str)=> {
         return /[A-Z]/.test(str);
+    }
+
+    const submitInfo = async () => {
+        setLoading(true)
+        const {email, firstname, lastname, password} = inputValues
+        const payload = {
+
+            firstName: firstname,
+            lastName: lastname,
+            email: email,
+            device: "ios",
+            password: password,
+            agreedToTerms: true
+        }
+        const {status} = await dispatch(signupUser(payload))
+        setLoading(false)
+        if (status){
+            setStep(4)
+        }
     }
     
     useEffect(() => {
@@ -237,7 +261,7 @@ function SignupPage() {
                             small={false}
                             
                         />
-                         <Button text={"Next"} className={"mt-5"} inActive={!stepThreeCheck} onClick={()=> setStep(4)}/>
+                         <Button text={"Next"} className={`${loading && "form-loading "} mt-5`} inActive={!stepThreeCheck} onClick={submitInfo}/>
                     </OnboardingFormView>
                 )}
                 {step === 4 && (

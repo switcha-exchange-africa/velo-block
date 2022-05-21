@@ -9,8 +9,11 @@ import { OnboardingFormView } from '../Signup/SignupPage';
 import Pin from '../../ReusableComponents/Pin/Pin';
 import {ReactComponent as OnboardingImage} from '../../../assets/Icons/OnboardingImage.svg';
 import {ReactComponent as SuccessIcon} from '../../../assets/Icons/SuccessIcon.svg';
+import { loginUser } from "../../../redux/sigup/actions";
+import { useDispatch } from "react-redux";
 
 function LoginPage() {
+  const dispatch = useDispatch()
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
@@ -19,8 +22,10 @@ function LoginPage() {
   const [buttonActive, setButtonActive] = useState(false);
   const [currentPin, setCurrentPin] = useState("");
   const [stepTwoCheck, setStepTwoCheck] = useState(false);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const gotoDashboard = ()=> navigate("/")
+  const goToSignup = () => navigate("/signup")
 
   const handleChange = (e)=> {
     const {name,value} = e.target
@@ -30,9 +35,18 @@ function LoginPage() {
     })
   }
 
-  const pushToHome = () => {
-    Cookies.set("switchaAppToken")
-    gotoDashboard()
+  const handleSubmit = async () => {
+    setLoading(true)
+    const {status, token} = await dispatch (loginUser(inputValues))
+    setLoading(false)
+    if(status){
+      Cookies.set("switchaAppToken", token)
+      gotoDashboard()
+    }else{
+
+    }
+
+   
   }
   
   function handleCurrentPinChange(value) {
@@ -91,10 +105,10 @@ function LoginPage() {
                     name={"password"}
                     small={false}
                   />
-                  <Button text={"Create Account"} className={"mt-5"} inActive={!buttonActive} onClick={()=> setStep(2)}/>
+                  <Button text={"Login"} className={`${loading && " form-loading"} mt-5`} inActive={!buttonActive} onClick={handleSubmit} />
                   <div className=" align-center mt-4">
                     <div className="normal-text cursor-pointer">Forgot your password?</div>
-                    <div className="normal-text mt-2">New to switcha?  <span className="orange cursor-pointer"> Create an account </span> </div>
+                    <div className="normal-text mt-2">New to switcha?  <span className="orange cursor-pointer" onClick={goToSignup}> Create an account </span> </div>
                   </div>
                 </OnboardingFormView>
               )}
@@ -128,7 +142,7 @@ function LoginPage() {
                         <div className=" flex justify-center align-center mt-2">
                             <div className="faded-text">You have been successfully verified </div>  
                         </div>
-                        <Button text={"Done"} className={"mt-5"} inActive={!stepTwoCheck} onClick={()=> pushToHome()}/>
+                        <Button text={"Done"} className={"mt-5"} inActive={!stepTwoCheck} onClick={handleSubmit}/>
                     </div>
                 </OnboardingFormView>
               )}

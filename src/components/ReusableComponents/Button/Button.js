@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({inverted, text, onClick, small, className, noBorder, inActive}) {
+function Button({inverted, text, onClick, small, className, noBorder, inActive, }) {
   const clickItem =() => {
     if(!inActive){
       onClick()
@@ -9,7 +9,7 @@ function Button({inverted, text, onClick, small, className, noBorder, inActive})
   }
   return (
     <ButtonView small={small} inverted={inverted} onClick={clickItem} className={className} noBorder={noBorder} inActive={inActive} >
-        {text}
+      <span>  {text} </span>
     </ButtonView>
   )
 }

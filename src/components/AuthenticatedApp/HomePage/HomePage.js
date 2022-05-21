@@ -1,31 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import {ReactComponent as NotificationBell} from  "../../../assets/Icons/NotificationBell.svg";
-// import {ReactComponent as PositiveTrend} from "../../../assets/Icons/PositiveTrend.svg";
-// import {ReactComponent as BitcoinLogoIcon} from  "../../../assets/Icons/BitcoinLogoIcon.svg";
-// import {ReactComponent as SellLogoIcon} from  "../../../assets/Icons/SellLogoIcon.svg";
-// import {ReactComponent as SendLogoIcon} from  "../../../assets/Icons/SendLogoIcon.svg"; 
-// import {ReactComponent as ReceiveLogoIcon} from  "../../../assets/Icons/ReceiveLogoIcon.svg";
-// import {ReactComponent as WalletEmptyState} from  "../../../assets/Icons/WalletEmptyState.svg"; 
-
-// import {ReactComponent as ActiveHome} from  "../../../assets/Icons/ActiveHome.svg";
-// import {ReactComponent as InactiveHomeIcon} from "../../../assets/Icons/InactiveHomeIcon.svg";
-// import {ReactComponent as ActiveSearchIcon} from  "../../../assets/Icons/ActiveSearchIcon.svg";
-// import {ReactComponent as InactiveSearchIcon} from  "../../../assets/Icons/InactiveSearchIcon.svg";
-// import {ReactComponent as ActiveSwapIcon} from  "../../../assets/Icons/ActiveSwapIcon.svg"; 
-// import {ReactComponent as InactiveSwapIcon} from  "../../../assets/Icons/InactiveSwapIcon.svg";
-// import {ReactComponent as ActiveAccountIcon} from  "../../../assets/Icons/ActiveAccountIcon.svg"; 
-// import {ReactComponent as InactiveAccountIcon} from  "../../../assets/Icons/InactiveAccountIcon.svg";
-// import Button from '../../ReusableComponents/Button/Button';
 import {ReactComponent as PointerIcon} from "../../../assets/Icons/PointerIcon.svg";
 import {ReactComponent as P2PIcon} from "../../../assets/Icons/P2PIcon.svg";
 
 import {ReactComponent as WalletIcon} from "../../../assets/Icons/WalletIcon.svg";
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsersWallets } from '../../../redux/sigup/actions';
+import Cookies from 'js-cookie';
 
 
 function HomePage() {
+    const dispatch= useDispatch()
     const [pageView, setPageView] = useState("buy");
     const [filterType, setFilterType] = useState("btc");
+    const {user} = useSelector(state => state.accountState)
 
 
     const ActionItems = [
@@ -215,6 +203,15 @@ function HomePage() {
             </LeaderBoardView>
         )
     }
+
+    const getAllRequiredData= async()=> {
+        const token = Cookies.get("switchaAppToken")
+        dispatch(getUsersWallets(token))
+    }
+
+    useEffect(()=>{
+        getAllRequiredData()
+    },[])
 
     return (
         <HomePageView>
@@ -421,7 +418,7 @@ export const LeaderBoardView = styled.div`
     .payment-type {
         width: 81px;
         height: 15px;
-        background: #E2E8F0;
+        background: #FFF7F2;;
         font-style: normal;
         font-weight: 400;
         font-size: 10px;
