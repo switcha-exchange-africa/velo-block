@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Outlet } from "react-router";
@@ -6,17 +6,42 @@ import Sidebar from "../../components/ReusableComponents/SideBar/Sidebar";
 import Modal from "../../components/Modals/Modal";
 import SwapSuccessModal from "../../components/Modals/SwapSuccessModal";
 import { showSwapSuccessModal } from "../../redux/swap/actions";
-import ConfirmSuccessPaymentModal from "../../components/Modals/ConfirmSuccessPaymentModal";
+//import ConfirmSuccessPaymentModal from "../../components/Modals/ConfirmSuccessPaymentModal";
+import DepositModal from "../../components/Modals/DepositModal";
+import { getUsersWallets, fetchUsersTransactions } from "../../redux/sigup/actions";
+
+import Cookies from "js-cookie";
 
 export default function HomeLayout() {
     const dispatch = useDispatch();
-    const {showSuccessModal, fromAmount, toAmount} = useSelector(state => state.swapState);
+    const {showSuccessModal, fromAmount, toAmount, showDepositModal} = useSelector(state => state.swapState);
+    const {fetchWallets, fetchTransactions} = useSelector(state => state.accountState);
     const hideSwapSuccessModal = () => {
         const payload = {
             showModal: false
         }
         dispatch(showSwapSuccessModal(payload))
     }
+    const getAllRequiredData= async()=> {
+        const token = Cookies.get("switchaAppToken")
+        if( fetchTransactions === "idle" ){
+            dispatch(fetchUsersTransactions(token))
+        }
+        if (fetchWallets === "idle") {
+            dispatch(getUsersWallets(token))
+        }
+        
+    }
+
+    useEffect(()=>{
+        if(
+            fetchTransactions === "idle" 
+            || fetchWallets === "idle"
+        ){
+            getAllRequiredData()
+        }
+        
+    },[])
     return (
         <HomeLayoutView>
             <Sidebar/>
@@ -31,6 +56,9 @@ export default function HomeLayout() {
             {/* <Modal showModal={true} setShowModal={hideSwapSuccessModal} width={"596px"} height={"717px"} padding={"0"}>
                 <ConfirmSuccessPaymentModal/>
             </Modal> */}
+            <Modal showModal={showDepositModal} setShowModal={hideSwapSuccessModal} width={"596px"} height={"717px"}>
+                <DepositModal/>
+            </Modal>
         </HomeLayoutView>
     );
 };

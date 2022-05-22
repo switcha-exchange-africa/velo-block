@@ -5,4 +5,5 @@ export const urls = {
     loginUser: "http://staging-api.switcha.africa/api/auth/login",
     fetchUsersWallets: "http://staging-api.switcha.africa/api/wallet",
     swapCoin: "http://staging-api.switcha.africa/api/trade/swap",
+    fetchTransactions: "http://staging-api.switcha.africa/api/transactions",
 }

@@ -204,15 +204,6 @@ function HomePage() {
         )
     }
 
-    const getAllRequiredData= async()=> {
-        const token = Cookies.get("switchaAppToken")
-        dispatch(getUsersWallets(token))
-    }
-
-    useEffect(()=>{
-        getAllRequiredData()
-    },[])
-
     return (
         <HomePageView>
             <div className=" flex justify-between">

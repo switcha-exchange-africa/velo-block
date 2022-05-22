@@ -9,6 +9,20 @@ export const showSwapSuccessModal = (data) => async (dispatch) => {
     })
 }
 
+export const showDepositModal = (data) => async (dispatch) => {
+    dispatch({
+        type: types.SHOW_DEPOSIT_MODAL,
+        payload: data
+    })
+}
+
+export const setDepositCoin = (data) => async (dispatch) => {
+    dispatch({
+        type: types.SET_DEPOSIT_ITEM,
+        payload: data
+    })
+}
+
 export const swapCoinCall = (data) => async (dispatch) => {
     dispatch({
         type: types.SWAP_COIN_STARTED
