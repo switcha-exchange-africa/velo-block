@@ -81,6 +81,7 @@ const SidebarView = styled.div`
     max-width: 15%;
     background: white;
     padding: 10px;
+
     .sidebar-item {
         height: 56px;
         width: 100%;
@@ -98,5 +99,8 @@ const SidebarView = styled.div`
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.2);
         color: #ffffff;
         transform: scale(1.07)
+    }
+    @media (max-width: 900px) {
+        display: none;
     }
 `

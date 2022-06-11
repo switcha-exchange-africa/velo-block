@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function InputField({type, placeholder, className, onChange, min, value, max, label, bodyClass, name, onClick, autocomplete, small, readOnly}) {
+function InputField({type, placeholder, className, onChange, min, value, max, label, bodyClass, name, onClick, autocomplete, small, readOnly, step}) {
   return (
     <InputFieldView small={small}>
         <div className = {`label ${bodyClass}`}>{label}</div>
@@ -17,6 +17,7 @@ function InputField({type, placeholder, className, onChange, min, value, max, la
                 name={name}
                 autoComplete={autocomplete? autocomplete: "on"}
                 readOnly={readOnly}
+                step={step}
             />
         </div>
     

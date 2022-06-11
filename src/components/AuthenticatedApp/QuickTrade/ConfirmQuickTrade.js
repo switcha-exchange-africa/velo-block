@@ -1,26 +1,96 @@
 import React, {useState} from "react";
+import Cookies from "js-cookie";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { buyCoin, sellCoin } from "../../../redux/swap/actions";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
-function ConfirmQuickTrade({goToConfirm, loading}) {
+function ConfirmQuickTrade({data, goToConfirm, type}) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [transferType, setTransferType] = useState(0);
+    const [loading,setLoading]= useState(false);
+    const token = Cookies.get("switchaAppToken")
+    toast.configure()
 
+    const sellAsset = async () => {
+        setLoading(true)
+        const payload = {
+            amount:data.amount,
+            creditCoin: data.toCoin,
+            debitCoin:data.fromCoin,
+        }
+        const {status, response} = await dispatch(sellCoin(token, payload))
+        setLoading(false)
+        if(status) {
+            toast.success(response,{
+                className: 'dark-theme',
+                bodyClassName: "grow-font-size",
+                progressClassName: 'fancy-progress-bar',
+                autoClose:8000
+            });
+            navigate("/")
+        }else{
+            toast.warn("Sorry an error ocurred", {
+                className: 'dark-theme',
+                bodyClassName: "grow-font-size",
+                progressClassName: 'fancy-progress-bar',
+                autoClose:8000
+            })
+        }
+    }
+
+    const buyAsset = async ()=>{
+        setLoading(true)
+        const payload = {
+            amount:data.amount,
+            debitCoin: data.fromCoin,
+            creditCoin:data.toCoin,
+        }
+        const {status, response} = await dispatch(buyCoin(token, payload))
+        setLoading(false)
+        if(status) {
+            toast.success(response,{
+                className: 'dark-theme',
+                bodyClassName: "grow-font-size",
+                progressClassName: 'fancy-progress-bar',
+                autoClose:8000
+            });
+            navigate("/")
+        }
+
+    }
+
+
+    const purchaseAsset =() => {
+        if(transferType === 1) {
+            goToConfirm()
+            return
+        }
+        if(type === 2){
+            sellAsset()
+            return
+        }
+        buyAsset()
+    }
     return (
         <ConfirmQuickTradeView>
             <div className ="heading">
                 <h7>Confirm Purchase</h7>
             </div>
             <div className ="amount mt-3">
-                <h4>N10,000.00</h4>
+                <h4>{data.fromCoin} {data.amount}</h4>
             </div>
             <div className ="sub-heading mt-1">
-                <p className ="sub-heading">I will receive 18.18 USDT</p>
+                <p className ="sub-heading">I will receive {data.convertAmount} {data.toCoin}</p> 
             </div>
             <PaymentMethod activeType={transferType}>
                 <p>Select payment method</p>
                 <button className="payment-method-selection bank" onClick={()=> setTransferType(1)}>
                     <div className="flex justify-between pl-2 transfer">
                         <div className="purchase-type">Bank Transfer</div>
-                        <div className="purchase-amount">  N550.98</div>
+                        <div className="purchase-amount"> N{data.amount}</div>
                     </div>
                     <div className="align-left orange mt-2">
                         Best Offer
@@ -29,15 +99,15 @@ function ConfirmQuickTrade({goToConfirm, loading}) {
                 <button className="payment-method-selection wallet mt-2"  onClick={()=> setTransferType(2)}>
                     <div className="flex justify-between pl-2 switcha">
                         <div className="purchase-type">Switcha Ng Wallet</div>
-                        <div className="purchase-amount">  N550.98</div>
+                        <div className="purchase-amount">  N{data.amount}</div>
                     </div>
-                    <div className="align-left orange mt-2">
-                        Best Offer
+                    <div className={`align-left orange mt-2 `}>
+                        <span> Best Offer </span>
                     </div>
                 </button>
             </PaymentMethod>
-            <button className ={`flex justify-center align-center buy ${transferType === 0 && "disabled", loading && "form-loading"}`} onClick={()=>goToConfirm()}> 
-                <span>Confirm Purchase</span>
+            <button className ={`flex justify-center align-center buy ${type === 2 ? "red" :"" }  ${transferType === 0  ? "disabled" : loading ? "form-loading" : ""}`} onClick={purchaseAsset}> 
+                <span>Confirm {type === 2 ? "sale" : "purchase"} </span>
             </button>
         </ConfirmQuickTradeView>
     )
@@ -47,7 +117,7 @@ export default ConfirmQuickTrade;
 
 const ConfirmQuickTradeView = styled.div`
     padding: 24px;
-    width: 451px;
+    max-width: 451px;
     margin: auto;
     min-height: 516px;
     display: flex;
@@ -95,6 +165,9 @@ const ConfirmQuickTradeView = styled.div`
         color: #FFFFFF;
         margin-top: 110px;
     }
+    .red {
+    background: #F65556 !important;
+  }
 `;
 
 const PaymentMethod = styled.div`

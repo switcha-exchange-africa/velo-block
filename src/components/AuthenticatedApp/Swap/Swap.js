@@ -74,7 +74,7 @@ function Swap() {
         }
 
         const payload = {
-            amount: inputValues.amount,
+            amount: parseInt(inputValues.amount),
             sourceCoin: fromCoin,
             destinationCoin: toCoin
         }
@@ -248,11 +248,15 @@ const SwapView = styled.div`
         color: #000000;
     }
     .conversion-card {
-        width: 626px;
+        max-width: 626px;
         min-height: 407px;
         background: #FFFFFF;
         padding: 24px 48px;
         border-radius: 8px;
+        @media (max-width: 900px) {
+            padding: 0px;
+        }
+        
     }
     .from-to {
         font-style: normal;

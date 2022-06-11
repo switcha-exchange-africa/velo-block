@@ -15,7 +15,7 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-    width: ${props => props.width || "833px"};
+    max-width: ${props => props.width || "833px"};
     margin: auto;
     min-height: ${props => props.height || "532px"} ;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
@@ -73,11 +73,11 @@ export const Modal = ({ showModal, setShowModal, children, width, height, paddin
     <>
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
-          <animated.div >
+          {/* <animated.div > */}
             <ModalWrapper showModal={showModal} width={width} height={height} padding={padding}>
               {children}
             </ModalWrapper>
-          </animated.div>
+          {/* </animated.div> */}
         </Background>
       ) : null}
     </>

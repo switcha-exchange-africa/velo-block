@@ -11,16 +11,18 @@ import DepositModal from "../../components/Modals/DepositModal";
 import { getUsersWallets, fetchUsersTransactions } from "../../redux/sigup/actions";
 
 import Cookies from "js-cookie";
+import WithdrawModal from "../../components/Modals/WithdrawModal";
 
 export default function HomeLayout() {
     const dispatch = useDispatch();
-    const {showSuccessModal, fromAmount, toAmount, showDepositModal} = useSelector(state => state.swapState);
+    const {showSuccessModal, fromAmount, toAmount, showDepositModal, showWithdrawModal} = useSelector(state => state.swapState);
     const {fetchWallets, fetchTransactions} = useSelector(state => state.accountState);
     const hideSwapSuccessModal = () => {
         const payload = {
             showModal: false
         }
         dispatch(showSwapSuccessModal(payload))
+        
     }
     const getAllRequiredData= async()=> {
         const token = Cookies.get("switchaAppToken")
@@ -59,6 +61,9 @@ export default function HomeLayout() {
             <Modal showModal={showDepositModal} setShowModal={hideSwapSuccessModal} width={"596px"} height={"717px"}>
                 <DepositModal/>
             </Modal>
+            <Modal showModal={showWithdrawModal} setShowModal={hideSwapSuccessModal} width={"596px"} height={"717px"}>
+                <WithdrawModal/>
+            </Modal>
         </HomeLayoutView>
     );
 };
@@ -77,5 +82,11 @@ const MainView = styled.div`
         background: #F8FAFC;;;
         min-height: 100vh;
         padding: 44px 34px;
+    }
+    @media (max-width: 900px) {
+        margin-left: 0;
+        .inner-container {
+            padding: 0px;
+        }
     }
 `;

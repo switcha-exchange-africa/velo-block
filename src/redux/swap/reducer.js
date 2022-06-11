@@ -5,6 +5,7 @@ const initialState = {
     fromAmount:"",
     toAmount: "",
     showDepositModal: false,
+    showWithdrawModal: false,
     depositItem: {
 
     }
@@ -28,6 +29,11 @@ export const swapReducer = (state = initialState, action) => {
             return {
                 ...state,
                 depositItem: action.payload
+            }
+        case types.SHOW_WITHDRAW_MODAL:
+            return {
+                ...state,
+                showWithdrawModal: action.payload
             }
         default:
             return state;

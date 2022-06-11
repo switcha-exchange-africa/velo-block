@@ -6,7 +6,7 @@ import {ReactComponent as BTC} from "../../../assets/Icons/BTC.svg";
 import {ReactComponent as EthIconDropdown} from "../../../assets/Icons/EthIconDropdown.svg";
 import {ReactComponent as USDCIcon} from "../../../assets/Icons/USDCIcon.svg"
 import {ReactComponent as USDTLogoIcon} from "../../../assets/Icons/USDTLogoIcon.svg";
-import { setDepositCoin, showDepositModal } from "../../../redux/swap/actions";
+import { setDepositCoin, showDepositModal, showWithdrawModal } from "../../../redux/swap/actions";
 
 function Wallet() {
     const dispatch = useDispatch()
@@ -42,9 +42,13 @@ function Wallet() {
         }
     }
 
-    const setDepositItem = async (item) => {
+    const setDepositItem = async (item, type) => {
         await dispatch(setDepositCoin(item))
-        dispatch(showDepositModal(true))
+        if(type === "deposit") {
+            dispatch(showDepositModal(true))
+        }else{
+            dispatch(showWithdrawModal(true))
+        }
     }
 
     return (
@@ -54,22 +58,26 @@ function Wallet() {
                     <p className="heading">Overall Balance</p>
                     <p className="amount"> 0.0000567 BTC = $500.67</p>
                 </div>
-                <div className="align-center flex">
-                    <button className="deposit-btn m-1 cursor-pointer">
-                        <p>Deposit</p>
-                    </button>
-                    <button className="wallet-btn m-1 cursor-pointer">
-                        <p>Withdraw</p>
-                    </button>
-                    <button className="wallet-btn m-1 cursor-pointer">
-                        <p>Transfer</p>
-                    </button>
-                    <button className="wallet-btn m-1 cursor-pointer">
-                        <p>History</p>
-                    </button>
+                <div className="align-center desktop-flex">
+                    <div className="flex">
+                        <button className="deposit-btn m-1 cursor-pointer">
+                            <p>Deposit</p>
+                        </button>
+                        <button className="wallet-btn m-1 cursor-pointer">
+                            <p>Withdraw</p>
+                        </button>
+                    </div>
+                    <div className="flex">
+                        <button className="wallet-btn m-1 cursor-pointer">
+                            <p>Transfer</p>
+                        </button>
+                        <button className="wallet-btn m-1 cursor-pointer">
+                            <p>History</p>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div className="mt-5 flex">
+            <div className="mt-5 desktop-flex">
                 <div className="asset-section">
                     <div className="asset-list-heading width-100">
                         <div className="asset-column">
@@ -78,7 +86,7 @@ function Wallet() {
                         <div className="asset-column">
                             Balance
                         </div>
-                        <div className="asset-column-double ">
+                        <div className="asset-column-double align-end">
                             Actions
                         </div>
                     </div>
@@ -100,10 +108,10 @@ function Wallet() {
                                         {/* <div className="coin-name">= $137.34</div> */}
                                     </div>
                                 </div>
-                                <div className="flex align-center justify-between asset-column-double ">
-                                    <h1 className="action">Trade</h1>
-                                    <h1 className="action" onClick={() => setDepositItem(item)}> Deposit</h1>
-                                    <h1 className="action">Withdraw</h1>
+                                <div className="desktop-flex align-end justify-between asset-column-double ">
+                                    <h1 className="action" >Trade</h1>
+                                    <h1 className="action" onClick={() => setDepositItem(item, "deposit")}> Deposit</h1>
+                                    <h1 className="action" onClick={() => setDepositItem(item, "withdraw")}>Withdraw</h1>
                                 </div>
                             </div>
                         )
@@ -122,13 +130,13 @@ function Wallet() {
                                             {getIcon(item.coin)}
                                         </div>
                                         <div className="flex-column">
-                                            <p className="coin-history-title mb-1">{item.coin}</p>
-                                            <p className="coin-history-name">Buy</p>
+                                            <p className="coin-history-title mb-1">{item.rate?.pair}</p>
+                                            <p className="coin-history-name">{item.customTransactionType}</p>
                                         </div>
                                     </div>
                                     <div className="flex-column">
-                                        <p className="history-item-amount"> $1245</p>
-                                        <p className="coin-history-name">Today, 15:00pm</p>
+                                        <p className={`history-item-amount ${item.customTransactionType === "sell" ? "red" : ""}`}> {item.currency} {item.amount}</p>
+                                        {/* <p className="coin-history-name">Today, 15:00pm</p> */}
                                     </div>
                                 </div>
                             )
@@ -286,7 +294,6 @@ const WalletView = styled.div`
         font-style: normal;
         font-weight: 700;
         font-size: 18px;
-        line-height: 22px;
         color: #FB5E04;
         cursor: pointer;
     }
@@ -322,6 +329,65 @@ const WalletView = styled.div`
         margin: 0px;
         color: #6FD97A;
     }
-
+    .desktop-flex{
+        display: flex;
+    }
+    .red {
+        color: #F65556 !important;
+    }
+    @media (max-width: 1300px) {
+        .desktop-flex{
+            display: flex;
+            flex-direction: column
+        }
+    }
+    @media (max-width: 1000px) {
+        .desktop-flex{
+            display: flex;
+            flex-direction: column
+        }
+        .asset-section {
+            width: 100%;
+            margin-right: 31px;
+        }
+        .history-section {
+            margin-top: 20px;
+        }
+        .balance-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .width-50 {
+            width: 100%;
+        }
+        .align-end {
+            display: flex;
+            align-items: flex-end !important;
+        }
+        .asset-column-double {
+            justify-content: end;
+        }
+        .balance-bar {
+            padding: 10px;
+        }
+        .asset-list-item{
+            padding: 0px;
+        }
+        .asset-list-heading {
+            padding: 11px 3px;
+        }
+        .coin-title {
+            font-size: 15px;
+        }
+        .action {
+            font-size: 15px;
+        }
+        .icon >svg {
+            height: 30px;
+            width: 30px;
+            margin: 5px 0px;
+        }
+    }
 
 `;

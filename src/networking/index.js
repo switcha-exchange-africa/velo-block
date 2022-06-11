@@ -1,5 +1,7 @@
 import axios from "axios";
 
+axios.defaults.baseURL = `http://staging-api.switcha.africa/api`;
+
 export const getCall=async(url, params, headers) => {
     return axios({
         method: "get",

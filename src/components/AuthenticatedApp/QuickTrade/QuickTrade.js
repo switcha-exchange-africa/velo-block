@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import styled from "styled-components";
 import InputField from "../../ReusableComponents/InputField/InputField";
 import { ReactComponent as USDTLogoIcon } from "../../../assets/Icons/USDTLogoIcon.svg";
@@ -9,8 +11,11 @@ import { ReactComponent as EthIconDropdown } from "../../../assets/Icons/EthIcon
 import { ReactComponent as USDCIcon } from "../../../assets/Icons/USDCIcon.svg";
 import ConfirmQuickTrade from "./ConfirmQuickTrade";
 import NotifySeller from "./NotifySeller";
+import { useDispatch } from "react-redux";
+import { fetchExchange } from "../../../redux/swap/actions";
 
 export default function QuickTrade() {
+  const dispatch = useDispatch();
   const [view, setView] = useState(1);
   const [showFromDropdown, setShowFromDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,19 +23,33 @@ export default function QuickTrade() {
   const [showToDropdown, setShowToDropdown] = useState(false);
   const [inputValues, setInputValues] = useState({
     amount: 0,
-    fromCoin: "USDT",
-    toCoin: "ETH",
+    fromCoin: "NGN",
+    toCoin: "USDC",
     convertAmount: 0,
     convertPrice: 0,
   });
-  const [fee, setFee] = useState(0)
+
+  const [fromList, setFromList] = useState([]);
+  const [toList, setToList] = useState([]);
+  const [fee, setFee] = useState(0);
+  const [rate, setRate] = useState(0);
+  const {wallets} = useSelector(state => state.accountState.user)
+  const token = Cookies.get("switchaAppToken")
 
   const handleInput = (e) => {
     const { name, value } = e.target;
+    if(view === 2){
+      setInputValues({
+        ...inputValues,
+        [name]: parseInt(value),
+        convertAmount: parseInt(value) * rate
+      });
+      return
+    }
     setInputValues({
       ...inputValues,
       [name]: parseInt(value),
-      convertAmount: parseInt(value) * inputValues.convertPrice
+      convertAmount: parseInt(value) / rate
     });
   };
 
@@ -70,6 +89,48 @@ export default function QuickTrade() {
     })
     setShowToDropdown(false)
   }
+
+  const checkRate = async() => {
+    const fromCoin = view === 2 ? inputValues.toCoin : inputValues.fromCoin
+    const toCoin = view === 2 ?  inputValues.fromCoin :inputValues.toCoin
+    const {response} = await dispatch(fetchExchange(token, fromCoin, toCoin))
+    setRate(response)
+
+  }
+  useEffect(()=>{
+    checkRate()
+  },[inputValues.fromCoin, inputValues.toCoin])
+
+
+  useEffect(() => {
+    if(view === 2){
+      setInputValues({
+        ...inputValues,
+        toCoin: "NGN",
+        fromCoin: wallets[2].coin
+      })
+      setFromList(wallets)
+      setToList([{
+        coin: "NGN"
+      }])
+      return
+    }
+    setInputValues({
+      ...inputValues,
+      fromCoin: "NGN",
+      toCoin: wallets[2].coin
+    })
+    setToList(wallets)
+    setFromList([
+      {
+        coin: "NGN"
+      }
+    ])
+
+
+  },[view])
+
+
 
 
   useEffect(()=>{
@@ -164,7 +225,7 @@ export default function QuickTrade() {
                     <div className="p-3">
                         <div className="mt-3 conversion-card">
                             <div className="flex justify-between from-to">
-                                <div className="">I want to pay</div>
+                                <div className="">I want to {view === 2 ? "sell" : "buy" }</div>
                             </div>
                             <div className="relative">
                                 <div className="input-box mt-2 p-2 flex align-center">
@@ -176,10 +237,11 @@ export default function QuickTrade() {
                                                 type="number"
                                                 onChange={handleInput}
                                                 value = {inputValues.amount}
-                                                min={2}
                                                 label= {""}
                                                 bodyClass={"mr-2 align-start mt-3 mr-2 "}
                                                 name={"amount"}
+                                                step={"any"}
+                                                min={0}
                                             />
                                         </div>
                                     </div>
@@ -193,11 +255,14 @@ export default function QuickTrade() {
                                 </div>
                                 {showFromDropdown && (
                                     <div className="dropdown">
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("USDT")}>
-                                            <div className="flex align-center icon"><USDTLogoIcon/> </div>
-                                            <div className="dropdown-logo-icon ml-2 flex align-center">USDT</div>
-                                        </div>
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("BTC")}>
+                                        {fromList && (
+                                          fromList.map((item, index) => (
+                                            <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin(item.coin)} key={index}>
+                                              <div className="flex align-center icon">{getIcon(item.coin)}</div>
+                                              <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
+                                            </div>
+                                        )))}
+                                        {/* <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("BTC")}>
                                             <div className="flex align-center icon"><BTC/> </div>
                                             <div className="dropdown-logo-icon ml-2 flex align-center">BTC</div>
                                         </div>
@@ -208,7 +273,7 @@ export default function QuickTrade() {
                                         <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin("USDC")}>
                                             <div className="flex align-center icon"><USDCIcon/> </div>
                                             <div className="dropdown-logo-icon ml-2 flex align-center">USDC</div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 )}
                             </div>
@@ -244,37 +309,30 @@ export default function QuickTrade() {
                                 </div>
                                 {showToDropdown && (
                                     <div className="dropdown">
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("USDT")}>
-                                            <div className="flex align-center icon"><USDTLogoIcon/> </div>
-                                            <div className="dropdown-logo-icon ml-2 flex align-center">USDT</div>
-                                        </div>
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("BTC")}>
-                                            <div className="flex align-center icon"><BTC/> </div>
-                                            <div className="dropdown-logo-icon ml-2 flex align-center">BTC</div>
-                                        </div>
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("ETH")}>
-                                            <div className="flex align-center icon"><EthIconDropdown/> </div>
-                                            <div className="dropdown-logo-icon ml-2 flex align-center">ETH</div>
-                                        </div>
-                                        <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin("USDC")}>
-                                            <div className="flex align-center icon"><USDCIcon/> </div>
-                                            <div className="dropdown-logo-icon ml-2 flex align-center">USDC</div>
-                                        </div>
+                                      {toList && (
+                                        toList.map((item, index) => (
+                                          <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin(item.coin)} key={index}>
+                                            <div className="flex align-center icon">{getIcon(item.coin)}</div>
+                                            <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
+                                          </div>
+                                        )))}
                                     </div>
                                 )}
                             </div>
                         </div>
                         <div className="mt-3 rate">
-                            <p>Rate per dollar {inputValues.convertPrice}</p>
+                            <p>Rate {rate}</p>
                         </div>
-                        <button className ={`mt-3 flex justify-center align-center buy ${loading? "form-loading ": inputValues.amount > 0 ? "cursor-pointer ": "disabled "}`} onClick={() => goToConfirm(2)}> 
-                            <span>Buy with {fee} fee</span>
+                        <button className ={`mt-3 flex justify-center align-center buy ${view === 2 ?  "red" : ""} ${loading? "form-loading ": inputValues.amount > 0 ? "cursor-pointer ": "disabled "}`} onClick={() => goToConfirm(2)}> 
+                            <span>{view === 2 ? "Sell" : "Buy"} with {fee} fee</span>
                         </button>
                     </div>
                 </QuickTradeView>
             )}
             {page === 2 && (
                 <ConfirmQuickTrade
+                  data={inputValues}
+                  type={view}
                   goToConfirm={()=> goToConfirm(3)}
                   loading={loading}
                 />
@@ -290,7 +348,7 @@ export default function QuickTrade() {
 //export default QuickTrade;
 
 const QuickTradeView = styled.div`
-  width: 451px;
+  max-width: 451px;
   min-height: 435px;
   background: #ffffff;
   margin: auto;
@@ -493,6 +551,9 @@ const QuickTradeView = styled.div`
   .disabled {
     opacity: 0.7;
     pointer-events: none;
+  }
+  .red {
+    background: #F65556 !important;
   }
 `;
 

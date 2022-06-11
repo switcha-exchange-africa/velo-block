@@ -25,9 +25,9 @@ function DepositModal() {
             case "ETH":
                 return "Ethereum";
             case "BTC":
-                return "Bitcoin" ;
+                return "Bitcoin";
             default : 
-                return "Naira"
+                return "Naira";
         }
     }
 
@@ -71,7 +71,8 @@ function DepositModal() {
 export default DepositModal;
 
 const DepositModalView = styled.div`
-    position: relative;
+    /* position: relative; */
+    width: 100%;
     .heading {
         font-style: normal;
         font-weight: 800;
@@ -107,7 +108,9 @@ const DepositModalView = styled.div`
         font-size: 18px;
         line-height: 22px;
         color: #000000;
-        margin: 0px
+        margin: 0px;
+        word-break: break-all;
+        align-items: center;
     }
     .copy-btn {
         display: flex;
@@ -119,9 +122,8 @@ const DepositModalView = styled.div`
         border: none;
         background: #10192D;
         border-radius: 5px;
-        margin-top: auto;
+        margin-top: 150px;
         bottom: 0px;
-        position: absolute;
         >p {
             font-style: normal;
             font-weight: 700;
@@ -175,8 +177,8 @@ const DepositModalView = styled.div`
     }
     .back {
         position: absolute;
-        top: -36px;
-        right: -3px;
+        top: 12px;
+        right: 15px;
         font-size: 30px;
         cursor: pointer;
 

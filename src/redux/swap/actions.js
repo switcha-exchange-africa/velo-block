@@ -1,5 +1,5 @@
 import * as types from "./types";
-import { postCall } from "../../networking";
+import { postCall, getCall } from "../../networking";
 import { urls } from "../../networking/urls";
 
 export const showSwapSuccessModal = (data) => async (dispatch) => {
@@ -23,12 +23,19 @@ export const setDepositCoin = (data) => async (dispatch) => {
     })
 }
 
+export const showWithdrawModal = (data) =>  async (dispatch) => {
+    dispatch({
+        type: types.SHOW_WITHDRAW_MODAL,
+        payload: data
+    })
+}
+
 export const swapCoinCall = (data) => async (dispatch) => {
     dispatch({
         type: types.SWAP_COIN_STARTED
     })
     try {
-        let headers = { "Content-Type": "application/json" };
+        let headers = { "Content-Type": "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYzMDc0NjBmOGE0MDdhN2FmNWUxNjQiLCJmdWxsTmFtZSI6Ikdvb2RuZXNzIEV6ZWgiLCJlbWFpbCI6Imdvb3RlY2g0NDJAeWFob28uY29tIiwiYXV0aFN0YXR1cyI6ImNvbXBsZXRlZCIsImxvY2siOiJ1bmxvY2siLCJlbWFpbFZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NTM3NDkwMTQsImV4cCI6MTY1Mzc2NzAxNH0.vsawKVediHKZBu66MDXROTdS0SLIVHXq7MEZov1cVXs" };
         const response = await postCall(urls.swapCoin, data, "", headers);
         if (response.status === 200) {
             dispatch({
@@ -59,4 +66,121 @@ export const swapCoinCall = (data) => async (dispatch) => {
         }
     }
 }
-// /api/trade/swap
+export const fetchExchange = (token, fromCoin, toCoin) => async (dispatch) => {
+    dispatch({
+        type: types.FETCH_EXCHANGE_STARTED
+    })
+    try {
+        let headers = { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+        let url = `${urls.fetchExchange}?coin=${toCoin}&base=${fromCoin}`
+        const response = await getCall(url, "", headers);
+        if (response.status === 200) {
+            dispatch({
+                type: types.FETCH_EXCHANGE_SUCCEEDED,
+                payload: response.data.rate,
+            });
+            return {
+                status: true,
+                response: response.data.rate.value
+            };
+        } else {
+            dispatch({
+                type: types.FETCH_EXCHANGE_FAILED,
+            })
+            return {
+                status: false,
+                response: response.data.message
+            }
+        }
+    } catch (err) {
+        dispatch({
+            type: types.FETCH_EXCHANGE_FAILED,
+            //payload: "Please check your internet connection and try again!",
+        });
+        return {
+            status: false,
+            message: err
+        }
+    }
+}
+
+export const buyCoin = (token, payload) => async (dispatch) => {
+    dispatch({
+        type: types.BUY_COIN_STARTED
+    })
+    try {
+        let headers = { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+        const response = await postCall(urls.buyCoin, payload, "", headers);
+        if (response.status === 200) {
+            dispatch({
+                type: types.BUY_COIN_SUCCEEDED,
+            });
+            return {
+                status: true,
+                response: response.data.message
+            };
+        } else {
+            dispatch({
+                type: types.BUY_COIN_FAILED,
+            })
+            return {
+                status: false,
+                response: response.data.message
+            }
+        }
+    } catch (err) {
+        dispatch({
+            type: types.BUY_COIN_FAILED,
+            //payload: "Please check your internet connection and try again!",
+        });
+        return {
+            status: false,
+            message: err
+        }
+    }
+}
+
+export const sellCoin = (token, payload) => async (dispatch) => {
+    dispatch({
+        type: types.SELL_COIN_STARTED
+    })
+    try {
+        let headers = { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+        const response = await postCall(urls.sellCoin, payload, "", headers);
+        if (response.status === 200) {
+            dispatch({
+                type: types.SELL_COIN_SUCCEEDED,
+            });
+            return {
+                status: true,
+                response: response.data.message
+            };
+        } else {
+            dispatch({
+                type: types.SELL_COIN_FAILED,
+            })
+            return {
+                status: false,
+                response: response.data.message
+            }
+        }
+    } catch (err) {
+        dispatch({
+            type: types.SELL_COIN_FAILED,
+            //payload: "Please check your internet connection and try again!",
+        });
+        return {
+            status: false,
+            message: err
+        }
+    }
+}
