@@ -182,7 +182,7 @@ function HomePage() {
     const LeaderBoard =({Username, Orders, CompletionRate, Price, AvailableAmount, Limit, PaymentType, TradeType}) => {
         return (
             <LeaderBoardView>
-                <div className="leaderboard-body flex align-center">
+                <div className="leaderboard-body flex align-center desktop-view">
                     <div className="width-2 flex">
                         <div className="icon flex justify-center align-center mr-2">M</div>
                         <div>
@@ -206,13 +206,13 @@ function HomePage() {
 
     return (
         <HomePageView>
-            <div className=" flex justify-between">
+            <div className="action-list flex justify-between mt-5">
                 {ActionItems.map((item, index) => (
                     <ActionItemCard key={index} Heading={item.header} SubHeading={item.subheading} Icon={item.icon}/>
                 ))}
             </div>
 
-            <div className=" flex justify-between mt-5 width-80">
+            <div className=" flex-flow-wrap justify-between mt-5 width-80">
                 {PriceList.map((item, index) => (
                     <PriceCard key={index} ConversionType={item.conversionType} Trend={item.trend} TrendPercent={item.trendPercent} Amount={item.amount} />
                 ))}
@@ -232,7 +232,7 @@ function HomePage() {
                     <div className={`mr-5 ${filterType === "usdc" ? "active" : ""}`} onClick={()=> setFilterType("usdc")}>USDC</div>
                 </div>
                 <LeaderBoardView>
-                    <div className="header flex align-center">
+                    <div className="header flex align-center desktop-view">
                         <div className="width-2">Advertiser</div>
                         <div className="width-1">Price</div>
                         <div className="width-1">Available</div>
@@ -245,6 +245,51 @@ function HomePage() {
                     ))}
                 </LeaderBoardView>
             </div>
+            {adverts.map((item, index) => (
+                <LeaderBoardView key={index}>
+                    <div className="mobile-view">
+                        <div className ="mobile-trade-view">
+                            <div className="flex">
+                                <div className="icon flex justify-center align-center mr-2">M</div>
+                                <div>
+                                    <div className="user-name">{item.username}</div>
+                                    <div className="user-quality">{item.orders} orders | {item.completionRate}% completion</div>
+                                </div>
+                            </div>
+                            <div className="flex justify-between">
+                                <div className="flex-column width-60 ">
+                                    <div className="flex justify-between">
+                                        <div className="flex">
+                                            <p className="user-quality mr-1">Price: </p>
+                                            <p className="mobile-color-black mr-2">{item.price}</p>
+                                        </div>
+                                        <div className="flex">
+                                            <p className="user-quality mr-1">Available: </p>
+                                            <p className="mobile-color-black mr-2">{item.availableAmount}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <div className="flex">
+                                            <p className="user-quality mr-1">limit: </p>
+                                            <p className="mobile-color-black mr-2">{item.limit}</p>
+                                        </div>
+                                        <div className="flex align-center justify-center">
+                                        <div className="payment-type">{"PaymentType"}</div>
+                                        </div>
+                                    </div>              
+                                </div>
+                                <div className="flex align-center">
+                                    <div className="trade-type">{item.paymentType === 1 ? "Buy BTC" : "Sell BTC"}</div>
+                                </div>
+
+                            </div>
+                            
+                            
+                        </div>
+
+                    </div>
+                </LeaderBoardView>
+            ))}
         </HomePageView>
     )
 }
@@ -317,7 +362,6 @@ const HomePageView = styled.div`
     }
     .advert-section {
         width: 100%;
-        min-height: 463px;
         background: #ffffff;
         border-radius: 10px;
         padding: 9px 28px;
@@ -342,6 +386,54 @@ const HomePageView = styled.div`
     }
     .active {
         border-bottom: 1px solid #FB5E04;
+    }
+
+    .action-list {
+        column-count: 3;
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+    }
+    .flex-flow-wrap {
+        display: flex;
+        flex-flow: wrap
+    }
+    .mobile-trade-view {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 16px;
+        gap: 5px;
+        width: 100%;
+        min-height: 110px;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 11px rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+        flex-direction: column;
+    }
+    .mobile-color-black {
+        font-size: 12px !important;
+    }
+    .width-60 {
+        width: 60%;
+    }
+
+    @media (max-width: 900px) {
+        .action-list {
+            flex-wrap: wrap
+        }
+        .action-card {
+            min-width: calc(50% - 10px);
+            max-width: calc(50% - 10px);
+            margin-bottom: 20px
+        }
+        .action-card-heading {
+            font-size: 18px !important;
+        }
+        .sub-heading {
+            font-size: 12px !important;
+        }
+        .price-card .amount {
+            font-size: 16px !important;
+        }
     }
 `;
 export const LeaderBoardView = styled.div`
@@ -433,5 +525,16 @@ export const LeaderBoardView = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    .mobile-view {
+        display: none !important;
+    }
+    @media (max-width: 900px) {
+        .desktop-view {
+            display: none !important;
+        }
+        .mobile-view {
+            display: flex !important;
+        }
     }
 `;

@@ -56,7 +56,6 @@ function WithdrawModal() {
 
     const handleChange = (e) => {
         const {name,value} = e.target
-        console.log(value, "value")
         setInputValues({
             ...inputValues,
             [name]: value
