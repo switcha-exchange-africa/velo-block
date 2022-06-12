@@ -10,6 +10,7 @@ import {ReactComponent as USDCIcon} from "../../../assets/Icons/USDCIcon.svg"
 import InputField from "../../ReusableComponents/InputField/InputField";
 import { showSwapSuccessModal } from "../../../redux/swap/actions";
 import { swapCoinCall } from "../../../redux/swap/actions";
+import Cookies from "js-cookie";
 
 
 
@@ -28,7 +29,8 @@ function Swap() {
         toCoin: "ETH",
         availableAmount: 0,
     })
-    const {wallets} = useSelector(state => state.accountState.user)
+    const {wallets} = useSelector(state => state.accountState.user);
+    const token = Cookies.get("switchaAppToken")
 
 
     const handleInput = (e)=> {
@@ -60,6 +62,7 @@ function Swap() {
         const{amount, fromCoin, toCoin} = inputValues
         if(fromCoin === toCoin){
             setShowErrorModal(true)
+            setSwapLoading(true)
             setShowErrorMessage(`Please select another coin you'll like to swap your ${fromCoin} for`)
             return 
         }
@@ -78,7 +81,7 @@ function Swap() {
             sourceCoin: fromCoin,
             destinationCoin: toCoin
         }
-        const {status} = dispatch(swapCoinCall(payload))
+        const {status} = dispatch(swapCoinCall(payload, token))
         setSwapLoading(false)
         if(status){
             dispatch(showSwapSuccessModal(reduxPayload))
@@ -135,7 +138,7 @@ function Swap() {
                                 name={"amount"}
                             />
                         </div>
-                        <div className="orange-text">
+                        <div className="orange-text mr-1">
                             MAX
                         </div>
                     </div>
@@ -205,15 +208,15 @@ function Swap() {
                     </div>
                 )}
             </div>
-            <div className="flex justify-between mt-5">
+            <div className="flex justify-between mt-5 text-sm">
                 <div className="">Price</div>
                 <div className="">1USDT = {swapRate}BTC</div>
             </div>
-            <div className="flex justify-between mt-2">
+            <div className="flex justify-between mt-2 text-sm">
                 <div className="">Inverse Price</div>
                 <div className="">1BTC = {1/swapRate} USDT</div>
             </div>
-            <div className="flex justify-between mt-2">
+            <div className="flex justify-between mt-2 text-sm">
                 <div className="">You will receive</div>
                 <div className="orange-text">{inputValues.amount * swapRate} BTC</div>
             </div>
@@ -244,7 +247,6 @@ const SwapView = styled.div`
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
-        line-height: 22px;
         color: #000000;
     }
     .conversion-card {
@@ -426,5 +428,38 @@ const SwapView = styled.div`
     }
     .relative {
         position: relative
+    }
+    @media (max-width: 900px) {
+        .heading{
+            font-size: 30px;
+        }
+        .sub-heading {
+            font-size: 15px;
+        }
+        .from-to {
+            font-size: 14px;
+        }
+        .input-box {
+            height: 43px;
+        }
+        .formInput {
+            padding: 5px
+        }
+        .form-section {
+            height: 38px;
+        }
+        .width-80 {
+            width: 69%;
+        }
+        .dropdown-check-icon >svg {
+            height: 21px;
+            width: 21px;
+        }
+        .logo-icon {
+            font-size: 14px;
+        }
+        .text-sm {
+            font-size: 14px;
+        }
     }
 `;

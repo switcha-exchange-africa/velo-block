@@ -107,7 +107,7 @@ export default function QuickTrade() {
       setInputValues({
         ...inputValues,
         toCoin: "NGN",
-        fromCoin: wallets[2].coin
+        fromCoin: wallets[2]?.coin
       })
       setFromList(wallets)
       setToList([{
@@ -118,7 +118,7 @@ export default function QuickTrade() {
     setInputValues({
       ...inputValues,
       fromCoin: "NGN",
-      toCoin: wallets[2].coin
+      toCoin: wallets[2]?.coin
     })
     setToList(wallets)
     setFromList([

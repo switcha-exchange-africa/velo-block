@@ -9,14 +9,15 @@ export const signupUser = (data) => async (dispatch) => {
     try {
         let headers = { "Content-Type": "application/json" };
         const response = await postCall(urls.signupUser, data, "", headers);
-        if (response.status === 200) {
+        if (response.status === 201) {
             dispatch({
                 type: types.SIGNUP_SUCCEEDED,
                 payload: data,
             });
             return {
                 status: true,
-                response: response.data
+                response: response.data,
+                token: response.data.token
             };
         } else {
             dispatch({
@@ -154,6 +155,47 @@ export const fetchUsersTransactions = (data) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: types.FETCH_USERS_TRANSACTIONS_FAILED,
+            //payload: "Please check your internet connection and try again!",
+        });
+        return {
+            status: false,
+            message: err
+        }
+    }
+}
+
+export const verifyCode = (data, token) => async (dispatch) => {
+    dispatch({
+        type: types.SIGNUP_STARTED
+    })
+    // const appToken = Cookies.get("switchaAppToken")
+    try {
+        let headers = { 
+            "Content-Type": "application/json",
+            "Authorization": token
+        };
+        const response = await postCall(urls.verifyCode, data, "", headers);
+        if (response.status === 200) {
+            dispatch({
+                type: types.SIGNUP_SUCCEEDED,
+                payload: data,
+            });
+            return {
+                status: true,
+                response: response.data
+            };
+        } else {
+            dispatch({
+                type: types.SIGNUP_FAILED,
+            })
+            return {
+                status: false,
+                response: response.message
+            }
+        }
+    } catch (err) {
+        dispatch({
+            type: types.SIGNUP_FAILED,
             //payload: "Please check your internet connection and try again!",
         });
         return {

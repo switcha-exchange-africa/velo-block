@@ -10,7 +10,8 @@ import {ReactComponent as SuccessIcon} from '../../../assets/Icons/SuccessIcon.s
 import InputField from '../../ReusableComponents/InputField/InputField';
 import Button from '../../ReusableComponents/Button/Button';
 import Pin from '../../ReusableComponents/Pin/Pin';
-import { signupUser } from "../../../redux/sigup/actions";
+import { signupUser, verifyCode } from "../../../redux/sigup/actions";
+import { toast } from "react-toastify";
 
 
 
@@ -36,6 +37,10 @@ function SignupPage() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const gotoDashboard = ()=> navigate("/");
+    const pushToLogin = () => navigate("/login");
+    const [appToken , setAppToken] = useState("");
+    toast.configure();
+    //const appToken = Cookies.get("switchaAppToken")
 
     const handleChange = (e)=> {
         const {name,value} = e.target
@@ -51,7 +56,7 @@ function SignupPage() {
     }
 
     const pushToHome = () => {
-        Cookies.set("switchaAppToken")
+        // Cookies.set("switchaAppToken")
         gotoDashboard()
     }
     
@@ -71,13 +76,38 @@ function SignupPage() {
             password: password,
             agreedToTerms: true
         }
-        const {status} = await dispatch(signupUser(payload))
+        const {status, response, token} = await dispatch(signupUser(payload))
         setLoading(false)
         if (status){
+            Cookies.set("switchaAppToken", token)
+            setAppToken(token)
             setStep(4)
+        }else{
+            toast.warn(response || "Sorry an error occurred", {
+                className: 'dark-theme',
+                bodyClassName: "grow-font-size",
+                progressClassName: 'fancy-progress-bar',
+                autoClose:8000
+            })
         }
     }
     
+    const verifyEmail = async() => {
+        setLoading(true)
+        const {status, response} = await dispatch(verifyCode({code: currentPin}, appToken))
+
+        setLoading(false)
+        if (status){
+            setStep(5)
+        }else{
+            toast.warn(response || "Sorry an error occurred", {
+                className: 'dark-theme',
+                bodyClassName: "grow-font-size",
+                progressClassName: 'fancy-progress-bar',
+                autoClose:8000
+            })
+        }
+    }
     useEffect(() => {
         const {password} = inputValues
         const reg = /^(?=.*[A-Za-z])(?=.*\d)(.+){8,}$/;
@@ -154,7 +184,7 @@ function SignupPage() {
   return (
     <SignupPageView>
         <div className="flex justify-center align-center width-100">
-            <div className="onboarding-img width-50 flex justify-center align-center -100">
+            <div className="onboarding-img width-50 flex justify-center align-center -100 desktop-view">
                 <OnboardingImage/>
             </div>
             <div className="width-50 flex justify-center align-center">
@@ -199,7 +229,7 @@ function SignupPage() {
                         </div>
                         <Button text={"Create Account"} className={"mt-5"} inActive={!buttonActive} onClick={()=> setStep(2)}/>
                         <div className="flex align-center mt-4">
-                            <div className="normal-text">Already registered?  <span className="orange cursor-pointer"> Sign In </span> </div>
+                            <div className="normal-text">Already registered?  <span className="orange cursor-pointer" onClick={pushToLogin}> Sign In </span> </div>
                         </div>
                         
                     </OnboardingFormView>
@@ -279,10 +309,10 @@ function SignupPage() {
                             onChange={handleCurrentPinChange}
                             size={6}
                         />
-                        <div className="flex justify-center align-center">
+                        {/* <div className="flex justify-center align-center">
                             <div className="faded-text">Resend code in  <span className="orange cursor-pointer normal-text">09:45</span> </div>
-                        </div>
-                        <Button text={"Verify"} className={"mt-5"} inActive={!stepFourCheck} onClick={()=> setStep(5)}/>
+                        </div> */}
+                        <Button text={"Verify"} className={` ${loading && "form-loading "} mt-5`} inActive={!stepFourCheck} onClick={()=> verifyEmail()}/>
                     </OnboardingFormView>
                 )}
                 {step === 5 && (
@@ -340,6 +370,14 @@ export const SignupPageView = styled.div`
     .orange{
         color: #FB5E04 !important;
     }
+    @media (max-width: 950px) {
+        .desktop-view {
+            display: none !important;
+        }
+        .width-50 {
+            width: 94% !important;
+        }
+    }
 `;
 export const OnboardingFormView = styled.div `
     display: flex;
@@ -387,5 +425,10 @@ export const OnboardingFormView = styled.div `
         font-size: 15px;
         line-height: 24px;
         color: #334155;
+    }
+    @media (max-width: 950px) {
+        padding: 37px 22px;
+        min-width: 94%;
+        width: auto;
     }
 `

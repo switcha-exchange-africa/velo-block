@@ -1,3 +1,5 @@
+import { verifyCode } from "../redux/sigup/actions";
+
 export const urls = {
     fetchConversionRequest: "https://easydatasubs.net/api/v2.0/testing/auth/networks/get-converted-airtime-test",
     createConversionRequest: "https://easydatasubs.net/api/v2.0/testing/auth/networks/convert-airtime-test",
@@ -8,5 +10,6 @@ export const urls = {
     fetchTransactions: "/transactions",
     fetchExchange: "/exchange-rate",
     buyCoin: "/trade/buy",
-    sellCoin: "/trade/sell"
+    sellCoin: "/trade/sell",
+    verifyCode: "/auth/verify-email",
 }

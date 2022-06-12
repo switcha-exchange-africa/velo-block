@@ -30,12 +30,12 @@ export const showWithdrawModal = (data) =>  async (dispatch) => {
     })
 }
 
-export const swapCoinCall = (data) => async (dispatch) => {
+export const swapCoinCall = (data, token) => async (dispatch) => {
     dispatch({
         type: types.SWAP_COIN_STARTED
     })
     try {
-        let headers = { "Content-Type": "application/json", Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjYzMDc0NjBmOGE0MDdhN2FmNWUxNjQiLCJmdWxsTmFtZSI6Ikdvb2RuZXNzIEV6ZWgiLCJlbWFpbCI6Imdvb3RlY2g0NDJAeWFob28uY29tIiwiYXV0aFN0YXR1cyI6ImNvbXBsZXRlZCIsImxvY2siOiJ1bmxvY2siLCJlbWFpbFZlcmlmaWVkIjp0cnVlLCJpYXQiOjE2NTM3NDkwMTQsImV4cCI6MTY1Mzc2NzAxNH0.vsawKVediHKZBu66MDXROTdS0SLIVHXq7MEZov1cVXs" };
+        let headers = { "Content-Type": "application/json", Authorization: token };
         const response = await postCall(urls.swapCoin, data, "", headers);
         if (response.status === 200) {
             dispatch({

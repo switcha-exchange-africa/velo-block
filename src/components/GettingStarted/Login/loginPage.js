@@ -11,6 +11,7 @@ import {ReactComponent as OnboardingImage} from '../../../assets/Icons/Onboardin
 import {ReactComponent as SuccessIcon} from '../../../assets/Icons/SuccessIcon.svg';
 import { loginUser } from "../../../redux/sigup/actions";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 function LoginPage() {
   const dispatch = useDispatch()
@@ -27,6 +28,8 @@ function LoginPage() {
   const gotoDashboard = ()=> navigate("/")
   const goToSignup = () => navigate("/signup")
 
+  toast.configure()
+
   const handleChange = (e)=> {
     const {name,value} = e.target
     setInputValues({
@@ -37,14 +40,19 @@ function LoginPage() {
 
   const handleSubmit = async () => {
     setLoading(true)
-    const {status, token} = await dispatch (loginUser(inputValues))
+    const {status, token, response} = await dispatch (loginUser(inputValues))
     setLoading(false)
     if(status){
       Cookies.set("switchaAppToken", token)
       gotoDashboard()
     }else{
-
-    }
+      toast.warn(response || "Sorry an error occurred", {
+          className: 'dark-theme',
+          bodyClassName: "grow-font-size",
+          progressClassName: 'fancy-progress-bar',
+          autoClose:8000
+      })
+  }
 
    
   }
@@ -72,7 +80,7 @@ function LoginPage() {
   return (
     <LoginPageView>
       <div className="flex justify-center align-center width-100">
-            <div className="onboarding-img width-50 flex justify-center align-center -100">
+            <div className="onboarding-img width-50 flex justify-center align-center -100 desktop-view">
                 <OnboardingImage/>
             </div>
             <div className="width-50 flex justify-center align-center">
