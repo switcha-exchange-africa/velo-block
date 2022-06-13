@@ -40,7 +40,7 @@ function LoginPage() {
 
   const handleSubmit = async () => {
     setLoading(true)
-    const {status, token, response} = await dispatch (loginUser(inputValues))
+    const {status, response, token} = await dispatch (loginUser(inputValues))
     setLoading(false)
     if(status){
       Cookies.set("switchaAppToken", token)
