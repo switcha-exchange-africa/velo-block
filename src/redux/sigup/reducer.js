@@ -9,6 +9,7 @@ const initialState = {
         wallets: [],
         transactions: [],
     },
+    logout: false
 }
 
 export const accountReducer = (state = initialState, action) => {
@@ -20,7 +21,8 @@ export const accountReducer = (state = initialState, action) => {
                     ...state.user,
                     token: action.payload.token,
                     data: action.payload.data,
-                }
+                },
+                logout: false
             };
         case types.GET_USER_WALLET_SUCCEEDED:
             return {
@@ -39,6 +41,11 @@ export const accountReducer = (state = initialState, action) => {
                     ...state.user,
                     transactions: action.payload.data
                 }
+            }
+        case types.SHOW_EXPIRED_MODAL:
+            return {
+                ...initialState,
+                logout: true
             }
         default:
             return state;
