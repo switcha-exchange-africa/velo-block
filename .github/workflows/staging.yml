@@ -1,36 +1,80 @@
-# This is a basic workflow to help you get started with Actions
+name: Switcha Africa Frontend staging continuous integration
 
-name: CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "staging" branch
   push:
-    branches: [ "staging" ]
-  pull_request:
-    branches: [ "staging" ]
+    branches:
+      - staging
+    tags:
+      - stage-*
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+env:
+  REGISTRY: "registry.digitalocean.com/switcha-africa"
+  REGISTRY_NAME: "switcha-africa"
+  IMAGE_NAME: "switcha-staging-frontend-app"
+  COMMAND: "npm run start"
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: ubuntu-20.04
+
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+    - name: Download .env from url
+      uses: suisei-cn/actions-download-file@v1
+      id: downloadfile  # Remember to give an ID if you need the output
+      with:
+        url: "https://res.cloudinary.com/https-dynastys-org/raw/upload/v1655076813/switcha-staging-env/env_r2vems.txt"
+        target: ./
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+
+    - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      run: doctl registry login --expiry-seconds 600
+
+    - name: Get the commit hash
+      id: tag
+      run: echo ::set-output name=IMG_TAG::$(echo $GITHUB_SHA)
+
+    - name: Build and tag the Docker image
+      run: docker build ./ --file ./Dockerfile
+        --tag registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{steps.tag.outputs.IMG_TAG}}
+        --tag registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+
+    - name: Push the tagged Docker image
+      run: |
+        docker push registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{steps.tag.outputs.IMG_TAG}}
+        docker push registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+
+    - name: Deploy to Digital Ocean droplet via SSH action
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.PASSPHRASE }}
+        envs: ${{secrets.IMAGE_NAME}},${{ secrets.CONTAINER_REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
+        script: |
+            # docker image
+            docker image remove registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}
+            
+            # Stop running container
+            docker stop ${{secrets.IMAGE_NAME}}
+
+            # Remove old container
+            docker rm ${{secrets.IMAGE_NAME}}
+
+              # Remove old container
+            docker stop ${{secrets.IMAGE_NAME}}
+
+            # pull latest image
+            docker pull registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+            # Run a new container from a new image
+            docker run -d --restart always --publish 3000:3000 registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+
