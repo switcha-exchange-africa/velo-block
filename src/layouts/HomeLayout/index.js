@@ -9,6 +9,7 @@ import { showSwapSuccessModal } from "../../redux/swap/actions";
 //import ConfirmSuccessPaymentModal from "../../components/Modals/ConfirmSuccessPaymentModal";
 import DepositModal from "../../components/Modals/DepositModal";
 import { getUsersWallets, fetchUsersTransactions } from "../../redux/sigup/actions";
+import OnboardingNavBar from "../../components/NavBars/OnboardingNavBar";
 
 import Cookies from "js-cookie";
 import WithdrawModal from "../../components/Modals/WithdrawModal";
@@ -46,6 +47,7 @@ export default function HomeLayout() {
     },[])
     return (
         <HomeLayoutView>
+            <OnboardingNavBar/> 
             <Sidebar/>
             <MainView>
                 <div className="inner-container">

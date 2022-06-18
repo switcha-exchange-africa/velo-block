@@ -18,7 +18,7 @@ function Sidebar() {
         {
             name: "Home",
             icon: <QuickTradeIcon/>,
-            path: "/"
+            path: "/dashboard"
         },
         {
             name: "Quick Trade",
@@ -77,8 +77,8 @@ const SidebarView = styled.div`
     flex-direction: column;
     height: 100%;
     position: fixed;
-    min-width: 15%;
-    max-width: 15%;
+    min-width: 18%;
+    max-width: 18%;
     background: white;
     padding: 10px;
 

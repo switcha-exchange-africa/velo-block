@@ -8,7 +8,7 @@ import {ReactComponent as DownArrowIcon} from "../../../assets/Icons/DownArrowIc
 import {ReactComponent as EthIconDropdown} from "../../../assets/Icons/EthIconDropdown.svg";
 import {ReactComponent as USDCIcon} from "../../../assets/Icons/USDCIcon.svg"
 import InputField from "../../ReusableComponents/InputField/InputField";
-import { showSwapSuccessModal } from "../../../redux/swap/actions";
+import { getRate, showSwapSuccessModal } from "../../../redux/swap/actions";
 import { swapCoinCall } from "../../../redux/swap/actions";
 import Cookies from "js-cookie";
 
@@ -26,10 +26,14 @@ function Swap() {
     const [inputValues, setInputValues] = useState({
         amount: 0,
         fromCoin: "USDT",
-        toCoin: "ETH",
+        toCoin: "BTC",
         availableAmount: 0,
     })
     const {wallets} = useSelector(state => state.accountState.user);
+
+    const requiredWallet = ["BTC" ,"USDT" ,"USDC" ,"ETH"]
+    const [swapWallet, setSwapWallet] = useState([])
+        
     const token = Cookies.get("switchaAppToken")
 
 
@@ -57,12 +61,12 @@ function Swap() {
         }
     }
 
-    const swapCoin = () => {
+    const swapCoin = async ()  => {
         setSwapLoading(true)
         const{amount, fromCoin, toCoin} = inputValues
         if(fromCoin === toCoin){
             setShowErrorModal(true)
-            setSwapLoading(true)
+            setSwapLoading(false)
             setShowErrorMessage(`Please select another coin you'll like to swap your ${fromCoin} for`)
             return 
         }
@@ -81,7 +85,7 @@ function Swap() {
             sourceCoin: fromCoin,
             destinationCoin: toCoin
         }
-        const {status} = dispatch(swapCoinCall(payload, token))
+        const {status} = await dispatch(swapCoinCall(payload, token))
         setSwapLoading(false)
         if(status){
             dispatch(showSwapSuccessModal(reduxPayload))
@@ -90,6 +94,10 @@ function Swap() {
         }
 
         
+    }
+
+    const getSwapRate = async () => {
+        const {status} = await dispatch(getRate())
     }
 
     const setFromCoin = (coin, balance) => {
@@ -109,8 +117,13 @@ function Swap() {
     }
 
     useEffect(()=>{
-        
+        const filteredList = wallets.filter(item => requiredWallet.includes(item.coin));
+        //setSwapWallet(filteredList)
     },[])
+
+    useEffect(() => {
+        getSwapRate()
+    },[inputValues.fromCoin, inputValues.toCoin])
   return (
       <SwapView>
         <div className="heading">
@@ -153,8 +166,8 @@ function Swap() {
                 </div>
                 {showFromDropdown && (
                     <div className="dropdown">
-                        {wallets && (
-                            wallets.map((item, index) => (
+                        {swapWallet && (
+                            swapWallet.map((item, index) => (
                                 <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setFromCoin(item.coin, item.balance)} key={index}>
                                     <div className="flex align-center icon">{getIcon(item.coin)}</div>
                                     <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
@@ -197,8 +210,8 @@ function Swap() {
                 </div>
                 {showToDropdown && (
                     <div className="dropdown">
-                        {wallets && (
-                            wallets.map((item, index) => (
+                        {swapWallet && (
+                            swapWallet.map((item, index) => (
                                 <div className="width-100 dropdown-item py-2 flex cursor-pointer" onClick={() => setToCoin(item.coin)} key={index}>
                                     <div className="flex align-center icon">{getIcon(item.coin)}</div>
                                     <div className="dropdown-logo-icon ml-2 flex align-center">{item.coin}</div>
@@ -210,15 +223,15 @@ function Swap() {
             </div>
             <div className="flex justify-between mt-5 text-sm">
                 <div className="">Price</div>
-                <div className="">1USDT = {swapRate}BTC</div>
+                <div className="">1{inputValues.fromCoin} = {swapRate}{inputValues.toCoin}</div>
             </div>
             <div className="flex justify-between mt-2 text-sm">
                 <div className="">Inverse Price</div>
-                <div className="">1BTC = {1/swapRate} USDT</div>
+                <div className="">1{inputValues.toCoin} = {1/swapRate} {inputValues.fromCoin}</div>
             </div>
             <div className="flex justify-between mt-2 text-sm">
                 <div className="">You will receive</div>
-                <div className="orange-text">{inputValues.amount * swapRate} BTC</div>
+                <div className="orange-text">{inputValues.amount * swapRate} {inputValues.toCoin}</div>
             </div>
             <div className="mt-5 flex justify-between">
                 <div className="bck-btn">Back</div>
@@ -236,6 +249,7 @@ const SwapView = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     .heading{
         font-style: normal;
         font-weight: 800;

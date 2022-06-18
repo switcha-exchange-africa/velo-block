@@ -30,7 +30,7 @@ function ConfirmQuickTrade({data, goToConfirm, type}) {
                 progressClassName: 'fancy-progress-bar',
                 autoClose:8000
             });
-            navigate("/")
+            navigate("/dashboard")
         }else{
             toast.warn("Sorry an error ocurred", {
                 className: 'dark-theme',
@@ -57,7 +57,7 @@ function ConfirmQuickTrade({data, goToConfirm, type}) {
                 progressClassName: 'fancy-progress-bar',
                 autoClose:8000
             });
-            navigate("/")
+            navigate("/dashboard")
         }
 
     }

@@ -36,7 +36,7 @@ function SignupPage() {
     const [stepFourCheck, setStepFourCheck] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const gotoDashboard = ()=> navigate("/");
+    const gotoDashboard = ()=> navigate("/dashboard");
     const pushToLogin = () => navigate("/login");
     const [appToken , setAppToken] = useState("");
     toast.configure();

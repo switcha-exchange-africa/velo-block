@@ -31,7 +31,7 @@ function MainRoutes() {
     path: '/',
     element: <HomeLayout/>,
     children: [
-      { path: '', element: <HomePage /> },
+      { path: 'dashboard', element: <HomePage /> },
       { path: 'swap', element: <Swap /> },
       { path: "p2p", element: <P2P/>},
       { path: "quick-trade", element: <QuickTrade />},

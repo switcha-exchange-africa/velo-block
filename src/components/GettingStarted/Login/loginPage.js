@@ -25,7 +25,7 @@ function LoginPage() {
   const [stepTwoCheck, setStepTwoCheck] = useState(false);
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
-  const gotoDashboard = ()=> navigate("/")
+  const gotoDashboard = ()=> navigate("/dashboard")
   const goToSignup = () => navigate("/signup")
 
   toast.configure()

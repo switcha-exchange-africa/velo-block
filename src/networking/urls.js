@@ -12,4 +12,5 @@ export const urls = {
     buyCoin: "/trade/buy",
     sellCoin: "/trade/sell",
     verifyCode: "/auth/verify-email",
+    getSwapRate: "/rates/single",
 }

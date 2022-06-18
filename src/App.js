@@ -6,10 +6,11 @@ import './styles/misc.css';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.css';
 import SignupPage from './components/GettingStarted/Signup/SignupPage';
-import LoginPage from './components/GettingStarted/Login/loginPage';
+import LoginPage, { LoginPageView } from './components/GettingStarted/Login/loginPage';
 import OnboardingNavBar from './components/NavBars/OnboardingNavBar';
 import PrivateRoute from './auth/PrivateRoute';
-import MainRoutes from "./components/Routes/Main.routes"
+import MainRoutes from "./components/Routes/Main.routes";
+import LandingPage from './components/GettingStarted/LandingPage/LandingPage';
 
 
 
@@ -19,16 +20,12 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={{ theme }}>
         <GlobalStyles />
-          <OnboardingNavBar/>
+          {/* <OnboardingNavBar/> */}
           <Routes>
+            <Route path="/" element={<LandingPage/>}/>
             <Route path="signup" element={<SignupPage/>}/>
             <Route path="login" element={<LoginPage/>}/>
             <Route path="*" element={<PrivateRoute Component = {MainRoutes}/>} />
-            {/* <Route path="verifylogin" element={<LoginVerificationPage/>}/>
-            <Route path="home" element={<HomePage/>}/>
-            <Route path="add-wallet" element={<AddWallet/>}/>
-            <Route path="buy" element={<BuyCoin/>} />
-            <Route path="preview" element={<PreviewOrder/>} /> */}
           </Routes>
       </ThemeProvider>
     </BrowserRouter>
