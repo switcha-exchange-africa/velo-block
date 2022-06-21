@@ -43,7 +43,7 @@ jobs:
       run: echo ::set-output name=IMG_TAG::$(echo $GITHUB_SHA)
 
     - name: Build and tag the Docker image
-      run: docker build ./ --file ./Dockerfile
+      run: docker build --rmgit  ./ --file ./Dockerfile 
         --tag registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
     - name: Push the tagged Docker image
@@ -59,12 +59,15 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         envs: ${{secrets.IMAGE_NAME}},${{ secrets.CONTAINER_REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
         script: |
-            # docker image
-            docker rmi -f registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
-
             # pull latest image
             docker pull registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
-            
+
+            #docker stop container 
+            docker stop switcha
+
+            # rm
+            docker rm -f switcha
+
             # Run a new container from a new image
-            docker run -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
+            docker run -m switcha -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
