@@ -59,17 +59,17 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         envs: ${{secrets.IMAGE_NAME}},${{ secrets.CONTAINER_REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
         script: |
-            # pull latest image
-            docker pull registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
-
-            # deleting untagged image
-            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-            
             #docker stop container 
             docker stop switcha
 
             # rm
             docker rm -f switcha
+
+            # deleting untagged image
+            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+
+            # pull latest image
+            docker pull registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
             # Run a new container from a new image
             docker run --name switcha -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
