@@ -74,3 +74,5 @@ jobs:
             # Run a new container from a new image
             docker run --name switcha -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
+            # deleting untagged image
+            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
