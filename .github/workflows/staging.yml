@@ -44,11 +44,11 @@ jobs:
 
     - name: Build and tag the Docker image
       run: docker build ./ --file ./Dockerfile
-        --tag registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+        --tag registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
     - name: Push the tagged Docker image
       run: |
-        docker push registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+        docker push registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
     - name: Deploy to Digital Ocean droplet via SSH action
       uses: appleboy/ssh-action@v0.1.3
@@ -63,7 +63,7 @@ jobs:
             docker rmi -f registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
             # pull latest image
-            docker pull registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+            docker pull registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
             # Run a new container from a new image
-            docker run -d --restart always --publish 3000:3000 registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
+            docker run -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
