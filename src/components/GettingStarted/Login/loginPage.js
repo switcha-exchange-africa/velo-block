@@ -87,7 +87,7 @@ function LoginPage() {
               {step === 1 && (
                 <OnboardingFormView>
                   <div className="heading mb-4">
-                    Login Test to your account
+                    Login to your account
                   </div>
                   <InputField
                     className= "formInput"
