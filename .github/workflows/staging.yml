@@ -62,7 +62,7 @@ jobs:
         envs: ${{secrets.IMAGE_NAME}},${{ secrets.CONTAINER_REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
         script: |
             # docker image
-            docker image remove registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }} --force
+            docker rmi -f registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
             
             # pull latest image
             docker pull registry.digitalocean.com/${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest
