@@ -69,5 +69,5 @@ jobs:
             docker rm -f switcha
 
             # Run a new container from a new image
-            docker run -m switcha -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
+            docker run --name switcha -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
