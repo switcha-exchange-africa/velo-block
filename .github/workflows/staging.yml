@@ -62,6 +62,9 @@ jobs:
             # pull latest image
             docker pull registry.digitalocean.com/switcha-africa/switcha-staging-frontend-app:latest
 
+            # deleting untagged image
+            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+            
             #docker stop container 
             docker stop switcha
 
