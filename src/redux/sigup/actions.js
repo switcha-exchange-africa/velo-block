@@ -47,8 +47,8 @@ export const loginUser = (data) => async (dispatch) => {
     try {
         let headers = { "Content-Type": "application/json" };
         const response = await postCall(urls.loginUser, data, "", headers);
-
         const token = response.data.token.replace("Bearer ", "")
+ 
         if (response.status === 200) {
             dispatch({
                 type: types.LOGIN_SUCCEEDED,

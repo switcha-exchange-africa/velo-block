@@ -4,10 +4,11 @@ import { useNavigate } from "react-router";
 import {ReactComponent as SwitchaLogoHeader} from '../../assets/Icons/SwitchaHeaderLogo.svg'
 
 function OnboardingNavBar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  
   return (
     <OnboardingNavbarView>
-      <div className="cursor-pointer flex align-center " onClick={()=> navigate("/")}>
+      <div className="cursor-pointer flex align-center " onClick={()=> navigate("/dashboard")}>
         <SwitchaLogoHeader/>
       </div>
     </OnboardingNavbarView>

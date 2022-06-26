@@ -5,7 +5,7 @@ import { isLogin } from "../utils/userLoggedInCheck";
 const PublicRoute = ({Component}) => {
     const auth = isLogin();
 
-    return !auth ? <Component /> : <Navigate to="/home" />
+    return !auth ? <Component /> : <Navigate to="/dashboard" />
 };
 
 export default PublicRoute;

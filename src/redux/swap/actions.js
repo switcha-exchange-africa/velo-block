@@ -184,3 +184,43 @@ export const sellCoin = (token, payload) => async (dispatch) => {
         }
     }
 }
+
+export const getRate = (token, toCoin, fromCoin) => async (dispatch) => {
+    dispatch({
+        type: types.GET_SWAP_RATE_STARTED
+    })
+    try {
+        let url = `${urls.getSwapRate} ?base=${fromCoin}&sub=${toCoin}`
+        let headers = { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+        const response = await postCall(url,"", "", headers);
+        if (response.status === 200) {
+            dispatch({
+                type: types.GET_SWAP_RATE_SUCCEEDED,
+            });
+            return {
+                status: true,
+                response: response.data.message
+            };
+        } else {
+            dispatch({
+                type: types.GET_SWAP_RATE_FAILED,
+            })
+            return {
+                status: false,
+                response: response.data.message
+            }
+        }
+    } catch (err) {
+        dispatch({
+            type: types.GET_SWAP_RATE_FAILED,
+            //payload: "Please check your internet connection and try again!",
+        });
+        return {
+            status: false,
+            message: err
+        }
+    }
+}
