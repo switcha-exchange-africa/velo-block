@@ -401,6 +401,9 @@ const LandingPageStyle = styled.div`
             line-height: 22px;
             color: #000000;
         }
+        .get-started-card {
+            padding: 48px 20px 20px;
+        }
 
     }
 `;
