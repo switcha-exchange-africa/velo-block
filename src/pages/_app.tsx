@@ -5,10 +5,12 @@ import { Provider } from 'react-redux';
 import { ChakraProvider } from '@chakra-ui/react'
 import { appTheme } from '../styles/theme';
 
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (<Provider store={store}>
     <ChakraProvider resetCSS theme={appTheme}>
       <Component {...pageProps} />
+      
     </ChakraProvider>
   </Provider>)
 }
