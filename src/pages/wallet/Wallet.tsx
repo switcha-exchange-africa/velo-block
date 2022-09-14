@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import {
   Box,
-  Container,
-  Flex,
-  Spacer,
   Heading,
   Text,
-  Stack,
   Button,
   Avatar,
   useDisclosure,
@@ -15,24 +11,19 @@ import {
   Select,
   Wrap,
   WrapItem,
-  Center,
 } from "@chakra-ui/react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Drawer,
-  DrawerOverlay,
   DrawerBody,
   DrawerContent,
   DrawerCloseButton,
-  DrawerFooter,
   DrawerHeader,
 } from "@chakra-ui/react";
 
