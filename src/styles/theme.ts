@@ -11,7 +11,8 @@ export const appTheme = extendTheme({
         secondaryColor: {
             900:"rgba(34, 195, 107, 1)",
             600:"rgba(34, 195, 107, 0.6)",
-        }  
+        }, 
+        appDarkColor:"rgba(16, 25, 45, 1)" 
     },
     components:{
         Button
