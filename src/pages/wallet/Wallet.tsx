@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import Image from "next/image";
+
 import {
   Box,
-  Container,
-  Flex,
-  Spacer,
   Heading,
   Text,
-  Stack,
   Button,
   Avatar,
   useDisclosure,
@@ -15,24 +11,19 @@ import {
   Select,
   Wrap,
   WrapItem,
-  Center,
 } from "@chakra-ui/react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Drawer,
-  DrawerOverlay,
   DrawerBody,
   DrawerContent,
   DrawerCloseButton,
-  DrawerFooter,
   DrawerHeader,
 } from "@chakra-ui/react";
 
@@ -44,33 +35,34 @@ const wallets = [
     balance: "0.0000256",
     usdBalance: "$200.23",
     address: "bc1q6ct9nuzjjqke47cztxrw0xwhrjej2nuhy963f0",
+    logo: "/assets/images/bitcoin-logo.png",
   },
   {
     id: 2,
     coin: "ETH",
     label: "Ethereum",
-    logo: "",
     balance: "0.04256",
     usdBalance: "$137",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+    logo: "/assets/images/eth-logo.png",
   },
   {
     id: 3,
     coin: "USDT",
     label: "TetherUS",
-    logo: "",
     balance: "0.0000256",
     usdBalance: "$200.23",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+    logo: "/assets/images/usdt-logo.png",
   },
   {
     id: 4,
     coin: "USDC",
     label: "USD Coin",
-    logo: "",
     balance: "0.0000256",
     usdBalance: "$0.00",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+    logo: "/assets/images/usdc-logo.png",
   },
 ];
 const recentActivity = [
@@ -254,7 +246,7 @@ function WalletPage(props: any) {
                           >
                             <Avatar
                               name="Bitcoin"
-                              src={"/images/btclogo.png"}
+                              src={wallet.logo}
                               size="sm"
                             />
                             <Box>
@@ -411,7 +403,11 @@ function RecentTransaction() {
               key={transaction.id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                <Avatar name="Bitcoin" src={"/images/btclogo.png"} size="sm" />
+                <Avatar
+                  name="Bitcoin"
+                  src={"/assets/images/bitcoin-logo.png"}
+                  size="sm"
+                />
                 <Box>
                   <Text fontSize="xs" fontWeight={"700"}>
                     {transaction.label}
