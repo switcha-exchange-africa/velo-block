@@ -7,6 +7,7 @@ import { appTheme } from '../styles/theme';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (<Provider store={store}>
     <ChakraProvider resetCSS theme={appTheme}>
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       />
       <Component {...pageProps} />
+      
     </ChakraProvider>
   </Provider>)
 }
