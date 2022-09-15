@@ -1,7 +1,8 @@
-import { background, Button, ResponsiveValue, } from '@chakra-ui/react'
-import React from 'react'
+import { background, Button, ResponsiveValue } from "@chakra-ui/react";
+import React from "react";
 
 interface MainAppButtonProps {
+
     size?: ResponsiveValue<(string & {}) | "sm" | "md" | "lg" | "xs"> | undefined
     isLoading: boolean
     backgroundColor?: "primaryColor.900" | "primaryColor.600" | "secondaryColor.900" | "secondaryColor.600" | any
@@ -16,4 +17,5 @@ const MainAppButton = ({ size, isLoading, backgroundColor, width, children, onCl
     )
 }
 
-export default MainAppButton
+
+export default MainAppButton;
