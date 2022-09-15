@@ -6,13 +6,9 @@ import {Text} from '@chakra-ui/react'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, } from 'react-toastify';
 import MainAppButton from '../components/buttons/MainAppButton';
-import Settings from './settingsui/Settings'
-import Profile from './settingsui/Profile'
-import Verification from './settingsui/Verification'
-import Verfication2 from './settingsui/Verfication2'
-import Security from './settingsui/Security'
-import AccountActivity from './settingsui/AccountActivity'
-import AuthPage from './settingsui/AuthPage'
+
+
+
 const Home: NextPage = () => {
   return (
 
@@ -37,13 +33,8 @@ const Home: NextPage = () => {
       {/* test */}
       {/* <MainAppButton isLoading={false} >Submit</MainAppButton>
       <Text>hi</Text> */}
-      <Settings/>
-      <Profile/>
-      <Verification/>
-      <Verfication2/>
-      <Security/>
-      <AccountActivity/>
-      <AuthPage/>
+      {/* <Settings/> */}
+      
     </div>
 
 
