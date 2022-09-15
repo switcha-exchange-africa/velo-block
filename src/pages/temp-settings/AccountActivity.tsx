@@ -59,12 +59,10 @@ const AccountActivity = () => {
             reactivation process until at least two hours have passed
           </Text>
         </VStack>
-        <MainAppButton isLoading={false} width={"sm"}>
+        <MainAppButton isLoading={false} width={"sm"} onClick={onOpen}>
           Disable this Account
         </MainAppButton>
       </VStack>
-
-      <Button onClick={onOpen}>Open Modal</Button>
 
       <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay
