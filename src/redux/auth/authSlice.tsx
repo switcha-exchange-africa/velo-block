@@ -9,23 +9,30 @@ const initialState: AuthState = {
     user: null,
     token: '',
     isLoading: false,
-    error: null
+    error: null,
+
 };
 
-export const createAccount = createAsyncThunk('auth/createAccount', async ({ email, password }: CreateAccountRequest, thunkAPI) => {
-    try {
-        const response = await authService.createAccount({ email, password });
+const storeUserAndToken = (token: any, user: any) => {
+    typeof window != 'undefined' && localStorage.setItem('token', token)
+    typeof window != 'undefined' && localStorage.setItem('user', user)
+    typeof window != 'undefined' && localStorage.setItem('email', user.email)
+}
 
-        if (response.success) {
+export const createAccount = createAsyncThunk('auth/createAccount', async ({ email, password, firstName, lastName, device, agreedToTerms }: CreateAccountRequest, thunkAPI) => {
+    try {
+        const response = await authService.createAccount({ email, password, firstName, lastName, device, agreedToTerms });
+        if (response.status == 201) {
             appAlert.success(response.message);
-            return { user: response.data.user, token: response.data.token };
+            storeUserAndToken(response.token, response.data)
+            return { user: response.data, token: response.token };
         } else {
             appAlert.error(response.message);
-            return thunkAPI.rejectWithValue(response.statusCode);
+            return thunkAPI.rejectWithValue(response.status);
         }
     } catch (error: any) {
-        const message = error.message || error.toString();
-        appAlert.error(error.response.data.message);
+        const message = error.response.data.message || error.message || error.toString() || 'something went wrong';
+        appAlert.error(message);
         return thunkAPI.rejectWithValue(message);
     }
 });
@@ -33,16 +40,53 @@ export const createAccount = createAsyncThunk('auth/createAccount', async ({ ema
 export const login = createAsyncThunk('auth/login', async ({ email, password }: LoginRequest, thunkAPI) => {
     try {
         const response = await authService.login({ email, password });
-        if (response.success) {
+        if (response.status == 200) {
             appAlert.success(response.message);
-            return { user: response.data.user, token: response.data.token };
+            storeUserAndToken(response.token, response.data)
+            return { user: response.data, token: response.data.token };
         } else {
             appAlert.error(response.message);
-            return thunkAPI.rejectWithValue(response.statusCode);
+            return thunkAPI.rejectWithValue(response.status);
         }
     } catch (error: any) {
-        const message = error.message || error.toString();
+        const message = error.response.data.message || error.message || error.toString() || 'something went wrong';
         appAlert.error(error.response.data.message);
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+export const verifyOtp = createAsyncThunk('auth/verifyOtp', async (pin: any, thunkAPI) => {
+    try {
+        const response = await authService.verifyOtp(pin);
+        if (response.status == 200) {
+            appAlert.success(response.message);
+            storeUserAndToken(response.token, response.data)
+            return { user: response.data, token: response.token };
+        } else {
+            appAlert.error(response.message);
+            return thunkAPI.rejectWithValue(response.status);
+        }
+    } catch (error: any) {
+        const message = error.response.data.message || error.message || error.toString() || 'something went wrong';
+        appAlert.error(message);
+        return thunkAPI.rejectWithValue(message);
+    }
+});
+
+export const sendOtp = createAsyncThunk('auth/sendOtp', async (_, thunkAPI) => {
+    try {
+        const response = await authService.sendOtp();
+
+        if (response.status == 200) {
+            appAlert.success(response.message);
+            return '';
+        } else {
+            appAlert.error(response.message);
+            return thunkAPI.rejectWithValue(response.status);
+        }
+    } catch (error: any) {
+        const message = error.response.data.message || error.message || error.toString() || 'something went wrong';
+        appAlert.error(message);
         return thunkAPI.rejectWithValue(message);
     }
 });
@@ -59,11 +103,13 @@ export const getUser = createAsyncThunk('auth/getUser', async (_, thunkAPI) => {
             return thunkAPI.rejectWithValue(response.statusCode);
         }
     } catch (error: any) {
-        const message = error.message || error.toString();
-        appAlert.error(error.response.data.message);
+        const message = error.response.data.message || error.message || error.toString() || 'something went wrong';
+        appAlert.error(message);
         return thunkAPI.rejectWithValue(message);
     }
 });
+
+
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -91,6 +137,28 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(login.pending, (state, action) => {
+            state.isLoading = true;
+        });
+
+        builder.addCase(verifyOtp.fulfilled, (state, { payload }) => {
+            state.user = payload.user;
+            state.token = payload.token;
+            state.isLoading = false;
+        });
+        builder.addCase(verifyOtp.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(verifyOtp.pending, (state, action) => {
+            state.isLoading = true;
+        });
+
+        builder.addCase(sendOtp.fulfilled, (state, { payload }) => {
+            state.isLoading = false;
+        });
+        builder.addCase(sendOtp.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(sendOtp.pending, (state, action) => {
             state.isLoading = true;
         });
 
