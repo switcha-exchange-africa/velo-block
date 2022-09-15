@@ -1,0 +1,142 @@
+import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField } from '@chakra-ui/react';
+import { Field, Form, Formik } from 'formik';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react'
+import MainAppButton from '../../components/buttons/MainAppButton';
+import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
+import AuthLayout from '../../layouts/auth/AuthLayout';
+import { sendOtp, verifyOtp } from '../../redux/auth/authSlice';
+
+const VerificationPage = () => {
+    const router = useRouter();
+    let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
+    const validatePin = (value: string,) => {
+        let error
+        if (!value) {
+            error = 'Pin is Required'
+        } else if (value.length < 6) {
+            error = 'Complete pin to proceed'
+        }
+        return error
+    }
+
+    const dispatch = useAppDispatch();
+    const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+
+    const [countDown, setCountDown] = React.useState(0);
+    const [runTimer, setRunTimer] = React.useState(false);
+
+    useEffect(() => {
+        let timerId: string | number | NodeJS.Timeout | undefined;
+
+        if (runTimer) {
+            setCountDown(60 * 5);
+            timerId = setInterval(() => {
+                setCountDown((countDown) => countDown - 1);
+            }, 1000);
+        } else {
+            clearInterval(timerId);
+        }
+
+        return () => clearInterval(timerId);
+    }, [runTimer]);
+
+
+    useEffect(() => {
+        const resendOtpView = async () => {
+            await dispatch(sendOtp()).unwrap()
+        }
+        if (countDown < 0 && runTimer) {
+            console.log("expired");
+            setRunTimer(false);
+            setCountDown(0);
+            resendOtpView()
+        }
+
+    }, [countDown, dispatch, runTimer]);
+
+    useEffect(() => {
+        togglerTimer()
+    }, []);
+
+
+    const togglerTimer = () => setRunTimer((t) => !t);
+
+    const seconds = String(countDown % 60).padStart(2, '0');
+    const minutes = String(Math.floor(countDown / 60)).padStart(2, '0');
+
+    return (
+        <AuthLayout>
+            <VStack bg='appWhiteColor' px='8' align='start' p='20'>
+                <Text fontSize='2xl' as='b'>Enter Verification Code</Text>
+                <Text fontSize='sm' fontWeight='medium' color='gray.400' mt='4' >Enter the 6 digit code we sent to your email address</Text>
+                <Text fontSize='sm' fontWeight='medium' mt='1' >{savedEmail}</Text>
+                <Formik
+                    initialValues={{ pin: '', }}
+
+                    onSubmit={async (values, { setSubmitting }) => {
+                        try {
+                            await dispatch(verifyOtp(values.pin)).unwrap()
+                            localStorage.removeItem('lastname')
+                            localStorage.removeItem('email')
+                            router.push('/dashboard/DashboardPage')
+
+                        } catch (error) {
+                            console.log(error)
+                        }
+
+                    }}
+                    validateOnChange
+                    validateOnBlur
+                    validateOnMount
+                >
+                    {({
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                        setFieldValue
+                        /* and other goodies */
+                    }) => (
+                        <Form>
+                            <VStack w='xs' align='center'>
+                                <Field name='pin' validate={validatePin}>
+                                    {({ field, form }: any) => (
+                                        <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
+                                            <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
+                                                <PinInputField mr='1' />
+                                                <PinInputField mr='1' />
+                                                <PinInputField mr='1' />
+                                                <PinInputField mr='1' />
+                                                <PinInputField mr='1' />
+                                                <PinInputField />
+                                            </PinInput>
+                                            <FormErrorMessage>{form.errors.pin}</FormErrorMessage>
+                                        </FormControl>
+                                    )}
+                                </Field>
+
+
+                                <Flex alignItems='center' >
+                                    <Text fontSize='sm' fontWeight='medium' mt='2' mb='8' mr='1'>{'Resend Code in '}</Text>
+                                    <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2' mb='8'>{minutes + ':' + seconds}</Text>
+                                </Flex >
+
+                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
+                                    Verify
+                                </MainAppButton>
+
+
+                            </VStack>
+                        </Form>
+
+
+                    )}
+
+                </Formik>
+            </VStack>
+        </AuthLayout>
+    )
+}
+
+export default VerificationPage
