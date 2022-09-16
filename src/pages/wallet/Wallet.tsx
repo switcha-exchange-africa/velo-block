@@ -11,6 +11,7 @@ import {
   Select,
   Wrap,
   WrapItem,
+  Image,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -36,6 +37,7 @@ const wallets = [
     usdBalance: "$200.23",
     address: "bc1q6ct9nuzjjqke47cztxrw0xwhrjej2nuhy963f0",
     logo: "/assets/images/bitcoin-logo.png",
+    barcode: "/assets/images/barcode.png",
   },
   {
     id: 2,
@@ -45,6 +47,7 @@ const wallets = [
     usdBalance: "$137",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
     logo: "/assets/images/eth-logo.png",
+    barcode: "/assets/images/barcode.png",
   },
   {
     id: 3,
@@ -54,6 +57,7 @@ const wallets = [
     usdBalance: "$200.23",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
     logo: "/assets/images/usdt-logo.png",
+    barcode: "/assets/images/barcode.png",
   },
   {
     id: 4,
@@ -63,6 +67,7 @@ const wallets = [
     usdBalance: "$0.00",
     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
     logo: "/assets/images/usdc-logo.png",
+    barcode: "/assets/images/barcode.png",
   },
 ];
 const recentActivity = [
@@ -73,6 +78,7 @@ const recentActivity = [
     label: "Bitcoin",
     date: "Today, 15:00 PM",
     type: "buy",
+    barcode: "/assets/images/barcode.png",
   },
   {
     id: 2,
@@ -81,6 +87,7 @@ const recentActivity = [
     label: "Bitcoin",
     date: "Today, 15:00 PM",
     type: "recieve",
+    barcode: "/assets/images/barcode.png",
   },
   {
     id: 3,
@@ -89,6 +96,7 @@ const recentActivity = [
     label: "Bitcoin",
     date: "Today, 15:00 PM",
     type: "sell",
+    barcode: "/assets/images/barcode.png",
   },
 ];
 
@@ -96,11 +104,18 @@ function WalletPage(props: any) {
   const [address, setAddress] = useState(wallets[0].address);
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
+  const [barcode, setBarcode] = useState("/assets/images/barcode.png");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleClick = (newAddress: any, newLabel: any, newCoin: any) => {
+  const handleClick = (
+    newAddress: any,
+    newLabel: any,
+    newCoin: any,
+    newBarcode: any
+  ) => {
     setAddress(newAddress);
     setLabel(newLabel);
     setCoin(newCoin);
+    setBarcode(newBarcode);
 
     onOpen();
   };
@@ -126,15 +141,20 @@ function WalletPage(props: any) {
               <Text size={"sm"}>
                 Copy address or scan QR code to deposit {props.label}
               </Text>
-              <Text color={"#8E9BAE"} mt={"300px"}>
+              <Image
+                margin={"50px auto 20px auto"}
+                src={props.barcode}
+                alt="Barcode"
+              />
+              <Text color={"#8E9BAE"} mt={"30px"}>
                 {props.coin} Deposit Address
               </Text>
               {props.coin === "USDT" && (
                 <Box marginBottom={"20px"}>
                   <FormLabel htmlFor="owner">Please Choose Network</FormLabel>
-                  <Select id="owner" defaultValue="segun">
-                    <option value="BSC">BNB Smart Chain (BEP20)</option>
+                  <Select id="owner" defaultValue="ERC20">
                     <option value="ERC20">Ethereum (ERC20)</option>
+                    <option value="TRC20">Tron Network (TRC20)</option>
                   </Select>
                 </Box>
               )}
@@ -292,7 +312,8 @@ function WalletPage(props: any) {
                                   handleClick(
                                     wallet.address,
                                     wallet.label,
-                                    wallet.coin
+                                    wallet.coin,
+                                    wallet.barcode
                                   )
                                 }
                               >
@@ -304,6 +325,7 @@ function WalletPage(props: any) {
                               label={label}
                               coin={coin}
                               address={address}
+                              barcode={barcode}
                             />
                             <WrapItem>
                               <Text
