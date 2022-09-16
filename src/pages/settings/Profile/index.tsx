@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 import {
     Box,
     Text,
@@ -11,56 +13,52 @@ import {
     Input,
     Flex
 } from '@chakra-ui/react'
-import MainAppButton from '../../components/buttons/MainAppButton'
+import MainAppButton from '../../../components/buttons/MainAppButton'
 import { ArrowBackIcon } from "@chakra-ui/icons";
 const Profile = () =>{
-    return (
+    const Router = useRouter()
+    return ( 
         <Box 
         background={"#F8FAFC"} height={"100vh"}
-         color="black" px={"10%"}>
-            <HStack
-            pt={'3rem'}>
-       <Flex>
-        <Button
+         color="black" px={"10%"} >
+            <Button
+            onClick = {() => Router.back()}
         leftIcon={<ArrowBackIcon />}
         colorScheme="transparent"
-        color={'black'}
-        size='lg'
         variant="solid"
         pl={0}
         py={"3rem"}
+        color={'black'}
+        ml={'1rem'}
       >
         Back
       </Button>
-        <Heading  
-        py={'1rem'}
-        ml={'2rem'}>Profile</Heading>
-        </Flex>
-        </HStack>
-        <HStack
-          background={'#FFFFFF'}
-          width={"100%"}
+      <VStack alignItems={"start"} gap={"1rem"}>
+        <Link href="/settingsui/profile">
+        <a>
+        <Heading size="md"
+         py={'2rem'}
+         ml={'1rem'}>Profile</Heading></a>
+         </Link>
+        </VStack>
+        <Box  background={'#FFFFFF'}
+          width={"60%"}
           justifyContent={"space-between"}
-          py={"20px"}
-         
-          >
+          py={"20px"}>
+        <HStack>
             <Flex width={'100%'}>
                 <Text
                 pl={'2rem'}
                 pt={'0.5rem'}>Email
                 </Text>
                 <Input placeholder='Olumideoyeleye@gmail.com'
-                ml={'3rem'} 
+                ml={'7rem'} 
                 mr={'1rem'}
+              
                />
                </Flex>
                </HStack>
-               <HStack
-          background={'#FFFFFF'}
-          width={"100%"}
-          justifyContent={"space-between"}
-          py={"12px"}
-          >
+               <HStack mt={'2rem'}>
         
           <Flex width={'100%'}>
             <Text
@@ -68,75 +66,63 @@ const Profile = () =>{
                 pt={'0.5rem'}>Username
                 </Text>
                 <Input placeholder='Eclusive'
-                ml={'3rem'} 
+                ml={'5rem'} 
                 mr={'1rem'}
+               
                />
                 
              
             </Flex>
         </HStack>
 
-        <HStack
-          background={'#FFFFFF'}
-          width={"100%"}
-          justifyContent={"space-between"}
-          py={"12px"}
-          >
+        <HStack mt={'2rem'}>
         <Flex width={'100%'}>
             <Text
                 pl={'2rem'}
                 pt={'0.5rem'}>Name
                 </Text>
                 <Input placeholder='Temitope'
-                ml={'3rem'} 
+                ml={'7rem'} 
                 mr={'1rem'}
+               
                />
                 
              
             </Flex>
         </HStack>
 
-        <HStack
-         background={'#FFFFFF'}
-         width={"100%"}
-         justifyContent={"space-between"}
-         py={"12px"}>
+        <HStack mt={'2rem'}>
            
                 <Text
                 pl={'2rem'}>Phone number</Text>
-             <Box pr={'1rem'}>
+             <Box pl={'3rem'}>
                 <Text>***176</Text>
                 <Text
                 color={'#FB5E04'}>Change phone number</Text>
              </Box>
+             
         </HStack>
 
-        <HStack
-         background={'#FFFFFF'}
-         width={"100%"}
-         justifyContent={"space-between"}
-         py={"12px"}>
+        <HStack mt={'2rem'} >
            
                 <Text
                 pl={'2rem'}>Account Status</Text>
-             <Box pr={'1rem'}>
-                <Text>Level 1 Verification</Text>
-              <MainAppButton isLoading={false} size={"md"}>Upgrade Verification</MainAppButton>
-             </Box>
+           
+                <Text pl={'5rem'} pr={'6rem'}>Level 1 Verified</Text>
+                <Link href='Profile/Verification'>
+                <a>
+              <MainAppButton isLoading={false} size={"md"} width={'100%'}>Upgrade Verification</MainAppButton>
+              </a>
+              </Link>
         </HStack>
 
-        <HStack
-          background={'#FFFFFF'}
-          width={"100%"}
-          justifyContent={"space-between"}
-          py={"40px"}
-          pl={'2rem'}
-        >
-            <MainAppButton isLoading={false} size={"md"}>Create Ads</MainAppButton>
+        <HStack mt={'2rem'} pl={'26rem'}>
+            <MainAppButton isLoading={false} size={"md"} width={'85%'}>Create Ads</MainAppButton>
         </HStack>
+        </Box>
         </Box>
         
     )
 }
 
-export default Profile
+export default Profile;

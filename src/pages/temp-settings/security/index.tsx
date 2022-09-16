@@ -1,6 +1,8 @@
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import MainAppButton from "../../components/buttons/MainAppButton";
+import MainAppButton from "../../../components/buttons/MainAppButton";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 import {
   Box,
@@ -14,33 +16,25 @@ import {
   ListItem,
   ListIcon,
   UnorderedList,
-  Flex
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
 const Security = () => {
+  const router = useRouter();
   return (
     <Box background={"#F8FAFC"} height={"100vh"} color="black" px={"10%"}>
-       <HStack
-            pt={'3rem'}>
-       <Flex>
-        <Button
+      <Button
         leftIcon={<ArrowBackIcon />}
         colorScheme="transparent"
-        color={'black'}
-        size='lg'
         variant="solid"
         pl={0}
         py={"3rem"}
+        onClick={() => router.back()}
       >
         Back
       </Button>
-        <Heading  
-        py={'1rem'}
-        ml={'2rem'}>Security</Heading>
-        </Flex>
-        </HStack>
       <VStack alignItems={"start"} gap={"1rem"}>
+        <Heading size="md">Security</Heading>
         <HStack
           background={"white"}
           width={"100%"}
@@ -48,7 +42,11 @@ const Security = () => {
           py={"12px"}
         >
           <Box>
-            <Heading size="sm">Authentication Authenticator</Heading>
+            <Link href="/temp-settings/security/AuthPage">
+              <a>
+                <Heading size="sm">Authentication Authenticator</Heading>
+              </a>
+            </Link>
             <Text>Disabled</Text>
           </Box>
           <MainAppButton isLoading={false} size={"md"} width={"8%"}>

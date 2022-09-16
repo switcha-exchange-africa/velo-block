@@ -1,4 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
 import {
     Box,
     Text,
@@ -11,28 +13,33 @@ import {
 } from '@chakra-ui/react'
 import MainAppButton from '../../components/buttons/MainAppButton'
 const Settings = () => {
+    const Router = useRouter()
     return(
-        <Box background={'#F8FAFC'}>
-            <Box background={'#FFFFFF'}>
+        <Box background={'#F8FAFC'} height={"100vh"} color="black" px={"10%"}>
+            <Box>
             <Heading  
-            py={'1rem'}
+            py={'2rem'}
             ml={'2rem'}>Settings</Heading>
             </Box>
             <HStack 
             background={'#FFFFFF'}
             width={"100%"}
             justifyContent={"space-between"}
-            py={"12px"}
-            mt={'2rem'}
+            py={"15px"}
+            mt={'1rem'}
             ml={'2rem'}
             mr={'2rem'}
             pl={'1rem'}
             pr={'4rem'}>
                 <Box mr={'2rem'}>
-         <Heading size='sm'>Profile</Heading><br/>
+                <Link href="/settings/Profile">
+                    <a>
+         <Heading size='sm' pb={'0.8rem'}>Profile</Heading>
+         </a>
+         </Link>
          <Text>Email,Username,Phone number,Account verification</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"}>Update profile</MainAppButton>
+         <MainAppButton isLoading={false} size={"md"} width={'15%'}>Update profile</MainAppButton>
         </HStack>
 
         <HStack 
@@ -48,7 +55,7 @@ const Settings = () => {
          <Heading size='sm'>Security</Heading><br/>
          <Text>Password,Email Change,Authenticator</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"}>Update Security</MainAppButton>
+         <MainAppButton isLoading={false} size={"md"} width={'15%'}>Update Security</MainAppButton>
         </HStack>
         
         <HStack 
@@ -64,7 +71,7 @@ const Settings = () => {
          <Heading size='sm'>Notification</Heading><br/>
          <Text color={'#E5E5E5'}>Enabled</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"}>Disable</MainAppButton>
+         <MainAppButton isLoading={false} size={"md"} width={'12%'}>Disable</MainAppButton>
         </HStack>
 
         <HStack 
@@ -80,7 +87,7 @@ const Settings = () => {
          <Heading size='sm'>Account Activity</Heading><br/>
          <Text>Suspicious Account activity?</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"}>Disable Account</MainAppButton>
+         <MainAppButton isLoading={false} size={"md"} width={'15%'}>Disable Account</MainAppButton>
         </HStack>
 
         </Box>
