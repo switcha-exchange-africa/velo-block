@@ -10,6 +10,7 @@ const initialState: AuthState = {
     token: '',
     isLoading: false,
     error: null,
+    isEmailVerified: false
 
 };
 
@@ -19,9 +20,9 @@ const storeUserAndToken = (token: any, user: any) => {
     typeof window != 'undefined' && localStorage.setItem('email', user.email)
 }
 
-export const createAccount = createAsyncThunk('auth/createAccount', async ({ email, password, firstName, lastName, device, agreedToTerms }: CreateAccountRequest, thunkAPI) => {
+export const createAccount = createAsyncThunk('auth/createAccount', async ({ email, password, firstName, lastName, device, agreedToTerms, username }: CreateAccountRequest, thunkAPI) => {
     try {
-        const response = await authService.createAccount({ email, password, firstName, lastName, device, agreedToTerms });
+        const response = await authService.createAccount({ email, password, firstName, lastName, device, agreedToTerms, username });
         if (response.status == 201) {
             appAlert.success(response.message);
             storeUserAndToken(response.token, response.data)
@@ -44,7 +45,11 @@ export const login = createAsyncThunk('auth/login', async ({ email, password }: 
             appAlert.success(response.message);
             storeUserAndToken(response.token, response.data)
             return { user: response.data, token: response.data.token };
-        } else {
+        } else if (response.status == 202) {
+            appAlert.warning(response.message)
+            return { isEmailVerified: false }
+        }
+        else {
             appAlert.error(response.message);
             return thunkAPI.rejectWithValue(response.status);
         }
@@ -131,6 +136,7 @@ export const authSlice = createSlice({
         builder.addCase(login.fulfilled, (state, { payload }) => {
             state.user = payload.user;
             state.token = payload.token;
+            state.isEmailVerified = payload.isEmailVerified;
             state.isLoading = false;
         });
         builder.addCase(login.rejected, (state, action) => {

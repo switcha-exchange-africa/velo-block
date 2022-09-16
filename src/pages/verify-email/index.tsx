@@ -1,4 +1,4 @@
-import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField } from '@chakra-ui/react';
+import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField, HStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
@@ -27,10 +27,11 @@ const VerificationPage = () => {
     const [runTimer, setRunTimer] = React.useState(false);
 
     useEffect(() => {
+
         let timerId: string | number | NodeJS.Timeout | undefined;
 
         if (runTimer) {
-            setCountDown(60 * 5);
+            setCountDown(60 * 10);
             timerId = setInterval(() => {
                 setCountDown((countDown) => countDown - 1);
             }, 1000);
@@ -48,8 +49,9 @@ const VerificationPage = () => {
         }
         if (countDown < 0 && runTimer) {
             console.log("expired");
-            setRunTimer(false);
-            setCountDown(0);
+            // setRunTimer(false);
+            // setCountDown(0);
+            setCountDown(60 * 10);
             resendOtpView()
         }
 
@@ -79,7 +81,8 @@ const VerificationPage = () => {
                             await dispatch(verifyOtp(values.pin)).unwrap()
                             localStorage.removeItem('lastname')
                             localStorage.removeItem('email')
-                            router.push('/dashboard/DashboardPage')
+                            // router.push('/dashboard')
+                            router.replace('/signin')
 
                         } catch (error) {
                             console.log(error)
@@ -103,14 +106,17 @@ const VerificationPage = () => {
                                 <Field name='pin' validate={validatePin}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
-                                            <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
-                                                <PinInputField mr='1' />
-                                                <PinInputField mr='1' />
-                                                <PinInputField mr='1' />
-                                                <PinInputField mr='1' />
-                                                <PinInputField mr='1' />
-                                                <PinInputField />
-                                            </PinInput>
+                                            <HStack justify='space-evenly'>
+                                                <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
+                                                    <PinInputField mr='1' />
+                                                    <PinInputField mr='1' />
+                                                    <PinInputField mr='1' />
+                                                    <PinInputField mr='1' />
+                                                    <PinInputField mr='1' />
+                                                    <PinInputField />
+                                                </PinInput>
+                                            </HStack>
+
                                             <FormErrorMessage>{form.errors.pin}</FormErrorMessage>
                                         </FormControl>
                                     )}

@@ -9,11 +9,12 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
 
     return (
-        <VStack align="stretch" minH='100vh' h='100vh' bg='mainBGColor'>
-            <chakra.header id='header'>
-                <Flex w='100%' bg='appDarkColor' px='8' >
+        <VStack align="stretch" minH='100vh' h='100vh' bg='mainBGColor' w='full'>
 
-                    <Img src='/assets/svgs/Logo.svg' alt='' objectFit='contain' boxSize='16' />
+            <chakra.header id='header'>
+                <Flex w='100%' bg='appDarkColor' px='8' py='4'>
+
+                    <Img src='/assets/svgs/Logo.svg' alt='' objectFit='cover' />
 
                 </Flex>
             </chakra.header>
