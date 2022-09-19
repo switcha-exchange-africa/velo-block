@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 import { ToastContainer, } from 'react-toastify';
 import MainAppButton from '../components/buttons/MainAppButton'
 import SignUpPage from './auth/SignUpPage';
+import Verification2 from './settings/Verification/Verification2';
 
 
 
@@ -23,7 +24,9 @@ const Home: NextPage = () => {
       <Text>hi</Text> */}
       {/* <Settings/> */}
 
-      <SignUpPage />
+      {/* <SignUpPage /> */}
+      {/* <Verification2/> */}
+      
       {/* <MainAppButton isLoading={false} >Submit</MainAppButton> */}
 
     </div>

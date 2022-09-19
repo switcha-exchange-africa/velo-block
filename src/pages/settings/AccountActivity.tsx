@@ -36,7 +36,6 @@ const AccountActivity = () => {
         pl={0}
         py={"3rem"}
         onClick={() => router.back()}
-        color={'black'}
       >
         Back
       </Button>
