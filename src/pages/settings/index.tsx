@@ -52,7 +52,11 @@ const Settings = () => {
             pl={'1rem'}
             pr={'4rem'}>
                 <Box>
+                <Link href="/settings/security">
+                    <a>
          <Heading size='sm'>Security</Heading><br/>
+         </a>
+         </Link>
          <Text>Password,Email Change,Authenticator</Text>
          </Box>
          <MainAppButton isLoading={false} size={"md"} width={'15%'}>Update Security</MainAppButton>
@@ -84,7 +88,11 @@ const Settings = () => {
             pl={'1rem'}
             pr={'4rem'}>
                 <Box>
+                <Link href="/settings/AccountActivity">
+                    <a>
          <Heading size='sm'>Account Activity</Heading><br/>
+         </a>
+         </Link>
          <Text>Suspicious Account activity?</Text>
          </Box>
          <MainAppButton isLoading={false} size={"md"} width={'15%'}>Disable Account</MainAppButton>

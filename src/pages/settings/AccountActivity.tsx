@@ -36,7 +36,6 @@ const AccountActivity = () => {
         pl={0}
         py={"3rem"}
         onClick={() => router.back()}
-        color={'black'}
       >
         Back
       </Button>
@@ -60,10 +59,12 @@ const AccountActivity = () => {
             reactivation process until at least two hours have passed
           </Text>
         </VStack>
-        <MainAppButton isLoading={false} width={"sm"} onClick={onOpen}>
+        <MainAppButton isLoading={false} width={"sm"}>
           Disable this Account
         </MainAppButton>
       </VStack>
+
+      <Button onClick={onOpen}>Open Modal</Button>
 
       <Modal closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay

@@ -52,7 +52,7 @@ const Verification = () =>{
          <Heading size='sm'>Level 1 Verification</Heading><br/>
          <Text>Email Authentication and Phone number Authentication</Text>
          </Box>
-         <Button isLoading={false} size={"md"} background={'#E5E5E5'} width={'10%'}>Verified</Button>
+         <Button isLoading={false} size={"md"} background={'#E5E5E5'} width={'7%'}>Verified</Button>
         </HStack>
 
         <HStack 
@@ -67,7 +67,11 @@ const Verification = () =>{
          <Heading size='sm'>Level 2 Verification</Heading><br/>
          <Text>Picture of ID</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"} width={'10%'}>Verify</MainAppButton>
+         <Link href='Verification/Verification2'>
+         <a>
+         <MainAppButton isLoading={false} size={"md"} width={'100%'}>Verify</MainAppButton>
+         </a>
+         </Link>
         </HStack>
        
         <HStack 
@@ -82,7 +86,7 @@ const Verification = () =>{
          <Heading size='sm'>Level 3 Verification</Heading><br/>
          <Text>Selfie holding ID</Text>
          </Box>
-         <Button isLoading={false} size={"md"} background={'#E5E5E5'} width={'10%'}>Verify</Button>
+         <Button isLoading={false} size={"md"} background={'#E5E5E5'} width={'7%'}>Verify</Button>
         </HStack>
 
         </Box>

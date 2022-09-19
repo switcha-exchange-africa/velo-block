@@ -67,7 +67,9 @@ const Verification = () =>{
          <Heading size='sm'>Level 2 Verification</Heading><br/>
          <Text>Picture of ID</Text>
          </Box>
-         <MainAppButton isLoading={false} size={"md"} width={'10%'}>Verify</MainAppButton>
+       
+         <MainAppButton isLoading={false} size={"md"} width={'100%'}>Verify</MainAppButton>
+         
         </HStack>
        
         <HStack 

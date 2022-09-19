@@ -34,12 +34,11 @@ const Profile = () =>{
         Back
       </Button>
       <VStack alignItems={"start"} gap={"1rem"}>
-        <Link href="/settingsui/profile">
-        <a>
+      
         <Heading size="md"
          py={'2rem'}
-         ml={'1rem'}>Profile</Heading></a>
-         </Link>
+         ml={'1rem'}>Profile</Heading>
+         
         </VStack>
         <Box  background={'#FFFFFF'}
           width={"60%"}
