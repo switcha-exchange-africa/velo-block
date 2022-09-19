@@ -1,5 +1,5 @@
 import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField, HStack } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'Formik';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import MainAppButton from '../../components/buttons/MainAppButton';

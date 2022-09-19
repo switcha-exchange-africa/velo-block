@@ -4,13 +4,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { ToastContainer, } from 'react-toastify';
-<<<<<<< HEAD
 import MainAppButton from '../components/buttons/MainAppButton';
 import SignUpPage from './signup/index';
-=======
-import MainAppButton from '../components/buttons/MainAppButton'
-import SignUpPage from './auth/SignUpPage';
->>>>>>> b9d3f7feb5882db28e2c042046f5b5ab909b0c58
+
 
 
 
@@ -29,6 +25,7 @@ const Home: NextPage = () => {
       {/* <Settings/> */}
 
       <SignUpPage />
+
       {/* <MainAppButton isLoading={false} >Submit</MainAppButton> */}
 
     </div>

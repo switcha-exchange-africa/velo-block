@@ -1,7 +1,7 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Box, HStack, Flex, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/auth/AuthLayout'
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form } from 'Formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import Link from 'next/link';
 import authValidators from '../../helpers/validators/authValidators';
