@@ -2,8 +2,8 @@ import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } f
 import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import React from 'react'
-import MainAppButton from '../../components/buttons/MainAppButton'
-import AuthLayout from '../../layouts/auth/AuthLayout'
+import MainAppButton from '../../../components/buttons/MainAppButton'
+import AuthLayout from '../../../layouts/auth/AuthLayout'
 import { useRouter } from "next/router";
 
 const PersonalInformationPage1 = () => {
@@ -34,7 +34,7 @@ const PersonalInformationPage1 = () => {
 
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedEmail}</Text>
-                    <Link href='/auth/SignUpPage'>
+                    <Link href='/signup'>
                         <Text fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change email</Text>
                     </Link>
 
@@ -46,7 +46,7 @@ const PersonalInformationPage1 = () => {
                     onSubmit={(values, { setSubmitting }) => {
                         localStorage.setItem('firstname', values.firstname)
                         localStorage.setItem('lastname', values.lastname)
-                        router.push('/auth/PersonalInformationPage2')
+                        router.push('/signup/complete-personal-information')
                     }}
                     validateOnChange
                     validateOnBlur
