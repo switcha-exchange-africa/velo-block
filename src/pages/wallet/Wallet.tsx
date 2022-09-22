@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import endpoints from "../../constants/endpoints";
 import {
   Box,
   Heading,
@@ -101,6 +102,25 @@ const recentActivity = [
 ];
 
 function WalletPage(props: any) {
+  const token = typeof window != "undefined" && localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const fetchData = async () => {
+    await axios
+      .get(`${endpoints.BASE_URL}/api/auth/login`, config)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   const [address, setAddress] = useState(wallets[0].address);
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");

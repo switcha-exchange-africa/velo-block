@@ -4,8 +4,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { ToastContainer } from "react-toastify";
 import MainAppButton from "../components/buttons/MainAppButton";
-import SignUpPage from "./auth/SignUpPage";
-import Verification2 from "./settings/Verification/Verification2";
+import SignUpPage from "./signup/index";
 
 const Home: NextPage = () => {
   return (
@@ -20,8 +19,7 @@ const Home: NextPage = () => {
       <Text>hi</Text> */}
       {/* <Settings/> */}
 
-      {/* <SignUpPage /> */}
-      {/* <Verification2/> */}
+      <SignUpPage />
 
       {/* <MainAppButton isLoading={false} >Submit</MainAppButton> */}
     </div>
