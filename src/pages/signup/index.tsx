@@ -1,7 +1,7 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Box, HStack, Flex, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/auth/AuthLayout'
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form } from 'Formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import Link from 'next/link';
 import authValidators from '../../helpers/validators/authValidators';
@@ -11,6 +11,8 @@ const SignUpPage = () => {
     const router = useRouter();
     const [passwordCheckss, setPasswordChecks] = useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
+
+
     let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
     let savedPassword = typeof window != 'undefined' && localStorage.getItem('password')
     useEffect(() => {
@@ -93,7 +95,7 @@ const SignUpPage = () => {
                     onSubmit={(values, { setSubmitting }) => {
                         localStorage.setItem('email', values.email)
                         localStorage.setItem('password', values.password)
-                        router.push('/auth/PersonalInformationPage1')
+                        router.push('/signup/personal-information')
                     }}
                     validateOnChange
                     validateOnBlur
@@ -146,7 +148,7 @@ const SignUpPage = () => {
                                     Create Account
                                 </MainAppButton>
 
-                                <Link href='/auth/LoginPage'>
+                                <Link href='/signin'>
                                     <Flex alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='4' mr='2'>{'Already registered? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='4'>{' Login'}</Text>

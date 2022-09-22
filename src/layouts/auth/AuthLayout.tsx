@@ -16,15 +16,10 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
-    <VStack align="stretch" minH="100vh" h="100vh" bg="mainBGColor">
+    <VStack align="stretch" minH="100vh" h="100vh" bg="mainBGColor" w="full">
       <chakra.header id="header">
-        <Flex w="100%" bg="appDarkColor" px="8">
-          <Img
-            src="/assets/svgs/Logo.svg"
-            alt=""
-            objectFit="contain"
-            boxSize="16"
-          />
+        <Flex w="100%" bg="appDarkColor" px="8" py="4">
+          <Img src="/assets/svgs/Logo.svg" alt="" objectFit="cover" />
         </Flex>
       </chakra.header>
       <Grid templateColumns="repeat(2, 1fr)" h="full">

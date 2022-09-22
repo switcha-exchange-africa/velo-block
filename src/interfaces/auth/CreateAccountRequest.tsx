@@ -3,7 +3,7 @@ export interface CreateAccountRequest {
     password: string | any;
     firstName: string | any;
     lastName: string | any;
-    // username: string;
+    username: string;
     device: string | any;
     agreedToTerms: boolean | any
 
