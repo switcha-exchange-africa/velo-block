@@ -1,9 +1,15 @@
-import React from 'react'
+import { HStack, Heading } from "@chakra-ui/react";
+import React from "react";
+import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 
 const DashboardPage = () => {
-    return (
-        <div>DashboardPage</div>
-    )
-}
+  return (
+    <DashboardLayout>
+      <HStack justifyContent={"center"} alignItems={"center"} h="full">
+        <Heading>Children Components will remain here</Heading>
+      </HStack>
+    </DashboardLayout>
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;
