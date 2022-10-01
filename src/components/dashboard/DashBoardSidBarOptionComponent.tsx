@@ -17,7 +17,7 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
     return (
         <HStack
             px={[0, 0, 8, 8]}
-            py={[0, 0, 3, 3]}
+            py={[3, 3, 3, 3]}
             borderRadius={[0, 0, 'lg', 'xl']}
             my={[0, 0, 2, 2]}
             width={"100%"}
@@ -25,9 +25,9 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
             alignItems={["center"]}
             bg={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'primaryColor.900' : ''}
             onClick={onClick}
-            cursor={'pointer'}
+            cursor={disabled ? '' : 'pointer'}
         >
-            <Box bg={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'mainBGColor' : 'appDarkColor'} p={'2.5'}
+            <Box bg={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'gray.300' : 'appDarkColor'} p={{ lg: '2.5', base: '2' }}
                 borderRadius={'md'} >
                 {children}
             </Box>
@@ -46,7 +46,8 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
                 fontSize={["10px", "10px", "lg", "lg"]}
                 // fontWeight={["700", "700", "", ""]}
                 margin={["0"]}
-                color={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'mainBGColor' : 'appDarkColor'}
+                color={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'gray.300' : 'appDarkColor'}
+                textAlign={{ base: 'center', md: 'left' }}
             >
                 {label}
             </Text>

@@ -11,6 +11,7 @@ import {
   Select,
   Wrap,
   WrapItem,
+  Flex,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -26,6 +27,9 @@ import {
   DrawerCloseButton,
   DrawerHeader,
 } from "@chakra-ui/react";
+import QRCode from "react-qr-code";
+import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
+import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 
 const wallets = [
   {
@@ -97,6 +101,9 @@ function WalletPage(props: any) {
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false)
+  const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false)
+
   const handleClick = (newAddress: any, newLabel: any, newCoin: any) => {
     setAddress(newAddress);
     setLabel(newLabel);
@@ -106,59 +113,63 @@ function WalletPage(props: any) {
   };
 
   const btnRef = React.useRef();
-  function DrawerExample(props: any) {
-    return (
-      <>
-        <Drawer
-          isOpen={isOpen}
-          placement="right"
-          onClose={onClose}
-          finalFocusRef={btnRef}
-          size={"sm"}
-        >
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>
-              <Text>Deposit {props.label}</Text>
-            </DrawerHeader>
+  // function DrawerExample(props: any) {
+  //   return (
+  //     <>
+  //       <Drawer
+  //         isOpen={isOpen}
+  //         placement="right"
+  //         onClose={onClose}
+  //         finalFocusRef={btnRef}
+  //         size={"sm"}
+  //       >
+  //         <DrawerContent>
+  //           <DrawerCloseButton />
+  //           <DrawerHeader>
+  //             <Text>Deposit {props.label}</Text>
+  //           </DrawerHeader>
 
-            <DrawerBody>
-              <Text size={"sm"}>
-                Copy address or scan QR code to deposit {props.label}
-              </Text>
-              <Text color={"#8E9BAE"} mt={"300px"}>
-                {props.coin} Deposit Address
-              </Text>
-              {props.coin === "USDT" && (
-                <Box marginBottom={"20px"}>
-                  <FormLabel htmlFor="owner">Please Choose Network</FormLabel>
-                  <Select id="owner" defaultValue="segun">
-                    <option value="BSC">BNB Smart Chain (BEP20)</option>
-                    <option value="ERC20">Ethereum (ERC20)</option>
-                  </Select>
-                </Box>
-              )}
-              <Text fontWeight="600">{props.address}</Text>
-              <Button
-                mt={"60px"}
-                width={"100%"}
-                color={"#fff"}
-                background={"#10192D"}
-                size={"lg"}
-                onClick={() => {
-                  navigator.clipboard.writeText(address);
-                }}
-              >
-                Copy Address
-              </Button>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer>
-      </>
-    );
-  }
+  //           <DrawerBody>
+  //             <Text size={"sm"}>
+  //               Copy address or scan QR code to deposit {props.label}
+  //             </Text>
+  //             <Flex justifyContent={'center'} my={'16'}>
+  //               <QRCode value="hey" />
+  //             </Flex>
+  //             <Text color={"#8E9BAE"} >
+  //               {props.coin} Deposit Address
+  //             </Text>
+  //             {props.coin === "USDT" && (
+  //               <Box marginBottom={"20px"}>
+  //                 <FormLabel htmlFor="owner">Please Choose Network</FormLabel>
+  //                 <Select id="owner" defaultValue="segun" placeholder="Please choose network first">
+  //                   <option value="BSC">BNB Smart Chain (BEP20)</option>
+  //                   <option value="ERC20">Ethereum (ERC20)</option>
+  //                 </Select>
+  //               </Box>
+  //             )}
+  //             <Text fontWeight="600">{props.address}</Text>
+  //             <Button
+  //               mt={"60px"}
+  //               width={"100%"}
+  //               color={"#fff"}
+  //               background={"#10192D"}
+  //               size={"lg"}
+  //               onClick={() => {
+  //                 navigator.clipboard.writeText(address);
+  //               }}
+  //             >
+  //               Copy Address
+  //             </Button>
+  //           </DrawerBody>
+  //         </DrawerContent>
+  //       </Drawer>
+  //     </>
+  //   );
+  // }
   return (
     <Box w={{ lg: "80%", sm: "95%" }} margin={"20px auto"}>
+
       <Box>
         <Box
           background={"#FFFFFF"}
@@ -288,33 +299,52 @@ function WalletPage(props: any) {
                                 fontWeight="500"
                                 color={"#FB5E04"}
                                 ref={btnRef}
-                                onClick={() =>
+                                onClick={() => {
                                   handleClick(
                                     wallet.address,
                                     wallet.label,
                                     wallet.coin
                                   )
+                                  setIsDepositDrawerOpen(true)
+                                }
                                 }
                               >
                                 Deposit
                               </Text>
                             </WrapItem>
 
-                            <DrawerExample
+                            {/* <DrawerExample
                               label={label}
                               coin={coin}
                               address={address}
-                            />
+                            /> */}
+                            <WalletDepositDrawer isOpen={isOpen} isdepositOpen={isDepositDrawerOpen} setIsDepositDrawerOpen={setIsDepositDrawerOpen} onClose={onClose} btnRef={btnRef} label={label}
+                              coin={coin}
+                              address={address} />
                             <WrapItem>
                               <Text
-                                cursor={"arrow"}
+
+                                cursor={"pointer"}
                                 fontSize={"sm"}
                                 fontWeight="500"
                                 color={"#FB5E04"}
+                                ref={btnRef}
+                                onClick={() => {
+                                  handleClick(
+                                    wallet.address,
+                                    wallet.label,
+                                    wallet.coin
+                                  )
+                                  setIsWithdrawalDrawerOpen(true)
+                                }
+                                }
                               >
                                 Withdraw
                               </Text>
                             </WrapItem>
+                            <WalletWithdrawDrawer isOpen={isOpen} iswithdrawalOpen={isWithdrawalDrawerOpen} setIsWithdrawalDrawerOpen={setIsWithdrawalDrawerOpen} onClose={onClose} btnRef={btnRef} label={label}
+                              coin={coin}
+                              address={address} />
                           </Wrap>
                         </Td>
                       </Tr>
@@ -342,7 +372,7 @@ function WalletPage(props: any) {
   );
 }
 
-function openDrawer() {}
+function openDrawer() { }
 // function DrawerExample(props: any) {
 //   const { isOpen, onOpen, onClose } = useDisclosure();
 //   const btnRef = React.useRef();
