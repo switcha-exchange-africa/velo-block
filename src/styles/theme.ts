@@ -13,7 +13,12 @@ export const appTheme = extendTheme({
             900:"rgba(34, 195, 107, 1)",
             600:"rgba(34, 195, 107, 0.6)",
         }, 
-        appDarkColor:"rgba(16, 25, 45, 1)" 
+        appDarkColor:"rgba(16, 25, 45, 1)" ,
+        textLightColor:'rgba(139, 140, 167, 1)',
+        secondary2Color:{
+          900:"rgba(246, 85, 86, 1)"
+        },
+        paymentMethodColor2:"rgba(156, 44, 243, 1)"
 
   },
   components: {

@@ -2,12 +2,12 @@ import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } f
 import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import React from 'react'
-import MainAppButton from '../../components/buttons/MainAppButton'
-import AuthLayout from '../../layouts/auth/AuthLayout'
+import MainAppButton from '../../../components/buttons/MainAppButton'
+import AuthLayout from '../../../layouts/auth/AuthLayout'
 import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks'
-import { AuthState } from '../../interfaces/auth/AuthState'
-import { createAccount, sendOtp } from '../../redux/auth/authSlice'
+import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks'
+import { AuthState } from '../../../interfaces/auth/AuthState'
+import { createAccount, sendOtp } from '../../../redux/auth/authSlice'
 
 const PersonalInformationPage2 = () => {
     const router = useRouter();
@@ -43,12 +43,13 @@ const PersonalInformationPage2 = () => {
 
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
-                            await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true })).unwrap()
+                            await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
                             // await dispatch(sendOtp()).unwrap()
                             localStorage.removeItem('firstname')
+                            localStorage.removeItem('lastname')
                             localStorage.removeItem('password')
-                            router.push('/auth/VerificationPage')
-
+                            // router.push('/verify-email')
+                            router.replace('/verify-email')
 
                         } catch (error) {
                             console.log(error)

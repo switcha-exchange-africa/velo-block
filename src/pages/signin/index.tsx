@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'Formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -22,7 +22,7 @@ const LoginPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+    const { isLoading, token, user, isEmailVerified } = useAppSelector((state) => state.auth)
     return (
         <AuthLayout>
             <VStack bg='appWhiteColor' px='8' align='start' py='20'>
@@ -35,14 +35,16 @@ const LoginPage = () => {
                             await dispatch(login({ email: values.email, password: values.password })).unwrap()
                             localStorage.removeItem('lastname')
                             localStorage.removeItem('password')
-                            router.push('/dashboard/DashboardPage')
-                            // if (user?.emailVerified == true) {
-                            //     localStorage.removeItem('email')
 
-                            // } else {
-                            //     // await dispatch(sendOtp()).unwrap()
-                            //     router.push('/auth/VerificationPage')
-                            // }
+                            if (isEmailVerified == true) {
+                                console.log('check verified', isEmailVerified)
+                                router.push('/dashboard')
+                            } else {
+                                console.log('check verified', isEmailVerified)
+                                dispatch(sendOtp()).unwrap()
+                                router.push('/verify-email')
+
+                            }
 
                         } catch (error) {
                             console.log(error)
