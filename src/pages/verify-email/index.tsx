@@ -77,16 +77,17 @@ const VerificationPage = () => {
                     initialValues={{ pin: '', }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        try {
-                            await dispatch(verifyOtp(values.pin)).unwrap()
-                            localStorage.removeItem('lastname')
-                            localStorage.removeItem('email')
-                            // router.push('/dashboard')
-                            router.replace('/signin')
+                        // try {
+                        //     await dispatch(verifyOtp(values.pin)).unwrap()
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('email')
+                        //     // router.push('/dashboard')
+                        //     router.replace('/signin')
 
-                        } catch (error) {
-                            console.log(error)
-                        }
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        router.replace('/signin')
 
                     }}
                     validateOnChange
@@ -102,7 +103,7 @@ const VerificationPage = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w='xs' align='center'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='center'>
                                 <Field name='pin' validate={validatePin}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>

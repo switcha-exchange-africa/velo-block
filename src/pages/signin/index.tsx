@@ -31,24 +31,25 @@ const LoginPage = () => {
                     initialValues={{ email: '', password: '' }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        try {
-                            await dispatch(login({ email: values.email, password: values.password })).unwrap()
-                            localStorage.removeItem('lastname')
-                            localStorage.removeItem('password')
+                        // try {
+                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('password')
 
-                            if (isEmailVerified == true) {
-                                console.log('check verified', isEmailVerified)
-                                router.push('/dashboard')
-                            } else {
-                                console.log('check verified', isEmailVerified)
-                                dispatch(sendOtp()).unwrap()
-                                router.push('/verify-email')
+                        //     if (isEmailVerified == true) {
+                        //         console.log('check verified', isEmailVerified)
+                        //         router.push('/dashboard')
+                        //     } else {
+                        //         console.log('check verified', isEmailVerified)
+                        //         dispatch(sendOtp()).unwrap()
+                        //         router.push('/verify-email')
 
-                            }
+                        //     }
 
-                        } catch (error) {
-                            console.log(error)
-                        }
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        router.push('/dashboard')
                     }}
                     validateOnChange
                     validateOnBlur
@@ -63,7 +64,7 @@ const LoginPage = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w='xs' align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
                                 <Field name='email' validate={authValidators.validateEmail}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>

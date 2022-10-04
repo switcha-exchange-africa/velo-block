@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react'
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'Formik'
 import Link from 'next/link'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
@@ -42,18 +42,19 @@ const PersonalInformationPage2 = () => {
                     initialValues={{ username: '', }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        try {
-                            await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
-                            // await dispatch(sendOtp()).unwrap()
-                            localStorage.removeItem('firstname')
-                            localStorage.removeItem('lastname')
-                            localStorage.removeItem('password')
-                            // router.push('/verify-email')
-                            router.replace('/verify-email')
+                        // try {
+                        //     await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
+                        //     // await dispatch(sendOtp()).unwrap()
+                        //     localStorage.removeItem('firstname')
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('password')
+                        //     // router.push('/verify-email')
+                        //     router.replace('/verify-email')
 
-                        } catch (error) {
-                            console.log(error)
-                        }
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        router.replace('/verify-email')
 
                     }}
                     validateOnChange
@@ -68,7 +69,7 @@ const PersonalInformationPage2 = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w='xs' align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
                                 <Field name='username' validate={validateUserName}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.username && form.touched.username} py='4'>
