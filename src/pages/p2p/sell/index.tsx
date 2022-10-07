@@ -26,21 +26,21 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 
-function Buy() {
+function Sell() {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
     initialStep: 0,
   });
 
   const steps = [
     {
-      label: "Transfer payment to Seller",
+      label: "Initiate Lock",
       content: <Step1 action={nextStep} />,
     },
     {
-      label: "Pending Seller to Release Cryptos",
+      label: "Pending buyer to make payment",
       content: <Step2 action={nextStep} />,
     },
-    { label: "Completed", content: <Step3 /> },
+    { label: "Completed", content: <Step1 /> },
   ];
 
   return (
@@ -49,7 +49,7 @@ function Buy() {
         <Box background={"#fff"} padding={["20px"]}>
           <Flex justifyContent={"space-between"}>
             <Text fontSize={"lg"} fontWeight={"bold"}>
-              Buy USDT from Olu4mide
+              Sell USDT to Olu4mide
             </Text>
             <Box display={"flex"} gap={"10px"} alignItems={"center"}>
               <Text fontSize={"sm"} color={"#64748B"}>
@@ -176,8 +176,89 @@ function Buy() {
     </DashboardLayout>
   );
 }
-
 const Step1 = (props) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <Box mt={"20px"}>
+      <Box mb={"20px"}>
+        <Text>Confirm Order</Text>
+        <Flex mt={"20px"} gap="100px">
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Fiat Amount
+            </Text>
+            <Text fontSize={"lg"} color={"#FB5E04"}>
+              10,000.00 NGN
+            </Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Price
+            </Text>
+            <Text fontSize={"lg"}>580.30 NGN</Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Crypto Amount
+            </Text>
+            <Text fontSize={"lg"}>17.23 USDT</Text>
+          </Flex>
+        </Flex>
+      </Box>
+      <Box mb={"20px"}>
+        <Text>
+          Transfer the funds to the seller’s account provided below{" "}
+          <InfoIcon color={"#ADB5BD"} />{" "}
+        </Text>
+        <Flex mt={"20px"} gap="100px">
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Payment Method
+            </Text>
+            <Text fontSize={"lg"} color={"#FB5E04"}>
+              Bank Transfer
+            </Text>
+          </Flex>
+        </Flex>
+        <Flex mt={"20px"} gap="100px">
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Account Name
+            </Text>
+            <Text fontSize={"lg"} color={"#FB5E04"}>
+              OLUMIDE OYELEYE <CopyIcon />
+            </Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"}>Account Number</Text>
+            <Text fontSize={"lg"}>
+              2016939941 <CopyIcon color={"#64748B"} />
+            </Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Bank Name
+            </Text>
+            <Text fontSize={"lg"}>
+              Kuda <CopyIcon color={"#64748B"} />
+            </Text>
+          </Flex>
+        </Flex>
+      </Box>
+      <Box mb={"20px"}>
+        <Text>
+          After transfering the funds, click on the “Transfered, notify seller”
+          button <InfoIcon color={"#ADB5BD"} />
+        </Text>
+      </Box>
+      <Button onClick={props.action} background={"#FB5E04"} color="#fff">
+        Locked, notify buyer
+      </Button>
+    </Box>
+  );
+};
+const Step2 = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const Step2Modal = (props) => {
     return (
@@ -339,140 +420,10 @@ const Step1 = (props) => {
         </Text>
       </Box>
       <Button onClick={onOpen} background={"#FB5E04"} color="#fff">
-        Transfered, notify seller
+        Locked, notify buyer
       </Button>
     </Box>
   );
 };
 
-const Step2 = (props) => {
-  return (
-    <Box mt={"20px"}>
-      <Box mb={"20px"}>
-        <Text>Confirm Order</Text>
-        <Flex mt={"20px"} gap="100px">
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Fiat Amount
-            </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
-              10,000.00 NGN
-            </Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Price
-            </Text>
-            <Text fontSize={"lg"}>580.30 NGN</Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Crypto Amount
-            </Text>
-            <Text fontSize={"lg"}>17.23 USDT</Text>
-          </Flex>
-        </Flex>
-      </Box>
-      <Box mb={"20px"}>
-        <Text>
-          Transfer the funds to the seller’s account provided below{" "}
-          <InfoIcon color={"#ADB5BD"} />{" "}
-        </Text>
-        <Flex mt={"20px"} gap="100px">
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Payment Method
-            </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
-              Bank Transfer
-            </Text>
-          </Flex>
-        </Flex>
-        <Flex mt={"20px"} gap="100px">
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Account Name
-            </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
-              OLUMIDE OYELEYE <CopyIcon />
-            </Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"}>Account Number</Text>
-            <Text fontSize={"lg"}>
-              2016939941 <CopyIcon color={"#64748B"} />
-            </Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Bank Name
-            </Text>
-            <Text fontSize={"lg"}>
-              Kuda <CopyIcon color={"#64748B"} />
-            </Text>
-          </Flex>
-        </Flex>
-      </Box>
-      <Box mb={"20px"}>
-        <Text>
-          After transfering the funds, click on the “Transfered, notify seller”
-          button <InfoIcon color={"#ADB5BD"} />
-        </Text>
-      </Box>
-      <Box display={"flex"} gap="5px">
-        <Text fontSize={"md"}>To be released: </Text>
-        <Text color={"#FB5E04"}>
-          <Countdown date={Date.now() + 9000} onComplete={props.action} />
-        </Text>
-      </Box>
-      <Box my={"5px"}>
-        <Text fontSize={"xs"}>Expected to receive assets in 15 minutes</Text>
-      </Box>
-      <Flex gap={"20px"}>
-        <Text fontSize={"xs"} color={"#FB5E04"}>
-          Appeal
-        </Text>
-        <Text fontSize={"xs"}>|</Text>
-        <Text fontSize={"xs"} color={"#FB5E04"}>
-          Cancel Order
-        </Text>
-      </Flex>
-    </Box>
-  );
-};
-const Step3 = (props) => {
-  return (
-    <Box mt={"20px"}>
-      <Box mb={"20px"}>
-        <Flex mt={"20px"} gap="100px">
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Fiat Amount
-            </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
-              10,000.00 NGN
-            </Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Price
-            </Text>
-            <Text fontSize={"lg"}>580.30 NGN</Text>
-          </Flex>
-          <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"} color={"#8E9BAE"}>
-              Crypto Amount
-            </Text>
-            <Text fontSize={"lg"}>17.23 USDT</Text>
-          </Flex>
-        </Flex>
-        <Text my={"10px"}>Order Completed</Text>
-        <Text fontSize={"xs"} color={"#FB5E04"}>
-          Check my account
-        </Text>
-      </Box>
-    </Box>
-  );
-};
-
-export default Buy;
+export default Sell;
