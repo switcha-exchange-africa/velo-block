@@ -1,5 +1,5 @@
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-import { useDisclosure } from "@chakra-ui/react";
+import { Grid, GridItem, useDisclosure } from "@chakra-ui/react";
 import {
   Box,
   Text,
@@ -14,6 +14,7 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
+  InputRightElement,
   Select,
   Button,
   Table,
@@ -50,17 +51,157 @@ function P2P() {
           <ModalContent maxW="73rem" top={"20rem"} left={"7rem"}>
             <ModalCloseButton />
             <ModalBody>
-              <Text fontWeight="bold" mb="1rem">
-                You can scroll the content behind the modal
-              </Text>
+              <Flex>
+                <Box>
+                  <Box display={"flex"} alignItems={"center"} gap="5px">
+                    <Avatar
+                      size={"md"}
+                      background={"#FB5E04"}
+                      name="Maximus"
+                    ></Avatar>
+                    <Box display={"flex"} gap="10px">
+                      <Box display={"flex"} alignItems={"center"} gap="3px">
+                        <Text fontSize={"sm"}>Maximus</Text>
+                        <CheckCircleIcon
+                          color={"#22C36B"}
+                          w={"10px"}
+                          h={"10px"}
+                        />
+                      </Box>
+                      <Box
+                        display={"flex"}
+                        alignItems={"center"}
+                        gap="3px"
+                        fontSize={"xs"}
+                        color="#8E9BAE"
+                      >
+                        <Text>1534 orders</Text>|<Text>92.19% completion</Text>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box fontSize={"xs"} marginLeft="30px">
+                    <Table variant="unstyled">
+                      <Tr>
+                        <Td>
+                          <Box display={"flex"} gap="10px">
+                            <Text>Price</Text>
+                            <Text>580.89NGN</Text>
+                          </Box>
+                        </Td>
+                        <Td>
+                          <Box display={"flex"} gap="10px">
+                            <Text>Available</Text>
+                            <Text>963.16 USDT</Text>
+                          </Box>
+                        </Td>
+                      </Tr>
+                      <Tr>
+                        <Td>
+                          <Box display={"flex"} gap="10px">
+                            <Text>Payment Time Limit</Text>
+                            <Text>15 mins</Text>
+                          </Box>
+                        </Td>
+                        <Td>
+                          <Box display={"flex"} gap="10px">
+                            <Text>Buyer’s payment method</Text>
+                            <Text
+                              fontSize={"10px"}
+                              textAlign={"center"}
+                              background={"#FFF7F2"}
+                              color={"#FB5E04"}
+                              borderRadius={"3px"}
+                            >
+                              Bank Transfer
+                            </Text>
+                          </Box>
+                        </Td>
+                      </Tr>
+                      <Tr></Tr>
+                    </Table>
+                    <Text mt={"10px"} ml={"25px"} color="#FB5E04">
+                      Terms and Condition
+                    </Text>
+                    <Text ml={"25px"} mt="10px" color={"#8E9BAE"}>
+                      Always online making fast payment
+                    </Text>
+                  </Box>
+                </Box>
+                <Box borderLeft={"1px solid  #E2E8F0"} width="600px">
+                  <Box width={"300px"} margin={"0px auto"}>
+                    <Box mb={"10px"}>
+                      <Text fontSize={"xs"}>I want to buy </Text>
+                      <InputGroup size="sm">
+                        <Input
+                          borderTopLeftRadius={"5px"}
+                          borderBottomLeftRadius={"5px"}
+                          placeholder="Enter amount NGN"
+                          borderRight={"none"}
+                        />
+                        <InputRightAddon background={"none"} borderLeft="0px">
+                          <Flex gap={"20px"}>
+                            <Text fontSize={"sm"}>All</Text>
+                            <Text fontSize={"sm"}>USDT</Text>
+                          </Flex>
+                        </InputRightAddon>
+                      </InputGroup>
+                    </Box>
+                    <Box mb={"10px"}>
+                      <Text fontSize={"xs"}>I will recieve </Text>
+                      <InputGroup size="sm">
+                        <Input
+                          borderTopLeftRadius={"5px"}
+                          borderBottomLeftRadius={"5px"}
+                          placeholder="Enter amount NGN"
+                          borderRight={"none"}
+                        />
+                        <InputRightAddon background={"none"} borderLeft="0px">
+                          <Flex gap={"20px"}>
+                            <Text fontSize={"sm"}>All</Text>
+                            <Text fontSize={"sm"}>NGN</Text>
+                          </Flex>
+                        </InputRightAddon>
+                      </InputGroup>
+                    </Box>
+                    <Box>
+                      <Text fontSize={"xs"}>Payment Method </Text>
+                      <Flex
+                        alignItems={"center"}
+                        justifyContent="space-between"
+                        border={"1px solid #E2E8F0"}
+                        padding="5px 10px"
+                        borderRadius={"5px"}
+                        mb={"10px"}
+                      >
+                        <Box display={"flex"} gap="10px" alignItems={"center"}>
+                          <Text
+                            fontSize={"10px"}
+                            textAlign={"center"}
+                            background={"#FFF7F2"}
+                            color={"#FB5E04"}
+                            borderRadius={"3px"}
+                          >
+                            Bank Transfer
+                          </Text>
+                          <Text fontSize={"xs"}>1522574741</Text>
+                        </Box>
+                        <Box>
+                          <Text fontSize={"sm"}>NGN</Text>
+                        </Box>
+                      </Flex>
+                    </Box>
+                    <Box>
+                      <Flex gap={"10px"} justifyContent="center">
+                        <Button>Cancel</Button>
+                        <Button color={"#fff"} background={"#22C36B"}>
+                          Buy USDT
+                        </Button>
+                      </Flex>
+                    </Box>
+                  </Box>
+                </Box>
+              </Flex>
             </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
-            </ModalFooter>
           </ModalContent>
         </Modal>
 
