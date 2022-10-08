@@ -440,7 +440,7 @@ const Step2 = (props) => {
     </Box>
   );
 };
-const Step3 = (props) => {
+const Step3 = () => {
   return (
     <Box mt={"20px"}>
       <Box mb={"20px"}>

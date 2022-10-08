@@ -14,6 +14,7 @@ import {
   Text,
   Image,
   Flex,
+  InputGroup,
   Link,
   Button,
   Avatar,
@@ -24,7 +25,12 @@ import {
   ModalContent,
   ModalBody,
   Textarea,
+  Checkbox,
+  Input,
+  InputRightAddon,
+  CheckboxGroup,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 function Sell() {
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
@@ -40,7 +46,7 @@ function Sell() {
       label: "Pending buyer to make payment",
       content: <Step2 action={nextStep} />,
     },
-    { label: "Completed", content: <Step1 /> },
+    { label: "Completed", content: <Step3 /> },
   ];
 
   return (
@@ -208,7 +214,7 @@ const Step1 = (props) => {
       </Box>
       <Box mb={"20px"}>
         <Text>
-          Transfer the funds to the seller’s account provided below{" "}
+          Confirm reciept of account from the buyer's account provided below.{" "}
           <InfoIcon color={"#ADB5BD"} />{" "}
         </Text>
         <Flex mt={"20px"} gap="100px">
@@ -258,89 +264,111 @@ const Step1 = (props) => {
     </Box>
   );
 };
-const Step2 = (props) => {
+const Step2 = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const Step2Modal = (props) => {
+  const [verification, setVerification] = useState(false);
+  const Step2Modal = (props: any) => {
     return (
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
         <ModalContent padding={"10px 0"}>
-          <ModalHeader textAlign={"center"} padding={"10px 0"}>
-            Confirm Successful Payment
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody padding={"10px 0"}>
-            <Text
-              fontSize={"sm"}
-              padding="20px 20px"
-              borderBottom={"1px solid #8E9BAE"}
-            >
-              Please confirm that payment has been made to the seller. Malicious
-              clicks WIll lead to account frozen.
-            </Text>
-            <Box padding={"20px 20px"}>
-              <Text fontWeight={"bold"} mb={"20px"}>
-                Bank Transfer
-              </Text>
-              <Flex flexDir={"column"} gap="15px">
-                <Flex flexDir={"column"} gap="6px">
-                  <Text fontSize={"md"} color={"#8E9BAE"}>
-                    Recommended
-                  </Text>
-                  <Text fontSize={"md"}>
-                    Maximus Decimus Meridius <CopyIcon />
-                  </Text>
-                </Flex>
-                <Flex flexDir={"column"} gap="6px">
-                  <Text fontSize={"md"} color={"#8E9BAE"}>
-                    Bank Account Number
-                  </Text>
-                  <Text fontSize={"md"}>
-                    67849368932 <CopyIcon />
+          {!verification && (
+            <>
+              <ModalHeader textAlign={"center"} padding={"10px 0"}>
+                Confirm Release
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody padding={"10px 0"}>
+                <Text
+                  fontSize={"sm"}
+                  padding="20px 20px"
+                  borderBottom={"1px solid #8E9BAE"}
+                >
+                  {`Attention. lease LOG IN THE RECEVING (e.g. Banks/ ewallet) ACCOUNI
+              to connrm that the money has arrived in the "Available Balance"`}
+                </Text>
+                <Flex
+                  fontSize={"xs"}
+                  padding="15px 20px"
+                  borderBottom={"1px solid #8E9BAE"}
+                  gap="5px"
+                >
+                  <Checkbox
+                    colorScheme="orange"
+                    size={"xs"}
+                    defaultChecked
+                    disabled
+                  ></Checkbox>
+                  <Text>
+                    I confirm that the payment is successiull received with
+                    correct amount and sender information
                   </Text>
                 </Flex>
-                <Flex flexDir={"column"} gap="6px">
-                  <Text fontSize={"md"} color={"#8E9BAE"}>
-                    Bank Name
-                  </Text>
-                  <Text fontSize={"md"}>
-                    Go Money <CopyIcon />
-                  </Text>
+
+                <Flex padding={"15px"} gap="10px">
+                  <Button variant={"outline"} flex={1} bg={"#fff"}>
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={() => setVerification(true)}
+                    color={"#fff"}
+                    flex={1}
+                    bg={"#FB5E04"}
+                  >
+                    Confirm
+                  </Button>
                 </Flex>
-                <Flex flexDir={"column"} gap="6px">
-                  <Text fontSize={"md"} color={"#8E9BAE"}>
-                    Account Opening Branch
-                  </Text>
-                  <Text fontSize={"md"}>
-                    No crypto related words on payment DESCRIPTION <CopyIcon />
-                  </Text>
+              </ModalBody>
+            </>
+          )}
+          {verification && (
+            <>
+              <ModalHeader textAlign={"center"} padding={"10px 0"}>
+                Security Verification
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody padding={"10px 0"}>
+                <Text fontSize={"sm"} padding="30px 20px">
+                  {`To secure our account. please complete the following verification`}
+                </Text>
+                <Text
+                  color={"rgba(0, 0, 0, 0.75)"}
+                  fontSize={"xs"}
+                  padding="2px 20px"
+                >
+                  {`Phone Number Verification code`}
+                </Text>
+                <InputGroup size={"sm"} padding={"2px 20px"}>
+                  <Input type={"number"} />
+                  <InputRightAddon>
+                    <Text fontSize={"xs"}>Verification Code sent </Text>
+                  </InputRightAddon>
+                </InputGroup>
+                <Text
+                  color={"rgba(0, 0, 0, 0.75)"}
+                  fontSize={"xs"}
+                  padding="2px 20px"
+                >
+                  {`Enter the 6-digit code code sent to 090......3763`}
+                </Text>
+
+                <Text padding={"40px 20px"} color="#FB5E04">
+                  Security verification unavailable?
+                </Text>
+
+                <Flex padding={"15px"} gap="10px">
+                  <Button
+                    onClick={props.action}
+                    color={"#fff"}
+                    flex={1}
+                    bg={"#FB5E04"}
+                  >
+                    Submit
+                  </Button>
                 </Flex>
-              </Flex>
-            </Box>
-            <Text
-              fontSize={"xs"}
-              padding="15px 20px"
-              borderTop={"1px solid #8E9BAE"}
-            >
-              WARNING! If you click on "Transferred, next" without making the
-              payment (you need to transfer the money with the payment account,
-              not on Binance). Your account will potentially be suspended. The
-              platform reserve the rights to claim any damage caused.
-            </Text>
-            <Flex padding={"15px"} gap="10px">
-              <Button variant={"outline"} flex={1} bg={"#fff"}>
-                Cancel
-              </Button>
-              <Button
-                onClick={props.action}
-                color={"#fff"}
-                flex={1}
-                bg={"#FB5E04"}
-              >
-                Confirm
-              </Button>
-            </Flex>
-          </ModalBody>
+              </ModalBody>
+            </>
+          )}
         </ModalContent>
       </Modal>
     );
@@ -375,7 +403,7 @@ const Step2 = (props) => {
       </Box>
       <Box mb={"20px"}>
         <Text>
-          Transfer the funds to the seller’s account provided below{" "}
+          Confirm reciept of account from the buyer's account provided below.{" "}
           <InfoIcon color={"#ADB5BD"} />{" "}
         </Text>
         <Flex mt={"20px"} gap="100px">
@@ -420,10 +448,43 @@ const Step2 = (props) => {
         </Text>
       </Box>
       <Button onClick={onOpen} background={"#FB5E04"} color="#fff">
-        Locked, notify buyer
+        Release, I have received payment
       </Button>
     </Box>
   );
 };
-
+const Step3 = () => {
+  return (
+    <Box mt={"20px"}>
+      <Box mb={"20px"}>
+        <Flex mt={"20px"} gap="100px">
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Fiat Amount
+            </Text>
+            <Text fontSize={"lg"} color={"#FB5E04"}>
+              10,000.00 NGN
+            </Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Price
+            </Text>
+            <Text fontSize={"lg"}>580.30 NGN</Text>
+          </Flex>
+          <Flex flexDir={"column"} gap="6px">
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Crypto Amount
+            </Text>
+            <Text fontSize={"lg"}>17.23 USDT</Text>
+          </Flex>
+        </Flex>
+        <Text my={"10px"}>Order Completed</Text>
+        <Text fontSize={"xs"} color={"#FB5E04"}>
+          Check my account
+        </Text>
+      </Box>
+    </Box>
+  );
+};
 export default Sell;
