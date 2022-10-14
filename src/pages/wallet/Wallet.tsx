@@ -101,8 +101,8 @@ function WalletPage(props: any) {
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false)
-  const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false)
+  const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false);
+  const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
 
   const handleClick = (newAddress: any, newLabel: any, newCoin: any) => {
     setAddress(newAddress);
@@ -169,7 +169,6 @@ function WalletPage(props: any) {
   // }
   return (
     <Box w={{ lg: "80%", sm: "95%" }} margin={"20px auto"}>
-
       <Box>
         <Box
           background={"#FFFFFF"}
@@ -304,10 +303,9 @@ function WalletPage(props: any) {
                                     wallet.address,
                                     wallet.label,
                                     wallet.coin
-                                  )
-                                  setIsDepositDrawerOpen(true)
-                                }
-                                }
+                                  );
+                                  setIsDepositDrawerOpen(true);
+                                }}
                               >
                                 Deposit
                               </Text>
@@ -318,12 +316,18 @@ function WalletPage(props: any) {
                               coin={coin}
                               address={address}
                             /> */}
-                            <WalletDepositDrawer isOpen={isOpen} isdepositOpen={isDepositDrawerOpen} setIsDepositDrawerOpen={setIsDepositDrawerOpen} onClose={onClose} btnRef={btnRef} label={label}
+                            <WalletDepositDrawer
+                              isOpen={isOpen}
+                              isdepositOpen={isDepositDrawerOpen}
+                              setIsDepositDrawerOpen={setIsDepositDrawerOpen}
+                              onClose={onClose}
+                              btnRef={btnRef}
+                              label={label}
                               coin={coin}
-                              address={address} />
+                              address={address}
+                            />
                             <WrapItem>
                               <Text
-
                                 cursor={"pointer"}
                                 fontSize={"sm"}
                                 fontWeight="500"
@@ -334,17 +338,25 @@ function WalletPage(props: any) {
                                     wallet.address,
                                     wallet.label,
                                     wallet.coin
-                                  )
-                                  setIsWithdrawalDrawerOpen(true)
-                                }
-                                }
+                                  );
+                                  setIsWithdrawalDrawerOpen(true);
+                                }}
                               >
                                 Withdraw
                               </Text>
                             </WrapItem>
-                            <WalletWithdrawDrawer isOpen={isOpen} iswithdrawalOpen={isWithdrawalDrawerOpen} setIsWithdrawalDrawerOpen={setIsWithdrawalDrawerOpen} onClose={onClose} btnRef={btnRef} label={label}
+                            <WalletWithdrawDrawer
+                              isOpen={isOpen}
+                              iswithdrawalOpen={isWithdrawalDrawerOpen}
+                              setIsWithdrawalDrawerOpen={
+                                setIsWithdrawalDrawerOpen
+                              }
+                              onClose={onClose}
+                              btnRef={btnRef}
+                              label={label}
                               coin={coin}
-                              address={address} />
+                              address={address}
+                            />
                           </Wrap>
                         </Td>
                       </Tr>
@@ -372,7 +384,7 @@ function WalletPage(props: any) {
   );
 }
 
-function openDrawer() { }
+function openDrawer() {}
 // function DrawerExample(props: any) {
 //   const { isOpen, onOpen, onClose } = useDisclosure();
 //   const btnRef = React.useRef();
