@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Spacer, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import { Field, Form, Formik } from 'Formik';
+import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import CustomSelectWithIcon from '../../components/select/CustomSelectWithIcon';
 

@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Select, Text, useDisclosure, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import QRCode from 'react-qr-code';
-import { Formik, Form, Field } from 'Formik'
+import { Formik, Form, Field } from 'formik'
 import MainAppButton from '../../buttons/MainAppButton';
 import CustomSelectWithIcon from '../../select/CustomSelectWithIcon';
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';

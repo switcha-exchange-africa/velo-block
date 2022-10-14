@@ -1,6 +1,6 @@
 import { Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, VStack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { Field, Form, Formik } from 'Formik';
+import { Field, Form, Formik } from 'formik';
 import CustomSelectWithIcon from '../select/CustomSelectWithIcon';
 import MainAppButton from '../buttons/MainAppButton';
 import Link from 'next/link';

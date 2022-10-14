@@ -1,6 +1,6 @@
 import { Flex, Box, Text, VStack, FormControl, FormLabel, Input, FormErrorMessage, InputGroup, InputRightElement, Button, Menu, MenuButton, MenuItem, MenuList, Select, Img } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { Field, Form, Formik } from 'Formik';
+import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import CustomSelectWithIcon from '../../components/select/CustomSelectWithIcon';
