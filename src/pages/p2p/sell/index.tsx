@@ -39,21 +39,43 @@ function Sell() {
 
   const steps = [
     {
-      label: "Initiate Lock",
+      label: (
+        <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
+          Initiate Lock
+        </Text>
+      ),
       content: <Step1 action={nextStep} />,
+      id: 1,
     },
     {
-      label: "Pending buyer to make payment",
+      label: (
+        <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
+          Pending buyer to make payment
+        </Text>
+      ),
       content: <Step2 action={nextStep} />,
+      id: 2,
     },
-    { label: "Completed", content: <Step3 /> },
+    {
+      label: (
+        <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
+          Completed
+        </Text>
+      ),
+      content: <Step3 />,
+      id: 3,
+    },
   ];
 
   return (
     <DashboardLayout>
-      <Box width={"95%"} margin={"20px auto"} padding={["20px"]}>
+      <Box
+        width={["full", "full", "95%"]}
+        margin={"20px auto"}
+        padding={["0", "0", "20px"]}
+      >
         <Box background={"#fff"} padding={["20px"]}>
-          <Flex justifyContent={"space-between"}>
+          <Flex wrap={"wrap"} justifyContent={"space-between"}>
             <Text fontSize={"lg"} fontWeight={"bold"}>
               Sell USDT to Olu4mide
             </Text>
@@ -65,10 +87,20 @@ function Sell() {
               <CopyIcon color={"#64748B"} />
             </Box>
           </Flex>
-          <Flex justifyContent={"space-between"} mt="20px">
-            <Text fontSize={"sm"}>
-              The order is created, please wait for system confirmation.{" "}
-            </Text>
+          <Flex justifyContent={"space-between"} mt="20px" wrap={"wrap"}>
+            <Flex alignItems={"center"} gap="10px">
+              <Text fontSize={"sm"}>
+                The order is created, please wait for system confirmation.
+              </Text>
+              <Box
+                background={"#FB5E04"}
+                borderRadius="5px"
+                p="2px 10px"
+                color={"#fff"}
+              >
+                15:00
+              </Box>
+            </Flex>
             <Box display={"flex"} gap={"10px"} alignItems={"center"}>
               <Text fontSize={"sm"} color={"#64748B"}>
                 Time created
@@ -77,20 +109,25 @@ function Sell() {
             </Box>
           </Flex>
         </Box>
-        <Flex justifyContent={"space-between"}>
+        <Flex
+          justifyContent={"space-between"}
+          flexDir={["column-reverse", "column-reverse", "row"]}
+        >
           <Flex flexDir="column" mt={"20px"}>
             <Steps
               activeStep={activeStep}
               labelOrientation="vertical"
               colorScheme={"orange"}
+              responsive={false}
+              width={["375px", "375px", "auto"]}
             >
-              {steps.map(({ label, content }) => (
-                <Step label={label} key={label}>
+              {steps.map(({ label, content, id }) => (
+                <Step label={label} key={id}>
                   {content}
                 </Step>
               ))}
             </Steps>
-            {activeStep === steps.length ? (
+            {/* {activeStep === steps.length ? (
               <Flex p={4}>
                 <Button mx="auto" size="sm" onClick={reset}>
                   Reset
@@ -111,15 +148,17 @@ function Sell() {
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
               </Flex>
-            )}
+            )} */}
           </Flex>
           <Box
             display={"flex"}
+            mx={["auto", "auto", "0"]}
             mt={"20px"}
             flexDir={"column"}
+            width={["90%", "90%", "auto"]}
             borderBottomRadius={"5px"}
             bg="#fff"
-            height={"230px"}
+            height={["auto", "auto", "230px"]}
             gap="5px"
           >
             <Flex gap={"5px"} backgroundColor="#F1F5F9" padding={"10px"}>
@@ -158,8 +197,13 @@ function Sell() {
                 </Box>
               </Flex>
             </Flex>
-            <Textarea placeholder="Here is a sample placeholder" size="sm" />
+            <Textarea
+              display={["none", "none", "flex"]}
+              placeholder="Here is a sample placeholder"
+              size="sm"
+            />
             <Flex
+              display={["none", "none", "flex"]}
               px="10px"
               alignItems={"center"}
               justifyContent={"space-between"}
@@ -186,10 +230,15 @@ const Step1 = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box mt={"20px"}>
+    <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>
-        <Text>Confirm Order</Text>
-        <Flex mt={"20px"} gap="100px">
+        <Text fontSize={"md"}>Confirm Order Info</Text>
+        <Flex
+          mt={"20px"}
+          gap={["30px", "30px", "100px"]}
+          wrap="wrap"
+          fontSize={"md"}
+        >
           <Flex flexDir={"column"} gap="6px">
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Fiat Amount
@@ -214,7 +263,7 @@ const Step1 = (props) => {
       </Box>
       <Box mb={"20px"}>
         <Text>
-          Confirm reciept of account from the buyer's account provided below.{" "}
+          Transfer the funds to the seller’s account provided below{" "}
           <InfoIcon color={"#ADB5BD"} />{" "}
         </Text>
         <Flex mt={"20px"} gap="100px">
@@ -222,22 +271,24 @@ const Step1 = (props) => {
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Payment Method
             </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
+            <Text fontSize={["md", "md", "lg"]} color={"#FB5E04"}>
               Bank Transfer
             </Text>
           </Flex>
         </Flex>
-        <Flex mt={"20px"} gap="100px">
+        <Flex mt={"20px"} gap={["30px", "30px", "100px"]} wrap="wrap">
           <Flex flexDir={"column"} gap="6px">
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Account Name
             </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
+            <Text fontSize={["md", "md", "lg"]} color={"#FB5E04"}>
               OLUMIDE OYELEYE <CopyIcon />
             </Text>
           </Flex>
           <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"}>Account Number</Text>
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Account Number
+            </Text>
             <Text fontSize={"lg"}>
               2016939941 <CopyIcon color={"#64748B"} />
             </Text>
@@ -246,7 +297,7 @@ const Step1 = (props) => {
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Bank Name
             </Text>
-            <Text fontSize={"lg"}>
+            <Text fontSize={["md", "md", "lg"]}>
               Kuda <CopyIcon color={"#64748B"} />
             </Text>
           </Flex>
@@ -374,11 +425,16 @@ const Step2 = (props: any) => {
     );
   };
   return (
-    <Box mt={"20px"}>
+    <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Step2Modal action={props.action} />
       <Box mb={"20px"}>
-        <Text>Confirm Order</Text>
-        <Flex mt={"20px"} gap="100px">
+        <Text fontSize={"md"}>Confirm Order Info</Text>
+        <Flex
+          mt={"20px"}
+          gap={["30px", "30px", "100px"]}
+          wrap="wrap"
+          fontSize={"md"}
+        >
           <Flex flexDir={"column"} gap="6px">
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Fiat Amount
@@ -403,7 +459,7 @@ const Step2 = (props: any) => {
       </Box>
       <Box mb={"20px"}>
         <Text>
-          Confirm reciept of account from the buyer's account provided below.{" "}
+          Transfer the funds to the seller’s account provided below{" "}
           <InfoIcon color={"#ADB5BD"} />{" "}
         </Text>
         <Flex mt={"20px"} gap="100px">
@@ -411,22 +467,24 @@ const Step2 = (props: any) => {
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Payment Method
             </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
+            <Text fontSize={["md", "md", "lg"]} color={"#FB5E04"}>
               Bank Transfer
             </Text>
           </Flex>
         </Flex>
-        <Flex mt={"20px"} gap="100px">
+        <Flex mt={"20px"} gap={["30px", "30px", "100px"]} wrap="wrap">
           <Flex flexDir={"column"} gap="6px">
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Account Name
             </Text>
-            <Text fontSize={"lg"} color={"#FB5E04"}>
+            <Text fontSize={["md", "md", "lg"]} color={"#FB5E04"}>
               OLUMIDE OYELEYE <CopyIcon />
             </Text>
           </Flex>
           <Flex flexDir={"column"} gap="6px">
-            <Text fontSize={"md"}>Account Number</Text>
+            <Text fontSize={"md"} color={"#8E9BAE"}>
+              Account Number
+            </Text>
             <Text fontSize={"lg"}>
               2016939941 <CopyIcon color={"#64748B"} />
             </Text>
@@ -435,7 +493,7 @@ const Step2 = (props: any) => {
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Bank Name
             </Text>
-            <Text fontSize={"lg"}>
+            <Text fontSize={["md", "md", "lg"]}>
               Kuda <CopyIcon color={"#64748B"} />
             </Text>
           </Flex>
@@ -455,9 +513,9 @@ const Step2 = (props: any) => {
 };
 const Step3 = () => {
   return (
-    <Box mt={"20px"}>
+    <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>
-        <Flex mt={"20px"} gap="100px">
+        <Flex mt={"20px"} gap={["40px", "40px", "100px"]} wrap={"wrap"}>
           <Flex flexDir={"column"} gap="6px">
             <Text fontSize={"md"} color={"#8E9BAE"}>
               Fiat Amount
@@ -479,7 +537,9 @@ const Step3 = () => {
             <Text fontSize={"lg"}>17.23 USDT</Text>
           </Flex>
         </Flex>
-        <Text my={"10px"}>Order Completed</Text>
+        <Text fontSize={"md"} my={"20px"}>
+          Order Completed
+        </Text>
         <Text fontSize={"xs"} color={"#FB5E04"}>
           Check my account
         </Text>
