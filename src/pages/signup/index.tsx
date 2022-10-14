@@ -110,7 +110,7 @@ const SignUpPage = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w='xs' align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
                                 <Field name='email' validate={authValidators.validateEmail}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>

@@ -100,9 +100,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             boxShadow={["dark-lg", "dark-lg", "unset", "unset"]}
             borderRadius={["30px 30px 0 0", "30px 30px 0 0", "unset", "unset"]}
           >
-            <DashBoardSidBarOptionComponent label="Home" route="home" >
+            <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')}>
               <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.293 7.70697L7.293 0.706971C7.6835 0.316589 8.3165 0.316589 8.707 0.706971L15.707 7.70697C15.8945 7.89446 16 8.14878 16 8.41397V18C16 18.5523 15.5523 19 15 19H10V12H6V19H1C0.447715 19 0 18.5523 0 18V8.41397C0 8.14878 0.105451 7.89446 0.293 7.70697Z" fill={router.pathname.includes('home') ? 'rgba(251, 94, 4, 1)' : 'white'} />
+                <path d="M0.293 7.70697L7.293 0.706971C7.6835 0.316589 8.3165 0.316589 8.707 0.706971L15.707 7.70697C15.8945 7.89446 16 8.14878 16 8.41397V18C16 18.5523 15.5523 19 15 19H10V12H6V19H1C0.447715 19 0 18.5523 0 18V8.41397C0 8.14878 0.105451 7.89446 0.293 7.70697Z" fill={router.pathname.includes('dashboard') ? 'rgba(251, 94, 4, 1)' : 'white'} />
               </svg>
             </DashBoardSidBarOptionComponent>
 
@@ -114,13 +114,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               </svg>
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="P2P" route="p2p" >
+            <DashBoardSidBarOptionComponent label="P2P" route="p2p" disabled>
               <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 0H2C0.9 0 0 1.05 0 2.33333V18.6667C0 19.95 0.9 21 2 21H16C17.1 21 18 19.95 18 18.6667V2.33333C18 1.05 17.1 0 16 0ZM10 16.3333H5C4.45 16.3333 4 15.8083 4 15.1667C4 14.525 4.45 14 5 14H10C10.55 14 11 14.525 11 15.1667C11 15.8083 10.55 16.3333 10 16.3333ZM13 11.6667H5C4.45 11.6667 4 11.1417 4 10.5C4 9.85833 4.45 9.33333 5 9.33333H13C13.55 9.33333 14 9.85833 14 10.5C14 11.1417 13.55 11.6667 13 11.6667ZM13 7H5C4.45 7 4 6.475 4 5.83333C4 5.19167 4.45 4.66667 5 4.66667H13C13.55 4.66667 14 5.19167 14 5.83333C14 6.475 13.55 7 13 7Z" fill={router.pathname.toLowerCase().includes('p2p') ? 'rgba(251, 94, 4, 1)' : 'white'} />
               </svg>
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Swap" route="swap" >
+            <DashBoardSidBarOptionComponent label="Swap" route="swap" onClick={() => router.push('/swap')}>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.2803 8.5236L19.0002 4.76177L15.2803 1" stroke={router.pathname.toLowerCase().includes('swap') ? 'rgba(251, 94, 4, 1)' : 'white'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M1 4.76172H19" stroke={router.pathname.toLowerCase().includes('swap') ? 'rgba(251, 94, 4, 1)' : 'white'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -144,7 +144,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               </svg>
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Settings" route="setting" >
+            <DashBoardSidBarOptionComponent label="Settings" route="setting" onClick={() => router.push('/settings')}>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.8199 22.182H10.1799C9.71003 22.182 9.30347 21.855 9.20292 21.396L8.79592 19.512C8.25297 19.2741 7.73814 18.9766 7.26092 18.625L5.42392 19.21C4.97592 19.3529 4.4889 19.1643 4.25392 18.757L2.42992 15.606C2.19751 15.1985 2.27758 14.6845 2.62292 14.367L4.04792 13.067C3.98312 12.4781 3.98312 11.8839 4.04792 11.295L2.62292 9.99801C2.27707 9.68037 2.19697 9.16573 2.42992 8.75801L4.24992 5.60501C4.48491 5.1977 4.97192 5.00914 5.41992 5.15201L7.25692 5.73701C7.50098 5.55616 7.75505 5.38923 8.01792 5.23701C8.27026 5.0947 8.52995 4.96585 8.79592 4.85101L9.20392 2.96901C9.30399 2.50998 9.71011 2.1825 10.1799 2.18201H13.8199C14.2897 2.1825 14.6958 2.50998 14.7959 2.96901L15.2079 4.85201C15.4887 4.97552 15.7622 5.11509 16.0269 5.27001C16.2742 5.41278 16.5132 5.56936 16.7429 5.73901L18.5809 5.15401C19.0286 5.01168 19.515 5.20017 19.7499 5.60701L21.5699 8.76001C21.8023 9.16749 21.7223 9.68152 21.3769 9.99901L19.9519 11.299C20.0167 11.8879 20.0167 12.4821 19.9519 13.071L21.3769 14.371C21.7223 14.6885 21.8023 15.2025 21.5699 15.61L19.7499 18.763C19.515 19.1698 19.0286 19.3583 18.5809 19.216L16.7429 18.631C16.5103 18.8023 16.2687 18.9609 16.0189 19.106C15.7567 19.2579 15.4863 19.3951 15.2089 19.517L14.7959 21.396C14.6954 21.8546 14.2894 22.1816 13.8199 22.182ZM11.9959 8.18201C9.78678 8.18201 7.99592 9.97287 7.99592 12.182C7.99592 14.3911 9.78678 16.182 11.9959 16.182C14.2051 16.182 15.9959 14.3911 15.9959 12.182C15.9959 9.97287 14.2051 8.18201 11.9959 8.18201Z" fill={router.pathname.includes('setting') ? 'rgba(251, 94, 4, 1)' : 'white'} />
               </svg>
@@ -174,6 +174,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           rowSpan={[10, 10, 0, 0]}
           color={"black"}
           flex={[1, 1, "", ""]}
+          overflow={'scroll'}
         >
           {children}
         </GridItem>

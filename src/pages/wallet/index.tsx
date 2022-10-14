@@ -1,10 +1,11 @@
 import React from "react";
+import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import WalletPage from "./Wallet";
-import { useRouter } from "next/router";
 
 function Wallet() {
-  const Router = useRouter();
-  return <WalletPage />;
+  return <DashboardLayout>
+    <WalletPage />
+  </DashboardLayout>;
 }
 
 export default Wallet;

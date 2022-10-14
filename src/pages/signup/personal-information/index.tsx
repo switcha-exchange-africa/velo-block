@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react'
-import { Field, Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'Formik'
 import Link from 'next/link'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
@@ -61,7 +61,7 @@ const PersonalInformationPage1 = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w='xs' align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
                                 <Field name='firstname' validate={validateFirstName}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.firstname && form.touched.firstname} pt='4'>
