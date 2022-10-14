@@ -1,16 +1,16 @@
-name: Switcha Africa Landing Page production continuous integration
+name: Switcha Africa Exchange Page production continuous integration
 
 on:
   push:
     branches:
-      - staging-v2
+      - production
     tags:
-      - staging-v2-stage-*
+      - production-stage-*
 
 env:
   REGISTRY: "registry.digitalocean.com/switcha-africa"
   REGISTRY_NAME: "switcha-africa"
-  IMAGE_NAME: "switcha-staging-exchange-page"
+  IMAGE_NAME: "switcha-production-exchange-page"
   COMMAND: "npm run start"
 
 
@@ -44,11 +44,11 @@ jobs:
 
     - name: Build and tag the Docker image
       run: docker build --rm ./ --file ./Dockerfile
-        --tag registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
+        --tag registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
     - name: Push the tagged Docker image
       run: |
-        docker push registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
+        docker push registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
     - name: Deploy to Digital Ocean droplet via SSH action
       uses: appleboy/ssh-action@v0.1.3
@@ -57,22 +57,22 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        envs: ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}},${{ secrets.REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
+        envs: ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}},${{ secrets.REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
         script: |
             #docker stop container 
-            docker stop ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} 
+            docker stop ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}} 
 
             # rm
-            docker rm -f ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}
+            docker rm -f ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
             # pull latest image
-            docker pull registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
+            docker pull registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
             # Run a new container from a new image
-            docker run --name ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
+            docker run --name ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
