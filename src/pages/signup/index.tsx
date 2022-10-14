@@ -1,7 +1,7 @@
-import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Box, HStack, Flex, } from '@chakra-ui/react'
+import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/auth/AuthLayout'
-import { Formik, Field, Form } from 'Formik';
+import { Formik, Field, Form } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import Link from 'next/link';
 import authValidators from '../../helpers/validators/authValidators';
@@ -9,15 +9,15 @@ import { useRouter } from "next/router";
 
 const SignUpPage = () => {
     const router = useRouter();
-    const [passwordCheckss, setPasswordChecks] = useState<string[]>([])
+    const [passwordChecks, setPasswordChecks] = useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
 
 
     let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
     let savedPassword = typeof window != 'undefined' && localStorage.getItem('password')
     useEffect(() => {
-        console.log('passwordCheckssss', passwordCheckss)
-    }, [passwordCheckss, passwordChecksPassed])
+        console.log('passwordChecks', passwordChecks)
+    }, [passwordChecks, passwordChecksPassed])
 
 
     const validatePassword = (value: string,) => {
@@ -126,12 +126,12 @@ const SignUpPage = () => {
                                         <FormControl isInvalid={form.errors.password && form.touched.password} py='4'>
                                             <FormLabel>Password</FormLabel>
                                             <Input {...field} type='password' />
-                                            {form.errors.password || passwordCheckss && <Text fontWeight='light' mt='2' mb={passwordCheckss.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
+                                            {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
 
                                             {passwordChecksPassed && passwordChecksPassed.map((p: any, i: number) => {
                                                 return (<Text key={p} fontSize='sm' color='secondaryColor.900' >{'✓ ' + p}</Text>)
                                             })}
-                                            {form.errors.password && passwordCheckss.map((p: any, i: number) => {
+                                            {form.errors.password && passwordChecks.map((p: any, i: number) => {
                                                 if (passwordChecksPassed.includes(p)) {
                                                     return (<Text key={p} fontSize='sm' color='secondaryColor.900'>{'✓ ' + p}</Text>)
                                                 } else {

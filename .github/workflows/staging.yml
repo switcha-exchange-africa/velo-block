@@ -72,7 +72,7 @@ jobs:
             docker pull registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
             # Run a new container from a new image
-            docker run --name ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 3000:3000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
+            docker run --name ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 4000:4000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
