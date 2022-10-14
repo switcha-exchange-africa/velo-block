@@ -10,7 +10,8 @@ import {
     Button,
     List,
     ListIcon,
-    Flex
+    Flex,
+    Show
 } from '@chakra-ui/react'
 import MainAppButton from '../../../../components/buttons/MainAppButton'
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -23,30 +24,56 @@ const Verification = () => {
         <DashboardLayout>
             <Box
                 background={"#F8FAFC"} height={"full"}
-                color="black" px={{ lg: "10%", base: '4' }} >
-                <Button
-                    onClick={() => Router.back()}
-                    leftIcon={<ArrowBackIcon />}
-                    colorScheme="transparent"
-                    variant="solid"
-                    pl={0}
-                    py={"3rem"}
-                    color={'black'}
-                    ml={'1rem'}
-                >
-                    Back
-                </Button>
-                <VStack alignItems={"start"} gap={"1rem"}>
-                    <Heading size="md"
-                        py={'2rem'}
-                        ml={'1rem'}>Verification</Heading>
-                </VStack>
+                color="black" px={{ lg: "10%", base: '0' }} >
+                <Show above='md'>
+                    <Button
+                        onClick={() => Router.back()}
+                        leftIcon={<ArrowBackIcon />}
+                        colorScheme="transparent"
+                        variant="solid"
+                        pl={0}
+                        py={"3rem"}
+                        color={'black'}
+                        ml={'1rem'}
+                    >
+                        Back
+                    </Button>
+                    <VStack alignItems={"start"} gap={"1rem"}>
+                        <Heading size="md"
+                            py={'2rem'}
+                            ml={'1rem'}>Verification</Heading>
+                    </VStack>
+                </Show>
 
-                <SettingsOptionComponent buttonLabel='Verified' title='Level 1 Verification' disabled>Email Authentication and Phone number Authentication</SettingsOptionComponent>
 
-                <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel='Verify' title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>
+                <Show below='sm'>
+                    <Flex justifyContent={'start'} bg={'white'}>
+                        <Button
+                            onClick={() => Router.back()}
+                            leftIcon={<ArrowBackIcon />}
+                            colorScheme="transparent"
+                            variant="solid"
+                            pl={0}
+                            py={"2rem"}
+                            color={'black'}
+                            ml={'2'}
+                        >
+                            Back
+                            <Heading size="md"
+                                ml={'1rem'}>Verification</Heading>
+                        </Button>
+                    </Flex>
+                </Show>
 
-                <SettingsOptionComponent buttonLabel='Verify' title='Level 3 Verification' disabled>Selfie holding ID</SettingsOptionComponent>
+                <Box px={{ md: '0', base: '4' }} pt={{ md: '0', base: '12' }}>
+                    <SettingsOptionComponent buttonLabel='Verified' title='Level 1 Verification' disabled>Email Authentication and Phone number Authentication</SettingsOptionComponent>
+
+                    <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel='Verify' title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>
+
+                    <SettingsOptionComponent buttonLabel='Verify' title='Level 3 Verification' disabled>Selfie holding ID</SettingsOptionComponent>
+                </Box>
+
+
 
 
 

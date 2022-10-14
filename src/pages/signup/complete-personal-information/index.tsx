@@ -29,8 +29,8 @@ const PersonalInformationPage2 = () => {
     }
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' p='20'>
-                <Text fontSize='2xl' as='b'>Personal Information</Text>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
+                <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedFirstName + ' ' + savedLastName}</Text>
                     <Link href='/auth/PersonalInformationPage1'>
@@ -69,7 +69,7 @@ const PersonalInformationPage2 = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
                                 <Field name='username' validate={validateUserName}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.username && form.touched.username} py='4'>

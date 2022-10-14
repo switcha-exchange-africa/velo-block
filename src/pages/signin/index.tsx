@@ -25,7 +25,7 @@ const LoginPage = () => {
     const { isLoading, token, user, isEmailVerified } = useAppSelector((state) => state.auth)
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' py='20'>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Login to your account</Text>
                 <Formik
                     initialValues={{ email: '', password: '' }}
@@ -64,7 +64,7 @@ const LoginPage = () => {
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
                                 <Field name='email' validate={authValidators.validateEmail}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
@@ -93,7 +93,7 @@ const LoginPage = () => {
                                 <Link href=''>
                                     <Text fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
                                 </Link>
-                                <Link href='/auth/SignUpPage'>
+                                <Link href='/signup'>
                                     <Flex alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='2' mr='1'>{'New to Switcha? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2'>{' Create an account'}</Text>
