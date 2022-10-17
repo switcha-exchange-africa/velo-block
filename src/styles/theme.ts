@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import { ButtonStyles as Button } from "./buttonStyles";
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 export const appTheme = extendTheme({
 
     colors:{
@@ -24,5 +25,6 @@ export const appTheme = extendTheme({
   },
   components: {
     Button,
+    Steps
   },
 });
