@@ -1,23 +1,13 @@
-import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { ArrowBackIcon } from "@chakra-ui/icons"
 import {
-  Box,
-  Text,
-  VStack,
-  Heading,
-  HStack,
-  Button,
-  List,
-  ListIcon,
-  Input,
-  Flex,
-  Show
+  Box, Button, Flex, Heading,
+  HStack, Input, Show, Text,
+  VStack
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import MainAppButton from '../../../components/buttons/MainAppButton'
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 const Profile = () => {
   const Router = useRouter()
   return (

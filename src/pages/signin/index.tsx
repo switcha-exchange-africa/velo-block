@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'Formik';
+import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -13,7 +13,7 @@ const LoginPage = () => {
     const router = useRouter();
     const validatePassword = (value: string,) => {
         let error
-        let passwordChecks: string[] = []
+        // let passwordChecks: string[] = []
         if (!value) {
             error = 'Password should not be empty '
         }
@@ -22,7 +22,7 @@ const LoginPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, isEmailVerified } = useAppSelector((state) => state.auth)
+    const { isEmailVerified } = useAppSelector((state) => state.auth)
     return (
         <AuthLayout>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
@@ -31,24 +31,24 @@ const LoginPage = () => {
                     initialValues={{ email: '', password: '' }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        // try {
-                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
-                        //     localStorage.removeItem('lastname')
-                        //     localStorage.removeItem('password')
+                        try {
+                            await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                            localStorage.removeItem('lastname')
+                            localStorage.removeItem('password')
 
-                        //     if (isEmailVerified == true) {
-                        //         console.log('check verified', isEmailVerified)
-                        //         router.push('/dashboard')
-                        //     } else {
-                        //         console.log('check verified', isEmailVerified)
-                        //         dispatch(sendOtp()).unwrap()
-                        //         router.push('/verify-email')
+                            if (isEmailVerified == true) {
+                                console.log('check verified', isEmailVerified)
+                                router.push('/dashboard')
+                            } else {
+                                console.log('check verified', isEmailVerified)
+                                dispatch(sendOtp()).unwrap()
+                                router.push('/verify-email')
 
-                        //     }
+                            }
 
-                        // } catch (error) {
-                        //     console.log(error)
-                        // }
+                        } catch (error) {
+                            console.log(error)
+                        }
                         router.push('/dashboard')
                     }}
                     validateOnChange
@@ -56,11 +56,11 @@ const LoginPage = () => {
                     validateOnMount
                 >
                     {({
-                        handleChange,
-                        handleBlur,
+                        // handleChange,
+                        // handleBlur,
                         handleSubmit,
                         isSubmitting,
-                        values
+                        // values
                         /* and other goodies */
                     }) => (
                         <Form>

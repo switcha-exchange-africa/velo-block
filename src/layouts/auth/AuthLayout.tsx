@@ -1,14 +1,10 @@
 import {
-  VStack,
-  chakra,
+  Box, chakra,
   Flex,
   Grid,
-  GridItem,
-  Box,
-  Img,
-  Show,
+  GridItem, Img,
+  Show
 } from "@chakra-ui/react";
-import React from "react";
 // import OnboardingImage from '../../../assets/svgs/OnboardingImage.svg'
 
 interface AuthLayoutProps {

@@ -1,9 +1,9 @@
-import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField, HStack } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'Formik';
+import { Flex, FormControl, FormErrorMessage, HStack, PinInput, PinInputField, Text, VStack } from '@chakra-ui/react';
+import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import MainAppButton from '../../components/buttons/MainAppButton';
-import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
 import AuthLayout from '../../layouts/auth/AuthLayout';
 import { sendOtp, verifyOtp } from '../../redux/auth/authSlice';
 
@@ -21,7 +21,7 @@ const VerificationPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+    // const { isLoading, token, user, } = useAppSelector((state) => state.auth)
 
     const [countDown, setCountDown] = React.useState(0);
     const [runTimer, setRunTimer] = React.useState(false);
@@ -78,16 +78,16 @@ const VerificationPage = () => {
                         initialValues={{ pin: '', }}
 
                         onSubmit={async (values, { setSubmitting }) => {
-                            // try {
-                            //     await dispatch(verifyOtp(values.pin)).unwrap()
-                            //     localStorage.removeItem('lastname')
-                            //     localStorage.removeItem('email')
-                            //     // router.push('/dashboard')
-                            //     router.replace('/signin')
+                            try {
+                                await dispatch(verifyOtp(values.pin)).unwrap()
+                                localStorage.removeItem('lastname')
+                                localStorage.removeItem('email')
+                                // router.push('/dashboard')
+                                router.replace('/signin')
 
-                            // } catch (error) {
-                            //     console.log(error)
-                            // }
+                            } catch (error) {
+                                console.log(error)
+                            }
                             router.replace('/signin')
 
                         }}
@@ -96,8 +96,8 @@ const VerificationPage = () => {
                         validateOnMount
                     >
                         {({
-                            handleChange,
-                            handleBlur,
+                            // handleChange,
+                            // handleBlur,
                             handleSubmit,
                             isSubmitting,
                             setFieldValue

@@ -1,26 +1,12 @@
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import MainAppButton from "../../../../components/buttons/MainAppButton";
 import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
 
-import {
-  Box,
-  HStack,
-  IconButton,
-  Text,
-  Heading,
-  VStack,
-  Button,
-  List,
-  ListItem,
-  ListIcon,
-  UnorderedList,
-  Show,
-  Flex,
-} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout";
+import {
+  Box, Button, Flex, Heading, Show, Text, VStack
+} from "@chakra-ui/react";
 import SettingsOptionComponent from "../../../../components/dashboard/settings/SettingsOptionComponent";
+import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout";
 
 const AuthenticatorAuthenticationPage = () => {
   const router = useRouter();

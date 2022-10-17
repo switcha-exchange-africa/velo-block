@@ -1,22 +1,10 @@
-import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { ArrowBackIcon } from "@chakra-ui/icons"
 import {
-    Box,
-    Text,
-    VStack,
-    Heading,
-    HStack,
-    Button,
-    List,
-    ListIcon,
-    Flex,
-    Show
+    Box, Button, Flex, Heading, Show, VStack
 } from '@chakra-ui/react'
-import MainAppButton from '../../../../components/buttons/MainAppButton'
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
+import { useRouter } from 'next/router'
 import SettingsOptionComponent from '../../../../components/dashboard/settings/SettingsOptionComponent'
+import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
 
 const Verification = () => {
     const Router = useRouter()

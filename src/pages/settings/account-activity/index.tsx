@@ -1,30 +1,12 @@
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import MainAppButton from "../../../components/buttons/MainAppButton";
 import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
+import MainAppButton from "../../../components/buttons/MainAppButton";
 
-import {
-  Box,
-  HStack,
-  IconButton,
-  Text,
-  Heading,
-  VStack,
-  Button,
-  ListItem,
-  UnorderedList,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Flex,
-  Show,
-} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import {
+  Button, Flex, Heading, ListItem, Modal, ModalBody,
+  ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Show, Text, UnorderedList, useDisclosure, VStack
+} from "@chakra-ui/react";
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 const AccountActivity = () => {

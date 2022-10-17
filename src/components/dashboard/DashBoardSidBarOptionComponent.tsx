@@ -1,6 +1,5 @@
-import { Box, HStack, Img, Text } from '@chakra-ui/react'
+import { Box, HStack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 interface DashBoardSidBarOptionComponentProps {
     isActive?: boolean

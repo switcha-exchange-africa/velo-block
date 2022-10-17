@@ -1,21 +1,10 @@
-import React from 'react'
-import {
-    Box,
-    Text,
-    VStack,
-    Heading,
-    HStack,
-    Button,
-    ListIcon,
-    Flex,
-    Img,
-    UnorderedList,
-    ListItem,
-    Show
-} from '@chakra-ui/react'
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { useRouter } from 'next/router'
-import Link from 'next/link';
+import {
+    Box, Button, Flex, Heading,
+    HStack, Img, ListItem,
+    Show, UnorderedList
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 

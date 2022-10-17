@@ -1,20 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import {
-    Box,
-    Text,
-    VStack,
-    Heading,
-    HStack,
-    Button,
-    List,
-    ListIcon
+    Box, Heading
 } from '@chakra-ui/react'
-import MainAppButton from '../../components/buttons/MainAppButton'
-import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import SettingsButton from '../../components/dashboard/settings/SettingsButton'
+import { useRouter } from 'next/router'
 import SettingsOptionComponent from '../../components/dashboard/settings/SettingsOptionComponent'
+import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 const Settings = () => {
     const router = useRouter()
     return (

@@ -1,10 +1,10 @@
-import { Drawer, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Flex, FormLabel, Select, Button, Text, Box, useDisclosure } from '@chakra-ui/react';
-import React from 'react'
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Flex, FormLabel, Select, Text } from '@chakra-ui/react';
+import React from 'react';
 import QRCode from 'react-qr-code';
 
 const WalletDepositDrawer = (props: any) => {
-    // const { isOpen, onOpen, onClose } = useDisclosure();
-    const [show, setShow] = React.useState(false);
+    // const { isOpen, onOpen, onClose } = useDisclosure();ß
+    // const [show, setShow] = React.useState(false);
     return (
         <>
             <Drawer
