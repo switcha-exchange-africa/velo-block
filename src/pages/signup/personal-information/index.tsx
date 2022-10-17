@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react'
-import { Field, Form, Formik } from 'Formik'
+import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
