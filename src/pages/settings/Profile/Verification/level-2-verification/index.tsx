@@ -1,20 +1,10 @@
-import React from 'react'
-import {
-    Box,
-    Text,
-    VStack,
-    Heading,
-    HStack,
-    Button,
-    ListIcon,
-    Flex,
-    Img,
-    UnorderedList,
-    ListItem
-} from '@chakra-ui/react'
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { useRouter } from 'next/router'
-import Link from 'next/link';
+import {
+    Box, Button, Flex, Heading,
+    HStack, Img, ListItem,
+    Show, UnorderedList
+} from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 
@@ -24,25 +14,47 @@ const Level2Verification = () => {
         <DashboardLayout>
             <Flex flexDirection={'column'} alignItems={'center'}
                 background={"#F8FAFC"}
-                color="black" px={"10%"} >
-                <Flex w='full'> <Button
-                    onClick={() => Router.back()}
-                    leftIcon={<ArrowBackIcon />}
-                    colorScheme="transparent"
-                    variant="solid"
-                    pl={0}
-                    py={"3rem"}
-                    color={'black'}
-                    ml={'1rem'}
-                >
-                    Back
-                </Button></Flex>
+                color="black" px={{ md: "10%", base: '0' }} >
+                <Show above='md'>
+                    <Flex w='full'> <Button
+                        onClick={() => Router.back()}
+                        leftIcon={<ArrowBackIcon />}
+                        colorScheme="transparent"
+                        variant="solid"
+                        pl={0}
+                        py={"3rem"}
+                        color={'black'}
+                        ml={'1rem'}
+                    >
+                        Back
+                    </Button></Flex>
+                </Show>
+
+                <Show below='sm'>
+                    <Flex justifyContent={'start'} bg={'white'} w={'full'}>
+                        <Button
+                            onClick={() => Router.back()}
+                            leftIcon={<ArrowBackIcon />}
+                            colorScheme="transparent"
+                            variant="solid"
+                            pl={0}
+                            py={"2rem"}
+                            color={'black'}
+                            ml={'2'}
+                        >
+                            Back
+                            <Heading size="md"
+                                ml={'1rem'}>Verification</Heading>
+                        </Button>
+                    </Flex>
+                </Show>
 
 
                 <Flex
                     background={'#FFFFFF'}
                     // width={"35%"}
                     py={"8"}
+                    mt={{ base: '12', md: '0' }}
                     px={'8'}
                     flexDirection={'column'}
                     overflowY={'scroll'}

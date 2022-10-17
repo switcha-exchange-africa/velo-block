@@ -1,24 +1,22 @@
-import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react'
-import { Field, Form, Formik } from 'Formik'
+import { Flex, FormControl, FormErrorMessage, FormLabel, Input, Text, VStack } from '@chakra-ui/react'
+import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from "next/router"
 import MainAppButton from '../../../components/buttons/MainAppButton'
+import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
-import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks'
-import { AuthState } from '../../../interfaces/auth/AuthState'
-import { createAccount, sendOtp } from '../../../redux/auth/authSlice'
+import { createAccount } from '../../../redux/auth/authSlice'
 
 const PersonalInformationPage2 = () => {
     const router = useRouter();
-    const query = router.query;
+    // const query = router.query;
     let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
     let savedPassword = typeof window != 'undefined' && localStorage.getItem('password')
     let savedFirstName = typeof window != 'undefined' && localStorage.getItem('firstname')
     let savedLastName = typeof window != 'undefined' && localStorage.getItem('lastname')
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+    // const { isLoading, token, user, } = useAppSelector((state) => state.auth)
 
     const validateUserName = (value: string,) => {
         let error
@@ -29,8 +27,8 @@ const PersonalInformationPage2 = () => {
     }
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' p='20'>
-                <Text fontSize='2xl' as='b'>Personal Information</Text>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
+                <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedFirstName + ' ' + savedLastName}</Text>
                     <Link href='/auth/PersonalInformationPage1'>
@@ -42,18 +40,18 @@ const PersonalInformationPage2 = () => {
                     initialValues={{ username: '', }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        // try {
-                        //     await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
-                        //     // await dispatch(sendOtp()).unwrap()
-                        //     localStorage.removeItem('firstname')
-                        //     localStorage.removeItem('lastname')
-                        //     localStorage.removeItem('password')
-                        //     // router.push('/verify-email')
-                        //     router.replace('/verify-email')
+                        try {
+                            await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
+                            // await dispatch(sendOtp()).unwrap()
+                            localStorage.removeItem('firstname')
+                            localStorage.removeItem('lastname')
+                            localStorage.removeItem('password')
+                            // router.push('/verify-email')
+                            router.replace('/verify-email')
 
-                        // } catch (error) {
-                        //     console.log(error)
-                        // }
+                        } catch (error) {
+                            console.log(error)
+                        }
                         router.replace('/verify-email')
 
                     }}
@@ -62,14 +60,14 @@ const PersonalInformationPage2 = () => {
                     validateOnMount
                 >
                     {({
-                        handleChange,
-                        handleBlur,
+                        // handleChange,
+                        // handleBlur,
                         handleSubmit,
                         isSubmitting,
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
                                 <Field name='username' validate={validateUserName}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.username && form.touched.username} py='4'>

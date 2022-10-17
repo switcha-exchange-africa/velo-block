@@ -1,9 +1,9 @@
-import { VStack, Text, Flex, FormControl, FormErrorMessage, PinInput, PinInputField, HStack } from '@chakra-ui/react';
+import { Flex, FormControl, FormErrorMessage, HStack, PinInput, PinInputField, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import MainAppButton from '../../components/buttons/MainAppButton';
-import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
 import AuthLayout from '../../layouts/auth/AuthLayout';
 import { sendOtp, verifyOtp } from '../../redux/auth/authSlice';
 
@@ -21,7 +21,7 @@ const VerificationPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+    // const { isLoading, token, user, } = useAppSelector((state) => state.auth)
 
     const [countDown, setCountDown] = React.useState(0);
     const [runTimer, setRunTimer] = React.useState(false);
@@ -69,78 +69,85 @@ const VerificationPage = () => {
 
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' p='20'>
-                <Text fontSize='2xl' as='b'>Enter Verification Code</Text>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
+                <Text fontSize='2xl' as='b' textAlign='left'>Enter Verification Code</Text>
                 <Text fontSize='sm' fontWeight='medium' color='gray.400' mt='4' >Enter the 6 digit code we sent to your email address</Text>
                 <Text fontSize='sm' fontWeight='medium' mt='1' >{savedEmail}</Text>
-                <Formik
-                    initialValues={{ pin: '', }}
+                <Flex w={'full'} justifyContent={'center'}>
+                    <Formik
+                        initialValues={{ pin: '', }}
 
-                    onSubmit={async (values, { setSubmitting }) => {
-                        // try {
-                        //     await dispatch(verifyOtp(values.pin)).unwrap()
-                        //     localStorage.removeItem('lastname')
-                        //     localStorage.removeItem('email')
-                        //     // router.push('/dashboard')
-                        //     router.replace('/signin')
+                        onSubmit={async (values, { setSubmitting }) => {
+                            try {
+                                await dispatch(verifyOtp(values.pin)).unwrap()
+                                localStorage.removeItem('lastname')
+                                localStorage.removeItem('email')
+                                // router.push('/dashboard')
+                                router.replace('/signin')
 
-                        // } catch (error) {
-                        //     console.log(error)
-                        // }
-                        router.replace('/signin')
+                            } catch (error) {
+                                console.log(error)
+                            }
+                            router.replace('/signin')
 
-                    }}
-                    validateOnChange
-                    validateOnBlur
-                    validateOnMount
-                >
-                    {({
-                        handleChange,
-                        handleBlur,
-                        handleSubmit,
-                        isSubmitting,
-                        setFieldValue
-                        /* and other goodies */
-                    }) => (
-                        <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='center'>
-                                <Field name='pin' validate={validatePin}>
-                                    {({ field, form }: any) => (
-                                        <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
-                                            <HStack justify='space-evenly'>
-                                                <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
-                                                    <PinInputField mr='1' />
-                                                    <PinInputField mr='1' />
-                                                    <PinInputField mr='1' />
-                                                    <PinInputField mr='1' />
-                                                    <PinInputField mr='1' />
-                                                    <PinInputField />
-                                                </PinInput>
-                                            </HStack>
+                        }}
+                        validateOnChange
+                        validateOnBlur
+                        validateOnMount
+                    >
+                        {({
+                            // handleChange,
+                            // handleBlur,
+                            handleSubmit,
+                            isSubmitting,
+                            setFieldValue
+                            /* and other goodies */
+                        }) => (
+                            <Form>
+                                <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='center' >
+                                    <Field name='pin' validate={validatePin}>
+                                        {({ field, form }: any) => (
+                                            <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
+                                                <HStack justify='space-evenly' >
+                                                    <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
+                                                        <PinInputField />
+                                                        <PinInputField />
+                                                        <PinInputField />
+                                                        <PinInputField />
+                                                        <PinInputField />
+                                                        <PinInputField />
+                                                    </PinInput>
+                                                </HStack>
 
-                                            <FormErrorMessage>{form.errors.pin}</FormErrorMessage>
-                                        </FormControl>
-                                    )}
-                                </Field>
-
-
-                                <Flex alignItems='center' >
-                                    <Text fontSize='sm' fontWeight='medium' mt='2' mb='8' mr='1'>{'Resend Code in '}</Text>
-                                    <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2' mb='8'>{minutes + ':' + seconds}</Text>
-                                </Flex >
-
-                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
-                                    Verify
-                                </MainAppButton>
+                                                <FormErrorMessage>{form.errors.pin}</FormErrorMessage>
+                                            </FormControl>
+                                        )}
+                                    </Field>
 
 
-                            </VStack>
-                        </Form>
+                                    <Flex alignItems='center' >
+                                        <Text fontSize='sm' fontWeight='medium' mt='2' mb='8' mr='1'>{'Resend Code in '}</Text>
+                                        <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2' mb='8'>{minutes + ':' + seconds}</Text>
+                                    </Flex >
 
 
-                    )}
+                                    <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
+                                        Verify
+                                    </MainAppButton>
 
-                </Formik>
+
+
+
+
+
+                                </VStack>
+                            </Form>
+
+
+                        )}
+
+                    </Formik>
+                </Flex>
             </VStack>
         </AuthLayout>
     )

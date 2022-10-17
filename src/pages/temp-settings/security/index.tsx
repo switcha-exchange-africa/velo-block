@@ -1,23 +1,12 @@
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import MainAppButton from "../../../components/buttons/MainAppButton";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
+import MainAppButton from "../../../components/buttons/MainAppButton";
 
-import {
-  Box,
-  HStack,
-  IconButton,
-  Text,
-  Heading,
-  VStack,
-  Button,
-  List,
-  ListItem,
-  ListIcon,
-  UnorderedList,
-} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import {
+  Box, Button, Heading, HStack, Text, VStack
+} from "@chakra-ui/react";
 
 const Security = () => {
   const router = useRouter();

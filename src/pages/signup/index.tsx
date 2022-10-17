@@ -87,7 +87,7 @@ const SignUpPage = () => {
     }
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' py='20'>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Create your account</Text>
                 <Formik
                     initialValues={{ email: `${savedEmail ?? ''}`, password: `${savedPassword ?? ''}` }}
@@ -102,15 +102,15 @@ const SignUpPage = () => {
                     validateOnMount
                 >
                     {({
-                        handleChange,
-                        handleBlur,
+                        // handleChange,
+                        // handleBlur,
                         handleSubmit,
                         isSubmitting,
-                        values
+                        // values
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
                                 <Field name='email' validate={authValidators.validateEmail}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>

@@ -1,29 +1,12 @@
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-import MainAppButton from "../../../components/buttons/MainAppButton";
 import { useRouter } from "next/router";
+import "react-toastify/dist/ReactToastify.css";
+import MainAppButton from "../../../components/buttons/MainAppButton";
 
-import {
-  Box,
-  HStack,
-  IconButton,
-  Text,
-  Heading,
-  VStack,
-  Button,
-  ListItem,
-  UnorderedList,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Flex,
-} from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import {
+  Button, Flex, Heading, ListItem, Modal, ModalBody,
+  ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Show, Text, UnorderedList, useDisclosure, VStack
+} from "@chakra-ui/react";
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 const AccountActivity = () => {
@@ -31,21 +14,49 @@ const AccountActivity = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <DashboardLayout>
-      <Flex flexDirection={'column'} background={"#F8FAFC"} height={"full"} color="black" px={{ md: "10%", base: '5%' }}>
-        <Flex w='full'> <Button
-          onClick={() => router.back()}
-          leftIcon={<ArrowBackIcon />}
-          colorScheme="transparent"
-          variant="solid"
-          pl={0}
-          py={"3rem"}
-          color={'black'}
-        // ml={'1rem'}
-        >
-          Back
-        </Button></Flex>
-        <VStack alignItems={{ md: "start", }} gap={"1rem"} overflowY={'scroll'}>
-          <Heading size="md">Account Activity</Heading>
+      <Flex flexDirection={'column'} background={"#F8FAFC"} height={"full"} color="black" px={{ md: "10%", base: '0' }}>
+        <Show above="md">
+
+          <Flex w='full'> <Button
+            onClick={() => router.back()}
+            leftIcon={<ArrowBackIcon />}
+            colorScheme="transparent"
+            variant="solid"
+            pl={0}
+            py={"3rem"}
+            color={'black'}
+          // ml={'1rem'}
+          >
+            Back
+          </Button></Flex>
+          <VStack alignItems={"start"} gap={"1rem"}>
+            <Heading size="md"
+              py={'2rem'}
+              ml={'1rem'}>Account Activity</Heading>
+          </VStack>
+        </Show>
+
+
+        <Show below='sm'>
+          <Flex justifyContent={'start'} bg={'white'} w={'full'}>
+            <Button
+              onClick={() => router.back()}
+              leftIcon={<ArrowBackIcon />}
+              colorScheme="transparent"
+              variant="solid"
+              pl={0}
+              py={"2rem"}
+              color={'black'}
+              ml={'2'}
+            >
+              Back
+              <Heading size="md" textAlign={'start'}
+                ml={'1rem'}>Account Activity</Heading>
+            </Button>
+          </Flex>
+        </Show>
+
+        <VStack alignItems={{ md: "start", }} gap={"1rem"} overflowY={'scroll'} px={{ md: '0', base: '4' }} pt={{ md: '0', base: '12' }}>
           <VStack w={{ lg: "50%", md: '80%', base: '99%' }} bg={'#fff'} p={{ md: '8', base: '4' }} gap={"0.5rem"} alignItems={"start"}>
             <Heading size="sm">Disable your Account</Heading>
             <Text>Disabling your account will cause the following:</Text>
