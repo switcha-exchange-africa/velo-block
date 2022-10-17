@@ -1,6 +1,5 @@
-import { Box, HStack, Img, Text } from '@chakra-ui/react'
+import { Box, HStack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 interface DashBoardSidBarOptionComponentProps {
     isActive?: boolean
@@ -23,11 +22,11 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
             width={"100%"}
             flexDirection={["column", "column", "row", "row"]}
             alignItems={["center"]}
-            bg={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'primaryColor.900' : ''}
+            bg={{ md: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'primaryColor.900' : '', base: '' }}
             onClick={onClick}
             cursor={disabled ? '' : 'pointer'}
         >
-            <Box bg={isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'gray.300' : 'appDarkColor'} p={{ lg: '2.5', base: '2' }}
+            <Box bg={{ md: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : disabled ? 'gray.300' : 'appDarkColor', base: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'rgba(251, 94, 4, 0.25)' : '' }} p={{ lg: '2.5', base: '2' }}
                 borderRadius={'md'} >
                 {children}
             </Box>

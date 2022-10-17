@@ -1,5 +1,4 @@
-import { background, Button, ResponsiveValue } from "@chakra-ui/react";
-import React from "react";
+import { Button, ResponsiveValue } from "@chakra-ui/react";
 
 interface MainAppButtonProps {
     size?: ResponsiveValue<(string & {}) | "sm" | "md" | "lg" | "xs"> | undefined

@@ -1,19 +1,12 @@
-import React from 'react'
-import {
-    Box,
-    Text,
-    VStack,
-    Heading,
-    HStack,
-    Button,
-    List,
-    ListIcon,
-    Flex
-} from '@chakra-ui/react'
-import MainAppButton from '../../../components/buttons/MainAppButton'
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import {
+    Box, Button, Heading,
+    HStack, Text,
+    VStack
+} from '@chakra-ui/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import MainAppButton from '../../../components/buttons/MainAppButton';
 
 const VerificationOld = () => {
     const Router = useRouter()

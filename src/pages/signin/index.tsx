@@ -1,5 +1,5 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'Formik';
+import { Field, Form, Formik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
@@ -13,7 +13,7 @@ const LoginPage = () => {
     const router = useRouter();
     const validatePassword = (value: string,) => {
         let error
-        let passwordChecks: string[] = []
+        // let passwordChecks: string[] = []
         if (!value) {
             error = 'Password should not be empty '
         }
@@ -22,33 +22,33 @@ const LoginPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isLoading, token, user, isEmailVerified } = useAppSelector((state) => state.auth)
+    const { isEmailVerified } = useAppSelector((state) => state.auth)
     return (
         <AuthLayout>
-            <VStack bg='appWhiteColor' px='8' align='start' py='20'>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Login to your account</Text>
                 <Formik
                     initialValues={{ email: '', password: '' }}
 
                     onSubmit={async (values, { setSubmitting }) => {
-                        // try {
-                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
-                        //     localStorage.removeItem('lastname')
-                        //     localStorage.removeItem('password')
+                        try {
+                            await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                            localStorage.removeItem('lastname')
+                            localStorage.removeItem('password')
 
-                        //     if (isEmailVerified == true) {
-                        //         console.log('check verified', isEmailVerified)
-                        //         router.push('/dashboard')
-                        //     } else {
-                        //         console.log('check verified', isEmailVerified)
-                        //         dispatch(sendOtp()).unwrap()
-                        //         router.push('/verify-email')
+                            if (isEmailVerified == true) {
+                                console.log('check verified', isEmailVerified)
+                                router.push('/dashboard')
+                            } else {
+                                console.log('check verified', isEmailVerified)
+                                dispatch(sendOtp()).unwrap()
+                                router.push('/verify-email')
 
-                        //     }
+                            }
 
-                        // } catch (error) {
-                        //     console.log(error)
-                        // }
+                        } catch (error) {
+                            console.log(error)
+                        }
                         router.push('/dashboard')
                     }}
                     validateOnChange
@@ -56,15 +56,15 @@ const LoginPage = () => {
                     validateOnMount
                 >
                     {({
-                        handleChange,
-                        handleBlur,
+                        // handleChange,
+                        // handleBlur,
                         handleSubmit,
                         isSubmitting,
-                        values
+                        // values
                         /* and other goodies */
                     }) => (
                         <Form>
-                            <VStack w={{ lg: 'xs', md: 'sm', base: '2xs' }} align='start'>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
                                 <Field name='email' validate={authValidators.validateEmail}>
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
@@ -93,7 +93,7 @@ const LoginPage = () => {
                                 <Link href=''>
                                     <Text fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
                                 </Link>
-                                <Link href='/auth/SignUpPage'>
+                                <Link href='/signup'>
                                     <Flex alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='2' mr='1'>{'New to Switcha? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2'>{' Create an account'}</Text>

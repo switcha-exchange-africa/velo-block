@@ -16,13 +16,14 @@ const SettingsOptionComponent = ({ disabled = false, title, children, onClick, b
             background={'#FFFFFF'}
             width={"100%"}
             justifyContent={"space-between"}
-            py={"15px"}
+            py={{ md: "15px", base: '2' }}
             mt={'1rem'}
-            ml={'2rem'}
+            // mx={{ base: '4', md: '0' }}
             mr={{ md: '2rem', base: '2rem' }}
-            pl={'1rem'}
-            pr={{ md: '4rem', base: '2rem' }}>
-            <Box mr={{ md: '2rem', base: '1' }}>
+            pl={{ md: '1rem', base: '2' }}
+            pr={{ md: '4rem', base: '2' }}
+        >
+            <Box mr={{ md: '2rem', base: '2' }}>
                 <Heading size='sm' pb={'0.8rem'}>{title}</Heading>
                 <Text fontSize={{ base: 'xs', lg: 'md' }}>{children}</Text>
             </Box>

@@ -1,29 +1,13 @@
-import { Flex, Box, Text, VStack, FormControl, FormLabel, Input, FormErrorMessage, InputGroup, InputRightElement, Button, Menu, MenuButton, MenuItem, MenuList, Select, Img } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { Field, Form, Formik } from 'Formik';
-import MainAppButton from '../../components/buttons/MainAppButton';
-import { ChevronDownIcon } from '@chakra-ui/icons';
-import CustomSelectWithIcon from '../../components/select/CustomSelectWithIcon';
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import QuickBuyComponent from '../../components/quick-trade/QuickBuyComponent';
 import QuickSellComponent from '../../components/quick-trade/QuickSellComponent';
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout';
 
 
-const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
-const currencyOptions = [{ value: 'NGN', label: 'NGN', imageUrl: '/assets/svgs/NGN.svg', },]
 const QuickTrade = () => {
     const [isBuySelected, setIsBuySelected] = useState(true)
-    const [creditCoin, setCreditCoin] = useState(`${coinOptions[0].value}`)
-    const [debitCoin, setDebitCoin] = useState(`${coinOptions[1].value}`)
 
-    const toggleBuySelected = (type: string) => {
-        if (type == 'buy') {
-            setIsBuySelected(true)
-        } else {
-            setIsBuySelected(false)
-        }
-
-    }
     return (
         <DashboardLayout>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>

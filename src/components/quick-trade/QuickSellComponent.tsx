@@ -1,10 +1,9 @@
-import { Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, VStack, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import { Field, Form, Formik } from 'Formik';
-import CustomSelectWithIcon from '../select/CustomSelectWithIcon';
-import MainAppButton from '../buttons/MainAppButton';
-import Link from 'next/link';
+import { Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
+import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import MainAppButton from '../buttons/MainAppButton';
+import CustomSelectWithIcon from '../select/CustomSelectWithIcon';
 
 const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 const currencyOptions = [{ value: 'NGN', label: 'NGN', imageUrl: '/assets/svgs/NGN.svg', },]
@@ -26,11 +25,11 @@ const QuickSellComponent = () => {
                 validateOnMount
             >
                 {({
-                    handleChange,
-                    handleBlur,
+                    // handleChange,
+                    // handleBlur,
                     handleSubmit,
                     isSubmitting,
-                    values
+                    // values
                     /* and other goodies */
                 }) => (
                     <Form>

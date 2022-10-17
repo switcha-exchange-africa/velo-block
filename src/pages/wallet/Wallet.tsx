@@ -376,6 +376,7 @@ function WalletPage(props: any) {
                 <Text fontWeight={600}>Recent Activity</Text>
               </Box>
               <RecentTransaction />
+
             </Box>
           </WrapItem>
         </Wrap>

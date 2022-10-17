@@ -1,6 +1,5 @@
-import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Img, Menu, MenuButton, MenuItem, MenuList, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, } from '@chakra-ui/react'
-import React from 'react'
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Button, Flex, Img, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 interface CustomSelectWithIconProps {
     items: {
