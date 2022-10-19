@@ -1,9 +1,10 @@
-import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Spacer, Text, VStack } from '@chakra-ui/react'
+import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Spacer, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 import CustomSelectWithIcon from '../../components/select/CustomSelectWithIcon';
+import { useGetAllCoinsQuery } from '../../redux/services/buy-sell.service';
 
 const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 
@@ -12,6 +13,8 @@ const Swap = () => {
     const [creditCoin, setCreditCoin] = useState(`${coinOptions[0].value}`)
     const [debitCoin, setDebitCoin] = useState(`${coinOptions[1].value}`)
     const [isPreviewConversionClicked, setIsPreviewConversionClicked] = useState(false)
+
+    const allCoins: any = useGetAllCoinsQuery()
     return (
         <DashboardLayout>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
@@ -63,7 +66,7 @@ const Swap = () => {
                                                     </FormControl>
                                                 )}
                                             </Field>
-
+                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img src={'/assets/svgs/swapIcon.svg'} alt='swap icon' /></Flex>
                                             <Field name='creditCoinValue' >
                                                 {({ field, form }: any) => (
                                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>

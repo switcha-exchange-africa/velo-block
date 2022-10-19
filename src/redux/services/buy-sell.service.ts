@@ -52,7 +52,14 @@ export const buySellAPi = baseApi.injectEndpoints({
       invalidatesTags: ["Wallet"],
     }),
 
-    getCoins: builder.query<any, any>({
+    getAllCoins: builder.query<any, void>({
+      query: () => `${endpoints.GET_COINS_URL}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    getCoinsByType: builder.query<any, any>({
       query: (type) => `${endpoints.GET_COINS_URL}?type=${type}`,
       transformResponse: (responseData: any) => {
         return responseData;
@@ -75,5 +82,6 @@ export const {
   useBuyMutation,
   useSellMutation,
   useGetSingleCoinQuery,
-  useGetCoinsQuery,
+  useGetAllCoinsQuery,
+  useGetCoinsByTypeQuery,
 } = buySellAPi;

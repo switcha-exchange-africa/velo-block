@@ -17,7 +17,7 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
         <HStack
             px={[0, 0, 8, 8]}
             py={[3, 3, 3, 3]}
-            borderRadius={[0, 0, 'lg', 'xl']}
+            borderRadius={[0, 0, 'md', 'lg']}
             my={[0, 0, 2, 2]}
             width={"100%"}
             flexDirection={["column", "column", "row", "row"]}
