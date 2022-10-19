@@ -6,6 +6,8 @@ import MainAppButton from '../../components/buttons/MainAppButton';
 import Link from 'next/link';
 import authValidators from '../../helpers/validators/authValidators';
 import { useRouter } from "next/router";
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
+import { setEmailAndPassword } from '../../redux/features/auth/authSlice';
 
 const SignUpPage = () => {
     const router = useRouter();
@@ -19,7 +21,7 @@ const SignUpPage = () => {
         console.log('passwordChecks', passwordChecks)
     }, [passwordChecks, passwordChecksPassed])
 
-
+    const dispatch = useAppDispatch();
     const validatePassword = (value: string,) => {
         let error
         let passwordChecks: string[] = []
@@ -92,9 +94,10 @@ const SignUpPage = () => {
                 <Formik
                     initialValues={{ email: `${savedEmail ?? ''}`, password: `${savedPassword ?? ''}` }}
 
-                    onSubmit={(values, { setSubmitting }) => {
-                        localStorage.setItem('email', values.email)
-                        localStorage.setItem('password', values.password)
+                    onSubmit={(values, _) => {
+                        // localStorage.setItem('email', values.email)
+                        // localStorage.setItem('password', values.password)
+                        dispatch(setEmailAndPassword({ email: values.email, password: values.password }))
                         router.push('/signup/personal-information')
                     }}
                     validateOnChange
@@ -128,10 +131,10 @@ const SignUpPage = () => {
                                             <Input {...field} type='password' />
                                             {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
 
-                                            {passwordChecksPassed && passwordChecksPassed.map((p: any, i: number) => {
+                                            {passwordChecksPassed && passwordChecksPassed.map((p: any,) => {
                                                 return (<Text key={p} fontSize='sm' color='secondaryColor.900' >{'✓ ' + p}</Text>)
                                             })}
-                                            {form.errors.password && passwordChecks.map((p: any, i: number) => {
+                                            {form.errors.password && passwordChecks.map((p: any,) => {
                                                 if (passwordChecksPassed.includes(p)) {
                                                     return (<Text key={p} fontSize='sm' color='secondaryColor.900'>{'✓ ' + p}</Text>)
                                                 } else {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   VStack,
@@ -15,6 +15,9 @@ import {
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
+import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
+import LoginPage from "../../pages/signin";
 
 interface DashboardLayoutProps {
   children: any;
@@ -22,6 +25,23 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const router = useRouter()
+  const { token } = useAppSelector((state) => state.auth)
+  const dispatch = useAppDispatch();
+  const checkForToken = () => {
+    dispatch(getTokenFromLocalStorage())
+    // alert(token)
+    // if (!token) {
+    //   router.replace('/signin')
+    // }
+  }
+
+  useEffect(() => {
+    checkForToken()
+  }, [])
+
+  if (!token) {
+    return (<LoginPage />)
+  }
 
   return (
     <Flex
