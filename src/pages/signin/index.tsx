@@ -1,13 +1,16 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
+import _ from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react'
+import React, { useState } from 'react'
 import MainAppButton from '../../components/buttons/MainAppButton';
+import appAlert from '../../helpers/appAlert';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import authValidators from '../../helpers/validators/authValidators';
 import AuthLayout from '../../layouts/auth/AuthLayout';
-import { login, sendOtp } from '../../redux/auth/authSlice';
+import { clearFromLocalStorage, setCredentials, setEmailVerified } from '../../redux/features/auth/authSlice';
+import { useLoginMutation, useSendOtpQuery, } from '../../redux/services/auth.service';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -22,7 +25,11 @@ const LoginPage = () => {
     }
 
     const dispatch = useAppDispatch();
-    const { isEmailVerified } = useAppSelector((state) => state.auth)
+    const [login] = useLoginMutation()
+    const [shouldSendOtp, setShouldSendOtp] = useState(false)
+    // const { isEmailVerified } = useAppSelector((state) => state.auth)
+
+    const sendOtp = useSendOtpQuery(undefined, { skip: shouldSendOtp == false, refetchOnMountOrArgChange: true, })
     return (
         <AuthLayout>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
@@ -32,24 +39,59 @@ const LoginPage = () => {
 
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
-                            await dispatch(login({ email: values.email, password: values.password })).unwrap()
-                            localStorage.removeItem('lastname')
-                            localStorage.removeItem('password')
+                            setSubmitting(true)
+                            const response: any = await login({ email: values.email, password: values.password })
+                            // alert(JSON.stringify(response))
+                            if (response?.data?.status == 201 || response?.data?.status == 200) {
+                                setSubmitting(false)
+                                dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
+                                // alert(JSON.stringify(response?.data?.data))
+                                appAlert.success('Login Successful')
+                                dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                dispatch(clearFromLocalStorage())
+                                router.replace('/dashboard')
+                                // if (isEmailVerified == true) {
+                                //     appAlert.success('Login Successful')
+                                //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                //     dispatch(clearFromLocalStorage())
+                                //     router.replace('/dashboard')
+                                // } else {
+                                //     router.replace('/verify-email')
+                                // }
 
-                            if (isEmailVerified == true) {
-                                console.log('check verified', isEmailVerified)
-                                router.push('/dashboard')
+                            } else if (response?.data?.status == 202) {
+                                dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                setShouldSendOtp(true)
+                                const res: any = sendOtp.refetch()
+                                // alert(JSON.stringify(res))
+                                router.replace('/verify-email')
                             } else {
-                                console.log('check verified', isEmailVerified)
-                                dispatch(sendOtp()).unwrap()
-                                router.push('/verify-email')
-
+                                setSubmitting(false)
+                                appAlert.error(`${response?.error?.data?.message}`)
                             }
-
                         } catch (error) {
+                            setSubmitting(false)
                             console.log(error)
                         }
-                        router.push('/dashboard')
+                        // try {
+                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('password')
+
+                        //     if (isEmailVerified == true) {
+                        //         console.log('check verified', isEmailVerified)
+                        //         router.push('/dashboard')
+                        //     } else {
+                        //         console.log('check verified', isEmailVerified)
+                        //         dispatch(sendOtp()).unwrap()
+                        //         router.push('/verify-email')
+
+                        //     }
+
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        // router.push('/dashboard')
                     }}
                     validateOnChange
                     validateOnBlur

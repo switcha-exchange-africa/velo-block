@@ -3,9 +3,11 @@ import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useRouter } from "next/router"
 import MainAppButton from '../../../components/buttons/MainAppButton'
+import appAlert from '../../../helpers/appAlert'
 import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
-import { createAccount } from '../../../redux/auth/authSlice'
+import { setCredentials } from '../../../redux/features/auth/authSlice'
+import { useCreateAccountMutation } from '../../../redux/services/auth.service'
 
 const PersonalInformationPage2 = () => {
     const router = useRouter();
@@ -17,6 +19,7 @@ const PersonalInformationPage2 = () => {
 
     const dispatch = useAppDispatch();
     // const { isLoading, token, user, } = useAppSelector((state) => state.auth)
+    const [createAccount] = useCreateAccountMutation()
 
     const validateUserName = (value: string,) => {
         let error
@@ -41,19 +44,30 @@ const PersonalInformationPage2 = () => {
 
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
-                            await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
+                            setSubmitting(true)
+                            const response: any = await createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })
+                            // alert(JSON.stringify(response))
+                            if (response?.data?.status == 201 || response?.data?.status == 200) {
+                                setSubmitting(false)
+                                appAlert.success('Sign Up Successful')
+                                dispatch(setCredentials({ user: response?.date?.data, token: response?.data?.token }))
+                                router.replace('/verify-email')
+                            } else {
+                                setSubmitting(false)
+                                // alert(JSON.stringify(response?.error?.data?.message))
+                                appAlert.error(`${response?.error?.data?.message}`)
+                            }
+                            // alert(JSON.stringify(response))
+                            // await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
                             // await dispatch(sendOtp()).unwrap()
-                            localStorage.removeItem('firstname')
-                            localStorage.removeItem('lastname')
-                            localStorage.removeItem('password')
+                            // localStorage.removeItem('firstname')
+                            // localStorage.removeItem('lastname')
+                            // localStorage.removeItem('password')
                             // router.push('/verify-email')
-                            router.replace('/verify-email')
-
                         } catch (error) {
+                            setSubmitting(false)
                             console.log(error)
                         }
-                        router.replace('/verify-email')
-
                     }}
                     validateOnChange
                     validateOnBlur
@@ -68,7 +82,7 @@ const PersonalInformationPage2 = () => {
                     }) => (
                         <Form>
                             <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
-                                <Field name='username' validate={validateUserName}>
+                                <Field name='username' validate={validateUserName} >
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.username && form.touched.username} py='4'>
                                             <FormLabel>Username</FormLabel>

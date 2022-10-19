@@ -19,7 +19,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           <Img src="/assets/svgs/Logo.svg" alt="" w={'32'} />
         </Flex>
       </chakra.header>
-      <Flex alignItems={'center'} justifyContent={'center'} h={'full'}>
+      <Flex alignItems={'center'} justifyContent={'center'} h={'full'} overflow={'scroll'}>
         <Grid templateColumns={{ md: "repeat(2, 1fr)", base: '1fr' }} gap={{ md: '16', base: '1' }} h="full" >
           <Show above='md'>
             <GridItem w="100%" h="full">
@@ -39,7 +39,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             </GridItem>
           </Show>
           <GridItem w="100%" h="full" >
-            <Flex justifyContent="center" h="full" alignItems="center" overflow={'scroll'}>
+            <Flex justifyContent="center" h="full" alignItems="center" >
               {/* <Box p='4' bg='red.400'>
                             Box 1
                         </Box> */}
