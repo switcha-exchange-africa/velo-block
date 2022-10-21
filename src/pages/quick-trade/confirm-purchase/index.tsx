@@ -23,7 +23,7 @@ const ConfirmPurchase = () => {
                         <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} />
                         <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} />
                         <Box p={'8'}></Box>
-                        <MainAppButton isLoading={false} backgroundColor={'secondaryColor.900'} >
+                        <MainAppButton isLoading={false} backgroundColor={'secondaryColor.900'} onClick={() => router.push('/quick-trade/notify-seller')} >
                             Confirm Purchase
                         </MainAppButton>
 

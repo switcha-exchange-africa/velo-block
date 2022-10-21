@@ -226,7 +226,7 @@ function Sell() {
     </DashboardLayout>
   );
 }
-const Step1 = (props) => {
+const Step1 = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
