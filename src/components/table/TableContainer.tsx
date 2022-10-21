@@ -157,7 +157,7 @@ const TableComponent = () => {
                         <Td>
                             <HStack>
                                 <Box bg="#FB5E04" color="white" padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px">M</Box>
-                                <HStack flexDirection="column"  alignItems="flex-start" >
+                                <HStack flexDirection="column"  alignItems="flex-start" paddingLeft="0">
                                     <HStack>
                                         <Text fontSize="14px" fontWeight="400" color="#FB5E04">Maximus</Text>
                                         <Flex>

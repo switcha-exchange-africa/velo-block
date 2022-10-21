@@ -4,6 +4,7 @@ import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
 import TableComponent from "../../components/table/TableContainer";
+import Link from "next/link";
 
 const DashboardPage = () => {
   const minWeightProps = ["140px", "140px", "140px", "0%"]
@@ -92,7 +93,24 @@ const DashboardPage = () => {
           </Heading>
         </Box>
       </HStack>
-      
+          
+      <HStack px="28px" mb="12px" justifyContent="space-between">
+        <HStack>
+          <Text cursor="pointer">Buy</Text>
+          <Box h="16px" w="2px" bg="#8B8CA7"></Box>
+          <Text cursor="pointer">Sell</Text>
+        </HStack>
+
+        <Link href="/" color="#8B8CA7">see all</Link> 
+        
+      </HStack>
+
+      <HStack px="28px" fontSize="14px" mb="12px" spacing="56px">
+        <Link href="/" color="#8B8CA7">BTC</Link> 
+        <Link href="/" color="#8B8CA7">ETH</Link>
+        <Link href="/" color="#8B8CA7">USDT</Link>
+        <Link href="/" color="#8B8CA7">USDC</Link>
+      </HStack>
 
       <TableComponent />
 
