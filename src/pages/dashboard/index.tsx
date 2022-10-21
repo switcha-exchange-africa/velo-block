@@ -63,7 +63,7 @@ const DashboardPage = () => {
             41,950.87
           </Heading>
         </Box>
-        
+
         <Box minW={minWeightProps}>
           <Flex fontSize="13px">
             <Text>BTC/USDT</Text>
@@ -96,14 +96,16 @@ const DashboardPage = () => {
         </Box>
       </HStack>
           
-      <HStack px="28px" mb="12px" justifyContent="space-between">
+      <HStack px="28px" mb="12px" justifyContent="space-between" alignItems="center">
         <HStack>
           <Text cursor="pointer">Buy</Text>
           <Box h="16px" w="2px" bg="#8B8CA7"></Box>
-          <Text cursor="pointer">Sell</Text>
+          <Text cursor="pointer" color="#8B8CA7" >Sell</Text>
         </HStack>
 
-        <Link href="/" color="#8B8CA7">see all</Link> 
+        <Link href="/" >
+          <Text color="#8B8CA7" borderBottom="1px solid #8B8CA7"> see all</Text>
+        </Link> 
         
       </HStack>
 
