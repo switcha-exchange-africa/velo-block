@@ -15,10 +15,9 @@ const DashboardPage = () => {
         <Heading>Exchange Crypto with <Text as="span" color="#FB5E04">Low Fees</Text></Heading>
         <Text>Convert your crypto within seconds</Text>
       </Box>
-      {/* "sm" | "md" | "lg" | "xs" */}
       <HStack mt="48px" maxW="100%" justifyContent="space-between" overflowX="scroll" sx={{
         '::-webkit-scrollbar': {
-          display: ["scroll", "scroll", "none", "none"]
+          display: ["scroll", "scroll", "scroll", "none"]
         }}}
       >
         {CardData.map((data) => (
