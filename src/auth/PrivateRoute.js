@@ -5,7 +5,7 @@ import { isLogin } from "../utils/userLoggedInCheck";
 const PrivateRoute = ({Component}) => {
   const auth = isLogin();
 
-  return auth ? <Component /> : <Navigate to="/login" />
+  return !auth ? <Component /> : <Navigate to="/login" />
 };
 
 export default PrivateRoute;
