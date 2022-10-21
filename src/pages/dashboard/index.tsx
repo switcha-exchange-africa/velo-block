@@ -53,6 +53,17 @@ const DashboardPage = () => {
           </Heading>
         </Box>
 
+          
+        <Box minW={minWeightProps}>
+          <Flex fontSize="13px">
+            <Text>BTC/USDT</Text>
+            <Text color="#22C36B" ml="4px">+0.60%</Text>
+          </Flex>
+          <Heading fontSize="24px" color="#22C36B">
+            41,950.87
+          </Heading>
+        </Box>
+        
         <Box minW={minWeightProps}>
           <Flex fontSize="13px">
             <Text>BTC/USDT</Text>
@@ -63,15 +74,6 @@ const DashboardPage = () => {
           </Heading>
         </Box>
         
-        <Box minW={minWeightProps}>
-          <Flex fontSize="13px">
-            <Text>BTC/USDT</Text>
-            <Text color="#22C36B" ml="4px">+0.60%</Text>
-          </Flex>
-          <Heading fontSize="24px" color="#22C36B">
-            41,950.87
-          </Heading>
-        </Box>
 
         <Box minW={minWeightProps}>
           <Flex fontSize="13px">
