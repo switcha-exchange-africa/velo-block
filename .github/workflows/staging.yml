@@ -1,4 +1,4 @@
-name: Switcha Africa Landing Page production continuous integration
+name: Switcha Africa Exchange Staging continuous integration
 
 on:
   push:
