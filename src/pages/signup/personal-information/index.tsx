@@ -5,6 +5,8 @@ import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
 import { useRouter } from "next/router";
+import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
+import { setFirstNameAndLastName } from '../../../redux/features/auth/authSlice'
 
 const PersonalInformationPage1 = () => {
     const router = useRouter();
@@ -12,7 +14,7 @@ const PersonalInformationPage1 = () => {
     let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
     let savedFirstName = typeof window != 'undefined' && localStorage.getItem('firstname')
     let savedLastName = typeof window != 'undefined' && localStorage.getItem('lastname')
-
+    const dispatch = useAppDispatch();
     const validateFirstName = (value: string,) => {
         let error
         if (!value) {
@@ -43,9 +45,10 @@ const PersonalInformationPage1 = () => {
                 <Formik
                     initialValues={{ firstname: `${savedFirstName ?? ''}`, lastname: `${savedLastName ?? ''}` }}
 
-                    onSubmit={(values, { setSubmitting }) => {
-                        localStorage.setItem('firstname', values.firstname)
-                        localStorage.setItem('lastname', values.lastname)
+                    onSubmit={(values, _) => {
+                        // localStorage.setItem('firstname', values.firstname)
+                        // localStorage.setItem('lastname', values.lastname)
+                        dispatch(setFirstNameAndLastName({ firstname: values.firstname, lastname: values.lastname }))
                         router.push('/signup/complete-personal-information')
                     }}
                     validateOnChange
@@ -53,11 +56,11 @@ const PersonalInformationPage1 = () => {
                     validateOnMount
                 >
                     {({
-                        handleChange,
-                        handleBlur,
+                        // handleChange,
+                        // handleBlur,
                         handleSubmit,
                         isSubmitting,
-                        values
+                        // values
                         /* and other goodies */
                     }) => (
                         <Form>

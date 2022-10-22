@@ -1,37 +1,96 @@
-import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Spacer, Text, VStack } from '@chakra-ui/react'
+import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
-import CustomSelectWithIcon from '../../components/select/CustomSelectWithIcon';
 
-const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
+import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetAllCoinsQuery, useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
+import RenderCoinsDropdown from '../../components/select/RenderCoinsDropdown';
+import { useSwapMutation } from '../../redux/services/swap.service';
+import appAlert from '../../helpers/appAlert';
+import { useRouter } from 'next/router';
+import SuccessModal from '../../components/SuccessModal';
+import LoginPage from '../signin';
+
+// const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 
 
 const Swap = () => {
-    const [creditCoin, setCreditCoin] = useState(`${coinOptions[0].value}`)
-    const [debitCoin, setDebitCoin] = useState(`${coinOptions[1].value}`)
+    const router = useRouter();
+    const [creditCoin, setCreditCoin] = useState(`BTC`)
+    const [debitCoin, setDebitCoin] = useState(`ETH`)
+    const [amount, setAmount] = useState('0')
+    const [debitCoinConverted, setDebitCoinConverted] = useState()
     const [isPreviewConversionClicked, setIsPreviewConversionClicked] = useState(false)
+
+    const coinsByType: any = useGetCoinsByTypeQuery('crypto')
+    const inversePriceRate: any = useConvertToGetEstimatedRateQuery({ amount: amount, source: creditCoin, destination: debitCoin }, { refetchOnMountOrArgChange: true })
+
+    const convertFromDebitCoin: any = useConvertQuery({ amount: amount, source: debitCoin, destination: creditCoin }, { skip: amount == '0', refetchOnMountOrArgChange: true })
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [swap] = useSwapMutation()
+
+
+    React.useEffect(() => {
+
+        // allCoins?.data?.data && setCreditCoin(allCoins?.data?.data[1]?.coin)
+        // allCoins?.data?.data && setDebitCoin(allCoins?.data?.data[1]?.coin)
+
+        // onOpen()
+    }, [coinsByType])
+
+    React.useEffect(() => {
+
+        // convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && alert(debitCoinConverted)
+    }, [debitCoinConverted, creditCoin, debitCoin, amount])
+
+    if (coinsByType?.error && coinsByType?.error?.data?.status == 401) {
+        setTimeout(() => {
+            // appAlert.warning('Session Expired, please sign in again')
+            return <LoginPage />
+        }, 1000);
+
+    }
     return (
         <DashboardLayout>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box >
                     <Flex flexDirection={'column'}>
                         <Text fontSize='5xl' as='b' w={'full'} fontWeight={'extrabold'} align={'center'} >Convert</Text>
-                        <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >Convert your crypto within seconds</Text>
+                        <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} pb={'4'}>Convert your crypto within seconds</Text>
                         <Flex flexDirection={'column'} bg={'appWhiteColor'} p={'4'} mt={'8'}>
                             <Formik
                                 initialValues={{ debitCoinValue: '', creditCoinValue: '' }}
 
                                 onSubmit={async (values, { setSubmitting }) => {
+                                    try {
+                                        setSubmitting(true)
+                                        const response: any = await swap({ amount: parseFloat(amount), sourceCoin: debitCoin, destinationCoin: creditCoin })
+                                        if (response?.data?.status == 200) {
+                                            setSubmitting(false)
+                                            onOpen()
+                                        } else if (response?.data?.status == 401) {
+
+                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            // alert(JSON.stringify(res))
+                                            router.replace('/signin')
+                                        } else {
+                                            setSubmitting(false)
+                                            appAlert.error(`${response?.error?.data?.message}`)
+                                        }
+                                    } catch (error) {
+                                        setSubmitting(false)
+                                        console.log(error)
+                                    }
                                 }}
                                 validateOnChange
                                 validateOnBlur
                                 validateOnMount
+                                enableReinitialize
                             >
                                 {({
-                                    handleChange,
-                                    handleBlur,
+                                    // handleChange,
+                                    // handleBlur,
                                     handleSubmit,
                                     isSubmitting,
                                     values,
@@ -39,7 +98,7 @@ const Swap = () => {
                                     /* and other goodies */
                                 }) => (
                                     <Form>
-                                        <VStack w={{ base: 'xs', md: 'md' }} align='start'>
+                                        <VStack w={{ base: 'xs', md: 'lg' }} align='start'>
                                             <Field name='debitCoinValue' >
                                                 {({ field, form }: any) => (
                                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} >
@@ -49,12 +108,21 @@ const Swap = () => {
                                                         </Flex>
 
                                                         <InputGroup>
-                                                            <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => { setFieldValue('debitCoinValue', e.target.value); setFieldValue('creditCoinValue', e.target.value) }} />
-                                                            <InputRightElement width={'40'} zIndex={'docked'}>
+                                                            <Input autoComplete='off' variant={'outline'} placeholder={'Enter an amount'} {...field} onChange={(e) => {
+                                                                setFieldValue('debitCoinValue', e.target.value);
+                                                                setAmount(e.target.value)
+                                                                // alert(amount)
+                                                                // setFieldValue('creditCoinValue', e.target.value) 
+                                                                !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setDebitCoinConverted(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+                                                                !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+
+                                                            }} />
+                                                            <InputRightElement width={'52'} zIndex={'overlay'} >
                                                                 <Flex alignItems={'center'} justifyContent={'space-between'} w='full'>
                                                                     <Text fontSize={'sm'} color={'red.400'} >MAX</Text>
                                                                     <Divider orientation='vertical' h='20px' />
-                                                                    <CustomSelectWithIcon items={coinOptions} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />
+                                                                    {/* <CustomSelectWithIcon items={coinOptions} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} /> */}
+                                                                    {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
                                                                 </Flex>
 
                                                             </InputRightElement>
@@ -63,39 +131,46 @@ const Swap = () => {
                                                     </FormControl>
                                                 )}
                                             </Field>
+                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img src={'/assets/svgs/swapIcon.svg'} alt='swap icon' /></Flex>
+
+
+
+
 
                                             <Field name='creditCoinValue' >
                                                 {({ field, form }: any) => (
                                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-                                                        <InputGroup>
+                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
+                                                        {/* <InputGroup>
                                                             <Input disabled autoComplete='off' variant={'outline'} {...field} />
-                                                            <InputRightElement width={'28'} >
-                                                                <CustomSelectWithIcon items={coinOptions} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />
+                                                            <InputRightElement width={'40'} >
+                                                                {allCoins?.data?.data && <RenderCoinsDropdown items={allCoins?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
                                                             </InputRightElement>
-                                                        </InputGroup>
+                                                        </InputGroup> */}
                                                         <FormErrorMessage>{form.errors.creditCoinValue}</FormErrorMessage>
                                                     </FormControl>
                                                 )}
                                             </Field>
 
+
                                             {isPreviewConversionClicked ? <Flex w={'full'} flexDirection={'column'}>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Price</Text>
-                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 USDT = 0.00002334 BTC</Text>
+                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 {debitCoin} = {convertFromDebitCoin?.data?.data?.destinationAmount?.rate} {creditCoin}</Text>
                                                 </Flex>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Inverse Price</Text>
-                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 BTC = 42844.5 USDT</Text>
+                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 {creditCoin} = {inversePriceRate?.data?.data?.destinationAmount?.rate} {debitCoin}</Text>
                                                 </Flex>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>You will receive</Text>
-                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>0.23340219 BTC</Text>
+                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} {creditCoin}</Text>
                                                 </Flex>
-                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 USDT = 0.00002378 BTC</Text>}
+                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin} = {convertFromDebitCoin?.data?.data?.destinationAmount?.rate} {creditCoin}</Text>}
 
 
                                             {!isPreviewConversionClicked ? <MainAppButton isLoading={isSubmitting} color={values.debitCoinValue && values.creditCoinValue ? 'appWhiteColor' : 'textLightColor'} onClick={() => { setIsPreviewConversionClicked(true) }} backgroundColor={values.debitCoinValue && values.creditCoinValue ? 'primaryColor.900' : 'deselectedButtonColor'} >
                                                 Preview Conversion
                                             </MainAppButton> : <Flex justifyContent={'space-between'} w='full'>
-                                                <MainAppButton isLoading={isSubmitting} color={'textLightColor'} onClick={() => { setIsPreviewConversionClicked(false) }} backgroundColor={'deselectedButtonColor'} >
+                                                <MainAppButton isLoading={false} color={'textLightColor'} onClick={() => { setIsPreviewConversionClicked(false) }} backgroundColor={'deselectedButtonColor'} >
                                                     Back
                                                 </MainAppButton>
                                                 <Box w={'4'}></Box>
@@ -104,11 +179,7 @@ const Swap = () => {
                                                 </MainAppButton>
                                             </Flex>}
 
-
-
-
-
-
+                                            <SuccessModal isOpen={isOpen} onClose={onClose} bodyText={`You have successfully Swapped ${amount}\n${debitCoin} to ${convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} ${creditCoin}`} />
                                         </VStack>
                                     </Form>
 

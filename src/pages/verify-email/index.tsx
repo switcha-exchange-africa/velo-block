@@ -3,9 +3,12 @@ import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import MainAppButton from '../../components/buttons/MainAppButton';
+import appAlert from '../../helpers/appAlert';
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
 import AuthLayout from '../../layouts/auth/AuthLayout';
-import { sendOtp, verifyOtp } from '../../redux/auth/authSlice';
+import { clearFromLocalStorage, setCredentials, setEmailVerified } from '../../redux/features/auth/authSlice';
+import { useVerifyOtpMutation } from '../../redux/services/auth.service';
+// import { sendOtp, verifyOtp } from '../../redux/auth/authSlice';
 
 const VerificationPage = () => {
     const router = useRouter();
@@ -21,6 +24,7 @@ const VerificationPage = () => {
     }
 
     const dispatch = useAppDispatch();
+    const [verifyOtp] = useVerifyOtpMutation()
     // const { isLoading, token, user, } = useAppSelector((state) => state.auth)
 
     const [countDown, setCountDown] = React.useState(0);
@@ -45,7 +49,7 @@ const VerificationPage = () => {
 
     useEffect(() => {
         const resendOtpView = async () => {
-            await dispatch(sendOtp()).unwrap()
+            // await dispatch(sendOtp()).unwrap()
         }
         if (countDown < 0 && runTimer) {
             console.log("expired");
@@ -79,16 +83,34 @@ const VerificationPage = () => {
 
                         onSubmit={async (values, { setSubmitting }) => {
                             try {
-                                await dispatch(verifyOtp(values.pin)).unwrap()
-                                localStorage.removeItem('lastname')
-                                localStorage.removeItem('email')
-                                // router.push('/dashboard')
-                                router.replace('/signin')
-
+                                setSubmitting(true)
+                                const response: any = await verifyOtp(values.pin)
+                                if (response?.data?.status == 201 || response?.data?.status == 200) {
+                                    setSubmitting(false)
+                                    appAlert.success('Verification Successful')
+                                    dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                    dispatch(clearFromLocalStorage())
+                                    dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
+                                    router.replace('/signin')
+                                } else {
+                                    setSubmitting(false)
+                                    appAlert.error(`${response?.error?.data?.message}`)
+                                }
                             } catch (error) {
+                                setSubmitting(false)
                                 console.log(error)
                             }
-                            router.replace('/signin')
+                            // try {
+                            //     await dispatch(verifyOtp(values.pin)).unwrap()
+                            //     localStorage.removeItem('lastname')
+                            //     localStorage.removeItem('email')
+                            //     // router.push('/dashboard')
+                            //     router.replace('/signin')
+
+                            // } catch (error) {
+                            //     console.log(error)
+                            // }
+                            // router.replace('/signin')
 
                         }}
                         validateOnChange
