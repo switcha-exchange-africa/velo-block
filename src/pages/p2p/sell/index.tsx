@@ -1,5 +1,5 @@
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import { Grid, GridItem, Icon, useDisclosure } from "@chakra-ui/react";
+import {  useDisclosure } from "@chakra-ui/react";
 import {
   InfoIcon,
   CopyIcon,
@@ -7,15 +7,12 @@ import {
   CheckCircleIcon,
 } from "@chakra-ui/icons";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import Countdown from "react-countdown";
 
 import {
   Box,
   Text,
-  Image,
   Flex,
   InputGroup,
-  Link,
   Button,
   Avatar,
   Modal,
@@ -28,12 +25,11 @@ import {
   Checkbox,
   Input,
   InputRightAddon,
-  CheckboxGroup,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 function Sell() {
-  const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -227,7 +223,7 @@ function Sell() {
   );
 }
 const Step1 = (props: any) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>

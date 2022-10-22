@@ -1,5 +1,5 @@
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-import { Grid, GridItem, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   Box,
@@ -15,7 +15,6 @@ import {
   Input,
   InputGroup,
   InputRightAddon,
-  InputRightElement,
   Select,
   Button,
   Table,
@@ -29,7 +28,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 
@@ -313,7 +311,7 @@ function P2P() {
                       <InputRightAddon
                         borderTopRightRadius={"5px"}
                         borderBottomRightRadius={"5px"}
-                        children="Search"
+                        // children="Search"
                         bg={"none"}
                         color={"#FB5E04"}
                       />

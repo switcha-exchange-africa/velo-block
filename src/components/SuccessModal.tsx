@@ -1,4 +1,4 @@
-import { Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Img, Flex, Box } from '@chakra-ui/react'
+import {  Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, Img, Flex, Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from './buttons/MainAppButton'
