@@ -118,7 +118,7 @@ const DashboardPage = () => {
         </Box>
       </HStack>
           
-      <HStack px="28px" mb="16px" justifyContent="space-between" alignItems="center">
+      <HStack px={["0", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
         <HStack>
           <Text cursor="pointer" fontWeight="bold" color={color.color1} onClick={()=> handleSelect("1")}>Buy</Text>
           <Box h="16px" w="2px" bg="#8B8CA7"></Box>

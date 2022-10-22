@@ -6,7 +6,7 @@ import TableComponent from '../../table/TableContainer'
 const SellCoin = () => {
     return (
         <>
-            <HStack px="28px" fontSize="14px" mb="14px" spacing="56px">
+            <HStack px={["0", "0px", "28px", "28px"]} fontSize="14px" mb="14px" spacing="56px">
                 <Link href="/" color="#8B8CA7">BTC</Link> 
                 <Link href="/" color="#8B8CA7">ETH</Link>
                 <Link href="/" color="#8B8CA7">USDT</Link>

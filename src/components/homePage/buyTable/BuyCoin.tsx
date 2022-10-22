@@ -52,15 +52,45 @@ const BuyCoin = () => {
         
     }
 
+    const CoinData = [
+        {
+            id: "1",
+            name: "BTC",
+            borderB: borderBottomColor.borderBottomColor1
+        },
+        {
+            id: "2",
+            name: "ETH",
+            borderB: borderBottomColor.borderBottomColor2
+        },
+        {
+            id: "3",
+            name: "USDT",
+            borderB: borderBottomColor.borderBottomColor3
+        },
+        {
+            id: "4",
+            name: "USDC",
+            borderB: borderBottomColor.borderBottomColor4
+        },
+    ]
+
     return (
         <>
-            <HStack px="28px" fontSize="14px" mb="14px" spacing="56px">
-                <Text color="#000000" cursor="pointer" borderBottom={borderBottomColor.borderBottomColor1} onClick={() => handleSelect("1")} > BTC </Text> 
-                <Text color="#000000" cursor="pointer" borderBottom={borderBottomColor.borderBottomColor2} onClick={() => handleSelect("2")} > ETH </Text>
-                <Text color="#000000" cursor="pointer" borderBottom={borderBottomColor.borderBottomColor3} onClick={() => handleSelect("3")} > USDT </Text>
-                <Text color="#000000" cursor="pointer" borderBottom={borderBottomColor.borderBottomColor4} onClick={() => handleSelect("4")} > USDC </Text>
-            </HStack>
             
+            <HStack px={["0", "0px", "28px", "28px"]} fontSize="14px" mb="14px" spacing="56px">
+                {CoinData.map((coin) => (
+                    <Text
+                        key={coin.id}
+                        color="#000000"
+                        cursor="pointer"
+                        borderBottom={coin.borderB}
+                        onClick={() => handleSelect(coin.id)}
+                    >
+                        {coin.name}
+                    </Text> 
+                ))} 
+            </HStack>
             <Box bg="#E2E8F0" height="0.1px" width="100%" mb="8px"></Box>
             
             {selectedId === "1" && (
