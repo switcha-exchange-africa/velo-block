@@ -16,7 +16,13 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 
-const TableComponent = () => {
+type TableComponentProps = {
+    backgroundColor?: "#22C36B" | "#EB4335",
+    onClick?: () => void,
+    buttonTitle?: string
+}
+
+const TableComponent = ({buttonTitle, backgroundColor, onClick}: TableComponentProps) => {
     return (
         <TableContainer>
             <Table variant='simple'>
@@ -37,7 +43,7 @@ const TableComponent = () => {
                                 <Box bg="#FB5E04" color="white" padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px">M</Box>
                                 <HStack flexDirection="column"  alignItems="flex-start" >
                                     <HStack>
-                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Maximus</Text>
+                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Rickoss</Text>
                                         <Flex>
                                             <Image src={Verified} alt="verified icon" />
                                         </Flex>
@@ -63,10 +69,10 @@ const TableComponent = () => {
     
                         </Td>
                         <Td>
-                            <Button color="white" fontWeight="bold" bg="#22C36B">
-                                Buy BTC
+                            <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                {buttonTitle}
                             </Button>
-                            
+    
                         </Td>
                     </Tr>
                 </Tbody>
@@ -103,8 +109,8 @@ const TableComponent = () => {
     
                         </Td>
                         <Td>
-                            <Button color="white" fontWeight="bold" bg="#22C36B">
-                                Buy BTC
+                            <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                {buttonTitle}
                             </Button>
                             
                         </Td>
@@ -118,7 +124,7 @@ const TableComponent = () => {
                                 <Box bg="#FB5E04" color="white" padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px">M</Box>
                                 <HStack flexDirection="column"  alignItems="flex-start" >
                                     <HStack>
-                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Maximus</Text>
+                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Gabby</Text>
                                         <Flex>
                                             <Image src={Verified} alt="verified icon" />
                                         </Flex>
@@ -144,8 +150,8 @@ const TableComponent = () => {
     
                         </Td>
                         <Td>
-                            <Button color="white" fontWeight="bold" bg="#22C36B">
-                                Buy BTC
+                            <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                {buttonTitle}
                             </Button>
                             
                         </Td>
@@ -159,7 +165,7 @@ const TableComponent = () => {
                                 <Box bg="#FB5E04" color="white" padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px">M</Box>
                                 <HStack flexDirection="column"  alignItems="flex-start" paddingLeft="0">
                                     <HStack>
-                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Maximus</Text>
+                                        <Text fontSize="14px" fontWeight="400" color="#FB5E04">Nathan</Text>
                                         <Flex>
                                             <Image src={Verified} alt="verified icon" />
                                         </Flex>
@@ -184,8 +190,8 @@ const TableComponent = () => {
                             <Button fontSize="14px" fontWeight="200"  color="#FB5E04" bg="#FFF7F2" borderRadius="2px" p="2px 5px">Bank Transfer</Button>
                         </Td>
                         <Td>
-                            <Button color="white" fontWeight="bold" bg="#22C36B">
-                                Buy BTC
+                            <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                {buttonTitle}
                             </Button>
                             
                         </Td>
@@ -224,8 +230,8 @@ const TableComponent = () => {
                             <Button fontSize="14px" fontWeight="200"  color="#FB5E04" bg="#FFF7F2" borderRadius="2px" p="2px 5px">Bank Transfer</Button>
                         </Td>
                         <Td>
-                            <Button color="white" fontWeight="bold" bg="#22C36B">
-                                Buy BTC
+                            <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                {buttonTitle}
                             </Button>
                             
                         </Td>

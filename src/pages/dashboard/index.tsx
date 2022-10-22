@@ -1,10 +1,10 @@
 import { HStack, Heading, Text, Box, Flex} from "@chakra-ui/react";
-import React from "react";
+import React, {  useState } from "react";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
-import TableComponent from "../../components/table/TableContainer";
-import Link from "next/link";
+import SellCoin from "../../components/homePage/sellTable/SellCoin";
+import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 
 const DashboardPage = () => {
   const minWeightProps = ["140px", "140px", "140px", "0%"]
@@ -13,6 +13,26 @@ const DashboardPage = () => {
     display: ["scroll", "scroll", "scroll", "none"]
   }}
 
+  const [blackColor, setBlackColor] = useState("black")
+  const [greyColor, setGreyColor] = useState("#8E9BAE")
+  const [selectedId, setSelectedId] = useState("1")
+  
+  const handleSelect = (id: string) => {
+    let color = "black"
+    let notSelectedColor = "#8E9BAE"
+
+    if (id === "1") {
+      setSelectedId(id)
+      setBlackColor(color)
+      setGreyColor(notSelectedColor)
+    }
+    else {
+      setBlackColor(notSelectedColor)
+      setGreyColor(color)
+      setSelectedId(id)
+    }
+    
+  }
 
   return (
     <DashboardLayout>
@@ -96,29 +116,19 @@ const DashboardPage = () => {
         </Box>
       </HStack>
           
-      <HStack px="28px" mb="12px" justifyContent="space-between" alignItems="center">
+      <HStack px="28px" mb="16px" justifyContent="space-between" alignItems="center">
         <HStack>
-          <Text cursor="pointer">Buy</Text>
+          <Text cursor="pointer" fontWeight="bold" color={blackColor} onClick={()=> handleSelect("1")}>Buy</Text>
           <Box h="16px" w="2px" bg="#8B8CA7"></Box>
-          <Text cursor="pointer" color="#8B8CA7" >Sell</Text>
-        </HStack>
+          <Text cursor="pointer" fontWeight="bold" color={greyColor} onClick={() => handleSelect("2")}>Sell</Text>
+        </HStack>  
+      </HStack>
 
-        <Link href="/" >
-          <Text color="#8B8CA7" borderBottom="1px solid #8B8CA7"> see all</Text>
-        </Link> 
+      {/* to render the buy and sell component here */}
+      {selectedId === "1" ? <BuyCoin/> : <SellCoin />}
+      
+    </DashboardLayout>  
         
-      </HStack>
-
-      <HStack px="28px" fontSize="14px" mb="12px" spacing="56px">
-        <Link href="/" color="#8B8CA7">BTC</Link> 
-        <Link href="/" color="#8B8CA7">ETH</Link>
-        <Link href="/" color="#8B8CA7">USDT</Link>
-        <Link href="/" color="#8B8CA7">USDC</Link>
-      </HStack>
-
-      <TableComponent />
-
-    </DashboardLayout>
   );
 };
 
