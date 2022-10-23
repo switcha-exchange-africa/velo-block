@@ -40,7 +40,7 @@ function Buy() {
       ),
       content: <Step1 action={nextStep} />,
       id: 1,
-    },
+    },//
     {
       label: (
         <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>

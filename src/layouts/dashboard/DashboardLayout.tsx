@@ -35,13 +35,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
     // }
   }
 
-  // useEffect(() => {
-  //   checkForToken()
-  // }, [])
+  useEffect(() => {
+    checkForToken()
+  }, [])
 
-  // if (!token) {
-  //   return (<LoginPage />)
-  // }
+  if (!token) {
+    return (<LoginPage />)
+  }
 
   return (
     <Flex
