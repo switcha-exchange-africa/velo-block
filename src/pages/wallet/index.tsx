@@ -10,6 +10,7 @@ import {
   Wrap,
   WrapItem,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -192,6 +193,9 @@ function WalletPage() {
 
   const btnRef = React.useRef(null);
   const router = useRouter()
+  // if (walletsquery?.isFetching) {
+  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
+  // }
   if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
 
     // appAlert.warning('Session Expired, please sign in again')
@@ -277,7 +281,7 @@ function WalletPage() {
                     </Tr>
                   </Thead>
                   <Tbody background={"#fff"}>
-                    {walletsquery?.data?.data?.map((wallet: any) => {
+                    {walletsquery.isFetching ? <Spinner color='primaryColor.900' size={'xl'} bg={'rgba(251, 94, 4, .1)'} thickness={'4px'} /> : walletsquery?.data?.data?.map((wallet: any) => {
                       // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, subscribe: false }))
                       // // // setAmount(wallet.balance)
                       // // // setSource(wallet.coin)
