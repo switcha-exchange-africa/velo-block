@@ -9,7 +9,7 @@ import SignUpPage from "./signup/index";
 const Home: NextPage = () => {
   const { token } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch();
-
+  console.log("HOME PAGE")
 
   useEffect(() => {
     const checkForToken = () => {
