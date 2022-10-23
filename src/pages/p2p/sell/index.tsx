@@ -1,30 +1,13 @@
-import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import {  useDisclosure } from "@chakra-ui/react";
 import {
-  InfoIcon,
-  CopyIcon,
-  LinkIcon,
-  CheckCircleIcon,
+  CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
 } from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
+import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 import {
-  Box,
-  Text,
-  Flex,
-  InputGroup,
-  Button,
-  Avatar,
-  Modal,
-  ModalOverlay,
-  ModalHeader,
-  ModalCloseButton,
-  ModalContent,
-  ModalBody,
-  Textarea,
-  Checkbox,
-  Input,
-  InputRightAddon,
+  Avatar, Box, Button, Checkbox, Flex, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton,
+  ModalContent, ModalHeader, ModalOverlay, Text, Textarea
 } from "@chakra-ui/react";
 import { useState } from "react";
 

@@ -4,6 +4,7 @@ import authReducer from './features/auth/authSlice'
 import { authApi } from './services/auth.service'
 import { baseApi } from './services/base.service';
 import { buySellAPi } from './services/buy-sell.service';
+import { quickTradeApi } from './services/quick-trade.service';
 import { swapApi } from './services/swap.service';
 import { walletApi } from './services/wallet.service';
 
@@ -15,6 +16,7 @@ const store = configureStore({
         [walletApi.reducerPath]: walletApi.reducer,
         [buySellAPi.reducerPath]: buySellAPi.reducer,
         [swapApi.reducerPath]: swapApi.reducer,
+        [quickTradeApi.reducerPath]: quickTradeApi.reducer,
     },
 
     middleware: (getDefaultMiddleware) =>
@@ -22,7 +24,7 @@ const store = configureStore({
             // serializableCheck: {
             //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             // },
-        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware]),
+        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

@@ -1,11 +1,16 @@
-// import { Box, Divider, Flex, Img, Input, Text } from '@chakra-ui/react'
+import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
+import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 
 const NotifySeller = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    // React.useEffect(() => {
+
+    // }, [])
     return (
         <DashboardLayout>
-            {/* <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
+            <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
                 <Flex justifyContent={'space-between'} flexDirection={{ base: 'column', lg: 'row' }} w={'full'} bg={'#ffffff'} p={{ base: '2', md: '4' }}>
                     <Flex flexDirection={'column'} w={'full'} alignItems={'start'}>
                         <Text fontWeight={'bold'} fontSize={'xl'}>Buy USDT from Olu4mide</Text>
@@ -100,7 +105,9 @@ const NotifySeller = () => {
                                 </Flex>
                             </Box>
                             <Flex>
-                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}>Transfered and Notify Seller</Text>
+                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() => onOpen()}>Transfered and Notify Seller</Text>
+
+                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                             </Flex>
@@ -143,31 +150,31 @@ const NotifySeller = () => {
                         </Flex>
                     </Box>
                 </Flex>
-            </Flex> */}
+            </Flex>
         </DashboardLayout>
     )
 }
 
-// const StepNumber = ({ number, deselected = true }: any) => {
-//     return (<Flex alignItems={'center'} justifyContent={'center'} fontWeight={'medium'} fontSize={'md'} color={deselected ? 'rgba(142, 155, 174, 1)' : '#ffffff'} rounded={'full'} borderRadius={'full'} bg={deselected ? '#E2E8F0' : 'primaryColor.900'} w={'20'} h={'8'}>{number}</Flex>)
-// }
+const StepNumber = ({ number, deselected = true }: any) => {
+    return (<Flex alignItems={'center'} justifyContent={'center'} fontWeight={'medium'} fontSize={'md'} color={deselected ? 'rgba(142, 155, 174, 1)' : '#ffffff'} rounded={'full'} borderRadius={'full'} bg={deselected ? '#E2E8F0' : 'primaryColor.900'} w={'20'} h={'8'}>{number}</Flex>)
+}
 
-// const Steps = ({ activeStep }: any) => {
-//     return (<Flex w={'full'} alignItems={'center'}>
-//         <StepNumber number={1} deselected={activeStep >= 1 ? false : true} />
-//         <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
-//         <StepNumber number={2} deselected={activeStep >= 2 ? false : true} />
-//         <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
-//         <StepNumber number={3} deselected={activeStep >= 3 ? false : true} />
-//     </Flex>)
-// }
+const Steps = ({ activeStep }: any) => {
+    return (<Flex w={'full'} alignItems={'center'}>
+        <StepNumber number={1} deselected={activeStep >= 1 ? false : true} />
+        <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
+        <StepNumber number={2} deselected={activeStep >= 2 ? false : true} />
+        <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
+        <StepNumber number={3} deselected={activeStep >= 3 ? false : true} />
+    </Flex>)
+}
 
-// const StepLabels = ({ activeStep }: any) => {
-//     return (<Flex pt={'4'} justifyContent={'space-between'} w={'full'} alignItems={'center'}>
-//         <Text decoration={activeStep == 1 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Transfer payment to Seller</Text>
-//         <Text decoration={activeStep == 2 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Pending Seller to Release Cryptos</Text>
-//         <Text decoration={activeStep == 3 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Completed</Text>
-//     </Flex>)
-// }
+const StepLabels = ({ activeStep }: any) => {
+    return (<Flex pt={'4'} justifyContent={'space-between'} w={'full'} alignItems={'center'}>
+        <Text decoration={activeStep == 1 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Transfer payment to Seller</Text>
+        <Text decoration={activeStep == 2 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Pending Seller to Release Cryptos</Text>
+        <Text decoration={activeStep == 3 ? 'underline' : 'none'} fontSize={'lg'} fontWeight={'light'} >Completed</Text>
+    </Flex>)
+}
 
 export default NotifySeller

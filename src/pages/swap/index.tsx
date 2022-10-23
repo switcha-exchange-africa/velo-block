@@ -4,7 +4,7 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 
-import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetAllCoinsQuery, useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
+import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
 import RenderCoinsDropdown from '../../components/select/RenderCoinsDropdown';
 import { useSwapMutation } from '../../redux/services/swap.service';
 import appAlert from '../../helpers/appAlert';
@@ -45,10 +45,10 @@ const Swap = () => {
     }, [debitCoinConverted, creditCoin, debitCoin, amount])
 
     if (coinsByType?.error && coinsByType?.error?.data?.status == 401) {
-        setTimeout(() => {
-            // appAlert.warning('Session Expired, please sign in again')
-            return <LoginPage />
-        }, 1000);
+
+        // appAlert.warning('Session Expired, please sign in again')
+        return <LoginPage />
+
 
     }
     return (
@@ -62,7 +62,7 @@ const Swap = () => {
                             <Formik
                                 initialValues={{ debitCoinValue: '', creditCoinValue: '' }}
 
-                                onSubmit={async (values, { setSubmitting }) => {
+                                onSubmit={async (_, { setSubmitting }) => {
                                     try {
                                         setSubmitting(true)
                                         const response: any = await swap({ amount: parseFloat(amount), sourceCoin: debitCoin, destinationCoin: creditCoin })
@@ -138,7 +138,7 @@ const Swap = () => {
 
 
                                             <Field name='creditCoinValue' >
-                                                {({ field, form }: any) => (
+                                                {({ form }: any) => (
                                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
                                                         <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>

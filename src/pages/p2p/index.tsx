@@ -1,35 +1,13 @@
-import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-import { useDisclosure } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import {
-  Box,
-  Text,
-  Image,
-  Flex,
-  Link,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Input,
-  InputGroup,
-  InputRightAddon,
-  Select,
-  Button,
-  Table,
-  TableContainer,
-  Thead,
-  Tbody,
-  Tr,
-  Td,
-  Avatar,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalBody,
-} from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import {
+  Avatar, Box, Button, Flex, Image, Input,
+  InputGroup,
+  InputRightAddon, Link, Modal, ModalBody, ModalCloseButton,
+  ModalContent, Select, Tab, Table,
+  TableContainer, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Text, Thead, Tr, useDisclosure
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 
 function P2P() {
   const { isOpen, onOpen, onClose } = useDisclosure();

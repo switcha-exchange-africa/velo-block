@@ -9,17 +9,18 @@ import SignUpPage from "./signup/index";
 const Home: NextPage = () => {
   const { token } = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch();
-  const checkForToken = () => {
-    dispatch(getTokenFromLocalStorage())
-    // alert(token)
-    // if (!token) {
-    //   router.replace('/signin')
-    // }
-  }
+
 
   useEffect(() => {
+    const checkForToken = () => {
+      dispatch(getTokenFromLocalStorage())
+      // alert(token)
+      // if (!token) {
+      //   router.replace('/signin')
+      // }
+    }
     checkForToken()
-  }, [])
+  }, [dispatch])
   return (
     <div>
       <Head>

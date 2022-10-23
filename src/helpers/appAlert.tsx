@@ -2,15 +2,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 
 const success = (message: string) => {
-    toast.success(message, {})
+    toast.success(message, { toastId: 'success' })
 }
 
 const error = (message: string) => {
-    toast.error(message, {})
+    toast.error(message, { toastId: 'error' })
 }
 
 const warning = (message: string) => {
-    toast.warning(message, {})
+    toast.warning(message, { toastId: 'warning' })
 }
 
 const appAlert = { success, error, warning }

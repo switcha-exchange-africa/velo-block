@@ -7,7 +7,7 @@ export const baseApi = createApi({
   tagTypes: ["Wallet", "User"],
   baseQuery: fetchBaseQuery({
     baseUrl: endpoints.BASE_URL,
-    prepareHeaders: (headers, { getState }: any) => {
+    prepareHeaders: (headers) => {
       // const token = getState().user.token
       const token = localStorage.getItem("token");
 

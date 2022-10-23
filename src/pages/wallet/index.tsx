@@ -7,10 +7,10 @@ import {
   Button,
   Avatar,
   useDisclosure,
-
   Wrap,
   WrapItem,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -35,7 +35,8 @@ import {
   // buySellAPi, useConvertQuery,
   useLazyConvertQuery
 } from "../../redux/services/buy-sell.service";
-import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
+
 // import appAlert from "../../helpers/appAlert";
 
 
@@ -105,7 +106,7 @@ const recentActivity = [
   },
 ];
 
-function WalletPage(props: any) {
+function WalletPage() {
   const [address, setAddress] = useState(wallets[0].address);
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
@@ -116,7 +117,7 @@ function WalletPage(props: any) {
   const [total, setTotal] = React.useState(0)
   const [btcTotal, setBtcTotal] = React.useState(0)
   // const [source, setSource] = React.useState('BTC')
-  const [usdConvertedList, setUsdConvertedList] = React.useState<any>([])
+  // const [usdConvertedList, setUsdConvertedList] = React.useState<any>([])
 
 
   const walletsquery: any = useGetWalletsQuery()
@@ -127,48 +128,50 @@ function WalletPage(props: any) {
 
   // const dispatch = useAppDispatch()
 
-  const convertCoinsToEquivalentUSD = async () => {
-    const convToUsd = []
-    let localFuncTotal = 0;
-    if (walletsquery?.data?.data) {
-      for (let i = 0; i < walletsquery?.data?.data?.length; i++) {
-        const wallet = walletsquery?.data?.data[i]
-        // alert(JSON.stringify(wallet.coin))
-        // setSource(wallet.coin)
-        if (wallet.balance == 0) {
-          convToUsd.push({ coin: wallet.coin, usdValue: 0 })
-        } else {
-          const convert = await convertCoins({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }).unwrap()
-          // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, }))
-          // alert(JSON.stringify(convertCoinsToEquivalentUSD))
-          // setAmount(wallet.balance)
-          // setSource(wallet.coin)
-          const usdValue = convert?.data?.destinationAmount?.destinationAmount
-          // alert(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
-          // appAlert.warning(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
-          convToUsd.push({ coin: wallet.coin, usdValue })
-          if (usdValue) {
-            localFuncTotal = localFuncTotal + usdValue
 
-          }
-
-        }
-      }
-      setUsdConvertedList(convToUsd)
-      setTotal(localFuncTotal)
-      const convert = await convertCoins({ amount: localFuncTotal, source: 'USDC', destination: 'BTC' }).unwrap()
-      // dispatch(buySellAPi.endpoints.convert.initiate({ amount: total, source: 'USDC', destination: 'BTC' }, { forceRefetch: true, }))
-      // alert(JSON.stringify(convert))
-      setBtcTotal(convert?.data?.destinationAmount?.destinationAmount)
-
-    }
-  }
 
   React.useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
 
+    const convertCoinsToEquivalentUSD = async () => {
+      const convToUsd = []
+      let localFuncTotal = 0;
+      if (walletsquery?.data?.data) {
+        for (let i = 0; i < walletsquery?.data?.data?.length; i++) {
+          const wallet = walletsquery?.data?.data[i]
+          // alert(JSON.stringify(wallet.coin))
+          // setSource(wallet.coin)
+          if (wallet.balance == 0) {
+            convToUsd.push({ coin: wallet.coin, usdValue: 0 })
+          } else {
+            const convert = await convertCoins({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }).unwrap()
+            // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, }))
+            // alert(JSON.stringify(convertCoinsToEquivalentUSD))
+            // setAmount(wallet.balance)
+            // setSource(wallet.coin)
+            const usdValue = convert?.data?.destinationAmount?.destinationAmount
+            // alert(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
+            // appAlert.warning(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
+            convToUsd.push({ coin: wallet.coin, usdValue })
+            if (usdValue) {
+              localFuncTotal = localFuncTotal + usdValue
+
+            }
+
+          }
+        }
+        // setUsdConvertedList(convToUsd)
+        setTotal(localFuncTotal)
+        const convert = await convertCoins({ amount: localFuncTotal, source: 'USDC', destination: 'BTC' }).unwrap()
+        // dispatch(buySellAPi.endpoints.convert.initiate({ amount: total, source: 'USDC', destination: 'BTC' }, { forceRefetch: true, }))
+        // alert(JSON.stringify(convert))
+        setBtcTotal(convert?.data?.destinationAmount?.destinationAmount)
+
+      }
+    }
+
     convertCoinsToEquivalentUSD()
-  }, [walletsquery])
+  }, [convertCoins, walletsquery])
 
   React.useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
@@ -188,13 +191,16 @@ function WalletPage(props: any) {
     onOpen();
   };
 
-  const btnRef = React.useRef();
+  const btnRef = React.useRef(null);
   const router = useRouter()
+  // if (walletsquery?.isFetching) {
+  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
+  // }
   if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
-    setTimeout(() => {
-      // appAlert.warning('Session Expired, please sign in again')
-      return <LoginPage />
-    }, 1000);
+
+    // appAlert.warning('Session Expired, please sign in again')
+    return <LoginPage />
+
   }
   return (
     <DashboardLayout>
@@ -275,19 +281,14 @@ function WalletPage(props: any) {
                     </Tr>
                   </Thead>
                   <Tbody background={"#fff"}>
-                    {usdConvertedList.length != 0 && walletsquery?.data?.data?.map((wallet: any) => {
+                    {walletsquery.isFetching ? <Spinner color='primaryColor.900' size={'xl'} bg={'rgba(251, 94, 4, .1)'} thickness={'4px'} /> : walletsquery?.data?.data?.map((wallet: any) => {
                       // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, subscribe: false }))
                       // // // setAmount(wallet.balance)
                       // // // setSource(wallet.coin)
                       // const usdValue = convertCoinsToUSD?.data?.data?.destinationAmount?.destinationAmount
 
                       // alert(JSON.stringify(convert))
-                      let usdValue;
-                      for (let i = 0; i < usdConvertedList.length; i++) {
-                        if (usdConvertedList[i].coin == wallet.coin) {
-                          usdValue = usdConvertedList[i].usdValue
-                        }
-                      }
+
 
                       return (
                         <Tr key={wallet._id} >
@@ -322,10 +323,7 @@ function WalletPage(props: any) {
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
                               </Text> */}
-                              <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-                                = {wallet.balance == 0 ? '$0' : '$' + usdValue}
-                                {/* $200.33 */}
-                              </Text>
+                              <RenderBalanceToUsd coin={wallet.coin} balance={wallet.balance} />
                             </Box>
                           </Td>
                           <Td>

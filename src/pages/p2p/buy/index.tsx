@@ -1,13 +1,11 @@
-import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import {  useDisclosure } from "@chakra-ui/react";
+
 import {
-  InfoIcon,
-  CopyIcon,
-  LinkIcon,
-  CheckCircleIcon,
+  CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
 } from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
 import Countdown from "react-countdown";
+import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 import {
   Box,
@@ -27,7 +25,7 @@ import { MouseEventHandler } from "react";
 import { CountdownTimeDeltaFn } from "react-countdown/dist/Countdown";
 
 function Buy() {
-  const { nextStep,  activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -286,10 +284,10 @@ const Step1 = (props: { action: any; }) => {
               padding="15px 20px"
               borderTop={"1px solid #8E9BAE"}
             >
-              WARNING! If you click on "Transferred, next" without making the
+              {`WARNING! If you click on "Transferred, next" without making the
               payment (you need to transfer the money with the payment account,
               not on Binance). Your account will potentially be suspended. The
-              platform reserve the rights to claim any damage caused.
+              platform reserve the rights to claim any damage caused.`}
             </Text>
             <Flex padding={"15px"} gap="10px">
               <Button variant={"outline"} flex={1} bg={"#fff"}>
