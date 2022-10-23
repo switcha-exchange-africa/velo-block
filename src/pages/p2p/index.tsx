@@ -1,37 +1,13 @@
-import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-import { Grid, GridItem, useDisclosure } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import {
-  Box,
-  Text,
-  Image,
-  Flex,
-  Link,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
-  Input,
-  InputGroup,
-  InputRightAddon,
-  InputRightElement,
-  Select,
-  Button,
-  Table,
-  TableContainer,
-  Thead,
-  Tbody,
-  Tr,
-  Td,
-  Avatar,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-} from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import {
+  Avatar, Box, Button, Flex, Image, Input,
+  InputGroup,
+  InputRightAddon, Link, Modal, ModalBody, ModalCloseButton,
+  ModalContent, Select, Tab, Table,
+  TableContainer, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Text, Thead, Tr, useDisclosure
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 
 function P2P() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -313,6 +289,7 @@ function P2P() {
                       <InputRightAddon
                         borderTopRightRadius={"5px"}
                         borderBottomRightRadius={"5px"}
+                        // eslint-disable-next-line react/no-children-prop
                         children="Search"
                         bg={"none"}
                         color={"#FB5E04"}

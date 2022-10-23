@@ -12,6 +12,9 @@ env:
   REGISTRY_NAME: "switcha-africa"
   IMAGE_NAME: "switcha-production-exchange-page"
   COMMAND: "npm run start"
+  REACT_APP_NODE_ENV: "production"
+  REACT_APP_API_ENDPOINT: ${{ secrets.API_ENDPOINT_PRODUCTION }}
+
 
 
 jobs:

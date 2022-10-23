@@ -1,8 +1,13 @@
-import { Box, Divider, Flex, Img, Input, Text } from '@chakra-ui/react'
+import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
+import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 
 const NotifySeller = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    // React.useEffect(() => {
+
+    // }, [])
     return (
         <DashboardLayout>
             <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
@@ -100,7 +105,9 @@ const NotifySeller = () => {
                                 </Flex>
                             </Box>
                             <Flex>
-                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}>Transfered and Notify Seller</Text>
+                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() => onOpen()}>Transfered and Notify Seller</Text>
+
+                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                             </Flex>

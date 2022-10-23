@@ -1,33 +1,18 @@
-import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import { Grid, GridItem, Icon, useDisclosure } from "@chakra-ui/react";
 import {
-  InfoIcon,
-  CopyIcon,
-  LinkIcon,
-  CheckCircleIcon,
+  CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
 } from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
 import Countdown from "react-countdown";
+import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 import {
-  Box,
-  Text,
-  Image,
-  Flex,
-  Link,
-  Button,
-  Avatar,
-  Modal,
-  ModalOverlay,
-  ModalHeader,
-  ModalCloseButton,
-  ModalContent,
-  ModalBody,
-  Textarea,
+  Avatar, Box, Button, Flex, Modal, ModalBody, ModalCloseButton,
+  ModalContent, ModalHeader, ModalOverlay, Text, Textarea
 } from "@chakra-ui/react";
 
 function Buy() {
-  const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -222,9 +207,9 @@ function Buy() {
   );
 }
 
-const Step1 = (props) => {
+const Step1 = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const Step2Modal = (props) => {
+  const Step2Modal = (props: any) => {
     return (
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
@@ -286,10 +271,10 @@ const Step1 = (props) => {
               padding="15px 20px"
               borderTop={"1px solid #8E9BAE"}
             >
-              WARNING! If you click on "Transferred, next" without making the
+              {`WARNING! If you click on "Transferred, next" without making the
               payment (you need to transfer the money with the payment account,
               not on Binance). Your account will potentially be suspended. The
-              platform reserve the rights to claim any damage caused.
+              platform reserve the rights to claim any damage caused.`}
             </Text>
             <Flex padding={"15px"} gap="10px">
               <Button variant={"outline"} flex={1} bg={"#fff"}>
@@ -395,7 +380,7 @@ const Step1 = (props) => {
   );
 };
 
-const Step2 = (props) => {
+const Step2 = (props: any) => {
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>
