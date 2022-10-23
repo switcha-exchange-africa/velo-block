@@ -152,7 +152,7 @@ const SignUpPage = () => {
                                 </MainAppButton>
 
                                 <Link href='/signin'>
-                                    <Flex alignItems='center' >
+                                    <Flex cursor={'pointer'} alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='4' mr='2'>{'Already registered? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='4'>{' Login'}</Text>
                                     </Flex >
