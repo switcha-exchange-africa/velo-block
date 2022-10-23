@@ -289,8 +289,7 @@ function P2P() {
                       <InputRightAddon
                         borderTopRightRadius={"5px"}
                         borderBottomRightRadius={"5px"}
-                        // eslint-disable-next-line react/no-children-prop
-                        children="Search"
+                        // children="Search"
                         bg={"none"}
                         color={"#FB5E04"}
                       />

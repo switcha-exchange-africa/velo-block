@@ -16,7 +16,8 @@ const QuickBuyComponent = () => {
             <Formik
                 initialValues={{ email: '', password: '' }}
 
-                onSubmit={async (values, { setSubmitting }) => {
+                onSubmit={async (values, {  }) => {
+                    console.log(values)
                     router.push('/quick-trade/confirm-purchase')
                 }}
                 validateOnChange
