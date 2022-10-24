@@ -42,11 +42,11 @@ RUN npm run build
 
 # ---
 
-FROM node:14-alpine
+# FROM node:14-alpine
 
 
-USER node
-WORKDIR /home/staging-exchange-switcha
+# USER node
+# WORKDIR /home/staging-exchange-switcha
 # ADD  --chown=node:node /home/node/env_nhjnrz.txt ./.env
 COPY --from=builder --chown=node:node /home/staging-exchange-switcha/package*.json ./
 COPY --from=builder --chown=node:node /home/staging-exchange-switcha/node_modules/ ./node_modules/
