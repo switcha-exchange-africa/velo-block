@@ -10,7 +10,7 @@ const error = (message: string) => {
 }
 
 const warning = (message: string) => {
-    toast.warning(message, { toastId: 'warning' })
+    toast.warning(message, {})
 }
 
 const appAlert = { success, error, warning }

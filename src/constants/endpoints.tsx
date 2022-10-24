@@ -1,5 +1,5 @@
 //--------these are just test URLs---------
-const BASE_URL = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/`;
+const BASE_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const LOGIN_URL = "auth/login";
 const REGISTER_URL = "auth/signup";
 const RESEND_VERIFY_EMAIL_URL = "auth/verify-email";
