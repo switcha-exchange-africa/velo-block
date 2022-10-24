@@ -313,6 +313,7 @@ function P2P() {
                       <InputRightAddon
                         borderTopRightRadius={"5px"}
                         borderBottomRightRadius={"5px"}
+                        // @ts-ignore
                         children="Search"
                         bg={"none"}
                         color={"#FB5E04"}

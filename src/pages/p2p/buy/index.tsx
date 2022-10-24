@@ -222,9 +222,9 @@ function Buy() {
   );
 }
 
-const Step1 = (props) => {
+const Step1 = (props:any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const Step2Modal = (props) => {
+  const Step2Modal = (props:any) => {
     return (
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
@@ -286,7 +286,7 @@ const Step1 = (props) => {
               padding="15px 20px"
               borderTop={"1px solid #8E9BAE"}
             >
-              WARNING! If you click on "Transferred, next" without making the
+              WARNING! If you click on &#8220;Transferred, next&#8220; without making the
               payment (you need to transfer the money with the payment account,
               not on Binance). Your account will potentially be suspended. The
               platform reserve the rights to claim any damage caused.
@@ -395,7 +395,7 @@ const Step1 = (props) => {
   );
 };
 
-const Step2 = (props) => {
+const Step2 = (props:any) => {
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>

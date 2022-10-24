@@ -20,6 +20,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     checkForToken()
   }, [])
+  
   return (
     <div>
       <Head>

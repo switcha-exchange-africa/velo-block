@@ -51,7 +51,6 @@ export const tradeSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(buyCrypto.fulfilled, (state, { payload }) => {
-
             state.isLoading = false;
         });
         builder.addCase(buyCrypto.rejected, (state, action) => {
@@ -62,7 +61,6 @@ export const tradeSlice = createSlice({
         });
 
         builder.addCase(sellCrypto.fulfilled, (state, { payload }) => {
-
             state.isLoading = false;
         });
         builder.addCase(sellCrypto.rejected, (state, action) => {

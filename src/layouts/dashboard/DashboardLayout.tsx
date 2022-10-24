@@ -259,7 +259,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           rowSpan={[10, 10, 0, 0]}
           color={"black"}
           flex={[1, 1, "", ""]}
-          overflow={'scroll'}
+          overflowY={'scroll'}
           padding="50px 24px"
         >
           {children}
