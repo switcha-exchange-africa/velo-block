@@ -91,7 +91,7 @@ const VerificationPage = () => {
                                     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
                                     dispatch(clearFromLocalStorage())
                                     dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                                    router.replace('/signin')
+                                    router.replace('/dashboard')
                                 } else {
                                     setSubmitting(false)
                                     appAlert.error(`${response?.error?.data?.message}`)

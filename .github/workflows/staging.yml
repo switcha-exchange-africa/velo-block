@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-name: Switcha Africa Landing Page production continuous integration
-=======
 name: Switcha Africa Exchange Staging continuous integration
->>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
 
 on:
   push:
