@@ -78,7 +78,3 @@ jobs:
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
