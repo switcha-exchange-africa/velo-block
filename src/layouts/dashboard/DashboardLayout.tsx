@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import {
   VStack,
   chakra,
@@ -15,9 +14,14 @@ import {
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
-import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
+// import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
+// import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import LoginPage from "../../pages/signin";
+import { useGetUserQuery } from "../../redux/services/auth.service";
+import appAlert from "../../helpers/appAlert";
+import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
+import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+import { removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 
 interface DashboardLayoutProps {
   children: any;
@@ -25,23 +29,35 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const router = useRouter()
-  const { token } = useAppSelector((state) => state.auth)
+  // const { token } = useAppSelector((state) => state.auth)
+
   const dispatch = useAppDispatch();
-  const checkForToken = () => {
-    dispatch(getTokenFromLocalStorage())
-    // alert(token)
-    // if (!token) {
-    //   router.replace('/signin')
-    // }
+  const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
+  // const checkForToken = () => {
+  //   dispatch(getTokenFromLocalStorage())
+  //   // getUser.isFetching
+  //   // alert(token)
+  //   // if (!token) {
+  //   //   router.replace('/signin')
+  //   // }
+  // }
+
+  // useEffect(() => {
+  //   checkForToken()
+  // }, [])
+
+  if (getUser?.isFetching) {
+    return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
   }
 
-  useEffect(() => {
-    checkForToken()
-  }, [])
-
-  if (!token) {
+  if (getUser?.error?.data?.status == 401) {
+    appAlert.warning('Session Expired, please sign in again')
     return (<LoginPage />)
   }
+
+  // if (!token) {
+  //   return (<LoginPage />)
+  // }
 
   return (
     <Flex
@@ -243,6 +259,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               width={"100%"}
               marginTop={"auto"}
               display={["none", "none", "flex", "flex"]}
+              cursor={'pointer'}
+              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.replace('signin') }}
             >
               <Img
                 src="/assets/svgs/dashboard/LogOut.svg"

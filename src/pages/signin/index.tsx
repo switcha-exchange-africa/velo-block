@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import MainAppButton from '../../components/buttons/MainAppButton';
 import appAlert from '../../helpers/appAlert';
-import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
+import { useAppDispatch, } from '../../helpers/hooks/reduxHooks';
 import authValidators from '../../helpers/validators/authValidators';
 import AuthLayout from '../../layouts/auth/AuthLayout';
 import { clearFromLocalStorage, setCredentials, setEmailVerified } from '../../redux/features/auth/authSlice';
@@ -62,7 +62,7 @@ const LoginPage = () => {
                             } else if (response?.data?.status == 202) {
                                 dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
                                 setShouldSendOtp(true)
-                                const res: any = sendOtp.refetch()
+                                sendOtp.refetch()
                                 // alert(JSON.stringify(res))
                                 router.replace('/verify-email')
                             } else {
@@ -133,10 +133,10 @@ const LoginPage = () => {
                                 </MainAppButton>
 
                                 <Link href=''>
-                                    <Text fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
+                                    <Text cursor={'pointer'} fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
                                 </Link>
                                 <Link href='/signup'>
-                                    <Flex alignItems='center' >
+                                    <Flex cursor={'pointer'} alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='2' mr='1'>{'New to Switcha? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2'>{' Create an account'}</Text>
                                     </Flex >

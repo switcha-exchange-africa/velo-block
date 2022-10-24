@@ -53,6 +53,10 @@ export const authSlice = createSlice({
     getTokenFromLocalStorage: (state) => {
       state.token = localStorage.getItem("token");
     },
+    removeTokenFromLocalStorage: () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    },
   },
 });
 
@@ -63,6 +67,7 @@ export const {
   setFirstNameAndLastName,
   clearFromLocalStorage,
   getTokenFromLocalStorage,
+  removeTokenFromLocalStorage,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import { Grid, GridItem, Icon, useDisclosure } from "@chakra-ui/react";
 import {
@@ -29,11 +30,27 @@ import {
   Input,
   InputRightAddon,
   CheckboxGroup,
+=======
+import {
+  CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
+} from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
+import { Step, Steps, useSteps } from "chakra-ui-steps";
+import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
+
+import {
+  Avatar, Box, Button, Checkbox, Flex, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton,
+  ModalContent, ModalHeader, ModalOverlay, Text, Textarea
+>>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 function Sell() {
+<<<<<<< HEAD
   const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+=======
+  const { nextStep, activeStep } = useSteps({
+>>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
     initialStep: 0,
   });
 
@@ -226,8 +243,13 @@ function Sell() {
     </DashboardLayout>
   );
 }
+<<<<<<< HEAD
 const Step1 = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+=======
+const Step1 = (props: any) => {
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+>>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
 
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>

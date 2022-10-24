@@ -130,7 +130,6 @@ const DashboardPage = () => {
       {selectedId === "1" ? <BuyCoin/> : <SellCoin />}
       
     </DashboardLayout>  
-        
   );
 };
 

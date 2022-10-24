@@ -3,14 +3,22 @@ import { baseApi } from "./base.service";
 
 export const buySellAPi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSingleRateByPair: builder.query<any, any>({
+    // getSingleRateByPair: builder.query<any, any>({
+    //   query: (queryParams) =>
+    //     `${endpoints.GET_SINGLE_RATE_BY_PAIR_URL}?pair=${queryParams.source}/${queryParams.destination}`,
+    //   transformResponse: (responseData: any) => {
+    //     return responseData;
+    //   },
+    // }),
+    convert: builder.query<any, any>({
       query: (queryParams) =>
-        `${endpoints.GET_SINGLE_RATE_BY_PAIR_URL}?pair=${queryParams.source}/${queryParams.destination}`,
+        `${endpoints.CONVERT_URL}?amount=${queryParams.amount}&source=${queryParams.source}&destination=${queryParams.destination}`,
       transformResponse: (responseData: any) => {
         return responseData;
       },
     }),
-    convert: builder.query<any, any>({
+
+    convertToGetEstimatedRate: builder.query<any, any>({
       query: (queryParams) =>
         `${endpoints.CONVERT_URL}?amount=${queryParams.amount}&source=${queryParams.source}&destination=${queryParams.destination}`,
       transformResponse: (responseData: any) => {
@@ -76,7 +84,7 @@ export const buySellAPi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetSingleRateByPairQuery,
+  //   useGetSingleRateByPairQuery,
   useConvertQuery,
   useCalculateTradeFeesQuery,
   useBuyMutation,
@@ -84,4 +92,6 @@ export const {
   useGetSingleCoinQuery,
   useGetAllCoinsQuery,
   useGetCoinsByTypeQuery,
+  useConvertToGetEstimatedRateQuery,
+  useLazyConvertQuery,
 } = buySellAPi;

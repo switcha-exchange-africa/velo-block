@@ -3,13 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4000",
     "lint": "next lint"
-  },
-  "engines": {
-    "node": "^16"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",

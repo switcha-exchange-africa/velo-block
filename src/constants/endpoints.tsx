@@ -1,5 +1,5 @@
 //--------these are just test URLs---------
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/`;
 const LOGIN_URL = "auth/login";
 const REGISTER_URL = "auth/signup";
 const RESEND_VERIFY_EMAIL_URL = "auth/verify-email";
@@ -15,6 +15,7 @@ const GET_SINGLE_COIN_URL = "coins/"
 const BUY_CRYPTO_UrL = "trade/buy";
 const SELL_CRYPTO_URL = "trade/sell";
 const SWAP_CRYPTO_URL = "trade/swap";
+const QUICK_TRADE_URL = "trade/quick-trade"
 
 
 const endpoints = {
@@ -32,7 +33,8 @@ const endpoints = {
   CALCULATE_TRADE_FEES_URL,
   GET_COINS_URL,
   GET_SINGLE_COIN_URL,
-  SWAP_CRYPTO_URL
+  SWAP_CRYPTO_URL,
+  QUICK_TRADE_URL
 };
 
 export default endpoints;

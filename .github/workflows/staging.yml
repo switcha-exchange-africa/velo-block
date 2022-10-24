@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: Switcha Africa Landing Page production continuous integration
+=======
+name: Switcha Africa Exchange Staging continuous integration
+>>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012
 
 on:
   push:
@@ -12,6 +16,8 @@ env:
   REGISTRY_NAME: "switcha-africa"
   IMAGE_NAME: "switcha-staging-exchange-page"
   COMMAND: "npm run start"
+  NEXT_PUBLIC_NODE_ENV: "staging"
+  NEXT_PUBLIC_API_ENDPOINT: ${{ secrets.API_ENDPOINT_STAGING }}
 
 
 jobs:
@@ -76,3 +82,7 @@ jobs:
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b79c471f093827d71df9903c0ac7ecdd43a3012

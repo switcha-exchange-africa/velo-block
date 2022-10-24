@@ -10,11 +10,17 @@ import { Step, Steps, useSteps } from "chakra-ui-steps";
 import Countdown from "react-countdown";
 
 import {
+  CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
+} from "@chakra-ui/icons";
+import { useDisclosure } from "@chakra-ui/react";
+import { Step, Steps, useSteps } from "chakra-ui-steps";
+import Countdown from "react-countdown";
+import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
+
+import {
   Box,
   Text,
-  Image,
   Flex,
-  Link,
   Button,
   Avatar,
   Modal,
@@ -25,9 +31,11 @@ import {
   ModalBody,
   Textarea,
 } from "@chakra-ui/react";
+import { MouseEventHandler } from "react";
+import { CountdownTimeDeltaFn } from "react-countdown/dist/Countdown";
 
 function Buy() {
-  const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 
@@ -40,7 +48,7 @@ function Buy() {
       ),
       content: <Step1 action={nextStep} />,
       id: 1,
-    },//
+    },
     {
       label: (
         <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
@@ -222,9 +230,9 @@ function Buy() {
   );
 }
 
-const Step1 = (props:any) => {
+const Step1 = (props: { action: any; }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const Step2Modal = (props:any) => {
+  const Step2Modal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
     return (
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
@@ -395,7 +403,7 @@ const Step1 = (props:any) => {
   );
 };
 
-const Step2 = (props:any) => {
+const Step2 = (props: { action: CountdownTimeDeltaFn | (() => void) | undefined; }) => {
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>

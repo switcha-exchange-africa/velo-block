@@ -7,32 +7,32 @@ import {
 
 } from "@chakra-ui/react";
 
-const RenderCoinComponent = ({ coin }: any) => {
+const RenderCoinComponent = ({ coin, size = { md: "sm", base: 'xs' } }: any) => {
     return (
         <>
             {coin == 'BTC' ? <Avatar
                 name="Bitcoin"
                 src={'/assets/images/bitcoin-logo.png'}
-                size={{ md: "sm", base: 'xs' }}
+                size={size}
             /> : coin == 'ETH' ? <Avatar
                 name="Ethereum"
                 src={'/assets/images/eth-logo.png'}
-                size={{ md: "sm", base: 'xs' }}
+                size={size}
             /> : coin == 'NGN' ? <Avatar
                 name="Naira"
                 src={'/assets/svgs/NGN.svg'}
-                size={{ md: "sm", base: 'xs' }}
+                size={size}
             /> : coin == 'USDC' ? <Avatar
                 name="USD COIN"
                 src={'/assets/images/usdc-logo.png'}
-                size={{ md: "sm", base: 'xs' }}
+                size={size}
             /> : coin == 'USDT' ? <Avatar
                 name="TetherUS"
                 src={'/assets/images/usdt-logo.png'}
-                size={{ md: "sm", base: 'xs' }} /> : coin == 'USDT_TRON' ? <Avatar
+                size={size} /> : coin == 'USDT_TRON' ? <Avatar
                     name={coin}
                     src={'/assets/images/tronlogo.png'}
-                    size={{ md: "sm", base: 'xs' }} /> : <Text p={{ base: '2', md: '4' }} fontWeight={'black'} color={'#ffff'} bg={'primaryColor.900'}>{coin[0]}</Text>}
+                    size={size} /> : <Text p={{ base: '2', md: '4' }} fontWeight={'black'} color={'#ffff'} bg={'primaryColor.900'}>{coin[0]}</Text>}
 
         </>
 

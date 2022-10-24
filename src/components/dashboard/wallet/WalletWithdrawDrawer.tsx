@@ -61,6 +61,9 @@ const WalletWithdrawDrawer = (props: any) => {
                             initialValues={{ address: '', }}
 
                             onSubmit={async (values, { setSubmitting }) => {
+                                console.log(values)
+                                console.log(setSubmitting)
+
                             }}
                             validateOnChange
                             validateOnBlur
