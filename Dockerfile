@@ -33,7 +33,7 @@ COPY yarn.lock ./
 #COPY ./ ./
 
 #RUN npm ci
-COPY --chown=node:node . .
+#COPY --chown=node:node . .
 
 RUN yarn install
 
