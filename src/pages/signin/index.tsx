@@ -133,10 +133,10 @@ const LoginPage = () => {
                                 </MainAppButton>
 
                                 <Link href=''>
-                                    <Text fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
+                                    <Text cursor={'pointer'} fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
                                 </Link>
                                 <Link href='/signup'>
-                                    <Flex alignItems='center' >
+                                    <Flex cursor={'pointer'} alignItems='center' >
                                         <Text fontSize='sm' fontWeight='medium' mt='2' mr='1'>{'New to Switcha? '}</Text>
                                         <Text fontSize='sm' fontWeight='medium' color='primaryColor.900' mt='2'>{' Create an account'}</Text>
                                     </Flex >
