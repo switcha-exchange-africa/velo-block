@@ -25,8 +25,8 @@
 FROM node:14-alpine as builder
 
 USER node
-RUN chown -R node:node /home/node && chmod -R 770 /home/node
 WORKDIR /home/node/staging-exchange-switcha
+RUN chown -R node:node /home/node/staging-exchange-switcha && chmod -R 770 /home/node/staging-exchange-switcha
 
 COPY package*.json ./
 COPY yarn.lock ./
@@ -37,7 +37,8 @@ COPY --chown=node:node . .
 
 RUN yarn install
 
-RUN npm run build
+RUN npm run build \
+   && npm prune --production
 
 #RUN npm run build \
 #    && npm prune --production
