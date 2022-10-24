@@ -28,7 +28,7 @@ USER node
 WORKDIR /home/staging-exchange-switcha
 
 COPY package*.json ./
-COPY yarn.lock ./
+#COPY yarn.lock ./
 #COPY ./ ./
 
 #RUN npm ci
@@ -49,8 +49,9 @@ USER node
 WORKDIR /home/staging-exchange-switcha
 # ADD  --chown=node:node /home/node/env_nhjnrz.txt ./.env
 COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/package*.json ./
-COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/node_modules/ ./node_modules/
-COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/.next/ ./next/
+COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/yarn.lock ./
+COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/node_modules ./node_modules/
+COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/.next ./next/
 COPY --from=builder --chown=node:staging-exchange-switcha /home/staging-exchange-switcha/env-staging_auh5so.txt ./.env.local
 EXPOSE 4000
 
