@@ -28,13 +28,13 @@ USER node
 WORKDIR /home/node/staging-exchange-switcha
 
 COPY package*.json ./
-#COPY yarn.lock ./
+COPY yarn.lock ./
 #COPY ./ ./
 
 #RUN npm ci
 RUN yarn install
 
-COPY --chown=node:staging-exchange-switcha . .
+COPY --chown=node:node . .
 RUN npm run build
 
 #RUN npm run build \
@@ -42,17 +42,16 @@ RUN npm run build
 
 # ---
 
-# FROM node:14-alpine
-
+FROM node:14-alpine
 
 USER node
 WORKDIR /home/node/staging-exchange-switcha
 # ADD  --chown=node:node /home/node/env_nhjnrz.txt ./.env
-COPY --from=builder --chown=node:staging-exchange-switcha /home/node/staging-exchange-switcha/package*.json ./
-COPY --from=builder --chown=node:staging-exchange-switcha /home/node/staging-exchange-switcha/yarn.lock ./
-COPY --from=builder --chown=node:staging-exchange-switcha /home/node/staging-exchange-switcha/node_modules ./node_modules/
-COPY --from=builder --chown=node:staging-exchange-switcha /home/node/staging-exchange-switcha/.next ./next/
-COPY --from=builder --chown=node:staging-exchange-switcha /home/node/staging-exchange-switcha/env-staging_auh5so.txt ./.env.local
+COPY --from=builder --chown=node:node /home/node/staging-exchange-switcha/package*.json ./
+COPY --from=builder --chown=node:node /home/node/staging-exchange-switcha/yarn.lock ./
+COPY --from=builder --chown=node:node /home/node/staging-exchange-switcha/node_modules ./node_modules/
+COPY --from=builder --chown=node:node /home/node/staging-exchange-switcha/.next ./next/
+COPY --from=builder --chown=node:node /home/node/staging-exchange-switcha/env-staging_auh5so.txt ./.env.local
 EXPOSE 4000
 
 CMD ["npm", "run", "start"]
