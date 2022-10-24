@@ -15,53 +15,50 @@ env:
   NEXT_PUBLIC_NODE_ENV: "production"
   NEXT_PUBLIC_API_ENDPOINT: ${{ secrets.API_ENDPOINT_PRODUCTION }}
 
-
-
 jobs:
   build:
-
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Download .env from url
-      uses: suisei-cn/actions-download-file@v1
-      id: downloadfile  # Remember to give an ID if you need the output
-      with:
-        url: "https://res.cloudinary.com/https-dynastys-org/raw/upload/v1655076813/switcha-staging-env/env_r2vems.txt"
-        target: ./
+      - name: Download .env from url
+        uses: suisei-cn/actions-download-file@v1
+        id: downloadfile # Remember to give an ID if you need the output
+        with:
+          url: "https://res.cloudinary.com/https-dynastys-org/raw/upload/v1655076813/switcha-staging-env/env_r2vems.txt"
+          target: ./
 
-    - name: Install doctl
-      uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
 
-    - name: Log in to DigitalOcean Container Registry with short-lived credentials
-      run: doctl registry login --expiry-seconds 600
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 600
 
-    - name: Get the commit hash
-      id: tag
-      run: echo ::set-output name=IMG_TAG::$(echo $GITHUB_SHA)
+      - name: Get the commit hash
+        id: tag
+        run: echo ::set-output name=IMG_TAG::$(echo $GITHUB_SHA)
 
-    - name: Build and tag the Docker image
-      run: docker build --rm ./ --file ./Dockerfile
-        --tag registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
+      - name: Build and tag the Docker image
+        run: docker build --rm ./ --file ./Dockerfile
+          --tag registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
-    - name: Push the tagged Docker image
-      run: |
-        docker push registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
+      - name: Push the tagged Docker image
+        run: |
+          docker push registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
-    - name: Deploy to Digital Ocean droplet via SSH action
-      uses: appleboy/ssh-action@v0.1.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        envs: ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}},${{ secrets.REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
-        script: |
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          envs: ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}},${{ secrets.REGISTRY_NAME }},${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }},GITHUB_SHA
+          script: |
             #docker stop container 
             docker stop ${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}} 
 

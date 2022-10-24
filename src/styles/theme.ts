@@ -8,6 +8,12 @@ export const appTheme = extendTheme({
       900: "rgba(251, 94, 4, 1)",
       600: "rgba(251, 94, 4, 0.6)",
     },
+    cardColor: {
+      100: "rgba(111, 217, 122, 0.15)",
+      200: "rgba(35, 79, 236, 0.1)",
+      300: "rgba(235, 67, 53, 0.1)",
+      400: "rgba(123, 97, 255, 0.1)"
+    },
     mainBGColor: "#F8FAFC",
     appWhiteColor: "#FFFFFF",
     secondaryColor: {
