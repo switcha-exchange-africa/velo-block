@@ -3,6 +3,7 @@ import { Field, Form, Formik } from 'formik'
 import Link from 'next/link'
 import { useRouter } from "next/router"
 import MainAppButton from '../../../components/buttons/MainAppButton'
+import endpoints from '../../../constants/endpoints'
 import appAlert from '../../../helpers/appAlert'
 import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
@@ -44,6 +45,7 @@ const PersonalInformationPage2 = () => {
 
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
+                            console.log(endpoints.BASE_URL)
                             setSubmitting(true)
                             const response: any = await createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })
                             // alert(JSON.stringify(response))
