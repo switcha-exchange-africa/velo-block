@@ -34,7 +34,7 @@ COPY ./ ./
 #RUN npm ci
 RUN yarn install
 
-COPY --chown=node:node . .
+COPY --chown=node:staging-exchange-switcha . .
 RUN npm run build
 
 #RUN npm run build \
