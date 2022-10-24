@@ -51,7 +51,7 @@ WORKDIR /home/staging-exchange-switcha
 COPY --from=builder --chown=node:node /home/staging-exchange-switcha/package*.json ./
 COPY --from=builder --chown=node:node /home/staging-exchange-switcha/node_modules/ ./node_modules/
 COPY --from=builder --chown=node:node /home/staging-exchange-switcha/dist/ ./dist/
-COPY --from=builder --chown=node:node /home/staging-exchange-switcha/env_n37ey6.txt ./.env
+COPY --from=builder --chown=node:node /home/staging-exchange-switcha/env-staging_auh5so.txt ./.env.local
 EXPOSE 4000
 
 CMD ["npm", "run", "start"]

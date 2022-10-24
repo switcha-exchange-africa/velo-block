@@ -29,7 +29,7 @@ jobs:
       uses: suisei-cn/actions-download-file@v1
       id: downloadfile  # Remember to give an ID if you need the output
       with:
-        url: "https://res.cloudinary.com/https-dynastys-org/raw/upload/v1655076813/switcha-staging-env/env_r2vems.txt"
+        url: "https://res.cloudinary.com/https-dynastys-org/raw/upload/v1666644780/switcha-frontend-exchange-staging/env-staging_auh5so.txt"
         target: ./
 
     - name: Install doctl
@@ -74,7 +74,7 @@ jobs:
             docker pull registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
             # Run a new container from a new image
-            docker run --name ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 4000:4000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest --env NEXT_PUBLIC_API_ENDPOINT=${{ secrets.API_ENDPOINT_STAGING }}
+            docker run --name ${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}} -d --restart always --publish 4000:4000 registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_STAGING_EXCHANGE_NAME_IMAGE_NAME}}:latest 
 
             # deleting untagged image
             #docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
