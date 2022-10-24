@@ -25,6 +25,7 @@ CMD ["npm", "run", "start"]
 FROM node:14-alpine as builder
 
 USER node
+RUN chown -R node:node /home/node && chmod -R 770 /home/node
 WORKDIR /home/node/staging-exchange-switcha
 
 COPY package*.json ./
