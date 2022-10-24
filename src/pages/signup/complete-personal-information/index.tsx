@@ -45,7 +45,7 @@ const PersonalInformationPage2 = () => {
 
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
-                            console.log(endpoints.BASE_URL)
+                            console.log("base url", endpoints.BASE_URL)
                             setSubmitting(true)
                             const response: any = await createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })
                             // alert(JSON.stringify(response))
