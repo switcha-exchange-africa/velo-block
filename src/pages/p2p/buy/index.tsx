@@ -1,4 +1,3 @@
-
 import {
   CheckCircleIcon, CopyIcon, InfoIcon, LinkIcon
 } from "@chakra-ui/icons";
