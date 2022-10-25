@@ -6,7 +6,7 @@ import {
   Show
 } from "@chakra-ui/react";
 // import Image from "next/image";
-// import OnboardingScreen from '../../../assets/svgs/OnboardingImage.svg'
+// import OnboardingScreen from '../../../public/assets/svgs/OnboardingImage.svg'
 
 interface AuthLayoutProps {
   children: any;
@@ -25,9 +25,15 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           <Show above='md'>
             <GridItem w="100%" h="full">
               <Flex justifyContent="center" h="full" alignItems="center">
-                {/* <Box p="4">
-                  <Image src={OnboardingScreen} alt="onboarding image" />
-                </Box> */}
+                <Flex alignItems="center" justifyContent="center" p="4" w={{ lg: "600px", md: 'xs', base: 'xs' }} h="full" >
+                  {/* <Image src={OnboardingScreen} alt="onboarding image" /> */}
+                  <Img
+                    src="/assets/svgs/OnboardingImage.svg"
+                    alt=""
+                    objectFit="cover"
+                    boxSize={{ lg: "lg", md: 'xs', base: 'xs' }}
+                  />
+                </Flex>
               </Flex>
             </GridItem>
           </Show>
