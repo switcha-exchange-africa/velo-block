@@ -1,7 +1,18 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
+import {
+    useGetSellAdsUSDTQuery,
+    useGetSellAdsBTCQuery,
+    useGetSellAdsETHQuery,
+    useGetSellAdsUSDCQuery,
+} from "../../../redux/services/p2p-ads.service";
 
 const BuyCoin = () => {
+    const { data } = useGetSellAdsUSDTQuery({arg: "USDT"})
+    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC"})
+    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH"})
+    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC"})
+    
     return (
         <Tabs variant='unstyled'>
             <TabList gap={"56px"} px={["0", "0px", "28px", "28px"]}>
@@ -16,31 +27,44 @@ const BuyCoin = () => {
             <TabPanels>
                 {/* Tab panel 1 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {btc?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy BTC"
+                            backgroundColor="#22C36B"
+                            apiData={btc}
+                        />      
+                    ) : "NO BUY ADS YET"}
                 </TabPanel>
                 {/* Tab panel 2 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {eth?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy BTC"
+                            backgroundColor="#22C36B"
+                            apiData={eth}
+                        />      
+                    ) : "NO BUY ADS YET"}
                 </TabPanel>
                 {/* Tab panel 3 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {data?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy BTC"
+                            backgroundColor="#22C36B"
+                            apiData={data}
+                        />      
+                    ) : "NO BUY ADS YET"}            
                 </TabPanel>
                 {/* Tab panel 4 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {usdc?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy BTC"
+                            backgroundColor="#22C36B"
+                            apiData={usdc}
+                        />      
+                    ) : "NO BUY ADS YET"}
+                              
                 </TabPanel>
             </TabPanels>
         </Tabs>

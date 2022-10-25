@@ -7,6 +7,8 @@ import SellCoin from "../../components/homePage/sellTable/SellCoin";
 import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 
+
+
 const DashboardPage = () => {
   const minWeightProps = ["140px", "140px", "140px", "0%"]
   const scrollbarProps = {
@@ -39,6 +41,7 @@ const DashboardPage = () => {
 
 
   const { data } = useGetExchangeQuery()
+
 
 
   // function to check if the exchange rate endpoint returns a negative/poisitive value
@@ -85,7 +88,7 @@ const DashboardPage = () => {
             <Flex fontSize="13px">
               <Text><Text textTransform="uppercase" as='span'>{dat?.symbol}</Text>/USD</Text>
               <Text color={isPositive(dat?.price_change_percentage_24h)} ml="4px">
-                <Text textTransform="uppercase" as='span'>{isPositive(dat?.price_change_percentage_24h) ? "+" : "-"}</Text>
+                <Text textTransform="uppercase" as='span'>{isPositive(dat?.price_change_percentage_24h) ? "+" : ""}</Text>
                 {dat?.price_change_percentage_24h}%
               </Text>
             </Flex>
