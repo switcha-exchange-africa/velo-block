@@ -160,8 +160,6 @@ const SignUpPage = () => {
 
                             </VStack>
                         </Form>
-
-
                     )}
 
                 </Formik>

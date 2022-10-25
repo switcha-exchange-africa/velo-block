@@ -29,6 +29,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/assets/svgs/logo-single.svg" />
       </Head>
       {!token ? <SignUpPage /> : <DashboardPage />}
+      {/* <DashboardPage /> */}
 
     </div>
   );

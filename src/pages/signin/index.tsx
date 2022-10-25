@@ -30,6 +30,7 @@ const LoginPage = () => {
     // const { isEmailVerified } = useAppSelector((state) => state.auth)
 
     const sendOtp = useSendOtpQuery(undefined, { skip: shouldSendOtp == false, refetchOnMountOrArgChange: true, })
+    
     return (
         <AuthLayout>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
