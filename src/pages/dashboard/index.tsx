@@ -1,5 +1,5 @@
 import { HStack, Heading, Text, Box, Flex} from "@chakra-ui/react";
-import React, {  useState } from "react";
+import {  useState } from "react";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
@@ -37,16 +37,11 @@ const DashboardPage = () => {
     }
   }
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    isError,
-    error
-  } = useGetExchangeQuery()
+
+  const { data } = useGetExchangeQuery()
 
 
-
+  // function to check if the exchange rate endpoint returns a negative/poisitive value
   function isPositive (number:number) {
     if (number > 0) {
           //true 
@@ -86,16 +81,16 @@ const DashboardPage = () => {
       <HStack mb="48px" justifyContent={["space-between", "space-between", "space-between", "space-around"]}  mt="48px" maxW={["100%", "100%", "100%", "85%"]} mx="auto" overflowX="scroll" sx={scrollbarProps}>
         {/* to display exchange rates from exchange rate endpoints */}
         {data?.data?.map((dat: any) => (
-          <Box minW={minWeightProps} key={dat.id}>
+          <Box minW={minWeightProps} key={dat?.id}>
             <Flex fontSize="13px">
-              <Text><Text textTransform="uppercase" as='span'>{dat.symbol}</Text>/USD</Text>
-              <Text color={isPositive(dat.price_change_percentage_24h)} ml="4px">
-                <Text textTransform="uppercase" as='span'>{isPositive(dat.price_change_percentage_24h) ? "+" : "-"}</Text>
-                {dat.price_change_percentage_24h}%
+              <Text><Text textTransform="uppercase" as='span'>{dat?.symbol}</Text>/USD</Text>
+              <Text color={isPositive(dat?.price_change_percentage_24h)} ml="4px">
+                <Text textTransform="uppercase" as='span'>{isPositive(dat?.price_change_percentage_24h) ? "+" : "-"}</Text>
+                {dat?.price_change_percentage_24h}%
               </Text>
             </Flex>
-            <Heading fontSize="24px" color={isPositive(dat.price_change_percentage_24h)}>
-              {dat.current_price}
+            <Heading fontSize="24px" color={isPositive(dat?.price_change_percentage_24h)}>
+              {dat?.current_price}
             </Heading>
           </Box>  
         ))}
