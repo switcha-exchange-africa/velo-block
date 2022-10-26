@@ -40,7 +40,7 @@ const SellCoin = () => {
                 <TabPanel>
                     {eth?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="SELL BTC"
+                            buttonTitle="SELL ETH"
                             backgroundColor="#EB4335"
                             apiData={eth}
                         />      
@@ -50,7 +50,7 @@ const SellCoin = () => {
                 <TabPanel>
                     {usdt?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="SELL BTC"
+                            buttonTitle="SELL USDT"
                             backgroundColor="#EB4335"
                             apiData={usdt}
                         />      
@@ -60,7 +60,7 @@ const SellCoin = () => {
                 <TabPanel>
                     {usdc?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="SELL BTC"
+                            buttonTitle="SELL USDC"
                             backgroundColor="#EB4335"
                             apiData={usdc}
                         />      

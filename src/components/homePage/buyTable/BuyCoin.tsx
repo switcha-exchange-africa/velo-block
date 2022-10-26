@@ -41,7 +41,7 @@ const BuyCoin = () => {
                 <TabPanel>
                     {eth?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="Buy BTC"
+                            buttonTitle="Buy ETH"
                             backgroundColor="#22C36B"
                             apiData={eth}
                         />      
@@ -51,7 +51,7 @@ const BuyCoin = () => {
                 <TabPanel>
                     {usdt?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="Buy BTC"
+                            buttonTitle="Buy USDT"
                             backgroundColor="#22C36B"
                             apiData={usdt}
                         />      
@@ -61,7 +61,7 @@ const BuyCoin = () => {
                 <TabPanel>
                     {usdc?.data?.length !== 0 ? (
                         <TableComponent
-                            buttonTitle="Buy BTC"
+                            buttonTitle="Buy USDC"
                             backgroundColor="#22C36B"
                             apiData={usdc}
                         />      
