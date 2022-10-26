@@ -17,7 +17,7 @@ const SELL_CRYPTO_URL = "trade/sell";
 const SWAP_CRYPTO_URL = "trade/swap";
 const QUICK_TRADE_URL = "trade/quick-trade"
 const GET_EXCHANGE_URL = "rates/markets?base=USD";
-const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin="
+const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
 const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
 
 const endpoints = {
