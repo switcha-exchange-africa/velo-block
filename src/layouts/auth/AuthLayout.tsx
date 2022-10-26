@@ -1,5 +1,5 @@
 import {
-  Box, chakra,
+  chakra,
   Flex,
   Grid,
   GridItem, Img,
