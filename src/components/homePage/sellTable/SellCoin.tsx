@@ -34,7 +34,7 @@ const SellCoin = () => {
                             backgroundColor="#EB4335"
                             apiData={btc}
                         />      
-                    ) : "NO BUY ADS YET"}
+                    ) : "NO SELL ADS YET"}
                 </TabPanel>
                 {/* Tab panel 2 */}
                 <TabPanel>
@@ -44,7 +44,7 @@ const SellCoin = () => {
                             backgroundColor="#EB4335"
                             apiData={eth}
                         />      
-                    ) : "NO BUY ADS YET"}
+                    ) : "NO SELL ADS YET"}
                 </TabPanel>
                 {/* Tab panel 3 */}
                 <TabPanel>
@@ -54,7 +54,7 @@ const SellCoin = () => {
                             backgroundColor="#EB4335"
                             apiData={usdt}
                         />      
-                    ) : "NO BUY ADS YET"}            
+                    ) : "NO SELL ADS YET"}            
                 </TabPanel>
                 {/* Tab panel 4 */}
                 <TabPanel>
@@ -64,7 +64,7 @@ const SellCoin = () => {
                             backgroundColor="#EB4335"
                             apiData={usdc}
                         />      
-                    ) : "NO BUY ADS YET"}
+                    ) : "NO SELL ADS YET"}
                               
                 </TabPanel>
             </TabPanels>
