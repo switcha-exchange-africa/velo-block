@@ -25,13 +25,7 @@ export const buySellAPi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
-    calculateTradeFees: builder.query<any, any>({
-      query: (queryParams) =>
-        `${endpoints.CALCULATE_TRADE_FEES_URL}?operation=${queryParams.operation}&amount=${queryParams.amount}`,
-      transformResponse: (responseData: any) => {
-        return responseData;
-      },
-    }),
+
     buy: builder.mutation<any, any>({
       query: (body) => {
         return {
@@ -86,7 +80,6 @@ export const buySellAPi = baseApi.injectEndpoints({
 export const {
   //   useGetSingleRateByPairQuery,
   useConvertQuery,
-  useCalculateTradeFeesQuery,
   useBuyMutation,
   useSellMutation,
   useGetSingleCoinQuery,
