@@ -35,8 +35,8 @@ const PersonalInformationPage2 = () => {
                 <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedFirstName + ' ' + savedLastName}</Text>
-                    <Link href='/auth/PersonalInformationPage1'>
-                        <Text fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change legal name</Text>
+                    <Link href='/auth/personal-information'>
+                        <Text cursor={'pointer'} fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change legal name</Text>
                     </Link>
 
                 </Flex >
