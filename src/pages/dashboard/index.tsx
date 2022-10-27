@@ -7,11 +7,7 @@ import SellCoin from "../../components/homePage/sellTable/SellCoin";
 import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 
-export type P2pAdsComponentProps = {
-    pageNumber?: number,
-    handlePreviousPage?: () => void,
-    handleNextPage?: () => void
-}
+
 
 
 const DashboardPage = () => {

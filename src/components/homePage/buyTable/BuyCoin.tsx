@@ -6,8 +6,7 @@ import {
     useGetBuyAdsETHQuery,
     useGetBuyAdsUSDCQuery,
 } from "../../../redux/services/p2p-ads.service";
-import { P2pAdsComponentProps } from '../../../pages/dashboard';
-
+import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 
 const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
