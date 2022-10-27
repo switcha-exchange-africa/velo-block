@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 // import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 // import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 // import LoginPage from "../../pages/signin";
-import { useGetUserQuery } from "../../redux/services/auth.service";
+// import { useGetUserQuery } from "../../redux/services/auth.service";
 // import appAlert from "../../helpers/appAlert";
 // import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
@@ -32,7 +32,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   // const { token } = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch();
-  const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
+  // const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
   // const checkForToken = () => {
   //   dispatch(getTokenFromLocalStorage())
   //   // getUser.isFetching
