@@ -6,13 +6,14 @@ import {
     useGetSellAdsETHQuery,
     useGetSellAdsUSDCQuery,
 } from "../../../redux/services/p2p-ads.service";
+import { P2pAdsComponentProps } from '../../../pages/dashboard';
 
 
-const SellCoin = () => {
-    const { data:usdt } = useGetSellAdsUSDTQuery({arg: "USDT"})
-    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC"})
-    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH"})
-    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC"})
+const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+    const { data:usdt } = useGetSellAdsUSDTQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC" , pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH" , pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC" , pageNumber: `${pageNumber}`})
     
     return (
         <Tabs variant='unstyled'>
@@ -33,6 +34,8 @@ const SellCoin = () => {
                             buttonTitle="SELL BTC"
                             backgroundColor="#EB4335"
                             apiData={btc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO SELL ADS YET"}
                 </TabPanel>
@@ -43,6 +46,8 @@ const SellCoin = () => {
                             buttonTitle="SELL ETH"
                             backgroundColor="#EB4335"
                             apiData={eth}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO SELL ADS YET"}
                 </TabPanel>
@@ -53,6 +58,8 @@ const SellCoin = () => {
                             buttonTitle="SELL USDT"
                             backgroundColor="#EB4335"
                             apiData={usdt}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO SELL ADS YET"}            
                 </TabPanel>
@@ -63,6 +70,8 @@ const SellCoin = () => {
                             buttonTitle="SELL USDC"
                             backgroundColor="#EB4335"
                             apiData={usdc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO SELL ADS YET"}
                               

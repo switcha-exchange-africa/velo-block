@@ -7,6 +7,11 @@ import SellCoin from "../../components/homePage/sellTable/SellCoin";
 import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 
+export type P2pAdsComponentProps = {
+    pageNumber?: number,
+    handlePreviousPage?: () => void,
+    handleNextPage?: () => void
+}
 
 
 const DashboardPage = () => {
@@ -39,10 +44,7 @@ const DashboardPage = () => {
     }
   }
 
-
   const { data } = useGetExchangeQuery()
-
-
 
   // function to check if the exchange rate endpoint returns a negative/poisitive value
   function isPositive (number:number) {
@@ -62,6 +64,14 @@ const DashboardPage = () => {
       return "#E95455";
   }
   
+  const [pageNumber, setPageNumber] = useState(1)
+  const handlePreviousPage = () => {
+    setPageNumber(pageNumber - 1)
+  }
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1)
+  }
 
   return (
     <DashboardLayout>
@@ -108,7 +118,19 @@ const DashboardPage = () => {
       </HStack>
 
       {/* to render the buy and sell component here */}
-      {selectedId === "1" ? <BuyCoin/> : <SellCoin />}
+      {selectedId === "1" ? (
+        <BuyCoin
+          handlePreviousPage={handlePreviousPage}
+          handleNextPage={handleNextPage}
+          pageNumber={pageNumber}
+        />
+      ) : (
+          <SellCoin
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            pageNumber={pageNumber}
+          />
+      )}
       
     </DashboardLayout>  
   );
