@@ -62,4 +62,5 @@ export const {
   useVerifyOtpMutation,
   useSendOtpQuery,
   useGetUserQuery,
+  useLazyGetUserQuery,
 } = authApi;

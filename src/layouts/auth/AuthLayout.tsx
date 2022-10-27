@@ -5,6 +5,7 @@ import {
   GridItem, Img,
   Show
 } from "@chakra-ui/react";
+import Image from 'next/image'
 // import OnboardingImage from '../../../assets/svgs/OnboardingImage.svg'
 
 interface AuthLayoutProps {
@@ -25,13 +26,14 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             <GridItem w="100%" h="full">
               <Flex justifyContent="center" h="full" alignItems="center">
 
-                <Box p="4">
-                  <Img
+                <Box p="4" boxSize={{ lg: "lg", md: 'xs', base: 'xs' }} position={'relative'}>
+                  <Image src={'/assets/svgs/OnboardingImage.svg'} alt='' layout="fill" objectFit="fill" priority />
+                  {/* <Img
                     src="/assets/svgs/OnboardingImage.svg"
                     alt=""
                     objectFit="cover"
                     boxSize={{ lg: "lg", md: 'xs', base: 'xs' }}
-                  />
+                  /> */}
                 </Box>
 
 

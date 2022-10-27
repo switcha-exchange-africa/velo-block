@@ -26,7 +26,7 @@ import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDeposit
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 import { useRouter } from "next/router";
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
-import LoginPage from "../signin";
+// import LoginPage from "../signin";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 // import appAlert from "../../helpers/appAlert";
 import RenderCoinComponent from "../../components/dashboard/wallet/RenderCoinComponent";
@@ -196,12 +196,12 @@ function WalletPage() {
   // if (walletsquery?.isFetching) {
   //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
   // }
-  if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
+  // if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
 
-    // appAlert.warning('Session Expired, please sign in again')
-    return <LoginPage />
+  //   // appAlert.warning('Session Expired, please sign in again')
+  //   return <LoginPage />
 
-  }
+  // }
   return (
     <DashboardLayout>
       <Box w={'full'} p={{ md: '8', base: '2' }}>

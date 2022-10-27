@@ -37,7 +37,7 @@ const PersonalInformationPage1 = () => {
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedEmail}</Text>
                     <Link href='/signup'>
-                        <Text fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change email</Text>
+                        <Text cursor={'pointer'} fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change email</Text>
                     </Link>
 
                 </Flex >

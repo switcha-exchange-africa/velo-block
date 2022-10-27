@@ -16,10 +16,10 @@ import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoard
 import { useRouter } from "next/router";
 // import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 // import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
-import LoginPage from "../../pages/signin";
+// import LoginPage from "../../pages/signin";
 import { useGetUserQuery } from "../../redux/services/auth.service";
-import appAlert from "../../helpers/appAlert";
-import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
+// import appAlert from "../../helpers/appAlert";
+// import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 
@@ -46,18 +46,30 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   //   checkForToken()
   // }, [])
 
-  if (getUser?.isFetching) {
-    return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
-  }
+  // if (getUser?.isFetching) {
+  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
+  // }
 
-  if (getUser?.error?.data?.status == 401) {
-    appAlert.warning('Session Expired, please sign in again')
-    return (<LoginPage />)
-  }
+  // if (getUser?.error?.data?.status == 401) {
+  //   // appAlert.warning('Session Expired, please sign in again')
+  //   return (<LoginPage />)
+  // }
 
   // if (!token) {
   //   return (<LoginPage />)
   // }
+
+
+
+  // React.useEffect(() => {
+  //   if (getUser?.error?.data?.status == 401) {
+  //     // alert(JSON.stringify(getUser))
+  //     router.push('/signin')
+  //   }
+  //   if (getUser?.isFetching) {
+  //     router.push('/dashboard')
+  //   }
+  // }, [getUser, getUser?.error?.data?.status, router])
 
   return (
     <Flex
