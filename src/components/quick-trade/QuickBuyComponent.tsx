@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -12,11 +12,11 @@ const QuickBuyComponent = () => {
     const [creditCoin, setCreditCoin] = useState(`${coinOptions[0].value}`)
     const [debitCoin, setDebitCoin] = useState(`${currencyOptions[0].value}`)
     return (
-        <Flex flexDirection={'column'} p={'4'}>
+        <Flex flexDirection={'column'} p={'8'}>
             <Formik
                 initialValues={{ email: '', password: '' }}
 
-                onSubmit={async (values, {  }) => {
+                onSubmit={async (values, { }) => {
                     console.log(values)
                     router.push('/quick-trade/confirm-purchase')
                 }}
@@ -33,7 +33,7 @@ const QuickBuyComponent = () => {
                     /* and other goodies */
                 }) => (
                     <Form>
-                        <VStack w='xs' align='start'>
+                        <VStack w={{ base: 'xs', lg: 'md' }} align='start'>
                             <Field name='email' >
                                 {({ field, form }: any) => (
                                     <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
@@ -65,7 +65,7 @@ const QuickBuyComponent = () => {
                             </Field>
 
                             <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar N550</Text>
-
+                            <Box py={'2'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondaryColor.900'} >
                                 Buy with 0 fee
                             </MainAppButton>

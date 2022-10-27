@@ -14,8 +14,8 @@ const QuickTrade = () => {
                 <Box bg={'appWhiteColor'}>
                     <Flex flexDirection={'column'}>
                         <Flex>
-                            <Text fontSize='2xl' as='b' py={'2'} w={'full'} align={'center'} bg={isBuySelected == true ? 'appWhiteColor' : 'gray.200'} cursor={'pointer'} onClick={() => setIsBuySelected(true)}>Buy</Text>
-                            <Text fontSize='2xl' as='b' py={'2'} w={'full'} align={'center'} bg={isBuySelected == false ? 'appWhiteColor' : 'gray.200'} cursor={'pointer'} onClick={() => setIsBuySelected(false)}>Sell</Text>
+                            <Text fontSize='3xl' as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == true ? 'appWhiteColor' : 'gray.200'} cursor={'pointer'} onClick={() => setIsBuySelected(true)}>Buy</Text>
+                            <Text fontSize='3xl' as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == false ? 'appWhiteColor' : 'gray.200'} cursor={'pointer'} onClick={() => setIsBuySelected(false)}>Sell</Text>
                         </Flex>
                         {isBuySelected ? <QuickBuyComponent /> : <QuickSellComponent />}
 
