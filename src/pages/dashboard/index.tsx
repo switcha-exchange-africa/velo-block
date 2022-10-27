@@ -9,6 +9,7 @@ import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 
 
 
+
 const DashboardPage = () => {
   const minWeightProps = ["140px", "140px", "140px", "0%"]
   const scrollbarProps = {
@@ -39,10 +40,7 @@ const DashboardPage = () => {
     }
   }
 
-
   const { data } = useGetExchangeQuery()
-
-
 
   // function to check if the exchange rate endpoint returns a negative/poisitive value
   function isPositive (number:number) {
@@ -62,6 +60,23 @@ const DashboardPage = () => {
       return "#E95455";
   }
   
+  const [pageNumber, setPageNumber] = useState(1)
+  const handlePreviousPage = () => {
+    setPageNumber(pageNumber - 1)
+  }
+
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1)
+  }
+
+  const checkString = (word:string) => {
+    if (word.toString().includes('-')) {
+      return ""
+    } else {
+      return "+"
+    }
+  }
+
 
   return (
     <DashboardLayout>
@@ -87,8 +102,8 @@ const DashboardPage = () => {
           <Box minW={minWeightProps} key={dat?.id}>
             <Flex fontSize="13px">
               <Text><Text textTransform="uppercase" as='span'>{dat?.symbol}</Text>/USD</Text>
-              <Text color={isPositive(dat?.price_change_percentage_24h)} ml="4px">
-                <Text textTransform="uppercase" as='span'>{isPositive(dat?.price_change_percentage_24h) ? "+" : ""}</Text>
+              <Text color={isPositive(dat?.price_change_percentage_24h)} ml="5px">
+                {checkString(dat?.price_change_percentage_24h)}
                 {dat?.price_change_percentage_24h}%
               </Text>
             </Flex>
@@ -108,7 +123,19 @@ const DashboardPage = () => {
       </HStack>
 
       {/* to render the buy and sell component here */}
-      {selectedId === "1" ? <BuyCoin/> : <SellCoin />}
+      {selectedId === "1" ? (
+        <BuyCoin
+          handlePreviousPage={handlePreviousPage}
+          handleNextPage={handleNextPage}
+          pageNumber={pageNumber}
+        />
+      ) : (
+          <SellCoin
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            pageNumber={pageNumber}
+          />
+      )}
       
     </DashboardLayout>  
   );

@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react'
+import { Box,  Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
 import {
     useGetBuyAdsUSDTQuery,
@@ -6,14 +6,14 @@ import {
     useGetBuyAdsETHQuery,
     useGetBuyAdsUSDCQuery,
 } from "../../../redux/services/p2p-ads.service";
+import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
-const BuyCoin = () => {
-    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT"})
-    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC"})
-    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH"})
-    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC"})
 
-    
+const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
     return (
         <Tabs variant='unstyled'>
@@ -34,6 +34,8 @@ const BuyCoin = () => {
                             buttonTitle="Buy BTC"
                             backgroundColor="#22C36B"
                             apiData={btc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO BUY ADS YET"}
                 </TabPanel>
@@ -44,9 +46,12 @@ const BuyCoin = () => {
                             buttonTitle="Buy ETH"
                             backgroundColor="#22C36B"
                             apiData={eth}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
                     ) : "NO BUY ADS YET"}
                 </TabPanel>
+
                 {/* Tab panel 3 */}
                 <TabPanel>
                     {usdt?.data?.length !== 0 ? (
@@ -54,9 +59,12 @@ const BuyCoin = () => {
                             buttonTitle="Buy USDT"
                             backgroundColor="#22C36B"
                             apiData={usdt}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
-                    ) : "NO BUY ADS YET"}            
+                    ) : "NO BUY ADS YET"}           
                 </TabPanel>
+
                 {/* Tab panel 4 */}
                 <TabPanel>
                     {usdc?.data?.length !== 0 ? (
@@ -64,9 +72,10 @@ const BuyCoin = () => {
                             buttonTitle="Buy USDC"
                             backgroundColor="#22C36B"
                             apiData={usdc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
                         />      
-                    ) : "NO BUY ADS YET"}
-                              
+                    ) : "NO BUY ADS YET"}              
                 </TabPanel>
             </TabPanels>
         </Tabs>
