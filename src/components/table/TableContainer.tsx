@@ -68,7 +68,11 @@ const TableComponent = ({
                                                 <Box>
                                                     <Image src={Line} alt="line division" />
                                                 </Box>
-                                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}%&nbsp;completion</Text>
+                                                <Text>
+                                                    {
+                                                        isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)
+                                                    }
+                                                    %&nbsp;completion</Text>
                                             </HStack>
                                         </HStack>
                                         
