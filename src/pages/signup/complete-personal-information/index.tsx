@@ -30,7 +30,7 @@ const PersonalInformationPage2 = () => {
         return error
     }
     return (
-        <AuthLayout>
+        <AuthLayout title='complete personal information'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
                 <Flex alignItems='center' justifyContent='space-between' width='full' >

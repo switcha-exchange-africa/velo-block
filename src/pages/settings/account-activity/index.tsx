@@ -13,7 +13,7 @@ const AccountActivity = () => {
   const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <DashboardLayout>
+    <DashboardLayout title="account activity">
       <Flex flexDirection={'column'} background={"#F8FAFC"} height={"full"} color="black" px={{ md: "10%", base: '0' }}>
         <Show above="md">
 

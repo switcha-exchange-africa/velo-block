@@ -7,7 +7,7 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 const Settings = () => {
     const router = useRouter()
     return (
-        <DashboardLayout>
+        <DashboardLayout title='settings'>
             <Box background={'#F8FAFC'} height={"full"} color="black" px={{ md: "10%", base: '0' }}>
                 <Box bg={{ base: 'white', md: 'transparent' }}>
                     <Heading

@@ -203,7 +203,8 @@ function WalletPage() {
 
   // }
   return (
-    <DashboardLayout>
+    <DashboardLayout title="
+    wallet">
       <Box w={'full'} p={{ md: '8', base: '2' }}>
         <Box>
           <Box

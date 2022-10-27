@@ -9,7 +9,7 @@ const QuickTrade = () => {
     const [isBuySelected, setIsBuySelected] = useState(true)
 
     return (
-        <DashboardLayout>
+        <DashboardLayout title='quick trade'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box bg={'appWhiteColor'}>
                     <Flex flexDirection={'column'}>

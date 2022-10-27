@@ -52,7 +52,7 @@ const Swap = () => {
 
     }
     return (
-        <DashboardLayout>
+        <DashboardLayout title='swap'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box >
                     <Flex flexDirection={'column'}>

@@ -9,7 +9,7 @@ const NotifySeller = () => {
 
     // }, [])
     return (
-        <DashboardLayout>
+        <DashboardLayout title='notify seller'>
             <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
                 <Flex justifyContent={'space-between'} flexDirection={{ base: 'column', lg: 'row' }} w={'full'} bg={'#ffffff'} p={{ base: '2', md: '4' }}>
                     <Flex flexDirection={'column'} w={'full'} alignItems={'start'}>

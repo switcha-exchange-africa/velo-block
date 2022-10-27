@@ -11,7 +11,7 @@ import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 const Security = () => {
   const router = useRouter();
   return (
-    <DashboardLayout>
+    <DashboardLayout title="security">
       <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
         <Show above="md">
           <Button

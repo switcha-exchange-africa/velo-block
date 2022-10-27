@@ -88,7 +88,7 @@ const SignUpPage = () => {
         return error
     }
     return (
-        <AuthLayout>
+        <AuthLayout title='sign up'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Create your account</Text>
                 <Formik

@@ -9,7 +9,7 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 const ConfirmPurchase = () => {
     const router = useRouter()
     return (
-        <DashboardLayout>
+        <DashboardLayout title='confirm purchase'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box bg={'appWhiteColor'} p={'4'}>
                     <Flex flexDirection={'column'}>
