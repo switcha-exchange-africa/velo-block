@@ -69,6 +69,15 @@ const DashboardPage = () => {
     setPageNumber(pageNumber + 1)
   }
 
+  const checkString = (word:string) => {
+    if (word.toString().includes('-')) {
+      return ""
+    } else {
+      return "+"
+    }
+  }
+
+
   return (
     <DashboardLayout>
       <Box>
@@ -93,8 +102,8 @@ const DashboardPage = () => {
           <Box minW={minWeightProps} key={dat?.id}>
             <Flex fontSize="13px">
               <Text><Text textTransform="uppercase" as='span'>{dat?.symbol}</Text>/USD</Text>
-              <Text color={isPositive(dat?.price_change_percentage_24h)} ml="4px">
-                <Text textTransform="uppercase" as='span'>{isPositive(dat?.price_change_percentage_24h) ? "+" : ""}</Text>
+              <Text color={isPositive(dat?.price_change_percentage_24h)} ml="5px">
+                {checkString(dat?.price_change_percentage_24h)}
                 {dat?.price_change_percentage_24h}%
               </Text>
             </Flex>
