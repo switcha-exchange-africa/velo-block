@@ -120,6 +120,7 @@ const VerificationPage = () => {
                         {({
                             // handleChange,
                             // handleBlur,
+                            submitForm,
                             handleSubmit,
                             isSubmitting,
                             setFieldValue
@@ -131,7 +132,14 @@ const VerificationPage = () => {
                                         {({ field, form }: any) => (
                                             <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
                                                 <HStack justify='space-evenly' >
-                                                    <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
+                                                    <PinInput {...field} mask={false} onChange={(e) => {
+                                                        setFieldValue('pin', e);
+
+                                                    }} placeholder='' type='number' onComplete={() => {
+                                                        console.log('donnee'); setTimeout(() => {
+                                                            submitForm();
+                                                        });
+                                                    }} otp>
                                                         <PinInputField />
                                                         <PinInputField />
                                                         <PinInputField />

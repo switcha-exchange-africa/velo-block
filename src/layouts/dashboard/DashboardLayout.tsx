@@ -272,7 +272,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
               marginTop={"auto"}
               display={["none", "none", "flex", "flex"]}
               cursor={'pointer'}
-              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.replace('signin') }}
+              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.replace('/signin') }}
             >
               <Img
                 src="/assets/svgs/dashboard/LogOut.svg"
