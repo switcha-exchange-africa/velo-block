@@ -42,9 +42,9 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             gap="5px"
                         >
                             <Avatar
-                            size={"md"}
-                            background={"#FB5E04"}
-                            name="Maximus"
+                                size={"md"}
+                                background={"#FB5E04"}
+                                name="Maximus"
                             ></Avatar>
                             <Box display={"flex"} gap="10px">
                             <Box display={"flex"} alignItems={"center"} gap="3px">
@@ -72,11 +72,11 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             width={["auto", "auto", "450px"]}
                         >
                             <Flex
-                            mb={"10px"}
-                            wrap={"wrap"}
-                            flexDir={["column", "column", "row"]}
-                            alignItems={["flex-start", "flex-start", "center"]}
-                            gap={["5px", "5px", "100px"]}
+                                mb={"10px"}
+                                wrap={"wrap"}
+                                flexDir={["column", "column", "row"]}
+                                alignItems={["flex-start", "flex-start", "center"]}
+                                gap={["5px", "5px", "100px"]}
                             >
                             <Box display={"flex"} gap="10px">
                                 <Text color={"#8E9BAE"}>Price</Text>
@@ -103,13 +103,13 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             <Box alignItems={"center"} display={"flex"} gap="10px">
                                 <Text color={"#8E9BAE"}>Buyer’s payment method</Text>
                                 <Text
-                                fontSize={"10px"}
-                                textAlign={"center"}
-                                background={"#FFF7F2"}
-                                color={"#FB5E04"}
-                                borderRadius={"3px"}
+                                    fontSize={"10px"}
+                                    textAlign={"center"}
+                                    background={"#FFF7F2"}
+                                    color={"#FB5E04"}
+                                    borderRadius={"3px"}
                                 >
-                                Bank Transfer
+                                    Bank Transfer
                                 </Text>
                             </Box>
                             </Flex>
@@ -129,10 +129,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             <Text fontSize={"xs"}>I want to buy </Text>
                             <InputGroup size="sm">
                                 <Input
-                                borderTopLeftRadius={"5px"}
-                                borderBottomLeftRadius={"5px"}
-                                placeholder="Enter amount NGN"
-                                borderRight={"none"}
+                                    borderTopLeftRadius={"5px"}
+                                    borderBottomLeftRadius={"5px"}
+                                    placeholder="Enter amount NGN"
+                                    borderRight={"none"}
                                 />
                                 <InputRightAddon background={"none"} borderLeft="0px">
                                 <Flex gap={"20px"}>
@@ -146,10 +146,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             <Text fontSize={"xs"}>I will recieve </Text>
                             <InputGroup size="sm">
                                 <Input
-                                borderTopLeftRadius={"5px"}
-                                borderBottomLeftRadius={"5px"}
-                                placeholder="Enter amount NGN"
-                                borderRight={"none"}
+                                    borderTopLeftRadius={"5px"}
+                                    borderBottomLeftRadius={"5px"}
+                                    placeholder="Enter amount NGN"
+                                    borderRight={"none"}
                                 />
                                 <InputRightAddon background={"none"} borderLeft="0px">
                                 <Flex gap={"20px"}>
@@ -196,7 +196,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 color={"#fff"}
                                 background={"#22C36B"}
                                 >
-                                Buy USDT
+                                    Buy USDT
                                 </Button>
                             </Flex>
                             </Box>
