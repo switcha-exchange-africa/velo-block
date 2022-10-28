@@ -154,7 +154,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
             // py={["20px", "20px", "10px", "5px"]}
-            py={{ base: '0px', md: '8' }}
+            py={{ base: '5px', md: '8' }}
             boxShadow={["dark-lg", "dark-lg", "unset", "unset"]}
             borderRadius={["30px 30px 0 0", "30px 30px 0 0", "unset", "unset"]}
           >
@@ -296,8 +296,14 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           rowSpan={[10, 10, 0, 0]}
           color={"black"}
           flex={[1, 1, "", ""]}
-          overflowY={'scroll'}
+          overflow={'scroll'}
           padding="50px 24px"
+          sx={
+                { 
+                '::-webkit-scrollbar':{
+                    display:'none'
+                }}
+            }
         >
           {children}
         </GridItem>

@@ -1,7 +1,20 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react'
+import { Box,  Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
+import {
+    useGetBuyAdsUSDTQuery,
+    useGetBuyAdsBTCQuery,
+    useGetBuyAdsETHQuery,
+    useGetBuyAdsUSDCQuery,
+} from "../../../redux/services/p2p-ads.service";
+import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
-const BuyCoin = () => {
+
+const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+
     return (
         <Tabs variant='unstyled'>
             <TabList gap={"56px"} px={["0", "0px", "28px", "28px"]}>
@@ -16,31 +29,53 @@ const BuyCoin = () => {
             <TabPanels>
                 {/* Tab panel 1 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {btc?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy BTC"
+                            backgroundColor="#22C36B"
+                            apiData={btc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
+                        />      
+                    ) : "NO BUY ADS YET"}
                 </TabPanel>
                 {/* Tab panel 2 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {eth?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy ETH"
+                            backgroundColor="#22C36B"
+                            apiData={eth}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
+                        />      
+                    ) : "NO BUY ADS YET"}
                 </TabPanel>
+
                 {/* Tab panel 3 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {usdt?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy USDT"
+                            backgroundColor="#22C36B"
+                            apiData={usdt}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
+                        />      
+                    ) : "NO BUY ADS YET"}           
                 </TabPanel>
+
                 {/* Tab panel 4 */}
                 <TabPanel>
-                    <TableComponent
-                        buttonTitle="Buy BTC"
-                        backgroundColor="#22C36B"
-                    />            
+                    {usdc?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy USDC"
+                            backgroundColor="#22C36B"
+                            apiData={usdc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
+                        />      
+                    ) : "NO BUY ADS YET"}              
                 </TabPanel>
             </TabPanels>
         </Tabs>

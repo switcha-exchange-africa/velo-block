@@ -30,6 +30,7 @@ const LoginPage = () => {
     // const { isEmailVerified } = useAppSelector((state) => state.auth)
 
     const sendOtp = useSendOtpQuery(undefined, { skip: shouldSendOtp == false, refetchOnMountOrArgChange: true, })
+    
     return (
         <AuthLayout title='sign in'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
@@ -144,8 +145,6 @@ const LoginPage = () => {
 
                             </VStack>
                         </Form>
-
-
                     )}
 
                 </Formik>

@@ -15,9 +15,12 @@ const GET_SINGLE_COIN_URL = "coins/"
 const BUY_CRYPTO_UrL = "trade/buy";
 const SELL_CRYPTO_URL = "trade/sell";
 const SWAP_CRYPTO_URL = "trade/swap";
-const QUICK_TRADE_URL = "trade/quick-trade";
 const GET_SINGLE_ORDER = "p2p/order/"
 
+const QUICK_TRADE_URL = "trade/quick-trade"
+const GET_EXCHANGE_URL = "rates/markets?base=USD";
+const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
+const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
 
 const endpoints = {
   BASE_URL,
@@ -36,7 +39,10 @@ const endpoints = {
   GET_SINGLE_COIN_URL,
   SWAP_CRYPTO_URL,
   QUICK_TRADE_URL,
-  GET_SINGLE_ORDER
+  GET_SINGLE_ORDER,
+  GET_EXCHANGE_URL,
+  P2P_BUY_ADS_URL,
+  P2P_SELL_ADS_URL
 };
 
 export default endpoints;

@@ -49,9 +49,9 @@ export const authApi = baseApi.injectEndpoints({
     }),
     getUser: builder.query<any, void>({
       query: () => `${endpoints.GET_USER_URL}`,
-      transformResponse: (responseData: any) => {
-        return responseData;
-      },
+      // transformResponse: (responseData: any) => {
+      //   return responseData;
+      // },
     }),
   }),
 });

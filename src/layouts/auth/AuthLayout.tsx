@@ -1,5 +1,6 @@
 import {
-  Box, chakra,
+  Box,
+  chakra,
   Flex,
   Grid,
   GridItem, Img,
@@ -8,6 +9,8 @@ import {
 import Head from "next/head";
 import Image from 'next/image'
 // import OnboardingImage from '../../../assets/svgs/OnboardingImage.svg'
+// import Image from "next/image";
+// import OnboardingScreen from '../../../public/assets/svgs/OnboardingImage.svg'
 
 interface AuthLayoutProps {
   children: any;
