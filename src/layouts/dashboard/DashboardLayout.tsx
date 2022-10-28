@@ -75,14 +75,14 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
   return (
     <Flex
-      align="stretch"
+      // align="stretch"
       // maxH={["100vh", "100vh", "100vh", "100vh"]}
       flexDirection={'column'}
       h={{ lg: "100vh", md: "100vh", sm: "100vh", base: "100vh" }}
       // h={["100vh"]}
       bg="mainBGColor"
       width={["100%", "100%", "unset", "unset"]}
-      justify="stretch"
+    // justify="stretch"
     // overflowY={'scroll'}
     >
       <Head>
