@@ -4,6 +4,7 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 
+
 import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
 import RenderCoinsDropdown from '../../components/select/RenderCoinsDropdown';
 import { useSwapMutation } from '../../redux/services/swap.service';
@@ -11,6 +12,8 @@ import appAlert from '../../helpers/appAlert';
 import { useRouter } from 'next/router';
 import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
+import { GetServerSideProps } from 'next';
+import { checkValidToken } from '../../helpers/functions/checkValidToken';
 
 // const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 
@@ -193,6 +196,12 @@ const Swap = () => {
             </Flex>
         </DashboardLayout>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return checkValidToken(context)
+
 }
 
 export default Swap

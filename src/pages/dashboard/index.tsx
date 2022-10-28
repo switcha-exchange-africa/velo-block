@@ -6,6 +6,8 @@ import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard
 import SellCoin from "../../components/homePage/sellTable/SellCoin";
 import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 import { useGetExchangeQuery } from "../../redux/services/exchange.service";
+import { GetServerSideProps } from "next";
+import { checkValidToken } from "../../helpers/functions/checkValidToken";
 
 
 
@@ -141,5 +143,11 @@ const DashboardPage = () => {
     </DashboardLayout>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  return checkValidToken(context)
+
+}
 
 export default DashboardPage;

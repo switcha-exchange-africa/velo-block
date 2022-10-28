@@ -1,8 +1,10 @@
 import {
     Box, Heading
 } from '@chakra-ui/react'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import SettingsOptionComponent from '../../components/dashboard/settings/SettingsOptionComponent'
+import { checkValidToken } from '../../helpers/functions/checkValidToken'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 const Settings = () => {
     const router = useRouter()
@@ -32,6 +34,12 @@ const Settings = () => {
             </Box >
         </DashboardLayout >
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return checkValidToken(context)
+
 }
 
 export default Settings

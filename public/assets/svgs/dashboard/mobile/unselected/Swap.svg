@@ -1,0 +1,6 @@
+ <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.2803 8.5236L19.0002 4.76177L15.2803 1" stroke='rgba(16, 25, 45, 1)' strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M1 4.76172H19" stroke='rgba(16, 25, 45, 1)' strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M4.71997 11.6584L1 15.4203L4.71997 19.182" stroke='rgba(16, 25, 45, 1)' strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M19 15.4203H1" stroke='rgba(16, 25, 45, 1)' strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>

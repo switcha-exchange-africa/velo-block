@@ -1,7 +1,9 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import QuickBuyComponent from '../../components/quick-trade/QuickBuyComponent';
 import QuickSellComponent from '../../components/quick-trade/QuickSellComponent';
+import { checkValidToken } from '../../helpers/functions/checkValidToken';
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout';
 
 
@@ -26,6 +28,12 @@ const QuickTrade = () => {
         </DashboardLayout>
 
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return checkValidToken(context)
+
 }
 
 export default QuickTrade
