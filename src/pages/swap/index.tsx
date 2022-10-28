@@ -15,6 +15,7 @@ import LoginPage from '../signin';
 import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
 import { useLazyGetSingleWalletQuery, useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 
 
 // const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
@@ -32,6 +33,8 @@ const Swap = () => {
     const inversePriceRate: any = useConvertToGetEstimatedRateQuery({ amount: amount, source: creditCoin, destination: debitCoin }, { refetchOnMountOrArgChange: true })
 
     const convertFromDebitCoin: any = useConvertQuery({ amount: amount, source: debitCoin, destination: creditCoin }, { skip: amount == '0', refetchOnMountOrArgChange: true })
+
+    const calculateSwapFees: any = useCalculateTradeFeesQuery({ amount: amount, operation: 'swap' }, { skip: amount == '0', refetchOnMountOrArgChange: true })
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [swap] = useSwapMutation()
     const [getAllWallets] = useLazyGetWalletsQuery()
@@ -192,8 +195,12 @@ const Swap = () => {
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Inverse Price</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 {creditCoin} = {inversePriceRate?.data?.data?.destinationAmount?.rate} {debitCoin}</Text>
                                                 </Flex>
+
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>You will receive</Text>
                                                     <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} {creditCoin}</Text>
+                                                </Flex>
+                                                <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
+                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>
                                                 </Flex>
                                             </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin} = {convertFromDebitCoin?.data?.data?.destinationAmount?.rate} {creditCoin}</Text>}
 
