@@ -120,7 +120,7 @@ const Swap = () => {
                                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                                             }} />
-                                                            <InputRightElement width={'52'} zIndex={'overlay'} >
+                                                            <InputRightElement width={{ md: '52', base: '36' }} zIndex={'overlay'} >
                                                                 <Flex alignItems={'center'} justifyContent={'space-between'} w='full'>
                                                                     <Text fontSize={'sm'} color={'red.400'} >MAX</Text>
                                                                     <Divider orientation='vertical' h='20px' />
@@ -134,7 +134,8 @@ const Swap = () => {
                                                     </FormControl>
                                                 )}
                                             </Field>
-                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img src={'/assets/svgs/swapIcon.svg'} alt='swap icon' /></Flex>
+
+                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img cursor={'pointer'} src={'/assets/svgs/swapIcon.svg'} alt='swap icon' onClick={() => { const tempCreditCoin = creditCoin; const tempDebitCoin = debitCoin; setDebitCoin(tempCreditCoin); setCreditCoin(tempDebitCoin) }} /></Flex>
 
 
 
