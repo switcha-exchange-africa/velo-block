@@ -14,7 +14,7 @@ import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
 import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
-import { useLazyGetSingleWalletQuery, useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+import { useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 
 
@@ -38,7 +38,7 @@ const Swap = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [swap] = useSwapMutation()
     const [getAllWallets] = useLazyGetWalletsQuery()
-    const [getSingleWallet] = useLazyGetSingleWalletQuery()
+    // const [getSingleWallet] = useLazyGetSingleWalletQuery()
 
 
     const handleMax = async () => {
@@ -47,13 +47,15 @@ const Swap = () => {
             // alert(JSON.stringify(walletsResponse))
             for (let i = 0; i < walletsResponse?.data?.length; i++) {
                 if (walletsResponse?.data[i].coin == debitCoin) {
-                    try {
-                        const singleWalletResponse = await getSingleWallet(walletsResponse?.data[i]._id).unwrap()
-                        setAmount(singleWalletResponse?.data?.balance)
-                        return singleWalletResponse?.data?.balance
-                    } catch (error) {
-                        console.log(error)
-                    }
+                    setAmount(walletsResponse?.data[i].balance)
+                    return walletsResponse?.data[i].balance
+                    // try {
+                    //     const singleWalletResponse = await getSingleWallet(walletsResponse?.data[i]._id).unwrap()
+                    //     setAmount(singleWalletResponse?.data?.balance)
+                    //     return singleWalletResponse?.data?.balance
+                    // } catch (error) {
+                    //     console.log(error)
+                    // }
                 }
             }
         } catch (error) {
