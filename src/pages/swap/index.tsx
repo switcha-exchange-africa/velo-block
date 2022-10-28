@@ -14,6 +14,8 @@ import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
 import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
+import { useLazyGetSingleWalletQuery, useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+
 
 // const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 
@@ -32,6 +34,31 @@ const Swap = () => {
     const convertFromDebitCoin: any = useConvertQuery({ amount: amount, source: debitCoin, destination: creditCoin }, { skip: amount == '0', refetchOnMountOrArgChange: true })
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [swap] = useSwapMutation()
+    const [getAllWallets] = useLazyGetWalletsQuery()
+    const [getSingleWallet] = useLazyGetSingleWalletQuery()
+
+
+    const handleMax = async () => {
+        try {
+            const walletsResponse = await getAllWallets().unwrap()
+            // alert(JSON.stringify(walletsResponse))
+            for (let i = 0; i < walletsResponse?.data?.length; i++) {
+                if (walletsResponse?.data[i].coin == debitCoin) {
+                    try {
+                        const singleWalletResponse = await getSingleWallet(walletsResponse?.data[i]._id).unwrap()
+                        setAmount(singleWalletResponse?.data?.balance)
+                        return singleWalletResponse?.data?.balance
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
 
 
     React.useEffect(() => {
@@ -122,7 +149,7 @@ const Swap = () => {
                                                             }} />
                                                             <InputRightElement width={{ md: '52', base: '36' }} zIndex={'overlay'} >
                                                                 <Flex alignItems={'center'} justifyContent={'space-between'} w='full'>
-                                                                    <Text fontSize={'sm'} color={'red.400'} >MAX</Text>
+                                                                    <Text cursor={'pointer'} onClick={async () => { const max = await handleMax(); setFieldValue('debitCoinValue', max) }} fontSize={'sm'} color={'red.400'} >MAX</Text>
                                                                     <Divider orientation='vertical' h='20px' />
                                                                     {/* <CustomSelectWithIcon items={coinOptions} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} /> */}
                                                                     {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
