@@ -33,12 +33,10 @@ const P2P = () =>  {
       <Box
         width={"100%"}
         height={"100vh"}
-        margin={"0px auto"}
-        paddingTop="10px"
+        margin={"-10px auto"}
+        padding="10px 5px"
         bg="white"
       >
-        
-
         <Flex justifyContent={"space-between"} alignItems="center">
           <HStack px={["0", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
             <HStack>
