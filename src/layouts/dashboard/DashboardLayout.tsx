@@ -131,6 +131,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       >
         <GridItem colSpan={[0, 0, 2, 2]} color={"black"} rowSpan={[2, 2, 0, 0]}>
           <VStack
+            bg="#FFFFFF"
             justifyContent={["", "", "space-between", "space-between"]}
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
