@@ -10,7 +10,8 @@ import Head from "next/head";
 import Image from 'next/image'
 // import OnboardingImage from '../../../assets/svgs/OnboardingImage.svg'
 // import Image from "next/image";
-// import OnboardingScreen from '../../../public/assets/svgs/OnboardingImage.svg'
+import OnboardingImage from '../../../public/assets/svgs/OnboardingImage.svg'
+
 
 interface AuthLayoutProps {
   children: any;
@@ -37,7 +38,9 @@ const AuthLayout = ({ children, title }: AuthLayoutProps) => {
               <Flex justifyContent="center" h="full" alignItems="center">
 
                 <Box p="4" boxSize={{ lg: "lg", md: 'xs', base: 'xs' }} position={'relative'}>
-                  <Image src={'/assets/svgs/OnboardingImage.svg'} alt='' layout="fill" objectFit="fill" priority />
+                  {/* <Image src={'/assets/svgs/OnboardingImage.svg'} alt='' layout="fill" objectFit="fill" priority />
+                   */}
+                  <Image src={OnboardingImage} alt='Auth Image' layout="fill" objectFit="fill" priority placeholder="blur" blurDataURL="/assets/images/OnboardingImage.jpg" />
                   {/* <Img
                     src="/assets/svgs/OnboardingImage.svg"
                     alt=""
