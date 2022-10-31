@@ -16,7 +16,7 @@ function P2P() {
   const router = useRouter();
 
   return (
-    <DashboardLayout title="p2p">
+    <DashboardLayout title="P2p">
       <Box
         background={"#fff"}
         width={"95%"}

@@ -18,7 +18,7 @@ const QuickTrade = () => {
         // alert(isBuySelectedProps)
     }, [isBuySelectedProps])
     return (
-        <DashboardLayout title='quick trade'>
+        <DashboardLayout title='Quick Trade'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box bg={'appWhiteColor'}>
                     <Flex flexDirection={'column'}>

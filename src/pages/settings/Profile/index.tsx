@@ -11,7 +11,7 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 const Profile = () => {
   const Router = useRouter()
   return (
-    <DashboardLayout title="profile">
+    <DashboardLayout title="Profile">
       <Box
         background={"#F8FAFC"} height={"full"}
         color="black" px={{ lg: "10%", base: '0' }} >

@@ -9,7 +9,7 @@ import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
 const Verification = () => {
     const Router = useRouter()
     return (
-        <DashboardLayout title='verification'>
+        <DashboardLayout title='Verification'>
             <Box
                 background={"#F8FAFC"} height={"full"}
                 color="black" px={{ lg: "10%", base: '0' }} >
