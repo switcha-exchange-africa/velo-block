@@ -36,7 +36,7 @@ const ConfirmPurchase = () => {
                 // alert(JSON.stringify(response?.data?.data))
                 appAlert.success('order created successfully')
                 dispatch(setOrderPayload({ order: response?.data?.data }))
-                router.push('/quick-trade/notify-seller')
+                router.replace('/quick-trade/notify-seller')
             } else if (response?.data?.status == 401) {
 
                 appAlert.error(`${response?.error?.data?.message}`)
