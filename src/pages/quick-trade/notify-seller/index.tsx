@@ -45,8 +45,8 @@ const NotifySeller = () => {
                 <Flex flexDirection={{ base: 'column', lg: 'row' }} pt={'8'} w={'full'}>
                     <Flex flexDirection={'column'} w={'full'}>
                         <Text fontWeight={'medium'} fontSize={'sm'} color={'primaryColor.900'} w={'fit-content'} ml={'12'} borderRadius={'md'} px={'2'} bg={'rgba(251, 94, 4, .4)'}>Transfered and Notify Seller</Text>
-                        <Steps activeStep={2} />
-                        <StepLabels activeStep={2} />
+                        <Steps activeStep={order?.order?.status == 'pending' ? 1 : order?.order?.status == 'completed' ? 3 : 2} />
+                        <StepLabels activeStep={order?.order?.status == 'pending' ? 1 : order?.order?.status == 'completed' ? 3 : 2} />
 
                         <Box w={'full'} pt={'8'}>
                             <Box w={'full'}>
