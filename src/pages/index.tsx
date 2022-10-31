@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
+// import { checkValidToken } from "../helpers/functions/checkValidToken";
 import { useAppDispatch, useAppSelector } from "../helpers/hooks/reduxHooks";
 import { getTokenFromLocalStorage } from "../redux/features/auth/authSlice";
 import DashboardPage from "./dashboard";
@@ -29,9 +30,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/assets/svgs/logo-single.svg" />
       </Head>
       {!token ? <SignUpPage /> : <DashboardPage />}
-     
+
     </div>
   );
 };
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+
+//   return checkValidToken(context)
+
+// }
 
 export default Home;

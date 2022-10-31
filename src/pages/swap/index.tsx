@@ -4,6 +4,7 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
 
+
 import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
 import RenderCoinsDropdown from '../../components/select/RenderCoinsDropdown';
 import { useSwapMutation } from '../../redux/services/swap.service';
@@ -11,6 +12,11 @@ import appAlert from '../../helpers/appAlert';
 import { useRouter } from 'next/router';
 import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
+import { GetServerSideProps } from 'next';
+import { checkValidToken } from '../../helpers/functions/checkValidToken';
+import { useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
+
 
 // const coinOptions = [{ value: 'BTC', label: 'BTC', imageUrl: '/assets/svgs/BTC.svg', }, { value: 'ETH', label: 'ETH', imageUrl: '/assets/svgs/ETH.svg', }]
 
@@ -27,8 +33,37 @@ const Swap = () => {
     const inversePriceRate: any = useConvertToGetEstimatedRateQuery({ amount: amount, source: creditCoin, destination: debitCoin }, { refetchOnMountOrArgChange: true })
 
     const convertFromDebitCoin: any = useConvertQuery({ amount: amount, source: debitCoin, destination: creditCoin }, { skip: amount == '0', refetchOnMountOrArgChange: true })
+
+    const calculateSwapFees: any = useCalculateTradeFeesQuery({ amount: amount, operation: 'swap' }, { skip: amount == '0', refetchOnMountOrArgChange: true })
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [swap] = useSwapMutation()
+    const [getAllWallets] = useLazyGetWalletsQuery()
+    // const [getSingleWallet] = useLazyGetSingleWalletQuery()
+
+
+    const handleMax = async () => {
+        try {
+            const walletsResponse = await getAllWallets().unwrap()
+            // alert(JSON.stringify(walletsResponse))
+            for (let i = 0; i < walletsResponse?.data?.length; i++) {
+                if (walletsResponse?.data[i].coin == debitCoin) {
+                    setAmount(walletsResponse?.data[i].balance)
+                    return walletsResponse?.data[i].balance
+                    // try {
+                    //     const singleWalletResponse = await getSingleWallet(walletsResponse?.data[i]._id).unwrap()
+                    //     setAmount(singleWalletResponse?.data?.balance)
+                    //     return singleWalletResponse?.data?.balance
+                    // } catch (error) {
+                    //     console.log(error)
+                    // }
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+
+    }
 
 
     React.useEffect(() => {
@@ -52,7 +87,7 @@ const Swap = () => {
 
     }
     return (
-        <DashboardLayout>
+        <DashboardLayout title='swap'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box >
                     <Flex flexDirection={'column'}>
@@ -76,7 +111,7 @@ const Swap = () => {
                                             router.replace('/signin')
                                         } else {
                                             setSubmitting(false)
-                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                                         }
                                     } catch (error) {
                                         setSubmitting(false)
@@ -117,9 +152,9 @@ const Swap = () => {
                                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                                             }} />
-                                                            <InputRightElement width={'52'} zIndex={'overlay'} >
+                                                            <InputRightElement width={{ md: '52', base: '36' }}  >
                                                                 <Flex alignItems={'center'} justifyContent={'space-between'} w='full'>
-                                                                    <Text fontSize={'sm'} color={'red.400'} >MAX</Text>
+                                                                    <Text cursor={'pointer'} onClick={async () => { const max = await handleMax(); setFieldValue('debitCoinValue', max) }} fontSize={'sm'} color={'red.400'} >MAX</Text>
                                                                     <Divider orientation='vertical' h='20px' />
                                                                     {/* <CustomSelectWithIcon items={coinOptions} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} /> */}
                                                                     {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
@@ -131,7 +166,8 @@ const Swap = () => {
                                                     </FormControl>
                                                 )}
                                             </Field>
-                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img src={'/assets/svgs/swapIcon.svg'} alt='swap icon' /></Flex>
+
+                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img cursor={'pointer'} src={'/assets/svgs/swapIcon.svg'} alt='swap icon' onClick={() => { const tempCreditCoin = creditCoin; const tempDebitCoin = debitCoin; setDebitCoin(tempCreditCoin); setCreditCoin(tempDebitCoin) }} /></Flex>
 
 
 
@@ -161,8 +197,12 @@ const Swap = () => {
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Inverse Price</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>1 {creditCoin} = {inversePriceRate?.data?.data?.destinationAmount?.rate} {debitCoin}</Text>
                                                 </Flex>
+
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>You will receive</Text>
                                                     <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} {creditCoin}</Text>
+                                                </Flex>
+                                                <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
+                                                    <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>
                                                 </Flex>
                                             </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin} = {convertFromDebitCoin?.data?.data?.destinationAmount?.rate} {creditCoin}</Text>}
 
@@ -193,6 +233,12 @@ const Swap = () => {
             </Flex>
         </DashboardLayout>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return checkValidToken(context)
+
 }
 
 export default Swap

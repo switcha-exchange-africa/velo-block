@@ -72,7 +72,7 @@ const VerificationPage = () => {
     const minutes = String(Math.floor(countDown / 60)).padStart(2, '0');
 
     return (
-        <AuthLayout>
+        <AuthLayout title='verify email'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b' textAlign='left'>Enter Verification Code</Text>
                 <Text fontSize='sm' fontWeight='medium' color='gray.400' mt='4' >Enter the 6 digit code we sent to your email address</Text>
@@ -94,7 +94,7 @@ const VerificationPage = () => {
                                     router.replace('/dashboard')
                                 } else {
                                     setSubmitting(false)
-                                    appAlert.error(`${response?.error?.data?.message}`)
+                                    appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                                 }
                             } catch (error) {
                                 setSubmitting(false)
@@ -120,6 +120,7 @@ const VerificationPage = () => {
                         {({
                             // handleChange,
                             // handleBlur,
+                            submitForm,
                             handleSubmit,
                             isSubmitting,
                             setFieldValue
@@ -131,7 +132,14 @@ const VerificationPage = () => {
                                         {({ field, form }: any) => (
                                             <FormControl isInvalid={form.errors.pin && form.touched.pin} py='8'>
                                                 <HStack justify='space-evenly' >
-                                                    <PinInput {...field} mask={false} onChange={(e) => { setFieldValue('pin', e) }} placeholder=''>
+                                                    <PinInput {...field} mask={false} onChange={(e) => {
+                                                        setFieldValue('pin', e);
+
+                                                    }} placeholder='' type='number' onComplete={() => {
+                                                        console.log('donnee'); setTimeout(() => {
+                                                            submitForm();
+                                                        });
+                                                    }} otp>
                                                         <PinInputField />
                                                         <PinInputField />
                                                         <PinInputField />

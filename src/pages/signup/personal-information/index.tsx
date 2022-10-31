@@ -30,14 +30,14 @@ const PersonalInformationPage1 = () => {
         return error
     }
     return (
-        <AuthLayout>
+        <AuthLayout title='personal information'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
 
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedEmail}</Text>
                     <Link href='/signup'>
-                        <Text fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change email</Text>
+                        <Text cursor={'pointer'} fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change email</Text>
                     </Link>
 
                 </Flex >

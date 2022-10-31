@@ -30,13 +30,13 @@ const PersonalInformationPage2 = () => {
         return error
     }
     return (
-        <AuthLayout>
+        <AuthLayout title='complete personal information'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b' w='full' textAlign={{ md: 'left', base: 'center' }}>Personal Information</Text>
                 <Flex alignItems='center' justifyContent='space-between' width='full' >
                     <Text fontSize='md' fontWeight='medium' mt='4' mr='2'>{savedFirstName + ' ' + savedLastName}</Text>
-                    <Link href='/auth/PersonalInformationPage1'>
-                        <Text fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change legal name</Text>
+                    <Link href='/auth/personal-information'>
+                        <Text cursor={'pointer'} fontSize='md' fontWeight='medium' color='primaryColor.900' mt='4'>Change legal name</Text>
                     </Link>
 
                 </Flex >
@@ -57,7 +57,7 @@ const PersonalInformationPage2 = () => {
                             } else {
                                 setSubmitting(false)
                                 // alert(JSON.stringify(response?.error?.data?.message))
-                                appAlert.error(`${response?.error?.data?.message}`)
+                                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                             }
                             // alert(JSON.stringify(response))
                             // await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()

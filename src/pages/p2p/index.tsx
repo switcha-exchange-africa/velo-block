@@ -6,7 +6,9 @@ import {
   ModalContent, Select, Tab, Table,
   TableContainer, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Text, Thead, Tr, useDisclosure
 } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 
 function P2P() {
@@ -14,7 +16,7 @@ function P2P() {
   const router = useRouter();
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="p2p">
       <Box
         background={"#fff"}
         width={"95%"}
@@ -534,6 +536,12 @@ function P2P() {
       </Box>
     </DashboardLayout>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  return checkValidToken(context)
+
 }
 
 export default P2P;

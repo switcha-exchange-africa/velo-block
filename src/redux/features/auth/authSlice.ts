@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../../../interfaces/auth/AuthState";
+import Cookie from "js-cookie";
 
 const initialState: AuthState = {
   user: null,
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
       state.token = token;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      Cookie.set("SwitchaJWT", token);
     },
     setEmailVerified: (
       state,
@@ -56,6 +58,7 @@ export const authSlice = createSlice({
     removeTokenFromLocalStorage: () => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      Cookie.remove("SwitchaJWT");
     },
   },
 });
