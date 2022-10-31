@@ -1,6 +1,13 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightAddon, Select, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router';
 
-const P2pTopfilter = () => {
+interface P2pTopfilterProps {
+    routeName: string
+}
+
+const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
+    const router = useRouter();
+    
     return (
         <>
             <Flex
@@ -46,7 +53,10 @@ const P2pTopfilter = () => {
                             <option value="NGN">Bank Transfer</option>
                         </Select>
                     </Box>
-                    <Button background={"#FB5E04"} color={"#fff"} size={"sm"} cursor="pointer">
+                    <Button background={"#FB5E04"} color={"#fff"} size={"sm"} cursor="pointer"
+                        onClick={() => {
+                        router.push("/p2p/"+routeName);
+                    }}>
                         Create Ads
                     </Button>
                     <Box

@@ -254,17 +254,17 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                 <TabPanels>
                     <TabPanel paddingLeft={0}>
                         
-                        <P2pTopfilter />
+                        <P2pTopfilter routeName='buy-ads'/>
                         <p>BTC</p>
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
-                        <P2pTopfilter />  
+                        <P2pTopfilter routeName='buy-ads'/>
                         <p>ETH</p>
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter/>
+                        <P2pTopfilter routeName='buy-ads'/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDT"
@@ -278,7 +278,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter/>
+                        <P2pTopfilter routeName='buy-ads'/>
                         <p>USDC</p>
                     </TabPanel>
                 </TabPanels>
