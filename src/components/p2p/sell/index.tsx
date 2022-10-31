@@ -126,7 +126,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             <Box flex={1} borderLeft={["0", "0", "1px solid  #E2E8F0"]}>
                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
                                 <Box mb={"10px"}>
-                                <Text fontSize={"xs"}>I want to buy </Text>
+                                <Text fontSize={"xs"}>I want to Sell </Text>
                                 <InputGroup size="sm">
                                     <Input
                                         borderTopLeftRadius={"5px"}
@@ -191,12 +191,12 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                                     <Button>Cancel</Button>
                                     <Button
                                     onClick={() => {
-                                        router.push("/p2p/buy");
+                                        router.push("/p2p/sell");
                                     }}
                                         color={"#fff"}
-                                        background={"#22C36B"}
+                                        background={"#EB4335"}
                                     >
-                                        Buy USDT
+                                        Sell USDT
                                     </Button>
                                 </Flex>
                                 </Box>
