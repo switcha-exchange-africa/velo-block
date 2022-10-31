@@ -1,4 +1,4 @@
-import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex, } from '@chakra-ui/react'
+import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex, InputGroup, InputRightElement, } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import AuthLayout from '../../layouts/auth/AuthLayout'
 import { Formik, Field, Form } from 'formik';
@@ -8,11 +8,13 @@ import authValidators from '../../helpers/validators/authValidators';
 import { useRouter } from "next/router";
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
 import { setEmailAndPassword } from '../../redux/features/auth/authSlice';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 const SignUpPage = () => {
     const router = useRouter();
     const [passwordChecks, setPasswordChecks] = useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
 
     let savedEmail = typeof window != 'undefined' && localStorage.getItem('email')
@@ -128,7 +130,13 @@ const SignUpPage = () => {
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.password && form.touched.password} py='4'>
                                             <FormLabel>Password</FormLabel>
-                                            <Input {...field} type='password' />
+                                            <InputGroup>
+                                                <Input {...field} type={isPasswordVisible ? 'text' : 'password'} />
+                                                <InputRightElement width='16'  >
+                                                    {isPasswordVisible ? <ViewOffIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(false)} /> : <ViewIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(true)} />}
+                                                </InputRightElement>
+                                            </InputGroup>
+
                                             {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
 
                                             {passwordChecksPassed && passwordChecksPassed.map((p: any,) => {

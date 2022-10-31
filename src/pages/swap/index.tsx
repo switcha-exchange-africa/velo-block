@@ -152,7 +152,7 @@ const Swap = () => {
                                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                                             }} />
-                                                            <InputRightElement width={{ md: '52', base: '36' }} zIndex={'overlay'} >
+                                                            <InputRightElement width={{ md: '52', base: '36' }}  >
                                                                 <Flex alignItems={'center'} justifyContent={'space-between'} w='full'>
                                                                     <Text cursor={'pointer'} onClick={async () => { const max = await handleMax(); setFieldValue('debitCoinValue', max) }} fontSize={'sm'} color={'red.400'} >MAX</Text>
                                                                     <Divider orientation='vertical' h='20px' />

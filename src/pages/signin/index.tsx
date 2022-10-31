@@ -1,4 +1,5 @@
-import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex } from '@chakra-ui/react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Flex, InputGroup, InputRightElement } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import _ from 'lodash';
 import Link from 'next/link';
@@ -23,6 +24,7 @@ const LoginPage = () => {
 
         return error
     }
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const dispatch = useAppDispatch();
     const [login] = useLoginMutation()
@@ -30,7 +32,7 @@ const LoginPage = () => {
     // const { isEmailVerified } = useAppSelector((state) => state.auth)
 
     const sendOtp = useSendOtpQuery(undefined, { skip: shouldSendOtp == false, refetchOnMountOrArgChange: true, })
-    
+
     return (
         <AuthLayout title='sign in'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
@@ -122,7 +124,12 @@ const LoginPage = () => {
                                     {({ field, form }: any) => (
                                         <FormControl isInvalid={form.errors.password && form.touched.password} py='4'>
                                             <FormLabel>Password</FormLabel>
-                                            <Input {...field} type='password' />
+                                            <InputGroup>
+                                                <Input {...field} type={isPasswordVisible ? 'text' : 'password'} />
+                                                <InputRightElement width='16'  >
+                                                    {isPasswordVisible ? <ViewOffIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(false)} /> : <ViewIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(true)} />}
+                                                </InputRightElement>
+                                            </InputGroup>
                                             <FormErrorMessage>{form.errors.password}</FormErrorMessage>
 
                                         </FormControl>

@@ -18,3 +18,5 @@ export const quickTradeApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useQuickTradeMutation } = quickTradeApi;

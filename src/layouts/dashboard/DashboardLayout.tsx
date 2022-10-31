@@ -93,20 +93,20 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
         <link rel="icon" href="/assets/svgs/logo-single.svg" />
       </Head>
       <chakra.header id="header">
-        <Flex w="100%" bg="#000" px={{ md: "8", base: '4' }}>
-          <Img src="/assets/svgs/Logo.svg" alt="" w={'32'} py='4' />
+        <Flex w="100%" bg="#000" px={{ md: "8", base: '4' }} >
+          <Img src="/assets/svgs/Logo.svg" alt="" w={'32'} py='4' cursor={'pointer'} onClick={() => router.push('/dashboard')} />
           <HStack
             display={["none", "none", "flex", "flex"]}
             marginLeft="28"
             gap="6"
           >
-            <Heading as="h4" size="md" color={'appWhiteColor'}>
+            <Heading as="h4" size="md" color={'appWhiteColor'} cursor={'pointer'}>
               Trade
             </Heading>
-            <Heading as="h4" size="md" color={'appWhiteColor'}>
+            <Heading as="h4" size="md" color={'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/wallet')}>
               Wallet
             </Heading>
-            <Heading as="h4" size="md" color={'appWhiteColor'}>
+            <Heading as="h4" size="md" color={'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/swap')}>
               Swap
             </Heading>
           </HStack>
