@@ -309,7 +309,7 @@ function WalletPage() {
                               <RenderCoinComponent coin={wallet.coin} />
                               <Box>
                                 <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                  {wallet.coin}
+                                  {wallet.coin == 'USDT_TRON' ? 'USDT-TRON' : wallet.coin}
                                 </Text>
                                 {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                   {wallet.label}

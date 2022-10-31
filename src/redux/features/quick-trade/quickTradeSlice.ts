@@ -54,9 +54,19 @@ export const quickTradeSlice = createSlice({
     ) => {
       state.order = order;
     },
+
+    resetQuickBuyPayload: (state) => {
+      state.amount = null;
+      state.creditCoinAmount = null;
+      state.fee = null;
+      state.cash = null;
+      state.coin = null;
+      state.rate = null;
+    },
   },
 });
 
-export const { setQuickBuyPayload, setOrderPayload } = quickTradeSlice.actions;
+export const { setQuickBuyPayload, setOrderPayload, resetQuickBuyPayload } =
+  quickTradeSlice.actions;
 
 export default quickTradeSlice.reducer;

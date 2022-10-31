@@ -14,8 +14,8 @@ const RenderLabelComponent = ({ coin }: any) => {
                 USD Coin
             </Text> : coin == 'USDT' ? <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                 TetherUS
-            </Text> : coin == 'USDT-TRON' ? <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-                {coin}
+            </Text> : coin == 'USDT-TRON' || coin == 'USDT_TRON' ? <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
+                {'USDT-TRON'}
             </Text> : <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                 {coin}
             </Text>}
