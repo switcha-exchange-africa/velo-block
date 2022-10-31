@@ -32,6 +32,7 @@ const P2P = () =>  {
     <DashboardLayout>
       <Box
         width={"100%"}
+        
         height={"100vh"}
         margin={"-10px auto"}
         padding="10px 5px"
