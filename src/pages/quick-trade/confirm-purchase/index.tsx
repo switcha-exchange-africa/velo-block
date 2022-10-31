@@ -39,7 +39,7 @@ const ConfirmPurchase = () => {
                 router.replace('/signin')
             } else {
 
-                appAlert.error(`${response?.error?.data?.message}`)
+                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
             }
         } catch (error) {
 

@@ -111,7 +111,7 @@ const Swap = () => {
                                             router.replace('/signin')
                                         } else {
                                             setSubmitting(false)
-                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                                         }
                                     } catch (error) {
                                         setSubmitting(false)

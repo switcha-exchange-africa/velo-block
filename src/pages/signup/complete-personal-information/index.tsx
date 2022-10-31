@@ -57,7 +57,7 @@ const PersonalInformationPage2 = () => {
                             } else {
                                 setSubmitting(false)
                                 // alert(JSON.stringify(response?.error?.data?.message))
-                                appAlert.error(`${response?.error?.data?.message}`)
+                                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                             }
                             // alert(JSON.stringify(response))
                             // await dispatch(createAccount({ email: savedEmail, password: savedPassword, firstName: savedFirstName, lastName: savedLastName, device: 'web', agreedToTerms: true, username: values.username })).unwrap()
