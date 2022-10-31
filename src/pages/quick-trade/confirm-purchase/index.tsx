@@ -24,7 +24,7 @@ const ConfirmPurchase = () => {
         try {
 
             const response: any = await quickTrade({
-                amount: amount,
+                amount: creditCoinAmount,
                 cash: cash,
                 coin: coin,
                 method: "bank",
