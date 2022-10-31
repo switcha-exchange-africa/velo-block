@@ -34,7 +34,7 @@ const LoginPage = () => {
     const sendOtp = useSendOtpQuery(undefined, { skip: shouldSendOtp == false, refetchOnMountOrArgChange: true, })
 
     return (
-        <AuthLayout title='sign in'>
+        <AuthLayout title='Sign In'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Login to your account</Text>
                 <Formik

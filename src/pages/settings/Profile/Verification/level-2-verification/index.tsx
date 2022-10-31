@@ -11,7 +11,7 @@ import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 const Level2Verification = () => {
     const Router = useRouter()
     return (
-        <DashboardLayout title="level 2 verification">
+        <DashboardLayout title="Level 2 Verification">
             <Flex flexDirection={'column'} alignItems={'center'}
                 background={"#F8FAFC"}
                 color="black" px={{ md: "10%", base: '0' }} >

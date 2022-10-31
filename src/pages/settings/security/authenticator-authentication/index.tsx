@@ -11,7 +11,7 @@ import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout";
 const AuthenticatorAuthenticationPage = () => {
   const router = useRouter();
   return (
-    <DashboardLayout title="authenticator authentication">
+    <DashboardLayout title="Authenticator Authentication">
       <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
         <Show above="md">
           <Button
