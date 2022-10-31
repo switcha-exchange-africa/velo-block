@@ -4,15 +4,17 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import PaymentMethodComponent from '../../../components/quick-trade/PaymentMethodComponent'
-import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import Currency from 'react-currency-formatter';
 import { useQuickTradeMutation } from '../../../redux/services/quick-trade.service'
 import appAlert from '../../../helpers/appAlert'
+import { setOrderPayload } from '../../../redux/features/quick-trade/quickTradeSlice'
 
 const ConfirmPurchase = () => {
     const router = useRouter()
     const { amount, cash, coin, creditCoinAmount, fee, rate } = useAppSelector((state) => state.quickTrade)
+    const dispatch = useAppDispatch()
 
     React.useEffect(() => {
         // alert(`${amount}, ${cash}, ${coin}, ${creditCoinAmount}, ${fee}`)
@@ -31,6 +33,9 @@ const ConfirmPurchase = () => {
                 type: "buy"
             })
             if (response?.data?.status == 200) {
+                // alert(JSON.stringify(response?.data?.data))
+                appAlert.success('order created successfully')
+                dispatch(setOrderPayload({ order: response?.data?.data }))
                 router.push('/quick-trade/notify-seller')
             } else if (response?.data?.status == 401) {
 

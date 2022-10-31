@@ -7,7 +7,7 @@ export interface QuickTradeState {
   cash?: any;
   coin?: any;
   rate?: any;
-  orderId?: any;
+  order?: any;
 }
 const initialState: QuickTradeState = {
   amount: null,
@@ -16,7 +16,7 @@ const initialState: QuickTradeState = {
   cash: null,
   coin: null,
   rate: null,
-  orderId: null,
+  order: null,
 };
 
 export const quickTradeSlice = createSlice({
@@ -44,20 +44,19 @@ export const quickTradeSlice = createSlice({
       state.rate = rate;
     },
 
-    setOrderIdPayload: (
+    setOrderPayload: (
       state,
       {
-        payload: { orderId },
+        payload: { order },
       }: PayloadAction<{
-        orderId: any;
+        order: any;
       }>
     ) => {
-      state.orderId = orderId;
+      state.order = order;
     },
   },
 });
 
-export const { setQuickBuyPayload, setOrderIdPayload } =
-  quickTradeSlice.actions;
+export const { setQuickBuyPayload, setOrderPayload } = quickTradeSlice.actions;
 
 export default quickTradeSlice.reducer;
