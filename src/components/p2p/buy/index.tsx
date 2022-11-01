@@ -10,15 +10,17 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetBuyAdsBTCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetBuyAdsBTCQuery, useGetBuyAdsETHQuery, useGetBuyAdsUSDCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const {data:btc}=    useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    console.log("the data for btc", btc)
+    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+
 
     return (
         <>
@@ -90,11 +92,11 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             </Box>
                             </Flex>
                             <Flex
-                            mb={"10px"}
-                            wrap={"wrap"}
-                            flexDir={["column", "column", "row"]}
-                            alignItems={["flex-start", "flex-start", "center"]}
-                            gap={["5px", "5px", "40px"]}
+                                mb={"10px"}
+                                wrap={"wrap"}
+                                flexDir={["column", "column", "row"]}
+                                alignItems={["flex-start", "flex-start", "center"]}
+                                gap={["5px", "5px", "40px"]}
                             >
                             <Box display={"flex"} gap="10px">
                                 <Text color={"#8E9BAE"}>Payment Time Limit</Text>
@@ -255,12 +257,30 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                 <TabPanels>
                     <TabPanel paddingLeft={0}>                        
                         <P2pTopfilter routeName='buy-ads'/>
-                        <p>BTC</p>
+                        {btc?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="Buy BTC"
+                                backgroundColor="#22C36B"
+                                apiData={btc}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO BUY ADS YET"}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
                         <P2pTopfilter routeName='buy-ads'/>
-                        <p>ETH</p>
+                        {usdt?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="Buy ETH"
+                                backgroundColor="#22C36B"
+                                apiData={eth}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO BUY ADS YET"}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
@@ -279,7 +299,16 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                     
                     <TabPanel paddingLeft={0}>
                         <P2pTopfilter routeName='buy-ads'/>
-                        <p>USDC</p>
+                        {usdc?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="Buy USDC"
+                                backgroundColor="#22C36B"
+                                apiData={usdc}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO BUY ADS YET"}
                     </TabPanel>
                 </TabPanels>
             </Tabs>
