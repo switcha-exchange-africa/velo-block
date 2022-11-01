@@ -3,6 +3,7 @@ import { Box, Button, Flex, HStack, Text, VStack  } from '@chakra-ui/react';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
+import { InfoIcon } from '@chakra-ui/icons';
 
 
 
@@ -10,7 +11,7 @@ const BuyAds = () => {
     
     return (
         <DashboardLayout title="P2P Buy Ads">
-            <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="1">
+            <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
                 <Text fontSize={["32px", "24px", "30px"]} fontWeight={"600"}>Post Normal Ads</Text>
             </Box>
 
@@ -31,9 +32,15 @@ const BuyAds = () => {
                 
                 <Flex>
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
-                    <Box ml="10px">
-                        <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>USDT</Text>
-                    </Box>
+                    <Flex ml="10px" alignItems={"center"}>
+                        <InfoIcon
+                            mr={"5px"}
+                            color={"grey"}
+                            w={"10px"}
+                            h={"10px"}
+                        />
+                        <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                    </Flex>
                 </Flex>
                 
                 <Flex>

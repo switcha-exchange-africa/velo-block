@@ -5,22 +5,22 @@ const BuyStepTwo = () => {
     return (
         <Box mt="80px" p="28px" fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
-            <Flex w="50%" direction={"column"} alignItems={"flex-end"}>
+            <Flex w={["100%", "100%", "50%"]} direction={"column"} alignItems={"flex-end"}>
                 <InputGroup>
                     <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
-                    <InputRightElement width={{ md: '60px', base: '36' }}>
+                    <InputRightElement width={{ md: '60px', base: '70px' }}>
                         <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                     </InputRightElement>
                 </InputGroup>
                 <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
             </Flex>
             
-            <HStack mt="24px"   w={"50%"}>
+            <HStack mt="24px"  w={["100%", "100%", "50%"]}>
                 <Box w="50%">
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                     <InputGroup mt="12px">
                         <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
-                        <InputRightElement width={{ md: '60px', base: '36' }}>
+                        <InputRightElement width={{ md: '60px', base: '62px' }}>
                             <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                         </InputRightElement>
                     </InputGroup>
@@ -28,7 +28,7 @@ const BuyStepTwo = () => {
                 </Box>
 
                 <Box height="32px">
-                     <Text m="20px" mt="17px" >~</Text>
+                     <Text m={["5px", "5px", "20px"]}  mt="17px" >~</Text>
                 </Box>
                
 
@@ -36,7 +36,7 @@ const BuyStepTwo = () => {
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                     <InputGroup mt="12px">
                         <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
-                        <InputRightElement width={{ md: '60px', base: '36' }}>
+                        <InputRightElement width={{ md: '60px', base: '62px' }}>
                             <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                         </InputRightElement>
                     </InputGroup>
