@@ -9,7 +9,7 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 const ConfirmSales = () => {
     const router = useRouter()
     return (
-        <DashboardLayout>
+        <DashboardLayout title='confirm sales'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box bg={'appWhiteColor'} p={'4'}>
                     <Flex flexDirection={'column'}>
@@ -21,8 +21,9 @@ const ConfirmSales = () => {
                         <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive 18.18 USDT</Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
                         <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} />
-                        <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} />
-                        <Box p={'8'}></Box>
+                        <Box py={'2'}></Box>
+                        <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} disabled />
+                        <Box p={'12'}></Box>
                         <MainAppButton isLoading={false} backgroundColor={'secondary2Color.900'} >
                             Confirm Purchase
                         </MainAppButton>

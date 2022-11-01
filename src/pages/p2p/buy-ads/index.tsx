@@ -9,7 +9,7 @@ const BuyAds = () => {
     const [cash, setCash] = useState("1")
     
     return (
-        <DashboardLayout>
+        <DashboardLayout title="P2P Buy Ads">
             <Box left="13%" py={"24px"} top={"62px"} bg={"white"} w={"85%"} position={"fixed"} pl={"90px"}>
                 <Text fontSize={"32px"} fontWeight={"600"}>Post Normal Ads</Text>
             </Box>

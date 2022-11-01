@@ -59,7 +59,7 @@ function Buy() {
   ];
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="p2p buy">
       <Box
         width={["full", "full", "95%"]}
         margin={"20px auto"}

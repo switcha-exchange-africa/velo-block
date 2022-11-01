@@ -1,8 +1,18 @@
-import { Box, Flex, HStack, Link, Text } from "@chakra-ui/react"
-import { useState } from "react"
-import BuyP2p from "../../components/p2p/buy"
-import SellP2p from "../../components/p2p/sell"
-import DashboardLayout from "../../layouts/dashboard/DashboardLayout"
+import { CheckCircleIcon } from "@chakra-ui/icons";
+import {
+  Avatar, Box, Button, Flex, HStack, Image, Input,
+  InputGroup,
+  InputRightAddon, Link, Modal, ModalBody, ModalCloseButton,
+  ModalContent, Select, Tab, Table,
+  TableContainer, TabList, TabPanel, TabPanels, Tabs, Tbody, Td, Text, Thead, Tr, useDisclosure
+} from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import BuyP2p from "../../components/p2p/buy";
+import SellP2p from "../../components/p2p/sell";
+import { checkValidToken } from "../../helpers/functions/checkValidToken";
+import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 
 const P2P = () =>  {  
     const [selectedId, setSelectedId] = useState("1")
@@ -20,16 +30,16 @@ const P2P = () =>  {
         })
         }
         else {
-        setSelectedId(id)
-        setColor({
-            color1: "#8E9BAE",
-            color2: "black"
-        })
+          setSelectedId(id)
+          setColor({
+              color1: "#8E9BAE",
+              color2: "black"
+          })
         }
     }
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="p2p">
       <Box
         width={"100%"}
         
@@ -65,4 +75,8 @@ const P2P = () =>  {
   )
 }
 
-export default P2P
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return checkValidToken(context)
+}
+
+export default P2P;

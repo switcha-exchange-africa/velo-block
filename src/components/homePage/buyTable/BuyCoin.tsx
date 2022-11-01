@@ -15,6 +15,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
     const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
+
+
     return (
         <Tabs variant='unstyled'>
             <TabList gap={"56px"} px={["0", "0px", "28px", "28px"]}>

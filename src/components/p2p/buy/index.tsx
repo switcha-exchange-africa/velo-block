@@ -10,15 +10,16 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetBuyAdsBTCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    
-    
+    const {data:btc}=    useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    console.log("the data for btc", btc)
+
     return (
         <>
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -50,9 +51,9 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                             <Box display={"flex"} alignItems={"center"} gap="3px">
                                 <Text fontSize={"sm"}>Maximus</Text>
                                 <CheckCircleIcon
-                                color={"#22C36B"}
-                                w={"10px"}
-                                h={"10px"}
+                                    color={"#22C36B"}
+                                    w={"10px"}
+                                    h={"10px"}
                                 />
                             </Box>
                             <Box
@@ -252,8 +253,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0}>
-                        
+                    <TabPanel paddingLeft={0}>                        
                         <P2pTopfilter routeName='buy-ads'/>
                         <p>BTC</p>
                     </TabPanel>

@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ const QuickSellComponent = () => {
     const [creditCoin, setCreditCoin] = useState(`${currencyOptions[0].value}`)
     const [debitCoin, setDebitCoin] = useState(`${coinOptions[0].value}`)
     return (
-        <Flex flexDirection={'column'} p={'4'}>
+        <Flex flexDirection={'column'} p={'8'}>
             <Formik
                 initialValues={{ email: '', password: '' }}
 
@@ -34,7 +34,7 @@ const QuickSellComponent = () => {
                     /* and other goodies */
                 }) => (
                     <Form>
-                        <VStack w='xs' align='start'>
+                        <VStack w={{ base: 'xs', lg: 'md' }} align='start'>
                             <Field name='email' >
                                 {({ field, form }: any) => (
                                     <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
@@ -66,7 +66,7 @@ const QuickSellComponent = () => {
                             </Field>
 
                             <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar N550</Text>
-
+                            <Box py={'2'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondary2Color.900'}>
                                 Sell with 0 fee
                             </MainAppButton>

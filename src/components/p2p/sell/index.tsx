@@ -50,9 +50,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                                 <Box display={"flex"} alignItems={"center"} gap="3px">
                                     <Text fontSize={"sm"}>Maximus</Text>
                                     <CheckCircleIcon
-                                    color={"#22C36B"}
-                                    w={"10px"}
-                                    h={"10px"}
+                                        color={"#22C36B"}
+                                        w={"10px"}
+                                        h={"10px"}
                                     />
                                 </Box>
                                 <Box

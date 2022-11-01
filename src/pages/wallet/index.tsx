@@ -26,7 +26,7 @@ import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDeposit
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 import { useRouter } from "next/router";
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
-import LoginPage from "../signin";
+// import LoginPage from "../signin";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 // import appAlert from "../../helpers/appAlert";
 import RenderCoinComponent from "../../components/dashboard/wallet/RenderCoinComponent";
@@ -36,6 +36,8 @@ import {
   useLazyConvertQuery
 } from "../../redux/services/buy-sell.service";
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
+import { GetServerSideProps } from "next";
+import { checkValidToken } from "../../helpers/functions/checkValidToken";
 
 // import appAlert from "../../helpers/appAlert";
 
@@ -196,15 +198,16 @@ function WalletPage() {
   // if (walletsquery?.isFetching) {
   //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
   // }
-  if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
+  // if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
 
-    // appAlert.warning('Session Expired, please sign in again')
-    return <LoginPage />
+  //   // appAlert.warning('Session Expired, please sign in again')
+  //   return <LoginPage />
 
-  }
+  // }
   return (
-    <DashboardLayout>
-      <Box w={'full'} p={{ md: '8', base: '2' }}>
+    <DashboardLayout title="
+    wallet">
+      <Box w={'full'} p={{ md: '8', base: '' }}>
         <Box>
           <Box
             background={"#FFFFFF"}
@@ -217,16 +220,16 @@ function WalletPage() {
               <Wrap justify={"space-between"}>
                 <WrapItem>
                   <Box display="flex" flexDirection="column" gap={"20px"}>
-                    <Heading size="md">Overall Balance</Heading>
+                    <Heading size={{ md: "md", base: 'sm' }}>Overall Balance</Heading>
                     <Box
                       display={"flex"}
                       fontWeight={"600"}
                       gap="4"
                       color={"#FB5E04"}
                     >
-                      <Text fontSize="md"> {btcTotal} BTC</Text>
-                      <Text fontSize="md">=</Text>
-                      <Text fontSize="md">$ {total}</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}> {btcTotal} BTC</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}>=</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {total}</Text>
                     </Box>
                   </Box>
                 </WrapItem>
@@ -239,24 +242,24 @@ function WalletPage() {
                       <Button
                         background={"#FB5E04"}
                         color={"#fff"}
-                        size="md"
+                        size={{ md: "md", base: 'sm' }}
                         onClick={onOpen}
                       >
                         Deposit
                       </Button>
                     </WrapItem>
                     <WrapItem>
-                      <Button background={"#8E9BAE"} color={"#fff"} size="md">
+                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
                         Withdraw
                       </Button>
                     </WrapItem>
                     <WrapItem>
-                      <Button background={"#8E9BAE"} color={"#fff"} size="md">
+                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
                         Transfer
                       </Button>
                     </WrapItem>
                     <WrapItem>
-                      <Button background={"#8E9BAE"} color={"#fff"} size="md">
+                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
                         History
                       </Button>
                     </WrapItem>
@@ -492,5 +495,11 @@ function RecentTransaction() {
       })}
     </Box>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+  return checkValidToken(context)
+
 }
 export default WalletPage;

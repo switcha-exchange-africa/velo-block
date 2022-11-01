@@ -41,7 +41,7 @@ const TableComponent = ({
 
             {/* for mobile screen */}
             {apiData?.data?.map((api: any) => (
-                <Box key={api.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                <Box key={api?.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
                     <Flex
                         alignItems="center"
                         w="100%"
@@ -90,8 +90,8 @@ const TableComponent = ({
                                 Price
                             </Text>
                             <Box display={"flex"}>
-                                <Text fontSize={"xs"}>{api.price.toLocaleString()}</Text>
-                                <Text fontSize={"xs"}> {api.cash}</Text>
+                                <Text fontSize={"xs"}>{api?.price.toLocaleString()}</Text>
+                                <Text fontSize={"xs"}> {api?.cash}</Text>
                             </Box>
                             </Flex>
 
@@ -99,7 +99,7 @@ const TableComponent = ({
                             <Text fontSize={"xs"} color={"#8E9BAE"}>
                                 Available
                             </Text>
-                            <Text fontSize={"xs"}>1,121.0045</Text>
+                            <Text fontSize={"xs"}>{api?.totalAmount.toLocaleString()}</Text>
                             </Flex>
                         </Flex>
                         <Flex alignItems={"center"} gap="10px">
@@ -108,7 +108,7 @@ const TableComponent = ({
                                 {" "}
                                 Limit
                             </Text>
-                            <Text fontSize={"xs"}>{api.minLimit.toLocaleString()}&nbsp;-&nbsp;{api.maxLimit.toLocaleString()}&nbsp;USD</Text>
+                            <Text fontSize={"xs"}>{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin}</Text>
                             </Flex>
                             <Box>
                             <Text
@@ -154,7 +154,7 @@ const TableComponent = ({
                     </Thead>
 
                     {apiData?.data?.map((api:any) => (
-                        <Tbody key={api.id}>
+                        <Tbody key={api?.id}>
                             <Tr>
                                 <Td paddingLeft="0">
                                     <HStack>
@@ -185,10 +185,10 @@ const TableComponent = ({
                                     </HStack>
                                 </Td>
                                 <Td>
-                                    <Text fontSize="14px">{api.price.toLocaleString()}&nbsp;<Text as="span" fontSize="10px">{api.cash}</Text></Text>
+                                    <Text fontSize="14px">{api?.price.toLocaleString()}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
                                 </Td>
-                                <Td fontSize="14px">0.00346</Td>
-                                <Td fontSize="14px">{api.minLimit.toLocaleString()}&nbsp;-&nbsp;{api.maxLimit.toLocaleString()}&nbsp;USD</Td>
+                                <Td fontSize="14px">{api?.totalAmount.toLocaleString()}</Td>
+                                <Td fontSize="14px">{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin}</Td>
                                 <Td fontSize="14px">
                                     <Text
                                         fontSize={"12px"}

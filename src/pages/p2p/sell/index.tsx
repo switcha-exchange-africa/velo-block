@@ -47,7 +47,7 @@ function Sell() {
   ];
 
   return (
-    <DashboardLayout>
+    <DashboardLayout title="sell">
       <Box
         width={["full", "full", "95%"]}
         margin={"20px auto"}

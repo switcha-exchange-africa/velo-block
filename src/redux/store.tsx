@@ -1,30 +1,48 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import storage from 'redux-persist/lib/storage'
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+
+
 import authReducer from './features/auth/authSlice'
+import quickTradeReducer from './features/quick-trade/quickTradeSlice'
+
 import { authApi } from './services/auth.service'
 import { baseApi } from './services/base.service';
 import { buySellAPi } from './services/buy-sell.service';
+import { exchangeRateApi } from './services/exchange.service';
+import { feesApi } from './services/fees.service';
 import { quickTradeApi } from './services/quick-trade.service';
 import { swapApi } from './services/swap.service';
 import { walletApi } from './services/wallet.service';
 
+const persistConfig = {
+    key: 'root',
+    storage
+}
+
+const persistQuickTradeReducer = persistReducer(persistConfig, quickTradeReducer)
+
 const store = configureStore({
     reducer: {
         auth: authReducer,
+        quickTrade: persistQuickTradeReducer,
         [authApi.reducerPath]: authApi.reducer,
         [baseApi.reducerPath]: baseApi.reducer,
         [walletApi.reducerPath]: walletApi.reducer,
         [buySellAPi.reducerPath]: buySellAPi.reducer,
         [swapApi.reducerPath]: swapApi.reducer,
         [quickTradeApi.reducerPath]: quickTradeApi.reducer,
+        [feesApi.reducerPath]: feesApi.reducer,
+        [exchangeRateApi.reducerPath]: exchangeRateApi.reducer
     },
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            // serializableCheck: {
-            //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            // },
-        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware]),
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
 });
 
@@ -43,4 +61,5 @@ setupListeners(store.dispatch);
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
 
+export const persistor = persistStore(store)
 export default store

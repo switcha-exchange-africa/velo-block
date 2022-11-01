@@ -32,7 +32,7 @@ const RenderCoinComponent = ({ coin, size = { md: "sm", base: 'xs' } }: any) => 
                 size={size} /> : coin == 'USDT_TRON' ? <Avatar
                     name={coin}
                     src={'/assets/images/tronlogo.png'}
-                    size={size} /> : <Text p={{ base: '2', md: '4' }} fontWeight={'black'} color={'#ffff'} bg={'primaryColor.900'}>{coin[0]}</Text>}
+                    size={size} /> : <Text borderRadius={'full'} p={{ base: '2', md: '4' }} fontWeight={'black'} color={'#ffff'} bg={'primaryColor.900'}>{coin[0]}</Text>}
 
         </>
 
