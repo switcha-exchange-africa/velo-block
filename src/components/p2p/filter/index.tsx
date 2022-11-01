@@ -55,7 +55,7 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                     </Box>
                     <Button background={"#FB5E04"} color={"#fff"} size={"sm"} cursor="pointer"
                         onClick={() => {
-                        router.push("/p2p/"+routeName);
+                        // router.push("/p2p/"+routeName);
                     }}>
                         Create Ads
                     </Button>
