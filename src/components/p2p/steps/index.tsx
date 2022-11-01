@@ -1,5 +1,5 @@
 import {
-Box, Button, Flex,
+ Button, Flex,
  Text
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";

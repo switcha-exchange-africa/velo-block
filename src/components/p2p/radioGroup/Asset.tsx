@@ -21,7 +21,7 @@ const Asset = () => {
         <Box>
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Asset</Text>
             <RadioGroup onChange={setAsset} value={asset} mt="12px" mb="48px">
-                <Flex {...assetGroup} w={"100%"} gap={"20px"} flexWrap={"wrap"}>
+                <Flex {...assetGroup} w={"100%"} gap={["20px", "20px", "24px 75px"]} flexWrap={"wrap"}>
                     {assets.map((value) => {
                         const radio = getRadioProps({ value })
                         return (
