@@ -2,7 +2,7 @@ import { Box, Button, Flex, HStack, Input, InputGroup, InputRightElement, Select
 
 const BuyStepTwo = () => {
     return (
-        <Box mt="80px" p="28px" fontFamily={"Open Sans"} bg="white" mx="10px">
+        <Box mt="80px" p="28px" fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
             <Flex w="50%" direction={"column"} alignItems={"flex-end"}>
                 <InputGroup>
@@ -43,10 +43,12 @@ const BuyStepTwo = () => {
             </HStack>
 
             
-            <Box mt="48px">
-                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Methods</Text>
-                <Text>Select up to 5 methods</Text>
-
+            <Box mt="48px" fontSize={"14px"}>
+                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
+                <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
+                <Button p={"11px 22px"} mt="12px" color="#FB5E04" border={"0.88px solid #FB5e04"} bg={"transparent"}>
+                    Add
+                </Button>
             </Box>
             
             <Text mt="24px" color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Time Limit</Text>
