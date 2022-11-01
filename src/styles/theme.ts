@@ -14,6 +14,9 @@ export const appTheme = extendTheme({
       300: "rgba(235, 67, 53, 0.1)",
       400: "rgba(123, 97, 255, 0.1)"
     },
+    radioButtons: {
+      100: "#FB5E04"
+    },
     mainBGColor: "#F8FAFC",
     appWhiteColor: "#FFFFFF",
     secondaryColor: {
