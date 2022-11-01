@@ -1,9 +1,9 @@
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, InfoIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, HStack, Input, InputGroup, InputRightElement, Select, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
 
 const BuyStepTwo = () => {
     return (
-        <Box mt="80px" p="28px" fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
+        <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
             <Flex w={["100%", "100%", "50%"]} direction={"column"} alignItems={"flex-end"}>
                 <InputGroup>
@@ -69,6 +69,31 @@ const BuyStepTwo = () => {
                 placeholder='15 Min'
             />
 
+
+
+            <Flex  direction={"column"} mt={"24px"} justifyContent={"space-between"}  p={"12px"} w={"100%"} bg="#FFFFFF" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["flex", "flex", "none"]}>
+                <Flex mb="24px">
+                    <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                    <Flex ml="10px" alignItems={"center"}>
+                        <InfoIcon
+                            mr={"5px"}
+                            color={"grey"}
+                            w={"10px"}
+                            h={"10px"}
+                        />
+                        <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                    </Flex>
+                </Flex>
+                
+                <Flex justifyContent={"space-between"}>
+                    <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                        Previous
+                    </Button>
+                    <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"}>
+                        Next
+                    </Button>
+                </Flex>
+            </Flex>
         </Box>
     )
 }

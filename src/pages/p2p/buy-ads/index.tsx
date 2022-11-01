@@ -29,7 +29,6 @@ const BuyAds = () => {
             {/* Step Two */}
             <BuyStepTwo/>
             <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
-                
                 <Flex>
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
                     <Flex ml="10px" alignItems={"center"}>
