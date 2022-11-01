@@ -1,3 +1,4 @@
+import { AddIcon } from '@chakra-ui/icons';
 import { Box, Button, Flex, HStack, Input, InputGroup, InputRightElement, Select, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
 
 const BuyStepTwo = () => {
@@ -47,6 +48,12 @@ const BuyStepTwo = () => {
                 <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                 <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
                 <Button p={"11px 22px"} mt="12px" color="#FB5E04" border={"0.88px solid #FB5e04"} bg={"transparent"}>
+                    <AddIcon
+                        mr="5px"
+                        color={"#FB5E04"}
+                        w={"10px"}
+                        h={"10px"}
+                    />
                     Add
                 </Button>
             </Box>
