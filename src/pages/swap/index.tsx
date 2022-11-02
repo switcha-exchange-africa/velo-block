@@ -177,7 +177,7 @@ const Swap = () => {
                                                 {({ form }: any) => (
                                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
+                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount.toLocaleString()}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
                                                         {/* <InputGroup>
                                                             <Input disabled autoComplete='off' variant={'outline'} {...field} />
                                                             <InputRightElement width={'40'} >
@@ -199,7 +199,7 @@ const Swap = () => {
                                                 </Flex>
 
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>You will receive</Text>
-                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} {creditCoin}</Text>
+                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount.toLocaleString()} {creditCoin}</Text>
                                                 </Flex>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>
@@ -219,7 +219,7 @@ const Swap = () => {
                                                 </MainAppButton>
                                             </Flex>}
 
-                                            <SuccessModal isOpen={isOpen} onClose={onClose} bodyText={`You have successfully Swapped ${amount}\n${debitCoin} to ${convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount} ${creditCoin}`} />
+                                            <SuccessModal isOpen={isOpen} onClose={onClose} bodyText={`You have successfully Swapped ${amount}\n${debitCoin} to ${convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount.toLocaleString()} ${creditCoin}`} />
                                         </VStack>
                                     </Form>
 

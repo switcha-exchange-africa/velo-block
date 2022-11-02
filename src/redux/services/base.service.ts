@@ -4,7 +4,7 @@ import endpoints from "../../constants/endpoints";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
-  tagTypes: ["Wallet", "User", "Exchange"],
+  tagTypes: ["Wallet", "User", "Exchange", "Order"],
   baseQuery: fetchBaseQuery({
     baseUrl: `${endpoints.BASE_URL}/api/v1/`,
     prepareHeaders: (headers) => {
