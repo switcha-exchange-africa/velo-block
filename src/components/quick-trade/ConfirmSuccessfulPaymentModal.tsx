@@ -1,10 +1,15 @@
-import { Box, Divider, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react'
+import { Box, Divider, Flex, Heading, Img, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react'
 
 import React from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
+import appAlert from '../../helpers/appAlert'
+import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
 import MainAppButton from '../buttons/MainAppButton'
 
-const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', base: 'sm' } }: any) => {
-
+const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', base: 'sm' }, ad }: any) => {
+    // React.useEffect(() => {
+    //     alert(JSON.stringify(ad.banks))
+    // }, [ad])
     return (
         <Modal size={size} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay
@@ -23,15 +28,22 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                         <Text fontWeight={'medium'} fontSize={'sm'} >Bank Transfer</Text>
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
-                            <Text fontSize={'sm'} >Maximus Decimus Meridius</Text>
+
+                            {ad?.banks && ad?.banks.map((b: any) => {
+                                return <div key={b}> <RenderAccountName bankId={b} /></div>
+                            })}
                         </Flex>
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
-                            <Text fontSize={'sm'} >67849368932</Text>
+                            {ad?.banks && ad?.banks.map((b: any) => {
+                                return <div key={b}><RenderAccountNumber bankId={b} /></div>
+                            })}
                         </Flex>
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
-                            <Text fontSize={'sm'} >GoMoney</Text>
+                            {ad?.banks && ad?.banks.map((b: any) => {
+                                return <div key={b}><RenderBankName bankId={b} /></div>
+                            })}
                         </Flex>
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Account opening branch</Text>
@@ -53,6 +65,53 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
             </ModalContent>
         </Modal>
     )
+}
+
+export const RenderBankName = ({ bankId }: any) => {
+    const [getSingleBank] = useLazyGetBankByIdQuery()
+    const [bankName, setBankName] = React.useState('')
+    React.useEffect(() => {
+        const getBank = async () => {
+            const bank = await getSingleBank(bankId).unwrap()
+            setBankName(bank?.data?.name)
+        }
+
+        getBank()
+
+
+    }, [bankId, getSingleBank])
+    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+}
+export const RenderAccountName = ({ bankId }: any) => {
+    const [getSingleBank] = useLazyGetBankByIdQuery()
+    const [accountName, setAccountName] = React.useState('')
+    React.useEffect(() => {
+        const getBank = async () => {
+            const bank = await getSingleBank(bankId).unwrap()
+            setAccountName(bank?.data?.accountName)
+        }
+
+        getBank()
+
+    }, [bankId, getSingleBank])
+    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountName} <CopyToClipboard text={accountName}
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+}
+export const RenderAccountNumber = ({ bankId }: any) => {
+    const [getSingleBank] = useLazyGetBankByIdQuery()
+    const [accountNumber, setAccountNumber] = React.useState('')
+    React.useEffect(() => {
+        const getBank = async () => {
+            const bank = await getSingleBank(bankId).unwrap()
+            setAccountNumber(bank?.data?.accountNumber)
+        }
+
+        getBank()
+
+    }, [bankId, getSingleBank])
+    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountNumber} <CopyToClipboard text={accountNumber}
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
 }
 
 export default ConfirmSuccessfulPaymentModal

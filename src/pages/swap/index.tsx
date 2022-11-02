@@ -177,7 +177,7 @@ const Swap = () => {
                                                 {({ form }: any) => (
                                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount.toLocaleString()}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
+                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount.toLocaleString() ?? '0'}</Text> {coinsByType?.data?.data && <RenderCoinsDropdown items={coinsByType?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
                                                         {/* <InputGroup>
                                                             <Input disabled autoComplete='off' variant={'outline'} {...field} />
                                                             <InputRightElement width={'40'} >

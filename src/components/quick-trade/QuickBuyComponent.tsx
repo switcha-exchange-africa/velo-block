@@ -14,7 +14,7 @@ import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
 const QuickBuyComponent = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, rate } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount, } = useAppSelector((state) => state.quickTrade)
     const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
     const [debitCoin, setDebitCoin] = useState(cash ?? `NGN`)
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
@@ -93,8 +93,8 @@ const QuickBuyComponent = () => {
                                     </FormControl>
                                 )}
                             </Field>
-                            <Text fontSize={'xs'} color={'textLightColor'} pb={'1'}>Fee : 0.5%  </Text>
-                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar {rate ? parseFloat(rate).toFixed(2) : parseFloat(ratePerDollar?.data?.data?.destinationAmount?.rate).toFixed(2)} {debitCoin}</Text>
+                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Fee : 0.5%  </Text>
+                            {/* <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar {rate ? parseFloat(rate).toFixed(2) : parseFloat(ratePerDollar?.data?.data?.destinationAmount?.rate).toFixed(2)} {debitCoin}</Text> */}
 
                             <Box py={'1'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondaryColor.900'} >
