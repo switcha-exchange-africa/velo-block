@@ -8,7 +8,6 @@ import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 
 
 const BuyAds = () => {
-    
     return (
         <DashboardLayout title="P2P Buy Ads">
             <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
@@ -17,6 +16,8 @@ const BuyAds = () => {
 
             <StepComponent/>
 
+
+            
 
             {/* Step One */}
             {/* <BuyStepOne/>
