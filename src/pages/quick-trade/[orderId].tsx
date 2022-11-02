@@ -274,7 +274,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            setTime(time => time !== 0 ? time - 1 : 0);
+            setTime(time => time > 0 ? time - 1 : 0);
         }, 1000);
 
         return () => clearInterval(interval);
