@@ -1,14 +1,12 @@
 import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Select, Text } from '@chakra-ui/react'
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
-// interface P2pTopfilterProps {
-//     routeName?: string
-// }
+interface P2pTopfilterProps {
+    routeName?: string
+}
 
-// const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
-const P2pTopfilter = () => {
-
-    // const router = useRouter();
+const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
+    const router = useRouter();
     
     return (
         <>
@@ -56,7 +54,7 @@ const P2pTopfilter = () => {
                     </Box>
                     <Button background={"#FB5E04"} color={"#fff"} size={"sm"} cursor="pointer"
                         onClick={() => {
-                        // router.push("/p2p/"+routeName);
+                        router.push("/p2p/"+routeName);
                     }}>
                         Create Ads
                     </Button>
