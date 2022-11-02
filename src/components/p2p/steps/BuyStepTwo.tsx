@@ -5,6 +5,7 @@ import { MouseEventHandler } from 'react';
 const BuyStepTwo = (props: { action: any; }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
+        console.log(props)
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg">
                 <ModalOverlay />
