@@ -36,7 +36,9 @@ const ConfirmPurchase = () => {
                 // alert(JSON.stringify(response?.data?.data))
                 appAlert.success('order created successfully')
                 dispatch(setOrderPayload({ order: response?.data?.data }))
-                router.replace('/quick-trade/notify-seller')
+                const orderId = response?.data?.data?.order?.orderId
+                router.push(`/quick-trade/${orderId}`)
+
             } else if (response?.data?.status == 401) {
 
                 appAlert.error(`${response?.error?.data?.message}`)
@@ -66,7 +68,10 @@ const ConfirmPurchase = () => {
                         /></Text>
                         <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive {creditCoinAmount} {coin}</Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
-                        <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={rate ? parseFloat(rate).toFixed(2) : '0'} />
+                        <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'}
+                        // rate={
+                        //     rate ? parseFloat(rate).toFixed(2) : '0'} 
+                        />
                         <Box py={'2'}></Box>
                         <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} disabled />
 

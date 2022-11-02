@@ -10,6 +10,8 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { useGetOrderDetailQuery, useLazyNotifyMerchantQuery, } from '../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
+import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -17,6 +19,7 @@ const NotifyTraders = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     const [notifyMerchant] = useLazyNotifyMerchantQuery()
+    const dispatch = useAppDispatch()
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
     const notifyMerchantFunction = async () => {
         try {
@@ -24,6 +27,7 @@ const NotifyTraders = () => {
             if (response?.data?.status == 200) {
                 onOpen()
                 orderDetail.refetch()
+                dispatch(resetQuickBuyPayload())
             } else if (response?.data?.status == 401) {
 
                 appAlert.error(`${response?.error?.data?.message}`)
