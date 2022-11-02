@@ -52,7 +52,7 @@ const ConfirmPurchase = () => {
         }
     }
     return (
-        <DashboardLayout title='confirm purchase'>
+        <DashboardLayout title='Confirm Purchase'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
                 <Box bg={'appWhiteColor'} p={'4'}>
                     <Flex flexDirection={'column'}>

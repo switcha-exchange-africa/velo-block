@@ -72,7 +72,7 @@ const VerificationPage = () => {
     const minutes = String(Math.floor(countDown / 60)).padStart(2, '0');
 
     return (
-        <AuthLayout title='verify email'>
+        <AuthLayout title='Verify Email'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
                 <Text fontSize='2xl' as='b' textAlign='left'>Enter Verification Code</Text>
                 <Text fontSize='sm' fontWeight='medium' color='gray.400' mt='4' >Enter the 6 digit code we sent to your email address</Text>

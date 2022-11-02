@@ -82,7 +82,7 @@ const DashboardPage = () => {
 
 
   return (
-    <DashboardLayout title="home">
+    <DashboardLayout title="Dashboard">
       <Box>
         <Heading>Exchange Crypto with <Text as="span" color="#FB5E04">Low Fees</Text></Heading>
         <Text>Convert your crypto within seconds</Text>

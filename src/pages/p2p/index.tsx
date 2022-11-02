@@ -35,7 +35,7 @@ const P2P = () =>  {
     }
 
   return (
-    <DashboardLayout title="p2p">
+    <DashboardLayout title="P2p">
       <Box
         width={"100%"}
         

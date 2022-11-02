@@ -14,7 +14,7 @@ import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
 const QuickBuyComponent = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, fee, rate } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount, rate } = useAppSelector((state) => state.quickTrade)
     const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
     const [debitCoin, setDebitCoin] = useState(cash ?? `NGN`)
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
@@ -24,6 +24,7 @@ const QuickBuyComponent = () => {
     const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })
     const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
     const calculateQuickBuyFees: any = useCalculateTradeFeesQuery({ amount: amountt, operation: 'buy' }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
+
 
     // const [quickTrade] = useQuickTradeMutation()
     const dispatch = useAppDispatch()
@@ -81,7 +82,7 @@ const QuickBuyComponent = () => {
                                 {({ form }: any) => (
                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{creditCoinAmount ?? convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount}</Text> {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
+                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount?.toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0}</Text> {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
                                         {/* <InputGroup>
                                         <Input disabled autoComplete='off' variant={'outline'} {...field} />
                                         <InputRightElement width={'40'} >
@@ -92,11 +93,14 @@ const QuickBuyComponent = () => {
                                     </FormControl>
                                 )}
                             </Field>
+                            <Text fontSize={'xs'} color={'textLightColor'} pb={'1'}>Fee : 0.5%  </Text>
+                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar {rate ? parseFloat(rate).toFixed(2) : parseFloat(ratePerDollar?.data?.data?.destinationAmount?.rate).toFixed(2)} {debitCoin}</Text>
 
-                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar {rate ?? ratePerDollar?.data?.data?.destinationAmount?.rate} {debitCoin}</Text>
-                            <Box py={'2'}></Box>
+                            <Box py={'1'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondaryColor.900'} >
-                                Buy with {fee ?? calculateQuickBuyFees?.data?.data?.fee} {debitCoin} fee
+                                {/* Buy with {fee ?? calculateQuickBuyFees?.data?.data?.fee} {debitCoin} fee */}
+                                Buy
+
                             </MainAppButton>
 
 
