@@ -2,7 +2,7 @@ import { Box, Button, Flex, Text  } from '@chakra-ui/react';
 // import StepComponent from '../../../components/p2p/steps';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 // import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
-import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
+// import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
 import { InfoIcon } from '@chakra-ui/icons';
 
 
