@@ -1,12 +1,14 @@
-import { Box, Button, Flex, Input, InputGroup, InputRightAddon, Select, Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router';
+import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Select, Text } from '@chakra-ui/react'
+// import { useRouter } from 'next/router';
 
-interface P2pTopfilterProps {
-    routeName: string
-}
+// interface P2pTopfilterProps {
+//     routeName?: string
+// }
 
-const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
-    const router = useRouter();
+// const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
+const P2pTopfilter = () => {
+
+    // const router = useRouter();
     
     return (
         <>
@@ -25,14 +27,13 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                                 borderBottomLeftRadius={"5px"}
                                 placeholder="Enter amount NGN"
                             />
-                            <InputRightAddon
-                                borderTopRightRadius={"5px"}
-                                borderBottomRightRadius={"5px"}
-                                children="Search"
-                                bg={"none"}
-                                color={"#FB5E04"}
-                                cursor="pointer"
-                            />
+
+                            <InputRightElement width={{ md: '70px', base: '36' }}  >
+                                <Flex alignItems="center">
+                                    <Divider orientation='vertical' h='25px' mr="5px" />
+                                    <Text cursor={'pointer'}  fontSize={'sm'} color={"#FB5E04"} >Search</Text>
+                                </Flex>
+                            </InputRightElement>
                         </InputGroup>
                         </Box>
                     <Box>
