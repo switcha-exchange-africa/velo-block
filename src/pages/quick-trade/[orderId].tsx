@@ -279,7 +279,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
 
         return () => clearInterval(interval);
     }, []);
-    return <Text>{remainTime.minutes}:{remainTime.seconds}</Text>
+    return (<Text>{remainTime.minutes > 0 ? remainTime.minutes : '00'}:{remainTime.seconds > 0 ? remainTime.seconds : '00'}</Text>)
 }
 
 // export const RenderBankName = ({ bankId }: any) => {
