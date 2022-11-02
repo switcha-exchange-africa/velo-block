@@ -10,3 +10,5 @@ export const bankApi = baseApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useGetBankByIdQuery } = bankApi;

@@ -15,6 +15,7 @@ import { feesApi } from './services/fees.service';
 import { quickTradeApi } from './services/quick-trade.service';
 import { swapApi } from './services/swap.service';
 import { walletApi } from './services/wallet.service';
+import { bankApi } from './services/bank.service';
 
 const persistConfig = {
     key: 'root',
@@ -34,7 +35,8 @@ const store = configureStore({
         [swapApi.reducerPath]: swapApi.reducer,
         [quickTradeApi.reducerPath]: quickTradeApi.reducer,
         [feesApi.reducerPath]: feesApi.reducer,
-        [exchangeRateApi.reducerPath]: exchangeRateApi.reducer
+        [exchangeRateApi.reducerPath]: exchangeRateApi.reducer,
+        [bankApi.reducerPath]: bankApi.reducer
     },
 
     middleware: (getDefaultMiddleware) =>
@@ -42,7 +44,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware]),
+        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware, bankApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

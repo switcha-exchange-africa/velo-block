@@ -12,6 +12,7 @@ import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
+import RenderAdBankDetails from '../../components/RenderAdBankDetails'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -20,6 +21,7 @@ const NotifyTraders = () => {
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     const [notifyMerchant] = useLazyNotifyMerchantQuery()
     const dispatch = useAppDispatch()
+
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
     const notifyMerchantFunction = async () => {
         try {
@@ -126,20 +128,12 @@ const NotifyTraders = () => {
                                             </Flex>
 
                                         </Flex>
-                                        <Flex pt={'4'}>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >OLUMIDE OYELEYE <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >2016939941 <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >KUDA <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                        </Flex>
+                                        {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks.map((b: any) => {
+                                            return <div key={b}>
+                                                <RenderAdBankDetails bankId={b} />
+                                            </div>
+                                        })}
+
                                     </Flex>
                                 </Flex>
                             </Box>

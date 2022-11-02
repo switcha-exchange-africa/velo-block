@@ -73,7 +73,7 @@ const ConfirmPurchase = () => {
                         //     rate ? parseFloat(rate).toFixed(2) : '0'} 
                         />
                         <Box py={'2'}></Box>
-                        <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} disabled />
+                        <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} disabled />
 
                         <Box p={'12'}></Box>
                         <MainAppButton isLoading={isLoading} backgroundColor={'secondaryColor.900'} onClick={handleSubmit} >
