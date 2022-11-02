@@ -1,4 +1,4 @@
-import { AddIcon, InfoIcon, SearchIcon } from '@chakra-ui/icons';
+import { AddIcon, CloseIcon, InfoIcon, SearchIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
@@ -142,15 +142,39 @@ const BuyStepTwo = (props: { action: any; }) => {
                 <Box mt="48px" fontSize={"14px"}>
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                     <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
-                    <Button p={"11px 22px"} mt="12px" color="#FB5E04" border={"0.88px solid #FB5e04"} bg={"transparent"} onClick={onOpen}>
-                        <AddIcon
-                            mr="5px"
-                            color={"#FB5E04"}
-                            w={"10px"}
-                            h={"10px"}
-                        />
-                        Add
-                    </Button>
+                    
+                    <HStack flexWrap={"wrap"} alignItems="center" mt="12px">
+                        <Flex p={"11px 22px"} justifyContent={"space-between"} alignItems="center"  color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w="130px">
+                            First bank
+                            <CloseIcon
+                                mr="5px"
+                                color={"#000000"}
+                                w={"10px"}
+                                h={"10px"}
+                            />
+                        </Flex>
+
+                        <Flex p={"11px 22px"} justifyContent={"space-between"} borderRadius={"5px"} border={"0.88px solid #8e9bae"} alignItems="center" mt="12px" color="#000000" w="150px">
+                            Access bank
+                            <CloseIcon
+                                mr="5px"
+                                color={"#000000"}
+                                w={"10px"}
+                                h={"10px"}
+                            />
+                        </Flex>
+                        
+                        <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                            <AddIcon
+                                mr="5px"
+                                color={"#FB5E04"}
+                                w={"10px"}
+                                h={"10px"}
+                            />
+                            Add
+                        </Button>
+                    </HStack>
+                    
                 </Box>
                 
                 <Text mt="24px" color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Time Limit</Text>
