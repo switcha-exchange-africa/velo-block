@@ -1,5 +1,5 @@
 import { AddIcon, InfoIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure, VStack  } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure  } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 
 const BuyStepTwo = (props: { action: any; }) => {
@@ -29,44 +29,15 @@ const BuyStepTwo = (props: { action: any; }) => {
                         >
                             Bank Transfer
                         </Text>
-                        <Box padding={"20px 20px"}>
+                        <Flex  bg="red" padding={"20px 20px"}>
 
                             <Text fontSize={"md"} color={"#8E9BAE"}>
                                 All payment methods
                             </Text>
-                            {/* <Flex flexDir={"column"} gap="15px">
-                                <Flex flexDir={"column"} gap="6px">
-                                
-                                <Text fontSize={"md"}>
-                                    Maximus Decimus Meridius 
-                                </Text>
-                                </Flex>
-                                <Flex flexDir={"column"} gap="6px">
-                                <Text fontSize={"md"} color={"#8E9BAE"}>
-                                    Bank Account Number
-                                </Text>
-                                <Text fontSize={"md"}>
-                                    67849368932 
-                                </Text>
-                                </Flex>
-                                <Flex flexDir={"column"} gap="6px">
-                                <Text fontSize={"md"} color={"#8E9BAE"}>
-                                    Bank Name
-                                </Text>
-                                <Text fontSize={"md"}>
-                                    Go Money 
-                                </Text>
-                                </Flex>
-                                <Flex flexDir={"column"} gap="6px">
-                                <Text fontSize={"md"} color={"#8E9BAE"}>
-                                    Account Opening Branch
-                                </Text>
-                                <Text fontSize={"md"}>
-                                    No crypto related words on payment DESCRIPTION 
-                                </Text>
-                                </Flex>
-                            </Flex> */}
-                        </Box>
+                            
+
+
+                        </Flex>
                         
                     </ModalBody>
                 </ModalContent>
@@ -80,7 +51,7 @@ const BuyStepTwo = (props: { action: any; }) => {
                 <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
                 <Flex w={["100%", "100%", "50%"]} direction={"column"} alignItems={"flex-end"}>
                     <InputGroup>
-                        <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
+                        <Input autoComplete='off' type="number" variant={'outline'} placeholder={'0'} />
                         <InputRightElement width={{ md: '60px', base: '70px' }}>
                             <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                         </InputRightElement>
@@ -92,7 +63,7 @@ const BuyStepTwo = (props: { action: any; }) => {
                     <Box w="50%">
                         <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                         <InputGroup mt="12px">
-                            <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
+                            <Input autoComplete='off' type="number" variant={'outline'} placeholder={'0'} />
                             <InputRightElement width={{ md: '60px', base: '62px' }}>
                                 <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                             </InputRightElement>
@@ -108,7 +79,7 @@ const BuyStepTwo = (props: { action: any; }) => {
                     <Box w="50%">
                         <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                         <InputGroup mt="12px">
-                            <Input autoComplete='off' variant={'outline'} placeholder={'0'} />
+                            <Input autoComplete='off' type="number" variant={'outline'} placeholder={'0'} />
                             <InputRightElement width={{ md: '60px', base: '62px' }}>
                                 <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
                             </InputRightElement>
