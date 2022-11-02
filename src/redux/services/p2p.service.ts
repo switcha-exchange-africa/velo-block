@@ -9,13 +9,19 @@ export const p2pApi = baseApi.injectEndpoints({
       },
       providesTags: ["Order"],
     }),
-    notifyMerchant: builder.query<any, any>({
-      query: (orderId) => `p2p/order/${orderId}/notify-merchant`,
+    notifyMerchant: builder.mutation<any, any>({
+      query: (orderId) => {
+        return {
+          url: `p2p/order/${orderId}/notify-merchant`,
+          method: "POST",
+        };
+      },
       transformResponse: (responseData: any) => {
         return responseData;
       },
+      invalidatesTags: ["Order"],
     }),
   }),
 });
 
-export const { useGetOrderDetailQuery, useLazyNotifyMerchantQuery } = p2pApi;
+export const { useGetOrderDetailQuery, useNotifyMerchantMutation } = p2pApi;

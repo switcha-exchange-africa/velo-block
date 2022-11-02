@@ -14,7 +14,7 @@ const PaymentMethodComponent = ({ borderColor, label, rate, disabled = false }: 
             <Flex justifyContent={'space-between'} >
                 <Text fontSize='sm' as='p' align={'center'} color={disabled ? 'gray' : ''} fontWeight={'semibold'} >{label}</Text>
                 <Flex flexDirection={'column'}>
-                    <Text fontSize='xs' as='p' color={disabled ? 'gray' : 'transparent'} fontWeight={'light'} w={'full'} align={'center'} >{rate ?? '0'}</Text>
+                    <Text fontSize='xs' as='p' color={disabled ? 'transparent' : 'transparent'} fontWeight={'light'} w={'full'} align={'center'} >{rate ?? '0'}</Text>
                     <Text fontSize='xs' color={disabled ? 'gray' : 'primaryColor.900'} as='p' fontWeight={'light'} w={'full'} align={'center'} >Best Offer</Text>
                 </Flex>
             </Flex>
