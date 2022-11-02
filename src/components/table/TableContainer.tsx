@@ -1,4 +1,3 @@
-import Verified from "../../../public/assets/svgs/verified.svg"
 import Line from "../../../public/assets/svgs/line.svg"
 import {
   Table,
@@ -13,8 +12,10 @@ import {
   Flex,
   Text,
   Button,
+  Avatar,
 } from '@chakra-ui/react'
 import Image from 'next/image'
+import { CheckCircleIcon } from "@chakra-ui/icons"
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
@@ -37,11 +38,113 @@ const TableComponent = ({
 
     return (
         <>
-            <TableContainer>
+
+            {/* for mobile screen */}
+            {apiData?.data?.map((api: any) => (
+                <Box key={api?.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                    <Flex
+                        alignItems="center"
+                        w="100%"
+                    >
+                    <Flex w={"full"} flexDirection="column">
+                        <Box display={"flex"} alignItems={"center"} gap="5px">
+                        <Avatar
+                            size={"md"}
+                            background={"#FB5E04"}
+                            name="Maximus"
+                        >
+                                    
+                        </Avatar>
+                        <Box>
+                            <Box display={"flex"} alignItems={"center"} gap="3px">
+                                <Text fontSize={"sm"}>{ api?.user?.map((data:any) => data?.username)}</Text>
+                                <CheckCircleIcon
+                                    color={"#22C36B"}
+                                    w={"10px"}
+                                    h={"10px"}
+                                />
+                            </Box>
+                            <Box
+                                display={"flex"}
+                                alignItems={"center"}
+                                gap="3px"
+                                fontSize={"xs"}
+                                color="#8E9BAE"
+                            >
+                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}&nbsp;orders</Text>|
+                                <Text>
+                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
+                                    %&nbsp;completion
+                                </Text>
+                            </Box>
+                        </Box>
+                        </Box>
+                        <Box
+                        mt={"0.5rem"}
+                        display={["flex"]}
+                        flexDir={["column", "column", "row"]}
+                        >
+                        <Flex alignItems={"center"} gap="5px">
+                            <Flex gap={"5px"} alignItems="center">
+                            <Text fontSize={"xs"} color={"#8E9BAE"}>
+                                Price
+                            </Text>
+                            <Box display={"flex"}>
+                                <Text fontSize={"xs"}>{api?.price.toLocaleString()}</Text>
+                                <Text fontSize={"xs"}> {api?.cash}</Text>
+                            </Box>
+                            </Flex>
+
+                            <Flex alignItems="center" gap={"10px"}>
+                            <Text fontSize={"xs"} color={"#8E9BAE"}>
+                                Available
+                            </Text>
+                            <Text fontSize={"xs"}>{api?.totalAmount.toLocaleString()}</Text>
+                            </Flex>
+                        </Flex>
+                        <Flex alignItems={"center"} gap="10px">
+                            <Flex gap={"5px"} alignItems="center">
+                            <Text fontSize={"xs"} color={"#8E9BAE"}>
+                                {" "}
+                                Limit
+                            </Text>
+                            <Text fontSize={"xs"}>{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin}</Text>
+                            </Flex>
+                            <Box>
+                            <Text
+                                fontSize={"10px"}
+                                textAlign={"center"}
+                                background={"#FFF7F2"}
+                                color={"#FB5E04"}
+                                borderRadius={"3px"}
+                            >
+                                Bank Transfer
+                            </Text>
+                            </Box>
+                        </Flex>
+                        </Box>
+                    </Flex>
+                    <Button
+                        width={"100px"}
+                        fontSize={"sm"}
+                        bg={backgroundColor}
+                        textAlign={"center"}
+                        color="#fff"
+                        borderRadius={"3px"}
+                        onClick={onClick}
+                    >
+                        {buttonTitle}
+                    </Button>
+                    </Flex>
+                 </Box>
+            ))}
+
+            {/* for desktop view */}
+            <TableContainer display={["none", "none", "block"]}  paddingLeft="0">
                 <Table variant='simple'>
                     <Thead>
                         <Tr>
-                            <Th>Advertiser</Th>
+                            <Th  paddingLeft="0">Advertiser</Th>
                             <Th>Price</Th>
                             <Th>Available</Th>
                             <Th>Limit</Th>
@@ -51,16 +154,20 @@ const TableComponent = ({
                     </Thead>
 
                     {apiData?.data?.map((api:any) => (
-                        <Tbody key={api.id}>
+                        <Tbody key={api?.id}>
                             <Tr>
-                                <Td>
+                                <Td paddingLeft="0">
                                     <HStack>
                                         <Box bg="#FB5E04" color="white" padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px">M</Box>
                                         <HStack flexDirection="column"  alignItems="flex-start" >
                                             <HStack>
                                                 <Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.user?.map((data:any) => data?.username)}</Text>
                                                 <Flex>
-                                                    <Image src={Verified} alt="verified icon" />
+                                                    <CheckCircleIcon
+                                                        color={"#22C36B"}
+                                                        w={"10px"}
+                                                        h={"10px"}
+                                                    />
                                                 </Flex>
                                             </HStack>
                                             <HStack color="#8E9BAE" fontSize="12px">
@@ -69,23 +176,30 @@ const TableComponent = ({
                                                     <Image src={Line} alt="line division" />
                                                 </Box>
                                                 <Text>
-                                                    {
-                                                        isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)
-                                                    }
-                                                    %&nbsp;completion</Text>
+                                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
+                                                    %&nbsp;completion
+                                                </Text>
                                             </HStack>
                                         </HStack>
                                         
                                     </HStack>
                                 </Td>
                                 <Td>
-                                    <Text fontSize="14px">{api.price}&nbsp;<Text as="span" fontSize="10px">{api.cash}</Text></Text>
+                                    <Text fontSize="14px">{api?.price.toLocaleString()}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
                                 </Td>
-                                <Td fontSize="14px">0.00346</Td>
-                                <Td fontSize="14px">{api.minLimit}&nbsp;-&nbsp;{api.maxLimit}&nbsp;USD</Td>
+                                <Td fontSize="14px">{api?.totalAmount.toLocaleString()}</Td>
+                                <Td fontSize="14px">{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin}</Td>
                                 <Td fontSize="14px">
-                                    <Button fontSize="14px" fontWeight="200"  color="#FB5E04" bg="#FFF7F2" borderRadius="2px" p="2px 5px">Bank Transfer</Button>
-            
+                                    <Text
+                                        fontSize={"12px"}
+                                        textAlign={"center"}
+                                        background={"#FFF7F2"}
+                                        color={"#FB5E04"}
+                                        fontWeight="200"
+                                        borderRadius={"3px"}
+                                    >
+                                        Bank Transfer
+                                    </Text>
                                 </Td>
                                 <Td>
                                     <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
@@ -99,8 +213,7 @@ const TableComponent = ({
                 </Table>
             </TableContainer>
 
-            {/* Pagination data */}
-            <HStack px={["0", "0px", "28px", "28px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+            <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
                 <HStack >
                     <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
                         {apiData?.pagination?.currentPage}
