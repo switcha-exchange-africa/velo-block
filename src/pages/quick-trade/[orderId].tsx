@@ -13,7 +13,6 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import RenderAdBankDetails from '../../components/RenderAdBankDetails'
-import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -164,7 +163,7 @@ const NotifyTraders = () => {
                                 <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} ad={orderDetail?.data?.data?.ad[0]} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                            </Flex> : <Flex>
+                            </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                 // onClick={() => onOpen()}
                                 >Comfirm Release</Text>
@@ -175,9 +174,9 @@ const NotifyTraders = () => {
                             </Flex>}
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing' &&
-                                <Flex flexDirection={'column'}>
+                                <Flex flexDirection={'column'} pt={'6'}>
                                     <Flex alignItems={'center'}>
-                                        <Text fontSize={'sm'} >To be released</Text>
+                                        <Text fontSize={'sm'} pr={'1'}>To be released</Text>
                                         <Text fontSize={'sm'} color={'primaryColor.900'}>{(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) > today ? <RenderTimer timeRemaining={(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) - today} /> : '00:00'}</Text>
                                     </Flex>
                                     <Text py={'2'} fontSize={'xs'}>Expected to receive assets in {moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')} minutes</Text>
@@ -263,7 +262,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
         // const days = Math.floor(time / 24 / 3600);
         // const hours = Math.floor((time - days * 24 * 3600) / 3600);
         const minutes = Math.floor(time / 60);
-        const seconds = (time - minutes * 60);
+        const seconds = Math.floor(time % 60);
 
         return {
             // days,
@@ -283,23 +282,23 @@ const RenderTimer = ({ timeRemaining }: any) => {
     return <Text>{remainTime.minutes}:{remainTime.seconds}</Text>
 }
 
-export const RenderBankName = ({ bankId }: any) => {
-    const [getSingleBank] = useLazyGetBankByIdQuery()
-    const [bankName, setBankName] = React.useState('')
-    alert(bankId)
-    React.useEffect(() => {
-        const getBank = async () => {
-            const bank = await getSingleBank(bankId).unwrap()
-            setBankName(bank?.data?.name)
-        }
+// export const RenderBankName = ({ bankId }: any) => {
+//     const [getSingleBank] = useLazyGetBankByIdQuery()
+//     const [bankName, setBankName] = React.useState('')
+//     alert(bankId)
+//     React.useEffect(() => {
+//         const getBank = async () => {
+//             const bank = await getSingleBank(bankId).unwrap()
+//             setBankName(bank?.data?.name)
+//         }
 
-        getBank()
+//         getBank()
 
 
-    }, [bankId, getSingleBank])
-    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
-}
+//     }, [bankId, getSingleBank])
+//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+// }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
