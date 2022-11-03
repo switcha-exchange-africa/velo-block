@@ -10,26 +10,37 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { useGetOrderDetailQuery, useNotifyMerchantMutation, } from '../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
-import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
+import { resetQuickBuyPayload, } from '../../redux/features/quick-trade/quickTradeSlice'
+import { useAppDispatch, } from '../../helpers/hooks/reduxHooks'
 import RenderAdBankDetails from '../../components/RenderAdBankDetails'
 
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
+    // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     const [notifyMerchant, { isLoading }] = useNotifyMerchantMutation()
     const dispatch = useAppDispatch()
     const today = moment().valueOf()
 
+
+    // React.useEffect(() => {
+    //     if (isModalOpen == true) {
+    //         onOpen()
+    //     }
+    // }, [isModalOpen, onOpen])
+
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
     const notifyMerchantFunction = async () => {
         try {
+            // onOpen()
+
             const response: any = await notifyMerchant(orderDetail?.data?.data?._id)
             if (response?.data?.status == 200) {
-                onOpen()
+                // onOpen()
                 orderDetail.refetch()
+                // dispatch(setIsModalOpen({ isOpen: true }))
                 dispatch(resetQuickBuyPayload())
             } else if (response?.data?.status == 401) {
 
@@ -158,9 +169,9 @@ const NotifyTraders = () => {
                             </Box>
                             {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.type == 'buy' ? <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                    notifyMerchantFunction()}>{isLoading ? 'Please Wait...' : 'Transfered and Notify Seller'} </Text>
+                                    onOpen()}>{isLoading ? 'Please Wait...' : 'Transfered and Notify Seller'} </Text>
 
-                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} ad={orderDetail?.data?.data?.ad[0]} />
+                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={() => { onClose(); notifyMerchantFunction() }} ad={orderDetail?.data?.data?.ad[0]} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                             </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && <Flex>
@@ -279,7 +290,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
 
         return () => clearInterval(interval);
     }, []);
-    return (<Text>{remainTime.minutes > 0 ? remainTime.minutes : '00'}:{remainTime.seconds > 0 ? remainTime.seconds : '00'}</Text>)
+    return (<Text> {remainTime.minutes}:{remainTime.seconds}</Text>)
 }
 
 // export const RenderBankName = ({ bankId }: any) => {

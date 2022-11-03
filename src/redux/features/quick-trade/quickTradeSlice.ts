@@ -8,6 +8,7 @@ export interface QuickTradeState {
   coin?: any;
   rate?: any;
   order?: any;
+  isModalOpen?: any;
 }
 const initialState: QuickTradeState = {
   amount: null,
@@ -17,6 +18,7 @@ const initialState: QuickTradeState = {
   coin: null,
   rate: null,
   order: null,
+  isModalOpen: false,
 };
 
 export const quickTradeSlice = createSlice({
@@ -63,10 +65,25 @@ export const quickTradeSlice = createSlice({
       state.coin = null;
       state.rate = null;
     },
+
+    setIsModalOpen: (
+      state,
+      {
+        payload: { isOpen },
+      }: PayloadAction<{
+        isOpen: any;
+      }>
+    ) => {
+      state.isModalOpen = isOpen;
+    },
   },
 });
 
-export const { setQuickBuyPayload, setOrderPayload, resetQuickBuyPayload } =
-  quickTradeSlice.actions;
+export const {
+  setQuickBuyPayload,
+  setOrderPayload,
+  resetQuickBuyPayload,
+  setIsModalOpen,
+} = quickTradeSlice.actions;
 
 export default quickTradeSlice.reducer;
