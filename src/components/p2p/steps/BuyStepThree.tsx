@@ -1,95 +1,109 @@
-import {  QuestionOutlineIcon, SearchIcon } from '@chakra-ui/icons';
+import {  QuestionOutlineIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex,
-    HStack, Input, InputGroup, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, InputLeftElement, Textarea, Checkbox, VStack
+    HStack, Modal, ModalBody, ModalCloseButton,
+    ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 import Status from '../radioGroup/Status';
 
-const BuyStepThree = () => {
+const BuyStepThree = (props: { action: any; }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
-    const BuyStepThreeModal = () => {
-        // console.log(props)
+    const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
+        console.log(props)
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg">
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
-                        Select Payment Method
+                        Confirm to post
                     </ModalHeader>
                     <ModalCloseButton />
+                    
                     <ModalBody padding={"10px 0"}>
-                        <Text
-                            fontSize={"sm"}
-                            padding="20px 20px 12px"
-                            borderTop={"1px solid #8E9BAE"}
-                        >
-                            Recommended
-                        </Text>
-                        <Text
-                            fontSize={"sm"}
-                            fontWeight={"bold"}
-                            padding="0px 20px 20px"
-                            borderBottom={"1px solid #8E9BAE"}
-                        >
-                            Bank Transfer
-                        </Text>
-                        <Flex  padding={"20px 20px"} justifyContent={"space-between"} alignItems={"center"} direction={["column", "column", "row"]}>
+                        
 
-                            <Text fontSize={"14px"} color={"#8E9BAE"} mb={["7px", "7px", "0px"]}>
-                                All payment methods
-                            </Text>
-                            
-                             <InputGroup w={["100%", "100%", "45%"]}>
-                                <InputLeftElement >
-                                    <SearchIcon 
-                                        mr={"5px"}
-                                        color={"#8E9BAE"}
-                                        w={"15px"}
-                                        h={"15px"}
-                                    />
-                                </InputLeftElement>
-                                <Input fontSize={"14px"} autoComplete='off' type="number" variant={'outline'} placeholder={'Enter a payment method'} />
+                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Type</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>Buy</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Asset</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>USDT</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>NGN</Text>
+                            </VStack>
 
-                            </InputGroup>
-                            
+                        </HStack>
+
+                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Price Type</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>Floating</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating Price Margin</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>99.97%</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>484.85NGN</Text>
+                            </VStack>
+
+                        </HStack>
 
 
+                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>20,000.00NGN - 200,000.00NGN</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>2,000.00USDT</Text>
+                            </VStack>
+                        </HStack>
+
+                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Counterpart Conditions</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>Completed KYC</Text>
+                            </VStack>
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>15 min</Text>
+                            </VStack>
+                        </HStack>
+
+                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                            <VStack alignItems={"flex-start"}>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>Kuda Bank</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>Bank Transfer</Text>
+                            </VStack>
+                        </HStack>
+
+
+                        <Flex justifyContent={"space-between"} px="10px" mt="24px">
+                            <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                                Cancel
+                            </Button>
+                            <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={onOpen}>
+                                Confirm to Post
+                            </Button>
                         </Flex>
 
-                        <Flex  padding={"20px 20px"}  gap={["2px", "2px", "1px"]} alignItems={"center"} flexWrap={["wrap", "wrap", "nowrap"]}>
-                            <Text color="#FB5E04" fontSize={"12px"} fontWeight="900" p={"2px 4px"} border={"0.88px solid #FB5e04"} borderRadius={"2.5px"} bg={"transparent"}>All</Text>
-                            {searchOptions.map((value) => (
-                                <Text key="value" cursor="pointer" fontWeight="900" color="#FB5E04" fontSize={"12px"} p={"2px 4px"} border={"none"} bg={"transparent"}>{value}</Text>        
-                            ))}
-                        </Flex>
-                        
-                        <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
-                            <HStack  mb={"24px"}>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>RUB fiat balance</Text>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank Transfer (vietnam)</Text>
-                            </HStack>
-                            <HStack  mb={"24px"}>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>UAH Balance</Text>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank Transfer (Peru)</Text>
-                            </HStack>
-                            <HStack  mb={"24px"}>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank of Georgia</Text>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>TBC Bank</Text>
-                            </HStack>
 
-                            <HStack  mb={"24px"}>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>7-Eleven</Text>
-                                <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Kuda Bank</Text>
-                            </HStack>
-                        </Box>
-                        
-                        
                     </ModalBody>
+
+
+
+
                 </ModalContent>
             </Modal>
         );
