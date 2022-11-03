@@ -1,25 +1,65 @@
-import { Box, Button, Flex, Text  } from '@chakra-ui/react';
-import StepComponent from '../../../components/p2p/steps';
+import { Box, Text  } from '@chakra-ui/react';
+// import StepComponent from '../../../components/p2p/steps';
 import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 // import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
-import { InfoIcon, QuestionOutlineIcon } from '@chakra-ui/icons';
+// import { InfoIcon, QuestionOutlineIcon } from '@chakra-ui/icons';
 import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
+import { useState } from 'react';
 
 
 
 const BuyAds = () => {
+    const [currentStep, setCurrentStep] = useState(1)
+    const steps = [
+        "Set Type & Price",
+        "Set Total Amount And Payment Methods",
+        "Set Remark And Automatic Response"
+    ]
+
+
+    const handleNextStep = () => {
+        setCurrentStep(currentStep + 1)
+    }
+
+    const handlePreviousStep = () => {
+        setCurrentStep(currentStep - 1)
+    }
+
+    const displayStep = (step: number) => {
+        switch (step) {
+            case 1: {
+                return <BuyStepOne handleNextStep={handleNextStep}  />
+            }
+            case 2: {
+                return <BuyStepTwo handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+            }
+            case 3: {
+                return <BuyStepThree handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+            }
+            default:
+        }
+    }
+
     return (
         <DashboardLayout title="P2P Buy Ads">
-            <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
+            <Box position="relative" mt="100px">
+
+                <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
                 <Text fontSize={["32px", "24px", "30px"]} fontWeight={"600"}>Post Normal Ads</Text>
+                </Box>
+
+                {/* <StepComponent
+                    steps={steps}
+                    currentStep={currentStep}
+                /> */}
+
+                
+
             </Box>
 
-            {/* <StepComponent/> */}
-
-
-            
+                {displayStep(currentStep)}
 
             {/* Step One */}
             {/* <BuyStepOne/>
@@ -56,7 +96,7 @@ const BuyAds = () => {
             </Flex> */}
 
             {/* Step Three */}
-            <BuyStepThree/>
+            {/* <BuyStepThree/>
 
             <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
                 <Flex>
@@ -79,7 +119,7 @@ const BuyAds = () => {
                         Post
                     </Button>
                 </Flex>
-            </Flex>
+            </Flex> */}
 
         </DashboardLayout>
     )

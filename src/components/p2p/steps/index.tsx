@@ -1,154 +1,97 @@
-// import {
-//  Button, Flex,
-//  Text
-// } from "@chakra-ui/react";
-// import { Step, Steps, useSteps } from "chakra-ui-steps";
 
-import { Box, Text } from "@chakra-ui/react"
-import { useState } from "react"
-import BuyStepOne from "./BuyStepOne"
-import BuyStepTwo from "./BuyStepTwo"
+// import { Box, Flex, HStack, VStack } from "@chakra-ui/react"
+// import { useEffect, useRef, useState } from "react"
 
 
-// function StepComponent() {
-//     const { nextStep, activeStep } = useSteps({
-//         initialStep: 0,
-//     });
+
+// interface StepComponentProps  {
+//     steps: any,
+//     currentStep: number
+// }
+
+
+// const StepComponent = ({steps, currentStep}: StepComponentProps) => {
+//     const [newStep, setNewStep] = useState([])
+//     const stepRef = useRef()
     
-//     const steps = [
-//         {
-//             label: (
-//                 <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
-//                     Set Type & Price
-//                 </Text>
-//             ),
-//             content: <Step1 action={nextStep} />,
-//             id: 1,
-//         },
+//     const updateStep = (stepNumber, steps) => {
+//         const newSteps = [...steps]
+//         let count = 0
 
-//         {
-//             label: (
-//                 <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
-//                     Set Total Amount And Payment Methods
-//                 </Text>
-//             ),
-//             content: <Step2 action={nextStep} />,
-//             id: 2,
-//         },
+//         while (count < newSteps.length) {
+//             if (count === stepNumber) {
+//                 newSteps[count] = {
+//                     ...newSteps[count],
+//                     highlighted: true,
+//                     selected: true,
+//                     completed: true
+                    
+//                 }
+//                 count++                    
+//             }
 
-//         {
-//         label: (
-//             <Text width={["100px", "100px", "auto"]} fontSize={["9px", "xs", "sm"]}>
-//                 Set Remark And Automatic Response
-//             </Text>
-//         ),
-//         content: <Step3 />,
-//         id: 3,
-//         },
-
-//     ];
-
+//             else if (count < stepNumber) {
+//                 newSteps[count] = {
+//                     ...newSteps[count],
+//                     highlighted: false,
+//                     selected: true,
+//                     completed: true
+                    
+//                 }
+//                 count++
+//         } else {
+//                 newSteps[count] = {
+//                     ...newSteps[count],
+//                     highlighted: false,
+//                     selected: false,
+//                     completed: false
+                    
+//                 }           
+//             }
+//         }
+//         return newSteps
+//     }
     
-//     return (
-//         <>
+//     useEffect(() => {
+//         const stepsState = steps.map((step:any, index:any) => (
+//             Object.assign({}, {
+//                 description: step,
+//                 completed: false,
+//                 highlighted: index === 0 ? true : false,
+//                 selected: index === 0 ? true : false
+//              })
+//         ))
+    
+//         stepRef.current = stepsState
+//         const current = updateStep(currentStep -1, stepRef.current)
+//         setNewStep(current)
+//     }, [steps, currentStep])
+    
+    
+//     const displaySteps = newStep.map((step:any, index: any) => (
+//         <Box key={index}>
+//             <VStack>
+//                 <Box position={"absolute"} top={"2px"}>
+//                     {/* display description */} description
+//                 </Box>
 
-//         {/* <Flex
-//           justifyContent={"space-between"}
-//           flexDir={["column-reverse", "column-reverse", "row"]}
-//         > */}
-//           <Flex flexDir="column" mt={"150px"} w="50%" mx="auto">
-//             <Steps
-//               activeStep={activeStep}
-//               labelOrientation="vertical"
-//               colorScheme={"orange"}
-//               responsive={false}
-//               width={["375px", "375px", "auto"]}
-//             >
-//               {steps.map(({ label, content, id }) => (        
-//                 <Step label={label} key={id}>
-//                   {content}
-//                 </Step>
-//               ))}
-//             </Steps>
-//           </Flex>
-//         {/* </Flex> */}
-//         </>
+//                 <Flex bg="#FB5E04" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+//                     {/* display number */}1
+//                 </Flex>
+
+//             </VStack>
+            
+//             <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex="auto">
+//                 {/* display line */}
+//             </Flex>
+//         </Box>
+//     ))
+
+//     return (
+//         <HStack mt={"150px"} position={"relative"} textAlign={"center"} p={"20px"} justifyContent={"center"} >
+//             {displaySteps}
+//         </HStack>
 //     )
 // }
-
-
-
-
-
-// const Step1 = (props: any) => {
-//     return (
-//         <>
-//             Step One
-//             <Button onClick={props.action}>
-//                 Next
-//             </Button>
-//         </>
-//     )
-// }
-
-
-// const Step2 = (props: any) => {
-//     return (
-//         <>
-//             Step Two
-//             <Button onClick={props.action}>
-//                 Next
-//             </Button>
-//         </>
-//     )
-// }
-
-
-
-// const Step3 = (props: any) => {
-//     return (
-//         <>
-//             Step One
-//             <Button onClick={props.action}>
-//                 Next
-//             </Button>
-  
-//         </>
-//     )
-// }
-
 
 // export default StepComponent
-function getStepContent(stepIndex: number) {
-    switch (stepIndex) {
-        case 0:
-            return <BuyStepOne />
-        case 1: 
-            return <BuyStepTwo />
-        default: 
-            return "No Content"
-        
-    }
-}
-
-
-const StepComponent = () => {
-    const [activeStep, setActiveStep] = useState(0)
-    const steps = ["Shipping", "Payment"]
-
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    }
-
-    const handlePrevious = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
-
-    return (
-        <Box mt={"150px"} bg="red" textAlign={"center"} p={"20px"}>
-            
-        </Box>
-    )
-}
-
-export default StepComponent

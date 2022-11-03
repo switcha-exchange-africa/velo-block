@@ -6,7 +6,10 @@ import {
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 
-const BuyStepTwo = (props: { action: any; }) => {
+// const BuyStep =
+
+const BuyStepTwo = (props:any) => {
+    const {handlePreviousStep, handleNextStep} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -205,15 +208,39 @@ const BuyStepTwo = (props: { action: any; }) => {
                     </Flex>
                     
                     <Flex justifyContent={"space-between"}>
-                        <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                        <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
                             Previous
                         </Button>
-                        <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"}>
+                        <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={handleNextStep}>
                             Next
                         </Button>
                     </Flex>
                 </Flex>
             </Box>
+
+            <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
+                <Flex>
+                    <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                    <Flex ml="10px" alignItems={"center"}>
+                        <InfoIcon
+                            mr={"5px"}
+                            color={"grey"}
+                            w={"10px"}
+                            h={"10px"}
+                        />
+                        <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                    </Flex>
+                </Flex>
+                
+                <Flex>
+                    <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
+                        Previous
+                    </Button>
+                    <Button borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={handleNextStep}>
+                        Next
+                    </Button>
+                </Flex>
+            </Flex>
         </>
         
     )
