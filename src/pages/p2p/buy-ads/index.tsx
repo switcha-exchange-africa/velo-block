@@ -2,9 +2,10 @@ import { Box, Button, Flex, Text  } from '@chakra-ui/react';
 import StepComponent from '../../../components/p2p/steps';
 import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-// import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
+import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 // import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
-import { InfoIcon } from '@chakra-ui/icons';
+import { InfoIcon, QuestionOutlineIcon } from '@chakra-ui/icons';
+import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 
 
 
@@ -29,7 +30,7 @@ const BuyAds = () => {
             </Flex> */}
 
             {/* Step Two */}
-            <BuyStepTwo/>
+            {/* <BuyStepTwo/>
             <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
                 <Flex>
                     <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
@@ -52,7 +53,34 @@ const BuyAds = () => {
                         Next
                     </Button>
                 </Flex>
+            </Flex> */}
+
+            {/* Step Three */}
+            <BuyStepThree/>
+
+            <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
+                <Flex>
+                    <Flex ml="10px" alignItems={"center"}>
+                        <QuestionOutlineIcon
+                            mr={"5px"}
+                            color={"black"}
+                            w={"10px"}
+                            h={"10px"}
+                        />
+                        <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Help & Guide</Text>
+                    </Flex>
+                </Flex>
+                
+                <Flex>
+                    <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                        Previous
+                    </Button>
+                    <Button borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"}>
+                        Post
+                    </Button>
+                </Flex>
             </Flex>
+
         </DashboardLayout>
     )
 }
