@@ -3,10 +3,9 @@ import  { useState } from 'react'
 import { RadioCard } from './RadioGroup'
 
 const Status = () => {
-    const [status, setstatus] = useState('1')
-    
+    const [status, setstatus] = useState('1')    
     const statusOptions = ['Online right now', 'Offline, Manually later']
-    
+
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'status',
