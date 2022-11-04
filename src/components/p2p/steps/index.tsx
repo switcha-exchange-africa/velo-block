@@ -1,97 +1,178 @@
-
-// import { Box, Flex, HStack, VStack } from "@chakra-ui/react"
-// import { useEffect, useRef, useState } from "react"
+import { Box, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 
 
 
-// interface StepComponentProps  {
-//     steps: any,
-//     currentStep: number
-// }
+interface StepComponentProps  {
+    currentStep: number
+}
 
 
-// const StepComponent = ({steps, currentStep}: StepComponentProps) => {
-//     const [newStep, setNewStep] = useState([])
-//     const stepRef = useRef()
+const StepComponent = ({currentStep}: StepComponentProps) => {
     
-//     const updateStep = (stepNumber, steps) => {
-//         const newSteps = [...steps]
-//         let count = 0
+    const displayStepOne = (
+            <>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} w={["40%", "40%", "20%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                             Set Type & Price
+                        </Box>
 
-//         while (count < newSteps.length) {
-//             if (count === stepNumber) {
-//                 newSteps[count] = {
-//                     ...newSteps[count],
-//                     highlighted: true,
-//                     selected: true,
-//                     completed: true
+                        <Flex bg="#FB5E04" fontWeight="800" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            1
+                        </Flex>
+
+                    </VStack>
                     
-//                 }
-//                 count++                    
-//             }
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                            <Text> Set Total Amount And Payment Methods</Text>
+                        </Box>
 
-//             else if (count < stepNumber) {
-//                 newSteps[count] = {
-//                     ...newSteps[count],
-//                     highlighted: false,
-//                     selected: true,
-//                     completed: true
+                        <Flex bg="#E2E8F0" height="12px" w="12px" p="5" color="#8E9BAE" alignItems="center" justifyContent="center" borderRadius={"50%"} fontWeight="800">
+                            2
+                        </Flex>
+
+                    </VStack>
                     
-//                 }
-//                 count++
-//         } else {
-//                 newSteps[count] = {
-//                     ...newSteps[count],
-//                     highlighted: false,
-//                     selected: false,
-//                     completed: false
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
+
+                < >
+                    <VStack >
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                             Set Remark And Automatic Response
+                        </Box>
+
+                        <Flex bg="#E2E8F0" height="12px" w="12px" p="5" color="#8E9BAE" alignItems="center" justifyContent="center" borderRadius={"50%"} fontWeight="800">
+                            3
+                        </Flex>
+
+                    </VStack>
+                </>
+            </>    
+    )
+
+    const displayStepTwo = (
+            <>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} w={["40%", "40%", "20%"]}  ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                             Set Type & Price
+                        </Box>
+
+                        <Flex bg="#FB5E04" fontWeight="800" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            1
+                        </Flex>
+
+                    </VStack>
                     
-//                 }           
-//             }
-//         }
-//         return newSteps
-//     }
-    
-//     useEffect(() => {
-//         const stepsState = steps.map((step:any, index:any) => (
-//             Object.assign({}, {
-//                 description: step,
-//                 completed: false,
-//                 highlighted: index === 0 ? true : false,
-//                 selected: index === 0 ? true : false
-//              })
-//         ))
-    
-//         stepRef.current = stepsState
-//         const current = updateStep(currentStep -1, stepRef.current)
-//         setNewStep(current)
-//     }, [steps, currentStep])
-    
-    
-//     const displaySteps = newStep.map((step:any, index: any) => (
-//         <Box key={index}>
-//             <VStack>
-//                 <Box position={"absolute"} top={"2px"}>
-//                     {/* display description */} description
-//                 </Box>
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                            <Text> Set Total Amount And Payment Methods</Text>
+                        </Box>
 
-//                 <Flex bg="#FB5E04" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
-//                     {/* display number */}1
-//                 </Flex>
+                        <Flex bg="#FB5E04" height="12px" w="12px" p="5" fontWeight="800" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            2
+                        </Flex>
 
-//             </VStack>
-            
-//             <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex="auto">
-//                 {/* display line */}
-//             </Flex>
-//         </Box>
-//     ))
+                    </VStack>
+                    
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
 
-//     return (
-//         <HStack mt={"150px"} position={"relative"} textAlign={"center"} p={"20px"} justifyContent={"center"} >
-//             {displaySteps}
-//         </HStack>
-//     )
-// }
+                < >
+                    <VStack >
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                             Set Remark And Automatic Response
+                        </Box>
 
-// export default StepComponent
+                        <Flex bg="#E2E8F0" height="12px" w="12px" p="5" color="#8E9BAE" fontWeight="800" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            3
+                        </Flex>
+
+                    </VStack>
+                </>
+            </>    
+    )
+    const displayStepThree = (
+            <>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} w={["40%", "40%", "20%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                             Set Type & Price
+                        </Box>
+
+                        <Flex bg="#FB5E04" fontWeight="800" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            1
+                        </Flex>
+
+                    </VStack>
+                    
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
+                < >
+                    <VStack>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                            <Text> Set Total Amount And Payment Methods</Text>
+                        </Box>
+
+                        <Flex bg="#FB5E04" fontWeight="800" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            2
+                        </Flex>
+
+                    </VStack>
+                    
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                        {/* display line */}
+                    </Flex>
+                </>
+
+                < >
+                    <VStack >
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                             Set Remark And Automatic Response
+                        </Box>
+
+                        <Flex bg="#FB5E04" fontWeight="800" height="12px" w="12px" p="5" color="white" alignItems="center" justifyContent="center" borderRadius={"50%"}>
+                            3
+                        </Flex>
+
+                    </VStack>
+                </>
+            </>    
+    )
+
+    const displayStep = (step:number) => {
+        if (step === 1) {
+            return displayStepOne
+        } else if (step === 2) {
+            return displayStepTwo
+        } else {
+            return displayStepThree
+        }
+    }
+
+    return (
+        <HStack mt={"130px"} position={"relative"} textAlign={"center"} mx="10px" justifyContent={["space-between", "space-between", "center"]}>
+            {displayStep(currentStep)}
+        </HStack>
+    )
+}
+
+export default StepComponent

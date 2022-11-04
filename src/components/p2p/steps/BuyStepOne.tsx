@@ -11,8 +11,8 @@ interface BuyStepProps {
 
 const BuyStepOne = ({handleNextStep}: BuyStepProps) => {
     return (
-        <>
-            <Box mt="24px" fontFamily={"Open Sans"} bg="white" mx="10px">
+        <Box position="relative">
+            <Box mt="50px" fontFamily={"Open Sans"} bg="white" mx="10px">
             <Tabs variant='unstyled' w="100%">
                 <TabList px={["15px", "10px", "0px"]}>
                     <HStack w="100%" alignItems="center" justifyContent="center">
@@ -66,7 +66,7 @@ const BuyStepOne = ({handleNextStep}: BuyStepProps) => {
                     Next
                 </Button>
             </Flex> 
-        </>
+        </Box>
     )
 }
 
