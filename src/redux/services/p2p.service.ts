@@ -44,12 +44,14 @@ export const p2pApi = baseApi.injectEndpoints({
       transformResponse: (responseData: any) => {
         return responseData;
       },
+      invalidatesTags: ["Order"],
     }),
   }),
 });
 
 export const {
   useGetOrderDetailQuery,
+  useLazyGetOrderDetailQuery,
   useNotifyMerchantMutation,
   useConfirmP2pOrderWithCodeMutation,
   useConfirmP2pOrderWithoutCodeMutation,

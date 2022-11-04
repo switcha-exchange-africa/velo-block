@@ -5,7 +5,7 @@ import React from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import appAlert from '../../helpers/appAlert'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
-import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
+import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
 import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
 import { useNotifyMerchantMutation } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
@@ -27,7 +27,7 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                 // onOpen()
 
                 // dispatch(setIsModalOpen({ isOpen: true }))
-                dispatch(resetQuickBuyPayload())
+                dispatch(resetQuickTradePayload())
             } else if (response?.data?.status == 401) {
 
                 appAlert.error(`${response?.error?.data?.message}`)
