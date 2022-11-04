@@ -24,11 +24,11 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompon
                 <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">USDC</Tab>
             </TabList>                
             
-            <Box background="#E2E8F0" height="0.1px" width="100%" m="14px 0 8px"></Box>
+            <Box background="#E2E8F0" height="0.1px" width={["100%", "100%", "97%"]} m="14px auto 8px"></Box>
             
             <TabPanels>
                 {/* Tab panel 1 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {btc?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="SELL BTC"
@@ -40,7 +40,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompon
                     ) : "NO SELL ADS YET"}
                 </TabPanel>
                 {/* Tab panel 2 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {eth?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="SELL ETH"
@@ -52,7 +52,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompon
                     ) : "NO SELL ADS YET"}
                 </TabPanel>
                 {/* Tab panel 3 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {usdt?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="SELL USDT"
@@ -64,7 +64,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompon
                     ) : "NO SELL ADS YET"}            
                 </TabPanel>
                 {/* Tab panel 4 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {usdc?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="SELL USDC"

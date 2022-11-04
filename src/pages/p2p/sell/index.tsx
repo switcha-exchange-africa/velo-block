@@ -207,7 +207,6 @@ function Sell() {
 }
 const Step1 = (props: any) => {
   // const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <Box mt={"20px"} px={["10px", "10px", 0]} fontSize={["xs", "xs", "md"]}>
       <Box mb={"20px"}>

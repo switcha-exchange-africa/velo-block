@@ -86,6 +86,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       width={["100%", "100%", "unset", "unset"]}
     // justify="stretch"
     // overflowY={'scroll'}
+      
     >
       <Head>
         <title>{title}</title>
@@ -152,6 +153,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       >
         <GridItem colSpan={[0, 0, 2, 2]} color={"black"} rowSpan={[2, 2, 0, 0]}>
           <VStack
+            bg="#FFFFFF"
             justifyContent={["", "", "space-between", "space-between"]}
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
@@ -400,7 +402,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           color={"black"}
           flex={[1, 1, "", ""]}
           overflow={'scroll'}
-          padding={{ lg: '8', base: '4' }}
+          padding={{ lg: '8', base: '1' }}
           sx={
             {
               '::-webkit-scrollbar': {

@@ -111,7 +111,7 @@ const DashboardPage = () => {
               </Text>
             </Flex>
             <Heading fontSize="24px" color={isPositive(dat?.price_change_percentage_24h)}>
-              {dat?.current_price}
+              {dat?.current_price?.toLocaleString()}
             </Heading>
           </Box>
         ))}

@@ -15,6 +15,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
     const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
+
+
     return (
         <Tabs variant='unstyled'>
             <TabList gap={"56px"} px={["0", "0px", "28px", "28px"]}>
@@ -24,11 +26,11 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                 <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">USDC</Tab>
             </TabList>                
             
-            <Box background="#E2E8F0" height="0.1px" width="100%" m="14px 0 8px"></Box>
+            <Box background="#E2E8F0" height="0.1px" width={["100%", "100%", "97%"]} m="14px auto 8px"></Box>
             
-            <TabPanels>
+            <TabPanels >
                 {/* Tab panel 1 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {btc?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="Buy BTC"
@@ -38,9 +40,11 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             handleNextPage={handleNextPage}
                         />      
                     ) : "NO BUY ADS YET"}
+
+
                 </TabPanel>
                 {/* Tab panel 2 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {eth?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="Buy ETH"
@@ -53,7 +57,7 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                 </TabPanel>
 
                 {/* Tab panel 3 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {usdt?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="Buy USDT"
@@ -66,7 +70,7 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                 </TabPanel>
 
                 {/* Tab panel 4 */}
-                <TabPanel>
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
                     {usdc?.data?.length !== 0 ? (
                         <TableComponent
                             buttonTitle="Buy USDC"
