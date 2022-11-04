@@ -65,7 +65,8 @@ const QuickSellComponent = () => {
                                 )}
                             </Field>
 
-                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar N550</Text>
+                            {/* <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Rate per dollar N550</Text> */}
+                            <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Fee : 0.5%  </Text>
                             <Box py={'2'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondary2Color.900'}>
                                 Sell with 0 fee

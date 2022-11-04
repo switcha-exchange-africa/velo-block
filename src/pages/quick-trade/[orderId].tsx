@@ -7,23 +7,30 @@ import ConfirmSuccessfulPaymentModal from '../../components/quick-trade/ConfirmS
 import appAlert from '../../helpers/appAlert'
 import { checkValidToken } from '../../helpers/functions/checkValidToken'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import { useGetOrderDetailQuery, useLazyNotifyMerchantQuery, } from '../../redux/services/p2p.service'
+import { useGetOrderDetailQuery, useNotifyMerchantMutation, } from '../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
+import { resetQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice'
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
+import RenderAdBankDetails from '../../components/RenderAdBankDetails'
 
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
     const { isOpen, onOpen, onClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
-    const [notifyMerchant] = useLazyNotifyMerchantQuery()
+    const [notifyMerchant, { isLoading }] = useNotifyMerchantMutation()
+    const dispatch = useAppDispatch()
+    const today = moment().valueOf()
+
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
     const notifyMerchantFunction = async () => {
         try {
-            const response: any = await notifyMerchant(orderId)
+            const response: any = await notifyMerchant(orderDetail?.data?.data?._id)
             if (response?.data?.status == 200) {
                 onOpen()
                 orderDetail.refetch()
+                dispatch(resetQuickBuyPayload())
             } else if (response?.data?.status == 401) {
 
                 appAlert.error(`${response?.error?.data?.message}`)
@@ -38,6 +45,13 @@ const NotifyTraders = () => {
         }
     }
 
+    // React.useEffect(() => {
+    //     if (!orderDetail.isFetching) {
+    //         alert(`${moment(orderDetail?.data?.data?.createdAt).valueOf()} + ${(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)} > ${today}`)
+    //     }
+
+    // }, [orderDetail, today])
+
     return (
         <DashboardLayout title='Quick Trade'>
             {orderDetail?.isFetching ? <Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex> : <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
@@ -46,7 +60,11 @@ const NotifyTraders = () => {
                         <Text fontWeight={'bold'} fontSize={'lg'}>{orderDetail?.data?.data?.type == 'buy' ? 'Buy' : 'Sell'} {orderDetail?.data?.data?.ad[0]?.coin} {orderDetail?.data?.data?.type == 'buy' ? 'from' : 'to'} {orderDetail?.data?.data?.merchant[0]?.firstName}</Text>
                         <Flex alignItems={'center'} pt={{ base: '2', md: '4' }}>
                             <Text fontSize={'sm'} color={'#64748B'}>The order is created, please wait for system confirmation.</Text>
-                            <Text fontWeight={'medium'} fontSize={'sm'} color={'#ffffff'} ml={'2'} borderRadius={'md'} px={'2'} bg={orderDetail?.data?.data?.status.toLowerCase() != 'expired' ? 'primaryColor.900' : 'gray.400'}>{orderDetail?.data?.data?.status.toLowerCase() == 'expired' ? 'Expired' : moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')}</Text>
+                            <Text fontWeight={'medium'} fontSize={'sm'} color={'#ffffff'} ml={'2'} borderRadius={'md'} px={'2'} bg={orderDetail?.data?.data?.status.toLowerCase() != 'expired' ? 'primaryColor.900' : 'gray.400'}>{orderDetail?.data?.data?.status.toLowerCase() == 'expired' ? 'Expired' :
+                                // moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')
+                                (moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) > today ? <RenderTimer timeRemaining={(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) - today} /> : '00:00'
+                            }</Text>
+
                         </Flex>
                     </Flex>
                     <Flex flexDirection={'column'} w={'full'} alignItems={{ base: 'start', lg: 'end' }} pt={{ base: '4', lg: '0px' }}>
@@ -117,25 +135,17 @@ const NotifyTraders = () => {
                                     <Flex flexDirection={'column'}>
                                         <Flex pt={'4'}>
                                             <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Paymemth Method</Text>
+                                                <Text fontSize={'xs'} color={'#64748B'}>Payment Method</Text>
                                                 <Text textTransform={'capitalize'} fontSize={'sm'} color={'primaryColor.900'}>{orderDetail?.data?.data?.method}</Text>
                                             </Flex>
 
                                         </Flex>
-                                        <Flex pt={'4'}>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >OLUMIDE OYELEYE <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >2016939941 <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >KUDA <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
-                                            </Flex>
-                                        </Flex>
+                                        {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks.map((b: any) => {
+                                            return <div key={b}>
+                                                <RenderAdBankDetails bankId={b} />
+                                            </div>
+                                        })}
+
                                     </Flex>
                                 </Flex>
                             </Box>
@@ -146,14 +156,14 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {orderDetail?.data?.data?.type ? <Flex>
+                            {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.type == 'buy' ? <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                    notifyMerchantFunction()}>Transfered and Notify Seller</Text>
+                                    notifyMerchantFunction()}>{isLoading ? 'Please Wait...' : 'Transfered and Notify Seller'} </Text>
 
-                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} />
+                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} ad={orderDetail?.data?.data?.ad[0]} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                            </Flex> : <Flex>
+                            </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                 // onClick={() => onOpen()}
                                 >Comfirm Release</Text>
@@ -162,6 +172,22 @@ const NotifyTraders = () => {
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
                             </Flex>}
+
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing' &&
+                                <Flex flexDirection={'column'} pt={'6'}>
+                                    <Flex alignItems={'center'}>
+                                        <Text fontSize={'sm'} pr={'1'}>To be released</Text>
+                                        <Text fontSize={'sm'} color={'primaryColor.900'}>{(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) > today ? <RenderTimer timeRemaining={(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) - today} /> : '00:00'}</Text>
+                                    </Flex>
+                                    <Text py={'2'} fontSize={'xs'}>Expected to receive assets in {moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')} minutes</Text>
+                                    <Flex >
+                                        <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Appeal</Text>
+                                        <Text px={'2'} cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>|</Text>
+                                        <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
+                                    </Flex>
+                                </Flex>
+
+                            }
 
 
 
@@ -228,6 +254,51 @@ const StepLabels = ({ activeStep }: any) => {
         <Text decoration={activeStep == 3 ? 'underline' : 'none'} fontSize={'md'} fontWeight={'light'} >Completed</Text>
     </Flex>)
 }
+
+const RenderTimer = ({ timeRemaining }: any) => {
+    const [time, setTime] = React.useState(timeRemaining / 1000);
+
+    const remainTime = React.useMemo(() => {
+        // const days = Math.floor(time / 24 / 3600);
+        // const hours = Math.floor((time - days * 24 * 3600) / 3600);
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+
+        return {
+            // days,
+            // hours,
+            minutes,
+            seconds
+        }
+    }, [time]);
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            setTime(time => time > 0 ? time - 1 : 0);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+    return (<Text>{remainTime.minutes > 0 ? remainTime.minutes : '00'}:{remainTime.seconds > 0 ? remainTime.seconds : '00'}</Text>)
+}
+
+// export const RenderBankName = ({ bankId }: any) => {
+//     const [getSingleBank] = useLazyGetBankByIdQuery()
+//     const [bankName, setBankName] = React.useState('')
+//     alert(bankId)
+//     React.useEffect(() => {
+//         const getBank = async () => {
+//             const bank = await getSingleBank(bankId).unwrap()
+//             setBankName(bank?.data?.name)
+//         }
+
+//         getBank()
+
+
+//     }, [bankId, getSingleBank])
+//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+// }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
