@@ -7,13 +7,12 @@ interface StepComponentProps  {
 }
 
 
-const StepComponent = ({currentStep}: StepComponentProps) => {
-    
+const StepComponent = ({currentStep}: StepComponentProps) => {    
     const displayStepOne = (
             <>
-                < >
+                <>
                     <VStack>
-                        <Box position={"absolute"} w={["40%", "40%", "20%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} w={["40%", "40%", "30%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
                              Set Type & Price
                         </Box>
 
@@ -23,13 +22,13 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
-                < >
+                <>
                     <VStack>
-                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "30%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
                             <Text> Set Total Amount And Payment Methods</Text>
                         </Box>
 
@@ -39,14 +38,14 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
 
-                < >
+                <>
                     <VStack >
-                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "30%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
                              Set Remark And Automatic Response
                         </Box>
 
@@ -63,7 +62,7 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
             <>
                 < >
                     <VStack>
-                        <Box position={"absolute"} w={["40%", "40%", "20%"]}  ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} w={["40%", "40%", "30%"]}  ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
                              Set Type & Price
                         </Box>
 
@@ -73,13 +72,13 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
                 < >
                     <VStack>
-                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "30%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
                             <Text> Set Total Amount And Payment Methods</Text>
                         </Box>
 
@@ -89,14 +88,14 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #8E9BAE"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
 
                 < >
                     <VStack >
-                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "30%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
                              Set Remark And Automatic Response
                         </Box>
 
@@ -112,7 +111,7 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
             <>
                 < >
                     <VStack>
-                        <Box position={"absolute"} w={["40%", "40%", "20%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} w={["40%", "40%", "30%"]} ml={["45px", "45px", "0px"]} top={"-20px"} fontSize={["11px", "11px", "12px"]}>
                              Set Type & Price
                         </Box>
 
@@ -122,13 +121,13 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
                 < >
                     <VStack>
-                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "20%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["40%", "40%", "30%"]} textAlign="center" fontSize={["11px", "11px", "12px"]}>
                             <Text> Set Total Amount And Payment Methods</Text>
                         </Box>
 
@@ -138,14 +137,14 @@ const StepComponent = ({currentStep}: StepComponentProps) => {
 
                     </VStack>
                     
-                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.2"]}>
+                    <Flex border={"1px dashed #FB5E04"}  transition="500ms" flex={["1", "1", "0.3"]}>
                         {/* display line */}
                     </Flex>
                 </>
 
                 < >
                     <VStack >
-                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "20%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
+                        <Box position={"absolute"} top={"-30px"} w={["35%", "35%", "30%"]} textAlign={["right", "right", "center"]} mr={["78px", "130px", "0px"]} fontSize={["11px", "11px", "12px"]}>
                              Set Remark And Automatic Response
                         </Box>
 
