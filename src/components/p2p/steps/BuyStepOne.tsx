@@ -4,9 +4,15 @@ import InputCounter from '../radioGroup/Counter';
 import PriceType from '../radioGroup/PriceType';
 import WithCash from '../radioGroup/WithCash';
 
-const BuyStepOne = () => {
+interface BuyStepProps {
+    handleNextStep: () => void
+}
+
+
+const BuyStepOne = ({handleNextStep}: BuyStepProps) => {
     return (
-        <Box mt="80px" fontFamily={"Open Sans"} bg="white" mx="10px">
+        <Box position="relative">
+            <Box mt="50px" fontFamily={"Open Sans"} bg="white" mx="10px">
             <Tabs variant='unstyled' w="100%">
                 <TabList px={["15px", "10px", "0px"]}>
                     <HStack w="100%" alignItems="center" justifyContent="center">
@@ -40,7 +46,7 @@ const BuyStepOne = () => {
                         <InputCounter />
 
                         <Flex  bottom={"0px"} p={"12px"} w={"100%"} bg="white" mt="50px" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} display={["flex", "flex", "none"]}>
-                            <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} flex="1">
+                            <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} flex="1" onClick={handleNextStep}>
                                 Next
                             </Button>
                         </Flex>
@@ -54,6 +60,12 @@ const BuyStepOne = () => {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
+            </Box>
+            <Flex justifyContent={"flex-end"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
+                <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={handleNextStep}>
+                    Next
+                </Button>
+            </Flex> 
         </Box>
     )
 }
