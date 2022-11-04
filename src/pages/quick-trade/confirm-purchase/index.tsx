@@ -10,6 +10,8 @@ import Currency from 'react-currency-formatter';
 import { useQuickTradeMutation } from '../../../redux/services/quick-trade.service'
 import appAlert from '../../../helpers/appAlert'
 import { setOrderPayload } from '../../../redux/features/quick-trade/quickTradeSlice'
+import { GetServerSideProps } from 'next'
+import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 
 const ConfirmPurchase = () => {
     const router = useRouter()
@@ -59,7 +61,7 @@ const ConfirmPurchase = () => {
                 <Box bg={'appWhiteColor'} p={'4'}>
                     <Flex flexDirection={'column'}>
                         <Flex alignItems={'center'} pb={'4'}>
-                            <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { isBuySelectedProps: true } }) }} />
+                            <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'buy' } }) }} />
                             <Text fontSize='lg' as='p' fontWeight={'light'} py={'2'} w={'full'} align={'center'} >Confirm Purchase</Text>
                         </Flex>
                         <Text fontSize='2xl' as='b' w={'full'} align={'center'} ><Currency
@@ -88,6 +90,12 @@ const ConfirmPurchase = () => {
         </DashboardLayout>
 
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return checkValidToken(context)
+
 }
 
 export default ConfirmPurchase

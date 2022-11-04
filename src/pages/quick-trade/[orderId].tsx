@@ -7,11 +7,10 @@ import ConfirmSuccessfulPaymentModal from '../../components/quick-trade/ConfirmS
 import appAlert from '../../helpers/appAlert'
 import { checkValidToken } from '../../helpers/functions/checkValidToken'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import { useGetOrderDetailQuery, useNotifyMerchantMutation, } from '../../redux/services/p2p.service'
+import { useGetOrderDetailQuery, } from '../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
-import { resetQuickBuyPayload, } from '../../redux/features/quick-trade/quickTradeSlice'
-import { useAppDispatch, } from '../../helpers/hooks/reduxHooks'
+
 import RenderAdBankDetails from '../../components/RenderAdBankDetails'
 
 const NotifyTraders = () => {
@@ -20,8 +19,7 @@ const NotifyTraders = () => {
     // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
-    const [notifyMerchant, { isLoading }] = useNotifyMerchantMutation()
-    const dispatch = useAppDispatch()
+
     const today = moment().valueOf()
 
 
@@ -32,29 +30,7 @@ const NotifyTraders = () => {
     // }, [isModalOpen, onOpen])
 
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
-    const notifyMerchantFunction = async () => {
-        try {
-            // onOpen()
 
-            const response: any = await notifyMerchant(orderDetail?.data?.data?._id)
-            if (response?.data?.status == 200) {
-                // onOpen()
-                orderDetail.refetch()
-                // dispatch(setIsModalOpen({ isOpen: true }))
-                dispatch(resetQuickBuyPayload())
-            } else if (response?.data?.status == 401) {
-
-                appAlert.error(`${response?.error?.data?.message}`)
-                // alert(JSON.stringify(res))
-                router.replace('/signin')
-            } else {
-
-                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-            }
-        } catch (error) {
-
-        }
-    }
 
     // React.useEffect(() => {
     //     if (!orderDetail.isFetching) {
@@ -169,9 +145,9 @@ const NotifyTraders = () => {
                             </Box>
                             {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.type == 'buy' ? <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                    onOpen()}>{isLoading ? 'Please Wait...' : 'Transfered and Notify Seller'} </Text>
+                                    onOpen()}>Transfered and Notify Seller </Text>
 
-                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={() => { onClose(); notifyMerchantFunction() }} ad={orderDetail?.data?.data?.ad[0]} />
+                                <ConfirmSuccessfulPaymentModal isOpen={isOpen} onClose={onClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                             </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && <Flex>

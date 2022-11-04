@@ -10,6 +10,8 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { setOrderPayload } from '../../../redux/features/quick-trade/quickTradeSlice'
 import { useQuickTradeMutation } from '../../../redux/services/quick-trade.service'
 import Currency from 'react-currency-formatter';
+import { GetServerSideProps } from 'next'
+import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 
 const ConfirmSales = () => {
     const router = useRouter()
@@ -26,7 +28,7 @@ const ConfirmSales = () => {
         try {
 
             const response: any = await quickTrade({
-                amount: creditCoinAmount,
+                amount: amount,
                 cash: cash,
                 coin: coin,
                 method: "bank",
@@ -59,7 +61,7 @@ const ConfirmSales = () => {
                 <Box bg={'appWhiteColor'} p={'4'}>
                     <Flex flexDirection={'column'}>
                         <Flex alignItems={'center'} pb={'4'}>
-                            <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { isBuySelectedProps: false } }) }} />
+                            <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'sell' } }) }} />
                             <Text fontSize='lg' as='p' fontWeight={'light'} py={'2'} w={'full'} align={'center'} >Confirm Sales</Text>
                         </Flex>
                         <Text fontSize='2xl' as='b' w={'full'} align={'center'} >{amount} {coin}</Text>
@@ -85,5 +87,9 @@ const ConfirmSales = () => {
 
     )
 }
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
+    return checkValidToken(context)
+
+}
 export default ConfirmSales

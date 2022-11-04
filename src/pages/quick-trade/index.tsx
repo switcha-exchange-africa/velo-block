@@ -11,12 +11,12 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout';
 
 const QuickTrade = () => {
     const router = useRouter()
-    const { isBuySelectedProps } = router.query
+    const { type } = router.query
 
-    const [isBuySelected, setIsBuySelected] = useState(!isBuySelectedProps == true ? false : !isBuySelectedProps == false ? true : true)
+    const [isBuySelected, setIsBuySelected] = useState(type == 'buy' ? true : type == 'sell' ? false : true)
     React.useEffect(() => {
         // alert(isBuySelectedProps)
-    }, [isBuySelectedProps])
+    }, [type])
     return (
         <DashboardLayout title='Quick Trade'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
