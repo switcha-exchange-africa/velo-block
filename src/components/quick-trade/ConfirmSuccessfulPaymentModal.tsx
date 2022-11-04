@@ -87,7 +87,7 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                                 Cancel
                             </MainAppButton>
                             <Box w={'12'}></Box>
-                            <MainAppButton isLoading={isLoading} onClick={() => { notifyMerchantFunction }} backgroundColor={'primaryColor.900'} >
+                            <MainAppButton isLoading={isLoading} onClick={() => { notifyMerchantFunction() }} backgroundColor={'primaryColor.900'} >
                                 Confirm
                             </MainAppButton>
                         </Flex>
