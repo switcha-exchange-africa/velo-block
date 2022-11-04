@@ -2,16 +2,16 @@ import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
-import RenderSwitchaLogo from '../../components/dashboard/RenderSwitchaLogo'
-import ConfirmSuccessfulPaymentModal from '../../components/quick-trade/ConfirmSuccessfulPaymentModal'
-import appAlert from '../../helpers/appAlert'
-import { checkValidToken } from '../../helpers/functions/checkValidToken'
-import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import { useGetOrderDetailQuery, } from '../../redux/services/p2p.service'
+import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
+import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
+import appAlert from '../../../helpers/appAlert'
+import { checkValidToken } from '../../../helpers/functions/checkValidToken'
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+import { useGetOrderDetailQuery, } from '../../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
 
-import RenderAdBankDetails from '../../components/RenderAdBankDetails'
+import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 
 const NotifyTraders = () => {
     const router = useRouter()

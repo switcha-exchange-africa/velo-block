@@ -39,7 +39,7 @@ const ConfirmPurchase = () => {
                 appAlert.success('order created successfully')
                 dispatch(setOrderPayload({ order: response?.data?.data }))
                 const orderId = response?.data?.data?.order?.orderId
-                router.push(`/quick-trade/${orderId}`)
+                router.push(`/quick-trade/order/${orderId}`)
 
             } else if (response?.data?.status == 401) {
 
