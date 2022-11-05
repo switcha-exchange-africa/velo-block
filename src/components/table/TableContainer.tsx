@@ -71,10 +71,11 @@ const TableComponent = ({
                                 fontSize={"xs"}
                                 color="#8E9BAE"
                             >
-                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}&nbsp;orders</Text>|
+                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>|
                                 <Text>
-                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
-                                    %&nbsp;completion
+                                    {/* {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)} */}
+                                    {(api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100}
+                                            %&nbsp;completion
                                 </Text>
                             </Box>
                         </Box>
@@ -171,15 +172,16 @@ const TableComponent = ({
                                                 </Flex>
                                             </HStack>
                                             <HStack color="#8E9BAE" fontSize="12px">
-                                                <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}&nbsp;orders</Text>
+                                                <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>
                                                 <Box>
                                                     <Image src={Line} alt="line division" />
                                                 </Box>
                                                 <Text>
-                                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
+                                                    {isFinite((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
+                                                    {/* {(api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100} */}
                                                     %&nbsp;completion
                                                 </Text>
-                                            </HStack>
+                                            </HStack>{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}
                                         </HStack>
                                         
                                     </HStack>
