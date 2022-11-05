@@ -57,7 +57,7 @@ export const quickTradeSlice = createSlice({
       state.order = order;
     },
 
-    resetQuickBuyPayload: (state) => {
+    resetQuickTradePayload: (state) => {
       state.amount = null;
       state.creditCoinAmount = null;
       state.fee = null;
@@ -82,7 +82,7 @@ export const quickTradeSlice = createSlice({
 export const {
   setQuickBuyPayload,
   setOrderPayload,
-  resetQuickBuyPayload,
+  resetQuickTradePayload,
   setIsModalOpen,
 } = quickTradeSlice.actions;
 

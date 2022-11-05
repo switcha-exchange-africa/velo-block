@@ -21,7 +21,38 @@ export const p2pApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["Order"],
     }),
+    confirmP2pOrderWithoutCode: builder.mutation<any, any>({
+      query: (orderId) => {
+        return {
+          url: `p2p/order/${orderId}`,
+          method: "POST",
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    confirmP2pOrderWithCode: builder.mutation<any, any>({
+      query: (params) => {
+        return {
+          url: `p2p/order/${params.orderId}`,
+          method: "POST",
+          body: { code: params.code },
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+      invalidatesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useGetOrderDetailQuery, useNotifyMerchantMutation } = p2pApi;
+export const {
+  useGetOrderDetailQuery,
+  useLazyGetOrderDetailQuery,
+  useNotifyMerchantMutation,
+  useConfirmP2pOrderWithCodeMutation,
+  useConfirmP2pOrderWithoutCodeMutation,
+} = p2pApi;

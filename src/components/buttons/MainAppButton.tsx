@@ -9,11 +9,12 @@ interface MainAppButtonProps {
     children: any
     onClick?: () => void
     padding?: any
+    disabled?: boolean
 }
 
-const MainAppButton = ({ size, isLoading, backgroundColor, width, children, color, onClick, padding }: MainAppButtonProps) => {
+const MainAppButton = ({ size, isLoading, backgroundColor, width, children, color, onClick, padding, disabled = false }: MainAppButtonProps) => {
     return (
-        <Button onClick={onClick} variant='solid' bg={backgroundColor ?? "primaryColor.900"} color={color ?? "appWhiteColor"} isLoading={isLoading} width={width ?? "full"} size={size ?? 'md'} loadingText='Please wait...' p={padding}>{children}</Button>
+        <Button disabled={disabled} onClick={onClick} variant='solid' bg={backgroundColor ?? "primaryColor.900"} color={color ?? "appWhiteColor"} isLoading={isLoading} width={width ?? "full"} size={size ?? 'md'} loadingText='Please wait...' p={padding}>{children}</Button>
     )
 }
 
