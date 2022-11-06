@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Image from 'next/image'
-// import OnboardingImage from '../../../assets/svgs/OnboardingImage.svg'
 // import Image from "next/image";
 import OnboardingImage from '../../../public/assets/svgs/OnboardingImage.svg'
 

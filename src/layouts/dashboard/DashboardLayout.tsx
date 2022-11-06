@@ -86,7 +86,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       width={["100%", "100%", "unset", "unset"]}
     // justify="stretch"
     // overflowY={'scroll'}
-      
+
     >
       <Head>
         <title>{title}</title>
@@ -110,6 +110,9 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             <Heading as="h4" size="md" color={'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/swap')}>
               Swap
             </Heading>
+            <Heading as="h4" size="md" color={router.pathname.includes('order') ? 'primaryColor.900' : 'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/order')}>
+              All Orders
+            </Heading>
           </HStack>
           <HStack marginLeft="auto">
             <Img
@@ -127,13 +130,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             >
               English | NGN
             </Heading>
-            {/* <Img
-              src="/assets/svgs/ToggleDarkMode.svg"
-              alt=""
-              objectFit="contain"
-              boxSize=""
-              display={["none", "none", "none", "unset"]}
-            /> */}
+
           </HStack>
         </Flex>
       </chakra.header>
