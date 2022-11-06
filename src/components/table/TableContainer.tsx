@@ -37,7 +37,6 @@ const TableComponent = ({
     
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
         let percent = ((completedOrder / adsCreated) * 100).toFixed(2) 
-        
         if (adsCreated === 0){
             return 0
         } else {
