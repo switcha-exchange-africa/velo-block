@@ -4,7 +4,7 @@ import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, Inp
 interface InputContainerProps {
 
     value: string
-    handleChange: () => void
+    handleChange: (event:React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const InputCounter = ({
