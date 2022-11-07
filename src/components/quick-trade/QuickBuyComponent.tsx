@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import { setQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice';
-import { useConvertQuery, useConvertToGetEstimatedRateQuery, useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
+import { useConvertQuery, useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 // import { useQuickTradeMutation } from '../../redux/services/quick-trade.service';
 import MainAppButton from '../buttons/MainAppButton';
@@ -21,7 +21,7 @@ const QuickBuyComponent = () => {
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
-    const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })
+    // const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })
     const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
     const calculateQuickBuyFees: any = useCalculateTradeFeesQuery({ amount: amountt, operation: 'buy' }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
@@ -35,7 +35,7 @@ const QuickBuyComponent = () => {
 
                 onSubmit={async (values, { }) => {
                     console.log(values)
-                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount, fee: calculateQuickBuyFees?.data?.data?.fee, cash: debitCoin, coin: creditCoin, rate: ratePerDollar?.data?.data?.destinationAmount?.rate }))
+                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount, fee: calculateQuickBuyFees?.data?.data?.fee, cash: debitCoin, coin: creditCoin, rate: 'no rate for now' }))
                     router.push('/quick-trade/confirm-purchase')
                 }}
                 validateOnChange
