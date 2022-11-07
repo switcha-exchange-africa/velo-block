@@ -1,4 +1,5 @@
 import { Box, Button, Flex, HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
+// import { useGetAllCoinsQuery } from '../../../redux/services/buy-sell.service';
 import Asset from '../radioGroup/Asset';
 import InputCounter from '../radioGroup/Counter';
 import PriceType from '../radioGroup/PriceType';
@@ -9,20 +10,23 @@ interface BuyStepProps {
 }
 
 
-const BuyStepOne = ({handleNextStep}: BuyStepProps) => {
+const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
+    
+    
+
+    
     return (
-        <Box position="relative">
-            <Box mt="50px" fontFamily={"Open Sans"} bg="white" mx="10px">
+        <Box position="relative"  px="0">
+            <Box mt="50px" fontFamily={"Open Sans"} bg="white" >
             <Tabs variant='unstyled' w="100%">
                 <TabList px={["15px", "10px", "0px"]}>
-                    <HStack w="100%" alignItems="center" justifyContent="center">
+                    <HStack w="100%" alignItems="center" >
                         <Tab _selected={{ color: '#000000', bg: '#F5f5f5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Buy</Tab>
-                            <Tab _selected={{ color: '#000000', bg: '#F5F5F5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Sell</Tab>
+                        <Tab _selected={{ color: '#000000', bg: '#F5F5F5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Sell</Tab>
                     </HStack>
                 </TabList>
                 <TabPanels>
                     <TabPanel px={["15px", "10px", "60px"]} pb="70px">
-
                         {/* asset radio group imported here*/}
                         <Asset />
                         {/* with Cash group imported here */}

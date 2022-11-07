@@ -3,16 +3,17 @@ import { useState } from 'react'
 import { RadioCard } from './RadioGroup'
 
 const WithCash = () => {
-    const [withCash, setWithCash] = useState('1')
+    const [withCash, setWithCash] = useState('USD')
     
     const withCashOptions = ['USD', 'NGN', 'ZAR', 'KES', 'GHS', 'UGX', 'XDF', 'RWF', 'TZF']
     
-    
+    console.log("withCash value is ", withCash)
+
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
         defaultValue: 'USD',
-        onChange: console.log
+        onChange: setWithCash
     })
     
     const withCashGroup = getRootProps()
