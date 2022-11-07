@@ -1,16 +1,17 @@
 import { InfoOutlineIcon } from '@chakra-ui/icons'
 import {Box, Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
-import { useState } from 'react'
 import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
 import { RadioCard } from './RadioGroup'
 
-const WithCash = () => {
+interface WithCashProps {
+    withCash: string,
+    setWithCash: React.Dispatch<React.SetStateAction<string>>
+}
+
+
+const WithCash = ({withCash, setWithCash}: WithCashProps) => {
     const { data } = useGetCoinsByTypeQuery("fiat")
     const cashOptions = data?.data?.map((item: any) => item.coin)
-    const [withCash, setWithCash] = useState('NGN')
-    
-    // console.log(data?.data?.map((item: any) => item.coin)    )
-    
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
