@@ -6,10 +6,10 @@ import { RadioCard } from './RadioGroup'
 const WithCash = () => {
     const { data } = useGetCoinsByTypeQuery("fiat")
     const cashOptions = data?.data?.map((item: any) => item.coin)
-    const [withCash, setWithCash] = useState('USD')
+    const [withCash, setWithCash] = useState('NGN')
     
-    
-    // console.log("withCash value is ", withCash)
+    console.log(data?.data?.map((item: any) => item.coin)    )
+    console.log("withCash value is ", withCash)
 
 
     const { getRootProps, getRadioProps } = useRadioGroup({
