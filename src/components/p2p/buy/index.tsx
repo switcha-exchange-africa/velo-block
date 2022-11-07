@@ -3,7 +3,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons"
 import {
   Avatar, Box, Button, Flex, Input,
   InputGroup,
-  InputRightAddon,  Modal, ModalBody, ModalCloseButton,
+  InputRightAddon,  Modal, ModalBody, 
   ModalContent, Tab,
   TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
 } from "@chakra-ui/react"
