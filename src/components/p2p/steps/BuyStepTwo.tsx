@@ -2,7 +2,7 @@ import { AddIcon, CloseIcon, InfoIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, InputLeftElement, Stack, VStack
+    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 
@@ -11,7 +11,7 @@ import { MouseEventHandler } from 'react';
 const BuyStepTwo = (props:any) => {
     const {handlePreviousStep, handleNextStep} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    // const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
