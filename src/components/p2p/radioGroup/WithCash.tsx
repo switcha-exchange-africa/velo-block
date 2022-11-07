@@ -8,9 +8,8 @@ const WithCash = () => {
     const cashOptions = data?.data?.map((item: any) => item.coin)
     const [withCash, setWithCash] = useState('NGN')
     
-    console.log(data?.data?.map((item: any) => item.coin)    )
-    console.log("withCash value is ", withCash)
-
+    // console.log(data?.data?.map((item: any) => item.coin)    )
+    
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
