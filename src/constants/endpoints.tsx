@@ -22,6 +22,7 @@ const GET_EXCHANGE_URL = "rates/markets?base=USD";
 const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
 const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
 
+
 const endpoints = {
   BASE_URL,
   LOGIN_URL,

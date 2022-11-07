@@ -1,18 +1,21 @@
+import { InfoOutlineIcon } from '@chakra-ui/icons'
 import {Box, Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
 import { useState } from 'react'
+import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
 import { RadioCard } from './RadioGroup'
 
 const WithCash = () => {
-    const [withCash, setWithCash] = useState('1')
+    const { data } = useGetCoinsByTypeQuery("fiat")
+    const cashOptions = data?.data?.map((item: any) => item.coin)
+    const [withCash, setWithCash] = useState('NGN')
     
-    const withCashOptions = ['USD', 'NGN', 'ZAR', 'KES', 'GHS', 'UGX', 'XDF', 'RWF', 'TZF']
-    
+    // console.log(data?.data?.map((item: any) => item.coin)    )
     
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
-        defaultValue: 'USD',
-        onChange: console.log
+        defaultValue: 'NGN',
+        onChange: setWithCash
     })
     
     const withCashGroup = getRootProps()
@@ -20,10 +23,21 @@ const WithCash = () => {
 
     return (
         <Box>
-            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>With Cash</Text>
+            <Flex alignItems="center">
+                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
+                    With Cash    
+                </Text>
+                <InfoOutlineIcon
+                    ml="5px"
+                    color={"#8E9BAE"}
+                    w={"10px"}
+                    h={"10px"}
+                />    
+            </Flex>
+            
             <RadioGroup onChange={setWithCash} value={withCash} mt="12px" mb="48px">
                 <Flex {...withCashGroup} w={"100%"}  gap={["20px", "20px", "24px 78px"]} flexWrap={"wrap"}>
-                    {withCashOptions.map((value) => {
+                    {cashOptions?.map((value:any) => {
                         const radio = getRadioProps({ value })
                         return (
                             <Flex  key={value} alignItems="center"  >

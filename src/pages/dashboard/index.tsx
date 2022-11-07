@@ -83,10 +83,10 @@ const DashboardPage = () => {
 
   return (
     <DashboardLayout title="Dashboard">
-      <Box>
+      <Box >
         <Heading>Exchange Crypto with <Text as="span" color="#FB5E04">Low Fees</Text></Heading>
         <Text>Convert your crypto within seconds</Text>
-      </Box>
+      </Box> 
       <HStack mt="48px" spacing="24px" maxW="100%" justifyContent="space-between" fontSize="13px" overflowX="scroll" sx={scrollbarProps}
       >
         {CardData.map((data) => (

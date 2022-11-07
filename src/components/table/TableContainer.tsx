@@ -35,6 +35,14 @@ const TableComponent = ({
     handleNextPage
 }: TableComponentProps) => {
     
+    const percentageCompletion = (completedOrder: number, adsCreated: number) => {
+        let percent = ((completedOrder / adsCreated) * 100).toFixed(2) 
+        if (adsCreated === 0){
+            return 0
+        } else {
+            return percent
+        }
+    }
 
     return (
         <>
@@ -71,10 +79,10 @@ const TableComponent = ({
                                 fontSize={"xs"}
                                 color="#8E9BAE"
                             >
-                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}&nbsp;orders</Text>|
+                                <Text>{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>|
                                 <Text>
-                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
-                                    %&nbsp;completion
+                                    {percentageCompletion(parseInt(api?.user?.map((data: any) => data?.noOfP2pOrderCompleted)), parseInt(api?.user?.map((data: any) => data?.noOfP2pAdsCreated)))}
+                                     %&nbsp;completion
                                 </Text>
                             </Box>
                         </Box>
@@ -171,15 +179,15 @@ const TableComponent = ({
                                                 </Flex>
                                             </HStack>
                                             <HStack color="#8E9BAE" fontSize="12px">
-                                                <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCreated)}&nbsp;orders</Text>
+                                                <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>
                                                 <Box>
                                                     <Image src={Line} alt="line division" />
                                                 </Box>
                                                 <Text>
-                                                    {isNaN((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100) ? "0" : ((api?.user?.map((data: any) => data?.noOfP2pOrderCompleted) / api?.user?.map((data: any) => data?.noOfP2pOrderCreated)) * 100)}
+                                                    {percentageCompletion(parseInt(api?.user?.map((data: any) => data?.noOfP2pOrderCompleted)), parseInt(api?.user?.map((data: any) => data?.noOfP2pAdsCreated)))}
                                                     %&nbsp;completion
                                                 </Text>
-                                            </HStack>
+                                            </HStack>{ api?.user?.map((data:any) => data?.noOfP2pAdsCreated)}
                                         </HStack>
                                         
                                     </HStack>
