@@ -1,10 +1,10 @@
 import { Box, Text  } from '@chakra-ui/react';
 import StepComponent from '../../../components/p2p/steps';
-import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
+import SellStepTwo from '../../../components/p2p/steps/SellStepTwo';
 
 
 
@@ -25,7 +25,7 @@ const SellAds = () => {
                 return <BuyStepOne handleNextStep={handleNextStep}  />
             }
             case 2: {
-                return <BuyStepTwo handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+                return <SellStepTwo handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
             }
             case 3: {
                 return <BuyStepThree handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
