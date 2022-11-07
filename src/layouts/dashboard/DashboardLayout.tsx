@@ -410,7 +410,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           color={"black"}
           flex={[1, 1, "", ""]}
           overflow={'scroll'}
-          padding={{ lg: '8', base: '1' }}
+          padding={{ lg: '8', base: '10px' }}
           sx={
             {
               '::-webkit-scrollbar': {
