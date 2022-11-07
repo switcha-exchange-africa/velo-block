@@ -1,23 +1,23 @@
 import {Box, Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
 import  { useState } from 'react'
-import { useGetAllCoinsQuery } from '../../../redux/services/buy-sell.service'
+import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
 import { RadioCard } from './RadioGroup'
 
 const Asset = () => {
-    // fetches all the coins to be used as asset using the useGetAllCoinsQuery
-    const { data } = useGetAllCoinsQuery()
+    // fetches all the coins to be used as asset using the useGetCoinsByTypeQuery
+    const { data } = useGetCoinsByTypeQuery("crypto")
     const coinAssets = data?.data?.map((item: any) => item.coin)
     const [asset, setAsset] = useState('BTC')
-   
-    console.log(data)
 
+    console.log("data is ", data)
+   
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'assets',
         defaultValue: 'BTC',
         onChange: setAsset
     })
 
-    console.log(asset)
+    console.log(coinAssets)
     
     const assetGroup = getRootProps()
 

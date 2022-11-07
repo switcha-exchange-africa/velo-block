@@ -7,7 +7,7 @@ const WithCash = () => {
     
     const withCashOptions = ['USD', 'NGN', 'ZAR', 'KES', 'GHS', 'UGX', 'XDF', 'RWF', 'TZF']
     
-    console.log("withCash value is ", withCash)
+    // console.log("withCash value is ", withCash)
 
 
     const { getRootProps, getRadioProps } = useRadioGroup({

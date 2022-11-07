@@ -3,7 +3,7 @@ import  { useState } from 'react'
 import { RadioCard } from './RadioGroup'
 
 const PriceType = () => {
-    const [priceType, setPriceType] = useState('1')
+    const [priceType, setPriceType] = useState('Fixed')
     
     const priceTypes = ['Fixed', 'Floating']
     
@@ -11,8 +11,9 @@ const PriceType = () => {
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'priceTypes',
         defaultValue: 'Fixed',
-        onChange: console.log
+        onChange: setPriceType
     })
+    // console.log("the price type is ", priceType)
     
     const priceTypeGroup = getRootProps()
 

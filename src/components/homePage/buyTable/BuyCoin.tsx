@@ -15,7 +15,6 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
     const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
-    console.log("btc is ", btc)
 
 
     return (
