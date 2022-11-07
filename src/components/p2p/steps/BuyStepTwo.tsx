@@ -1,4 +1,4 @@
-import { AddIcon, CloseIcon, InfoIcon, RepeatIcon, SearchIcon } from '@chakra-ui/icons';
+import { AddIcon, CloseIcon, InfoIcon, RepeatIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
