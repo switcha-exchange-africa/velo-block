@@ -183,7 +183,7 @@ const BuyStepTwo = (props:any) => {
                             />
                         </Flex>
                         
-                        <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                        <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                             <AddIcon
                                 mr="5px"
                                 color={"#FB5E04"}
