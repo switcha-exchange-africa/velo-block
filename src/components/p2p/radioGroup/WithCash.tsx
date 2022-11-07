@@ -1,3 +1,4 @@
+import { InfoOutlineIcon } from '@chakra-ui/icons'
 import {Box, Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
@@ -22,7 +23,18 @@ const WithCash = () => {
 
     return (
         <Box>
-            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>With Cash</Text>
+            <Flex alignItems="center">
+                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
+                    With Cash    
+                </Text>
+                <InfoOutlineIcon
+                    ml="5px"
+                    color={"#8E9BAE"}
+                    w={"10px"}
+                    h={"10px"}
+                />    
+            </Flex>
+            
             <RadioGroup onChange={setWithCash} value={withCash} mt="12px" mb="48px">
                 <Flex {...withCashGroup} w={"100%"}  gap={["20px", "20px", "24px 78px"]} flexWrap={"wrap"}>
                     {cashOptions?.map((value:any) => {
