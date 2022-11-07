@@ -5,6 +5,7 @@ import InputCounter from '../radioGroup/Counter';
 import PriceType from '../radioGroup/PriceType';
 import WithCash from '../radioGroup/WithCash';
 import { useState } from 'react'
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 interface BuyStepProps {
     handleNextStep: () => void
@@ -16,9 +17,6 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     const [value, setValue] = useState('0')
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
     
-    let num = value
-    num = num.toLocaleString()
-    console.log("this is the number", num.toLocaleString())
     
     return (
         <Box position="relative"  px="0">
@@ -43,7 +41,15 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
                                 <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{value.toLocaleString()}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
-                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Highest Order Price</Text>
+                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
+                                    Highest Order Price
+                                    <InfoOutlineIcon
+                                        ml="5px"
+                                        color={"#8E9BAE"}
+                                        w={"10px"}
+                                        h={"10px"}
+                                    />    
+                                </Text>
                                 <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦570.47</Text>
                             </VStack>
                         </HStack>
