@@ -13,13 +13,20 @@ interface BuyStepProps {
 
 const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     
-    const [value, setValue] = useState('0')
+    const [value, setValue] = useState("0")
     const [asset, setAsset] = useState('BTC')
     const [withCash, setWithCash] = useState('NGN')
     const [priceType, setPriceType] = useState('Fixed')
+
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
     
+    const addValue = () => {
+        setValue(value => value + 1)
+    }
 
+    const minusValue = () => {
+        setValue(value => value - 1)
+    }
 
     const handleSubmit = (e:any) => {
         e.preventDefault()
@@ -80,7 +87,7 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
                                 <PriceType priceType={priceType} setPriceType={setPriceType} />                            
 
                                     {/* Floating Price Margin */}
-                                    <InputCounter value={value} handleChange={handleChange} />
+                                    <InputCounter value={value} handleChange={handleChange} addValue={addValue} minusValue={minusValue} />
 
                                     <Flex  bottom={"0px"} p={"12px"} w={"100%"} bg="white" mt="50px" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} display={["flex", "flex", "none"]}>
                                         <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} type="submit" fontSize={"14px"} flex="1" >
