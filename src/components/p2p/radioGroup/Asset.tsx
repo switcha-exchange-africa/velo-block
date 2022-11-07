@@ -17,7 +17,6 @@ const Asset = () => {
         onChange: setAsset
     })
 
-    console.log(coinAssets)
     
     const assetGroup = getRootProps()
 
