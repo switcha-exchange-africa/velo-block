@@ -37,7 +37,7 @@ const BuyStepTwo = (props:any) => {
                                     <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
                                 </HStack>
                                 <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account Number</Text>
+                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
                                     <Text  flex="2" color="#000000">0264748663</Text>
                                 </HStack>
                                 <HStack w="100%">
@@ -47,7 +47,7 @@ const BuyStepTwo = (props:any) => {
                             </VStack>
                              <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #fb5e04"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                 <HStack w="100%">
-                                    <Text flex="1" noOfLines={1} color="#FB5E04">Bank Transfer</Text>
+                                    <Text flex="1"  color="#FB5E04">Bank Transfer</Text>
                                     <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
                                     <Text flex="0.2" color="#FB5E04">Edit</Text>
                                 </HStack>
@@ -56,7 +56,7 @@ const BuyStepTwo = (props:any) => {
                                     <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
                                 </HStack>
                                 <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account Number</Text>
+                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
                                     <Text  flex="2" color="#000000">0264748663</Text>
                                 </HStack>
                                 <HStack w="100%">
@@ -76,7 +76,7 @@ const BuyStepTwo = (props:any) => {
                                     <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
                                 </HStack>
                                 <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account Number</Text>
+                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
                                     <Text  flex="2" color="#000000">0264748663</Text>
                                 </HStack>
                                 <HStack w="100%">
@@ -87,7 +87,7 @@ const BuyStepTwo = (props:any) => {
                         </Box>
                         
                         <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                            <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                            <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" onClick={onOpen}>
                                 <AddIcon
                                     mr="5px"
                                     color={"#FB5E04"}
@@ -96,7 +96,7 @@ const BuyStepTwo = (props:any) => {
                                 />
                                 Add new
                             </Button>  
-                            <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} onClick={onOpen}>
+                            <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
                                 <RepeatIcon
                                     mr="5px"
                                     color={"#FB5E04"}
