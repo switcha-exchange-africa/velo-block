@@ -70,7 +70,7 @@ const SearchInput = () => {
             <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
                 {dataSearch?.map((bank:BankProps, index: any) => (
                     <HStack mb={"24px"} key={index}>
-                        <Text w="50%" fontSize={"14px"} onClick={() => handleSelect(bank.bankCode)} fontWeight={"600"}>{bank?.bankName}</Text>
+                        <Text w="50%" fontSize={"14px"} onClick={() => handleSelect(bank?.bankCode)} fontWeight={"600"}>{bank?.bankName}</Text>
                         {/* <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank Transfer (vietnam)</Text> */}
                     </HStack>
                 ))}
