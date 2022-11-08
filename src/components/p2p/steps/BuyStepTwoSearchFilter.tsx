@@ -28,6 +28,10 @@ const SearchInput = () => {
         return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
     })
 
+    const handleSelect = (bankName: string) => {
+        console.log(bankName)
+    }
+
     return (
         <>
             <Flex  padding={"20px 20px"} justifyContent={"space-between"} alignItems={"center"} direction={["column", "column", "row"]}>
@@ -66,7 +70,7 @@ const SearchInput = () => {
             <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
                 {dataSearch?.map((bank:BankProps, index: any) => (
                     <HStack mb={"24px"} key={index}>
-                        <Text w="50%" fontSize={"14px"} fontWeight={"600"}>{bank?.bankName}</Text>
+                        <Text w="50%" fontSize={"14px"} onClick={() => handleSelect(bank.Code)} fontWeight={"600"}>{bank?.bankName}</Text>
                         {/* <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank Transfer (vietnam)</Text> */}
                     </HStack>
                 ))}
