@@ -3,7 +3,7 @@ import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, Inp
 
 interface InputContainerProps {
 
-    value: string
+    value: number
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     addValue: () => void
     minusValue: () => void
