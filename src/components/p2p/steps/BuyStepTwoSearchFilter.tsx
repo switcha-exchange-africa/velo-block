@@ -1,7 +1,7 @@
 import {SearchIcon} from '@chakra-ui/icons'
 import {
     Box, Flex,
-    HStack, Input, InputGroup, 
+    Input, InputGroup, 
     Text,  InputLeftElement, 
 } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -68,12 +68,11 @@ const SearchInput = () => {
             </Flex>
 
             <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
-                {dataSearch?.map((bank:BankProps, index: any) => (
-                    <HStack mb={"24px"} key={index}>
-                        <Text w="50%" fontSize={"14px"} onClick={() => handleSelect(bank?.bankCode)} fontWeight={"600"}>{bank?.bankName}</Text>
-                        {/* <Text w="50%" fontSize={"14px"} fontWeight={"600"}>Bank Transfer (vietnam)</Text> */}
-                    </HStack>
-                ))}
+                <Flex mb={"24px"}  flexWrap="wrap" justifyContent="space-between">
+                    {dataSearch?.map((bank: BankProps, index: any) => (
+                        <Text key={index} w="50%" my="10px" fontSize={"14px"}  py="5px" onClick={() => handleSelect(bank?.bankCode)} fontWeight={"600"}>{bank?.bankName}</Text>
+                    ))}
+                </Flex>
             </Box>
         </>
         
