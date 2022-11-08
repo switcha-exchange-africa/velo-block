@@ -13,7 +13,7 @@ interface BuyStepProps {
 
 const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     
-    const [value, setValue] = useState("0")
+    const [value, setValue] = useState(0)
     const [asset, setAsset] = useState('BTC')
     const [withCash, setWithCash] = useState('NGN')
     const [priceType, setPriceType] = useState('Fixed')
@@ -21,14 +21,14 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
     
     const addValue = () => {
-        setValue(value => value + 1)
+        setValue(value + 1)
     }
 
-    const minusValue = () => {
-        setValue(value => value - 1)
+    const  minusValue = () => {
+        setValue( value)
     }
 
-    const handleSubmit = (e:any) => {
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const data = {
             asset,
@@ -79,7 +79,7 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
                                                     h={"10px"}
                                                 />    
                                             </Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦570.47</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦1,000</Text>
                                         </VStack>
                                     </HStack>
 
