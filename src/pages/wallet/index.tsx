@@ -337,6 +337,7 @@ function WalletPage() {
                                   fontSize={{ md: "sm", base: 'xs' }}
                                   fontWeight="500"
                                   color={"#FB5E04"}
+                                  onClick={() => { router.push('/quick-trade') }}
                                 >
                                   Trade
                                 </Text>

@@ -110,7 +110,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             <Heading as="h4" size="md" color={'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/swap')}>
               Swap
             </Heading>
-            <Heading as="h4" size="md" color={router.pathname.includes('order') ? 'primaryColor.900' : 'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/order')}>
+            <Heading as="h4" size="md" color={router.pathname.includes('order') ? 'primaryColor.900' : 'appWhiteColor'} cursor={'pointer'} onClick={() => router.push('/quick-trade/order')}>
               All Orders
             </Heading>
           </HStack>
@@ -134,6 +134,16 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           </HStack>
         </Flex>
       </chakra.header>
+      <Show below="sm">
+        {router.pathname.includes('trade') && <chakra.header>
+          <Flex boxShadow={'md'} w={'100%'} bg={'#ffffff'} px={'4'}>
+            <Text py={'4'} fontWeight={'medium'} size="md" cursor={'pointer'} onClick={() => router.push('/quick-trade/order')}>
+              All Orders
+              {router.pathname.includes('order') && <Divider borderColor={'primaryColor.900'} />}
+            </Text>
+          </Flex>
+        </chakra.header>}
+      </Show>
       {/* <Flex color="black">{children}</Flex> */}
       <Grid
         templateColumns={[
