@@ -12,11 +12,11 @@ const Home: NextPage = () => {
   const dispatch = useAppDispatch();
   console.log("HOME PAGE")
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../helpers/sw.ts', {
-      scope: '/',
-    });
-  }
+  // if ('serviceWorker' in navigator) {
+  //   navigator.serviceWorker.register('../helpers/sw.ts', {
+  //     scope: '../helpers/',
+  //   });
+  // }
 
   useEffect(() => {
     const checkForToken = () => {

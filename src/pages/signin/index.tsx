@@ -140,7 +140,7 @@ const LoginPage = () => {
                                     Login
                                 </MainAppButton>
 
-                                <Link href=''>
+                                <Link href='/forgot-password'>
                                     <Text cursor={'pointer'} fontSize='sm' fontWeight='medium' mt='16' mr='1'>{'Forgot your password? '}</Text>
                                 </Link>
                                 <Link href='/signup'>
