@@ -34,11 +34,21 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+
+    getAddedBank: builder.query<any, void>({
+      query: () => `p2p/bank`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
   }),
 });
 
-export const { useGetNigerianBankQuery,
+export const {
+  useGetNigerianBankQuery,
   useGetBankByIdQuery,
   useLazyGetBankByIdQuery,
-  useAddP2pBuyAdsBankMutation
+  useAddP2pBuyAdsBankMutation,
+  useGetAddedBankQuery
 } = bankApi;

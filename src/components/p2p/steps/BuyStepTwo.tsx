@@ -4,24 +4,26 @@ import {
 import {
     Box, Button, Flex,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl
+    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler, useState } from 'react'
+import { useGetAddedBankQuery } from '../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
 
 
 const BuyStepTwo = (props:any) => {
+    
+    const getAddedBanks = useGetAddedBankQuery()
+
     const { handlePreviousStep, handleNextStep } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
-    
-
     
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
@@ -45,7 +47,7 @@ const BuyStepTwo = (props:any) => {
                             Bank Transfer
                         </Text>
                         
-                        <SearchInput  />
+                        <SearchInput onClose={ onClose}  />
                     </ModalBody>
                 </ModalContent>
             </Modal>
@@ -157,37 +159,54 @@ const BuyStepTwo = (props:any) => {
                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                             <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
                             
-                            <HStack flexWrap={"wrap"} alignItems="center" mt="12px">
-                                <Flex p={"11px 22px"} justifyContent={"space-between"} alignItems="center"  color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w="130px">
-                                    First bank
-                                    <CloseIcon
-                                        mr="5px"
-                                        color={"#000000"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                </Flex>
+                            <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
+                                {/* rendering the data */}
+                                {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                    getAddedBanks?.data?.data?.map((item:any) => (
+                                        <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["40%", "40%", "136px"]} >
+                                            {item?.name.substring(0, 15)}
+                                            <CloseIcon
+                                                mr="5px"
+                                                color={"#000000"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                                cursor="pointer"
+                                            />
+                                        </Flex>        
+                                    ))
+                                )}
 
-                                <Flex p={"11px 22px"} justifyContent={"space-between"} borderRadius={"5px"} border={"0.88px solid #8e9bae"} alignItems="center" mt="12px" color="#000000" w="150px">
-                                    Access bank
-                                    <CloseIcon
-                                        mr="5px"
-                                        color={"#000000"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                </Flex>
+                                {getAddedBanks?.data?.data?.length === 5 ? (
+                                    <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
+                                        <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                            <AddIcon
+                                                mr="5px"
+                                                color={"#FB5E04"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            
+                                            />
+                                            Add
+                                        </Button>
+                                    </Tooltip>
+                                    
+                                ): (
+                                    <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                        <AddIcon
+                                            mr="5px"
+                                            color={"#FB5E04"}
+                                            w={"10px"}
+                                            h={"10px"}
+                                        />
+                                        Add
+                                    </Button>
+                                )
+                                    
+                                }
+                                    
+                                {/* </Tooltip> */}
                                 
-                                <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
-                                    <AddIcon
-                                        mr="5px"
-                                        color={"#FB5E04"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                    Add
-                                </Button>
-                            </HStack>
+                            </Flex>
                             
                         </Box>
                         
