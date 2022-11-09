@@ -13,7 +13,7 @@ interface BuyStepProps {
 
 const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState<any>('0')
     const [asset, setAsset] = useState('BTC')
     const [withCash, setWithCash] = useState('NGN')
     const [priceType, setPriceType] = useState('Fixed')
@@ -25,7 +25,7 @@ const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
     }
 
     const  minusValue = () => {
-        setValue( value)
+        setValue( value - 1)
     }
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
