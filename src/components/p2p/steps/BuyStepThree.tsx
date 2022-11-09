@@ -4,14 +4,16 @@ import {
     HStack, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl
 } from '@chakra-ui/react';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import Status from '../radioGroup/Status';
 
 const BuyStepThree = (props:any) => {
     const {handlePreviousStep} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [status, setStatus] = useState('Online right now')
     
-    
+    console.log(status)
+
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
@@ -157,7 +159,7 @@ const BuyStepThree = (props:any) => {
                             <VStack alignItems={"flex-start"} mt="12px">
                                 <Checkbox defaultChecked fontSize={"14px"} fontWeight={"400"}  iconColor='#8e9bae' colorScheme="#e2e8f0" >Completed KYC</Checkbox>
                                 <Checkbox fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Registered 0 Days ago</Checkbox>
-                                <Checkbox   fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Holdings more than 0.01 BTC</Checkbox>
+                                <Checkbox  fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Holdings more than 0.01 BTC</Checkbox>
                             </VStack>
                             
                         </Box>
@@ -165,7 +167,7 @@ const BuyStepThree = (props:any) => {
 
                         <Box mt="18px" fontSize={"14px"}>
                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Status</Text>  
-                            <Status/>
+                            <Status status={status} setStatus={setStatus} />
                             
                         </Box>
 

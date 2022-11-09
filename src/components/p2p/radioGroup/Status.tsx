@@ -1,16 +1,19 @@
 import { Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
-import  { useState } from 'react'
 import { RadioCard } from './RadioGroup'
 
-const Status = () => {
-    const [status, setstatus] = useState('1')    
-    const statusOptions = ['Online right now', 'Offline, Manually later']
 
+interface StatusProps {
+    status: string,
+    setStatus: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Status = ({status, setStatus}: StatusProps) => {        
+    const statusOptions = ['Online right now', 'Offline, Manually later']
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'status',
-        defaultValue: 'online right now',
-        onChange: console.log
+        defaultValue: status,
+        onChange: setStatus
     })
     
     const statusGroup = getRootProps()
@@ -18,7 +21,7 @@ const Status = () => {
 
     return (
         <>
-            <RadioGroup onChange={setstatus} value={status} mt="10px" >
+            <RadioGroup onChange={setStatus} value={status} mt="10px" >
                 <Flex {...statusGroup} w={"100%"} gap={["20px", "20px", "24px 75px"]} flexWrap={"wrap"}>
                     {statusOptions.map((value) => {
                         const radio = getRadioProps({ value })

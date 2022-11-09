@@ -1,5 +1,4 @@
 import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, InputLeftElement } from '@chakra-ui/react'
-// import { useState } from 'react'
 
 interface InputContainerProps {
 

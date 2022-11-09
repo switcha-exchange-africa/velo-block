@@ -2,10 +2,11 @@ import {SearchIcon} from '@chakra-ui/icons'
 import {
     Box, Flex,
     Input, InputGroup, 
-    Text,  InputLeftElement, 
+    Text,  InputLeftElement, FormControl, 
 } from '@chakra-ui/react'
+import { skipToken } from '@reduxjs/toolkit/dist/query'
 import { useState } from 'react'
-import { useGetNigerianBankQuery } from '../../../redux/services/bank.service'
+import { useAddP2pBuyAdsBankMutation, useGetNigerianBankQuery } from '../../../redux/services/bank.service'
 
 
 interface BankProps {
@@ -28,9 +29,23 @@ const SearchInput = () => {
         return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
     })
 
-    const handleSelect = (bankName: string) => {
-        console.log(bankName)
+    
+    // const [addNewBankAds, setAddNewBankAds] = useState(skipToken)
+    // const response = useAddP2pBuyAdsBankMutation(addNewBankAds)
+
+    const [addP2pBuyAdsBank, response] = useAddP2pBuyAdsBankMutation()
+    console.log("this is the response", response)
+
+    const handleSelect = async (bankName: any) => {
+        await addP2pBuyAdsBank(bankName)
+
+        console.log("you clicked me")
     }
+
+
+    // console.log("this is the response ", response)
+
+    
 
     return (
         <>
@@ -66,14 +81,19 @@ const SearchInput = () => {
                     <Text key={index} cursor="pointer" fontWeight="900" color="#FB5E04" fontSize={"12px"} p={"2px 4px"} border={"none"} bg={"transparent"}>{value}</Text>        
                 ))}
             </Flex>
-
-            <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
-                <Flex mb={"24px"}  flexWrap="wrap" justifyContent="space-between">
-                    {dataSearch?.map((bank: BankProps, index: any) => (
-                        <Text key={index} w="50%" my="10px" fontSize={"14px"}  py="5px" onClick={() => handleSelect(bank?.bankCode)} fontWeight={"600"}>{bank?.bankName}</Text>
-                    ))}
-                </Flex>
-            </Box>
+            
+            {/* <form onSubmit={handleSubmit}>
+                <FormControl> */}
+                    <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
+                        <Flex mb={"24px"}  flexWrap="wrap" justifyContent="space-between">
+                            {dataSearch?.map((bank: BankProps, index: any) => (
+                                <Text cursor="pointer" key={index} w="50%" my="10px" fontSize={"14px"}  py="5px" onClick={() => handleSelect(bank?.bankName)} fontWeight={"600"}>{bank?.bankName}</Text>
+                            ))}
+                        </Flex>
+                    </Box>
+{/* 
+                </FormControl>
+            </form> */}
         </>
         
     )   
