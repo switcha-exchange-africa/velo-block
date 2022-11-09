@@ -38,6 +38,8 @@ import {
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
+import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
 
 // import appAlert from "../../helpers/appAlert";
 
@@ -195,6 +197,7 @@ function WalletPage() {
 
   const btnRef = React.useRef(null);
   const router = useRouter()
+  const dispatch = useAppDispatch()
   // if (walletsquery?.isFetching) {
   //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
   // }
@@ -337,7 +340,7 @@ function WalletPage() {
                                   fontSize={{ md: "sm", base: 'xs' }}
                                   fontWeight="500"
                                   color={"#FB5E04"}
-                                  onClick={() => { router.push('/quick-trade') }}
+                                  onClick={() => { dispatch(setCoinOrCash({ fromWallet: wallet.coin })); router.push('/quick-trade') }}
                                 >
                                   Trade
                                 </Text>
