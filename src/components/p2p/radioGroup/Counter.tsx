@@ -1,29 +1,19 @@
 import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, InputLeftElement } from '@chakra-ui/react'
-// import { useState } from 'react'
 
 interface InputContainerProps {
 
-    value: string
-    handleChange: (event:React.ChangeEvent<HTMLInputElement>) => void
+    value: number
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    addValue: () => void
+    minusValue: () => void
 }
 
 const InputCounter = ({
-    value, handleChange
+    value, handleChange,
+    addValue, minusValue
 }: InputContainerProps) => {
     
-    // const [counter, setCounter] = useState(0)
   
-    // const incrementCounter = () => {
-    //     let incrementedCounter = counter + 1
-    //     setCounter(incrementedCounter)
-    // }
-
-    // const decrementCounter = () => {
-    //     let decrementedCounter = counter - 1
-    //     setCounter(decrementedCounter)
-    // }
-
-
     return (
         <VStack alignItems={"flex-start"}>
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Floating Price Margin</Text>
@@ -31,7 +21,7 @@ const InputCounter = ({
             <HStack>
                 <InputGroup size='sm' border="1px solid #8E9BAE" p="9px" borderRadius="5px">
                     <InputLeftElement  mx="5px">
-                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold">
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold" onClick={minusValue}>
                             -
                         </Button>
                     </InputLeftElement>
@@ -45,7 +35,7 @@ const InputCounter = ({
                         textAlign="center"
                     />
                     <InputRightElement mx="5px">
-                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold">
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold"   onClick={addValue}>
                             +
                         </Button>
                     </InputRightElement>

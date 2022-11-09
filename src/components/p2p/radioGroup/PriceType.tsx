@@ -1,9 +1,13 @@
 import {Box, Flex, RadioGroup, Text, useRadioGroup } from '@chakra-ui/react'
-import  { useState } from 'react'
 import { RadioCard } from './RadioGroup'
 
-const PriceType = () => {
-    const [priceType, setPriceType] = useState('Fixed')
+
+interface PriceTypeProps {
+    priceType: string,
+    setPriceType: React.Dispatch<React.SetStateAction<string>>
+}
+
+const PriceType = ({priceType, setPriceType}:PriceTypeProps) => {
     
     const priceTypes = ['Fixed', 'Floating']
     
@@ -13,7 +17,6 @@ const PriceType = () => {
         defaultValue: 'Fixed',
         onChange: setPriceType
     })
-    // console.log("the price type is ", priceType)
     
     const priceTypeGroup = getRootProps()
 
