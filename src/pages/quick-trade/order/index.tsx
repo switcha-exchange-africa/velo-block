@@ -85,7 +85,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                 </Flex>
             </Show>
 
-            {data && data.map((order: any, index: number) => {
+            {data && data.map((order: any,) => {
                 return (
                     <Flex key={order._id} flexDirection={'column'} pt={{ base: '6', md: '1' }}>
                         <Flex alignItems={'center'} px={{ md: '4', base: '1' }}>

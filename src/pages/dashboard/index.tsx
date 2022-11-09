@@ -8,6 +8,7 @@ import BuyCoin from "../../components/homePage/buyTable/BuyCoin";
 import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
+import { useRouter } from "next/router";
 
 
 
@@ -79,7 +80,7 @@ const DashboardPage = () => {
       return "+"
     }
   }
-
+  const router = useRouter()
 
   return (
     <DashboardLayout title="Dashboard">
@@ -95,6 +96,7 @@ const DashboardPage = () => {
             leftIcon={data.leftIcon}
             title={data.title}
             description={data.description}
+            onClick={() => { router.push(data.path) }}
           />
         ))}
       </HStack>
