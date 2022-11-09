@@ -12,7 +12,13 @@ interface AssetProps {
 const Asset = ({asset,setAsset}: AssetProps) => {
     // fetches all the coins to be used as asset using the useGetCoinsByTypeQuery
     const { data } = useGetCoinsByTypeQuery("crypto")
-    const coinAssets = data?.data?.map((item: any) => item.coin)
+    const coinAssets = data?.data?.map((item: any) => {
+        if (item.coin === "USDT_TRON") {
+            return "USDT-TRON"
+        } else {
+            return item.coin
+        }
+    })
     
    
     const { getRootProps, getRadioProps } = useRadioGroup({
