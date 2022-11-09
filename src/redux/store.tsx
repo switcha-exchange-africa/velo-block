@@ -23,10 +23,11 @@ const persistConfig = {
 }
 
 const persistQuickTradeReducer = persistReducer(persistConfig, quickTradeReducer)
+const persistAuthReducer = persistReducer(persistConfig, authReducer)
 
 const store = configureStore({
     reducer: {
-        auth: authReducer,
+        auth: persistAuthReducer,
         quickTrade: persistQuickTradeReducer,
         [authApi.reducerPath]: authApi.reducer,
         [baseApi.reducerPath]: baseApi.reducer,

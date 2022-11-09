@@ -76,6 +76,21 @@ export const quickTradeSlice = createSlice({
     ) => {
       state.isModalOpen = isOpen;
     },
+    setCoinOrCash: (
+      state,
+      {
+        payload: { fromWallet },
+      }: PayloadAction<{
+        fromWallet: any;
+      }>
+    ) => {
+      if (fromWallet != "NGN") {
+        state.cash = "NGN";
+        state.coin = fromWallet;
+      } else {
+        state.cash = fromWallet;
+      }
+    },
   },
 });
 
@@ -84,6 +99,7 @@ export const {
   setOrderPayload,
   resetQuickTradePayload,
   setIsModalOpen,
+  setCoinOrCash,
 } = quickTradeSlice.actions;
 
 export default quickTradeSlice.reducer;

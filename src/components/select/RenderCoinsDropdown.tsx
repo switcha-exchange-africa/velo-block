@@ -13,13 +13,13 @@ const RenderCoinsDropdown = ({ items, value, onChange }: RenderCoinsDropdownWith
         <Flex position={'relative'} >
             <Menu>
                 <MenuButton as={Button} _hover={{ bg: 'transparent' }} bg={'transparent'} rightIcon={<ChevronDownIcon />}>
-                    <Flex zIndex={'docked'}><Box pr={'2'} zIndex={'base'}><RenderCoinComponent coin={items.find(x => x.coin === value)?.coin} size={{ md: "xs", base: '2xs' }} /></Box>
+                    <Flex zIndex={'docked'} fontSize={'sm'}><Box pr={'2'} zIndex={'base'} ><RenderCoinComponent coin={items.find(x => x.coin === value)?.coin} size={{ md: "xs", base: '2xs' }} /></Box>
 
-                        {items.find(x => x.coin === value)?.coin}</Flex>
+                        {items.find(x => x.coin === value)?.coin == 'USDT_TRON' ? 'USDT-TRON' : items.find(x => x.coin === value)?.coin}</Flex>
                 </MenuButton>
                 <MenuList zIndex={'sticky'}>
                     {items.map((item, key) => (
-                        <MenuItem key={key} onClick={() => onChange(item.coin)} zIndex={'docked'}><Box pr={'2'}><RenderCoinComponent coin={item.coin} size={{ md: "xs", base: '2xs' }} /></Box> {item.coin}</MenuItem>
+                        <MenuItem key={key} onClick={() => onChange(item.coin)} zIndex={'docked'}><Box pr={'2'}><RenderCoinComponent coin={item.coin} size={{ md: "xs", base: '2xs' }} /></Box> {item.coin == 'USDT_TRON' ? 'USDT-TRON' : item.coin}</MenuItem>
                     ))}
                 </MenuList>
             </Menu>

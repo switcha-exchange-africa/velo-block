@@ -60,7 +60,7 @@ const QuickSellComponent = () => {
                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                             }} />
-                                            <InputRightElement width='28'  >
+                                            <InputRightElement width='36'  >
 
                                                 {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
 
