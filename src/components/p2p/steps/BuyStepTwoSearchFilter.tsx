@@ -2,12 +2,11 @@ import {SearchIcon} from '@chakra-ui/icons'
 import {
     Box, Flex,
     Input, InputGroup, 
-    Text,  InputLeftElement, FormControl, 
+    Text,  InputLeftElement, Spinner 
 } from '@chakra-ui/react'
-import { skipToken } from '@reduxjs/toolkit/dist/query'
 import { useState } from 'react'
-import { useAddP2pBuyAdsBankMutation, useGetNigerianBankQuery } from '../../../redux/services/bank.service'
-
+import appAlert from '../../../helpers/appAlert'
+import { useAddP2pBuyAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery } from '../../../redux/services/bank.service'
 
 interface BankProps {
     bankName: string,
@@ -15,9 +14,13 @@ interface BankProps {
     image: string
 }
 
-const SearchInput = () => {
+interface SearchInput {
+    onClose: () => void
+}
 
-    const {data} = useGetNigerianBankQuery()
+const SearchInput = ({onClose}: SearchInput) => {
+
+    const {data:getBanks, isLoading} = useGetNigerianBankQuery()
     const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
     const [filter, setFilter] = useState("")
@@ -25,26 +28,29 @@ const SearchInput = () => {
         setFilter(e.target.value)
     }
 
-    let dataSearch = data?.filter((item:any) => {
+    let dataSearch = getBanks?.filter((item:any) => {
         return Object.keys(item).some(key => item[key].toString().toLowerCase().includes(filter.toString().toLowerCase()))
     })
 
-    
-    // const [addNewBankAds, setAddNewBankAds] = useState(skipToken)
-    // const response = useAddP2pBuyAdsBankMutation(addNewBankAds)
+    // the get request to fetch all added banks
+    const getAddedBanks = useGetAddedBankQuery()
 
-    const [addP2pBuyAdsBank, response] = useAddP2pBuyAdsBankMutation()
-    console.log("this is the response", response)
+    // the post request mutaution
+    const [ addP2pBuyAdsBank ] = useAddP2pBuyAdsBankMutation()
+
 
     const handleSelect = async (bankName: any) => {
-        await addP2pBuyAdsBank(bankName)
-
-        console.log("you clicked me")
+        const res:any = await addP2pBuyAdsBank(bankName)
+        if (res.data.status == 200) {
+            appAlert.success(`${res?.data?.message}`)
+            getAddedBanks.refetch()
+            onClose()    
+        } if (res.data.status != 200) {
+            appAlert.error(`${res?.data?.message}`)
+        } 
     }
 
-
-    // console.log("this is the response ", response)
-
+    
     
 
     return (
@@ -81,19 +87,13 @@ const SearchInput = () => {
                     <Text key={index} cursor="pointer" fontWeight="900" color="#FB5E04" fontSize={"12px"} p={"2px 4px"} border={"none"} bg={"transparent"}>{value}</Text>        
                 ))}
             </Flex>
-            
-            {/* <form onSubmit={handleSubmit}>
-                <FormControl> */}
-                    <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
-                        <Flex mb={"24px"}  flexWrap="wrap" justifyContent="space-between">
-                            {dataSearch?.map((bank: BankProps, index: any) => (
-                                <Text cursor="pointer" key={index} w="50%" my="10px" fontSize={"14px"}  py="5px" onClick={() => handleSelect(bank?.bankName)} fontWeight={"600"}>{bank?.bankName}</Text>
-                            ))}
-                        </Flex>
-                    </Box>
-{/* 
-                </FormControl>
-            </form> */}
+            <Box px="20px" overflowY={"scroll"} height={"150px"} alignItems="center">    
+                <Flex mb={"24px"}  flexWrap="wrap" justifyContent="space-between">
+                    { isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> :  (dataSearch?.map((bank: BankProps, index: any) => (
+                        <Text cursor="pointer" key={index} w="50%" my="10px" fontSize={"14px"}  py="5px" onClick={() => handleSelect(bank?.bankName)} fontWeight={"600"}>{bank?.bankName}</Text>
+                    )))}
+                </Flex>
+            </Box>
         </>
         
     )   
