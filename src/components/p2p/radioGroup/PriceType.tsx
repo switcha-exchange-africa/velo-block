@@ -10,12 +10,12 @@ interface PriceTypeProps {
 
 const PriceType = ({priceType, setPriceType}:PriceTypeProps) => {
     
-    const priceTypes = ['Fixed', 'Floating']
+    const priceTypes = ['fixed', 'floating']
     
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'priceTypes',
-        defaultValue: 'Fixed',
+        defaultValue: 'fixed',
         onChange: setPriceType
     })
     
