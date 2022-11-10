@@ -76,15 +76,7 @@ const ChangePassword = () => {
         return error
     }
 
-    const validateEmail = (value: string,) => {
-        let error
-        if (!value) {
-            error = 'Email is Required'
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-            error = 'Invalid email address'
-        }
-        return error
-    }
+
     return (
         <AuthLayout title='Change Password'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px={{ lg: '12', md: '4', base: '0' }} align='start' py='16'>
@@ -94,7 +86,7 @@ const ChangePassword = () => {
                 <Formik
                     initialValues={{ password: '', confirmPassword: '' }}
 
-                    onSubmit={async (values, { }) => {
+                    onSubmit={async () => {
                         router.push('/signin')
                         // try {
                         //     setSubmitting(true)

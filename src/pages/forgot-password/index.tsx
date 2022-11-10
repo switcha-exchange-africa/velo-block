@@ -16,7 +16,7 @@ const ForgotPassword = () => {
                 <Formik
                     initialValues={{ email: '', }}
 
-                    onSubmit={async (values, { }) => {
+                    onSubmit={async () => {
                         router.push('/forgot-password/verification-code')
                         // try {
                         //     setSubmitting(true)
