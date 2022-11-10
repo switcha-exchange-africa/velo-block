@@ -9,7 +9,7 @@ import {
 import Head from "next/head";
 import Image from 'next/image'
 // import Image from "next/image";
-import OnboardingImage from '../../../public/assets/svgs/OnboardingImage.svg'
+// import OnboardingImage from '../../../public/assets/svgs/OnboardingImage.svg'
 
 
 interface AuthLayoutProps {
@@ -18,6 +18,7 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout = ({ children, title }: AuthLayoutProps) => {
+  const OnboardingImage = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/OnboardingImage.jpg'
   return (
     <Flex flexDirection={'column'} align="stretch" minH="100vh" h="100vh" bg="mainBGColor" w="full" overflowX={'hidden'}>
       <Head>
@@ -39,7 +40,7 @@ const AuthLayout = ({ children, title }: AuthLayoutProps) => {
                 <Box p="4" boxSize={{ lg: "lg", md: 'xs', base: 'xs' }} position={'relative'}>
                   {/* <Image src={'/assets/svgs/OnboardingImage.svg'} alt='' layout="fill" objectFit="fill" priority />
                    */}
-                  <Image src={OnboardingImage} alt='Auth Image' layout="fill" objectFit="fill" priority placeholder="blur" blurDataURL="/assets/images/OnboardingImage.jpg" />
+                  <Image src={OnboardingImage} alt='Auth Image' layout="fill" objectFit="fill" priority />
                   {/* <Img
                     src="/assets/svgs/OnboardingImage.svg"
                     alt=""
