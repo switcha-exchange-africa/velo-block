@@ -63,7 +63,26 @@ const BuyStepThree = (props:any) => {
 
 
     const data = {
+        type: "buy",
+        cash: "NGN",
+        coin: coin,
+        remark: remark,
+        paymentTimeLimit: values.paymentTimeLimit,
+        priceType: values.priceType,
         
+    //     "price": 800,
+    //     "totalAmount": 10,
+    //     "minLimit": 5,
+    //     "maxLimit": 10,
+    //     "highestPriceOrder": 1000,
+    //     "banks": [
+    //         "63507478af9f9ea9ea9e3cb2"
+    //     ],
+    //     "kyc": true,
+    //     "moreThanDot1Btc": true,
+    //     "registeredZeroDaysAgo": true,
+    //     "isPublished":true,
+    //     "isSwitchaMerchant":true
     }
     
 

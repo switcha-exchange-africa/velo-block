@@ -12,23 +12,23 @@ interface BuyStepProps {
     setCoin?: React.SetStateAction<string> | undefined | any
     priceType?: string | undefined | any
     setPriceType?: React.SetStateAction<string> | undefined | any
+    price?: string | undefined | any
+    setPrice?: React.SetStateAction<string> | undefined | any
 }
 
 
-const BuyStepOne = ({ handleNextStep, coin, setCoin, priceType, setPriceType }: BuyStepProps) => {
+const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
     
-    const [value, setValue] = useState<any>('0')
     const [withCash, setWithCash] = useState('NGN')
-    // const [priceType, setPriceType] = useState('Fixed')
-
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
+ 
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setPrice(event.target.price)
     
-    const addValue = () => {
-        setValue(value + 1)
+    const addPrice = () => {
+        setPrice(price + 1)
     }
 
-    const  minusValue = () => {
-        setValue( value - 1)
+    const  minusPrice = () => {
+        setPrice( price - 1)
     }
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +37,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, priceType, setPriceType }: 
             coin,
             withCash,
             priceType,
-            value
+            price
         }
 
         console.log("first data ", data)
@@ -70,7 +70,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, priceType, setPriceType }: 
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{value.toLocaleString()}</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{price.toLocaleString()}</Text>
                                         </VStack>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
@@ -90,7 +90,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, priceType, setPriceType }: 
                                 <PriceType priceType={priceType} setPriceType={setPriceType} />                            
 
                                     {/* Floating Price Margin */}
-                                    <InputCounter value={value} handleChange={handleChange} addValue={addValue} minusValue={minusValue} />
+                                    <InputCounter price={price} handleChange={handleChange} addPrice={addPrice} minusPrice={minusPrice} />
 
                                     <Flex  bottom={"0px"} p={"12px"} w={"100%"} bg="white" mt="50px" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} display={["flex", "flex", "none"]}>
                                         <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} type="submit" fontSize={"14px"} flex="1" >

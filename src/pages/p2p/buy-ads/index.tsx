@@ -17,7 +17,8 @@ const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const [coin, setCoin] = useState('BTC')
     const [priceType, setPriceType] = useState('Fixed')
-
+    const [price, setPrice] = useState<any>('0')
+    
     const initialValues:InitialValuesProps = {
         totalAmount: "",
         minLimit: "",
@@ -40,7 +41,15 @@ const BuyAds = () => {
     const displayStep = (step: number) => {
         switch (step) {
             case 1: {
-                return <BuyStepOne handleNextStep={handleNextStep} coin={coin} setCoin={setCoin} priceType={priceType} setPriceType={setPriceType} />
+                return (
+                    <BuyStepOne
+                        handleNextStep={handleNextStep}
+                        coin={coin}
+                        setCoin={setCoin}
+                        priceType={priceType}
+                        setPriceType={setPriceType}
+                    />
+                )
             }
             case 2: {
                 return (
