@@ -10,7 +10,7 @@ const ForgotPassword = () => {
     const router = useRouter()
     return (
         <AuthLayout title='Forgot Password'>
-            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='8' align='start' py='20'>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px={{ lg: '12', md: '4', base: '0' }} align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Forgot Password</Text>
                 <Text fontSize='xs' pt={'4'}>Enter your registerd email to recovery password</Text>
                 <Formik
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
                                     Verify
                                 </MainAppButton>
 
-                                <Text cursor={'pointer'} onClick={() => { router.push('/sign-in') }} fontSize='md' fontWeight='medium' color='primaryColor.900' pt='4'>{' Login'}</Text>
+                                <Text cursor={'pointer'} onClick={() => { router.push('/signin') }} fontSize='md' fontWeight='medium' color='primaryColor.900' pt='4'>{' Login'}</Text>
 
                             </VStack>
                         </Form>

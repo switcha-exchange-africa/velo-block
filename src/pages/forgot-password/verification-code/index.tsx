@@ -1,16 +1,16 @@
 import { VStack, Text, FormControl, FormLabel, Input, FormErrorMessage, Box } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
 
 const VerificationCode = () => {
-    // const router = useRouter()
+    const router = useRouter()
     const validatePin = (value: string,) => {
         let error
         if (!value) {
-            error = 'Pin is Required'
+            error = 'Code is Required'
         } else if (value.length < 6) {
             error = 'Complete pin to proceed'
         }
@@ -18,7 +18,7 @@ const VerificationCode = () => {
     }
     return (
         <AuthLayout title='Forgot Password'>
-            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px='12' align='start' py='20'>
+            <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px={{ lg: '12', md: '4', base: '0' }} align='start' py='20'>
                 <Text fontSize='2xl' as='b'>Forgot Password</Text>
                 <Text fontSize='lg' pt={'3'} fontWeight={'medium'}>Verification Code</Text>
                 <Text w={'xs'} fontSize='xs' pt={'4'}>A verification code has been sent to your email input the code to proceed</Text>
@@ -26,6 +26,7 @@ const VerificationCode = () => {
                     initialValues={{ code: '', }}
 
                     onSubmit={async () => {
+                        router.push('/forgot-password/change-password')
                         // try {
                         //     setSubmitting(true)
                         //     const response: any = await login({ email: values.email, password: values.password })
