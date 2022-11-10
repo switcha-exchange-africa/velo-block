@@ -10,14 +10,17 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetSellAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetSellAdsBTCQuery, useGetSellAdsETHQuery, useGetSellAdsUSDCQuery, useGetSellAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data:usdt } = useGetSellAdsUSDTQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
-    
+    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+
     
     return (
         <>
@@ -255,12 +258,31 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                     <TabPanel paddingLeft={0}>
                         
                         <P2pTopfilter routeName='sell-ads'/>
-                        <p>BTC</p>
+                        {btc?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="SELL BTC"
+                                backgroundColor="#EB4335"    
+                                apiData={usdt}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO SELL ADS YET"}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
                         <P2pTopfilter routeName='sell-ads'/>
-                        <p>ETH</p>
+                        
+                        {eth?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="SELL ETH"
+                                backgroundColor="#EB4335"    
+                                apiData={usdt}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO SELL ADS YET"}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
@@ -274,12 +296,21 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : "NO SELL ADS YET"}
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
                         <P2pTopfilter routeName='sell-ads'/>
-                        <p>USDC</p>
+                        {usdc?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="SELL USDC"
+                                backgroundColor="#EB4335"    
+                                apiData={usdt}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO SELL ADS YET"}
                     </TabPanel>
                 </TabPanels>
             </Tabs>
