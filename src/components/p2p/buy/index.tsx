@@ -10,16 +10,20 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetBuyAdsBTCQuery, useGetBuyAdsETHQuery, useGetBuyAdsUSDCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetBuyAdsBTCQuery, useGetBuyAdsETHQuery, useGetBuyAdsQuery, useGetBuyAdsUSDCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    
+    // const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    // const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    // const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
     return (
         <Box  position="relative">
