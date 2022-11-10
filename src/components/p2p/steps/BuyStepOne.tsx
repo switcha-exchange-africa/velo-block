@@ -21,7 +21,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
     
     const [withCash, setWithCash] = useState('NGN')
  
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setPrice(event.target.price)
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement> | any) => setPrice(event.target.price)
     
     const addPrice = () => {
         setPrice(price + 1)
