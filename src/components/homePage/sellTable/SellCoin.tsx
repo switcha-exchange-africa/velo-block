@@ -1,19 +1,14 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
-import {
-    useGetSellAdsUSDTQuery,
-    useGetSellAdsBTCQuery,
-    useGetSellAdsETHQuery,
-    useGetSellAdsUSDCQuery,
-} from "../../../redux/services/p2p-ads.service";
+import {useGetSellAdsQuery} from "../../../redux/services/p2p-ads.service";
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 
 const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
-    const { data:usdt } = useGetSellAdsUSDTQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC" , pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH" , pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC" , pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetSellAdsQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetSellAdsQuery({arg: "USDC" , pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetSellAdsQuery({arg: "ETH" , pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetSellAdsQuery({arg: "BTC" , pageNumber: `${pageNumber}`})
     
     return (
         <Tabs variant='unstyled'>
