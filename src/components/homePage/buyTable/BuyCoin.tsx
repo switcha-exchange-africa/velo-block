@@ -1,19 +1,14 @@
 import { Box,  Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
-import {
-    useGetBuyAdsUSDTQuery,
-    useGetBuyAdsBTCQuery,
-    useGetBuyAdsETHQuery,
-    useGetBuyAdsUSDCQuery,
-} from "../../../redux/services/p2p-ads.service";
+import {useGetBuyAdsQuery} from "../../../redux/services/p2p-ads.service";
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 
 const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
-    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
 
 

@@ -10,7 +10,7 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetSellAdsBTCQuery, useGetSellAdsETHQuery, useGetSellAdsQuery, useGetSellAdsUSDCQuery, useGetSellAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetSellAdsQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
