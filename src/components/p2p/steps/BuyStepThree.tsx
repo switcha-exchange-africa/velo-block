@@ -9,7 +9,7 @@ import Status from '../radioGroup/Status';
 // import CheckboxConditions from '../radioGroup/Conditions';
 
 const BuyStepThree = (props:any) => {
-    const {handlePreviousStep} = props;
+    const {handlePreviousStep, asset} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
@@ -35,7 +35,7 @@ const BuyStepThree = (props:any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Asset</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>USDT</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{asset}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
@@ -93,7 +93,7 @@ const BuyStepThree = (props:any) => {
 
 
                         <Flex justifyContent={"space-between"} px="10px" mt="24px">
-                            <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                            <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
                             <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={onOpen}>
