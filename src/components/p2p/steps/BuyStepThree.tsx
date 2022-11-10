@@ -8,7 +8,7 @@ import { MouseEventHandler, useState } from 'react';
 import Status from '../radioGroup/Status';
 
 const BuyStepThree = (props:any) => {
-    const {handlePreviousStep, coin, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
@@ -20,29 +20,6 @@ const BuyStepThree = (props:any) => {
     const [isPublished] = useState(true)
     const [isSwitchaMerchant] = useState(true)
     
-
-
-    // {
-    //     "coin": "USDT",
-    //     "cash": "NGN",
-    //     "remark": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    //     "paymentTimeLimit": "15",
-    //     "priceType": "fixed",
-    //     "type": "buy",
-    //     "price": 800,
-    //     "totalAmount": 10,
-    //     "minLimit": 5,
-    //     "maxLimit": 10,
-    //     "highestPriceOrder": 1000,
-    //     "banks": [
-    //         "63507478af9f9ea9ea9e3cb2"
-    //     ],
-    //     "kyc": true,
-    //     "moreThanDot1Btc": true,
-    //     "registeredZeroDaysAgo": true,
-    //     "isPublished":true,
-    //     "isSwitchaMerchant":true
-    // }
 
     console.log("responses ",
         coin,
@@ -58,8 +35,7 @@ const BuyStepThree = (props:any) => {
         isPublished,
         isSwitchaMerchant,
         remark
-        // hightestPriceOrder: "1000"
-    )
+     )
 
 
     const data = {
@@ -69,20 +45,17 @@ const BuyStepThree = (props:any) => {
         remark: remark,
         paymentTimeLimit: values.paymentTimeLimit,
         priceType: values.priceType,
-        
-    //     "price": 800,
-    //     "totalAmount": 10,
-    //     "minLimit": 5,
-    //     "maxLimit": 10,
-    //     "highestPriceOrder": 1000,
-    //     "banks": [
-    //         "63507478af9f9ea9ea9e3cb2"
-    //     ],
-    //     "kyc": true,
-    //     "moreThanDot1Btc": true,
-    //     "registeredZeroDaysAgo": true,
-    //     "isPublished":true,
-    //     "isSwitchaMerchant":true
+        price: price,
+        totalAmount: values.totalAmount,
+        minLimit: values.minLimit,
+        maxLimit: values.maxLimit,
+        highestPriceOrder: "1000",
+        banks: banks,
+        kyc: kyc,
+        moreThanDot1Btc: moreThanDot1Btc,
+        registeredZeroDaysAgo: registeredZeroDaysAgo,
+        isPublished:true,
+        isSwitchaMerchant:true
     }
     
 
@@ -128,7 +101,7 @@ const BuyStepThree = (props:any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>484.85NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price}NGN</Text>
                             </VStack>
 
                         </HStack>
