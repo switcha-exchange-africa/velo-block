@@ -8,17 +8,18 @@ import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 interface BuyStepProps {
     handleNextStep: () => void
-    asset?: any
-    setAsset?: any
+    coin?: string | undefined | any
+    setCoin?: React.SetStateAction<string> | undefined | any
+    priceType?: string | undefined | any
+    setPriceType?: React.SetStateAction<string> | undefined | any
 }
 
 
-const BuyStepOne = ({ handleNextStep, asset, setAsset }: BuyStepProps) => {
+const BuyStepOne = ({ handleNextStep, coin, setCoin, priceType, setPriceType }: BuyStepProps) => {
     
     const [value, setValue] = useState<any>('0')
-    // const [asset, setAsset] = useState('BTC')
     const [withCash, setWithCash] = useState('NGN')
-    const [priceType, setPriceType] = useState('Fixed')
+    // const [priceType, setPriceType] = useState('Fixed')
 
     const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => setValue(event.target.value)
     
@@ -33,7 +34,7 @@ const BuyStepOne = ({ handleNextStep, asset, setAsset }: BuyStepProps) => {
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const data = {
-            asset,
+            coin,
             withCash,
             priceType,
             value
@@ -61,8 +62,8 @@ const BuyStepOne = ({ handleNextStep, asset, setAsset }: BuyStepProps) => {
                         <TabPanels>
                             <TabPanel px={["15px", "10px", "60px"]} pb="70px">
                             
-                                    {/* asset radio group imported here*/}
-                                    <Asset asset={asset} setAsset={setAsset} />
+                                    {/* coin radio group imported here*/}
+                                    <Asset coin={coin} setCoin={setCoin} />
                                     {/* with Cash group imported here */}
                                     <WithCash withCash={withCash} setWithCash={setWithCash}/>
 

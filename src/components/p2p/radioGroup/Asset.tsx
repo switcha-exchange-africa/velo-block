@@ -5,11 +5,11 @@ import { RadioCard } from './RadioGroup'
 
     
 interface AssetProps {
-    asset: string,
-    setAsset: React.Dispatch<React.SetStateAction<string>>
+    coin: string,
+    setCoin: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Asset = ({asset,setAsset}: AssetProps) => {
+const Asset = ({coin,setCoin}: AssetProps) => {
     // fetches all the coins to be used as asset using the useGetCoinsByTypeQuery
     const { data } = useGetCoinsByTypeQuery("crypto")
     const coinAssets = data?.data?.map((item: any) => {
@@ -22,9 +22,9 @@ const Asset = ({asset,setAsset}: AssetProps) => {
     
    
     const { getRootProps, getRadioProps } = useRadioGroup({
-        name: 'assets',
+        name: 'coin',
         defaultValue: 'BTC',
-        onChange: setAsset
+        onChange: setCoin
     })
 
     
@@ -33,7 +33,7 @@ const Asset = ({asset,setAsset}: AssetProps) => {
     return (
         <Box>
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Asset</Text>
-            <RadioGroup onChange={setAsset} value={asset} mt="12px" mb="48px">
+            <RadioGroup onChange={setCoin} value={coin} mt="12px" mb="48px">
                 <Flex {...assetGroup} w={"100%"} gap={["20px", "20px", "24px 75px"]} flexWrap={"wrap"}>
                     {coinAssets?.map((value:any) => {
                         const radio = getRadioProps({ value })

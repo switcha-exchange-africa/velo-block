@@ -3,8 +3,9 @@ import { RadioCard } from './RadioGroup'
 
 
 interface PriceTypeProps {
-    priceType: string,
-    setPriceType: React.Dispatch<React.SetStateAction<string>>
+    priceType: string | undefined | any
+    setPriceType: React.Dispatch<React.SetStateAction<string>> | undefined | any
+
 }
 
 const PriceType = ({priceType, setPriceType}:PriceTypeProps) => {

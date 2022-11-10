@@ -19,6 +19,7 @@ const GET_SINGLE_ORDER = "p2p/order/"
 
 const QUICK_TRADE_URL = "trade/quick-trade"
 const GET_EXCHANGE_URL = "rates/markets?base=USD";
+const P2P_ADS = "p2p/ads"
 const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
 const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
 const GET_NIGERIAN_BANKS = "nigeria-banks"
@@ -42,6 +43,7 @@ const endpoints = {
   QUICK_TRADE_URL,
   GET_SINGLE_ORDER,
   GET_EXCHANGE_URL,
+  P2P_ADS,
   P2P_BUY_ADS_URL,
   P2P_SELL_ADS_URL,
   GET_NIGERIAN_BANKS

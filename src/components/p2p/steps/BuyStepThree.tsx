@@ -6,13 +6,57 @@ import {
 } from '@chakra-ui/react';
 import { MouseEventHandler, useState } from 'react';
 import Status from '../radioGroup/Status';
-// import CheckboxConditions from '../radioGroup/Conditions';
 
 const BuyStepThree = (props:any) => {
-    const {handlePreviousStep, asset} = props;
+    const {handlePreviousStep, coin, priceType} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
+
+    const [remark, setRemark] = useState("")
+    const [kyc, setKyc] = useState(true)
+    const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
+    const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
+    const [isPublished] = useState(true)
+    const [isSwitchaMerchant] = useState(true)
+    
+
+
+    // {
+    //     "coin": "USDT",
+    //     "cash": "NGN",
+    //     "remark": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    //     "paymentTimeLimit": "15",
+    //     "priceType": "fixed",
+    //     "type": "buy",
+    //     "price": 800,
+    //     "totalAmount": 10,
+    //     "minLimit": 5,
+    //     "maxLimit": 10,
+    //     "highestPriceOrder": 1000,
+    //     "banks": [
+    //         "63507478af9f9ea9ea9e3cb2"
+    //     ],
+    //     "kyc": true,
+    //     "moreThanDot1Btc": true,
+    //     "registeredZeroDaysAgo": true,
+    //     "isPublished":true,
+    //     "isSwitchaMerchant":true
+    // }
+
+    console.log("responses ",
+        coin,
+        priceType,
+        kyc,
+        registeredZeroDaysAgo,
+        moreThanDot1Btc,
+        isPublished,
+        isSwitchaMerchant,
+        remark,
+        status
+    )
+    
+
     
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -34,8 +78,8 @@ const BuyStepThree = (props:any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"}>Buy</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
-                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Asset</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{asset}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">coin</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
@@ -47,7 +91,7 @@ const BuyStepThree = (props:any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Price Type</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Floating</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{priceType}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating Price Margin</Text>
@@ -75,7 +119,9 @@ const BuyStepThree = (props:any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Counterpart Conditions</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Completed KYC</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{kyc && "Completed KYC"}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{registeredZeroDaysAgo && "Registered 0 days ago"}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{moreThanDot1Btc && "Hold more than 0.01 BTC"}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
@@ -100,8 +146,6 @@ const BuyStepThree = (props:any) => {
                                 Confirm to Post
                             </Button>
                         </Flex>
-
-
                     </ModalBody>
 
                 </ModalContent>
@@ -114,19 +158,6 @@ const BuyStepThree = (props:any) => {
         
     }
     
-    const [remark, setRemark] = useState("")
-    const [kyc, setKyc] = useState(true)
-    const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
-    const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
-    const [isPublished] = useState(true)
-    const [isSwitchaMerchant] = useState(true)
-    
-
-
-    console.log("responses ", kyc, registeredZeroDaysAgo, moreThanDot1Btc, isPublished, isSwitchaMerchant)
-    console.log(status)
-    console.log(remark)
-
 
     return (
 
