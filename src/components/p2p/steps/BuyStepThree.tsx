@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { MouseEventHandler, useState } from 'react';
 import Status from '../radioGroup/Status';
+// import CheckboxConditions from '../radioGroup/Conditions';
 
 const BuyStepThree = (props:any) => {
     const {handlePreviousStep} = props;
@@ -111,10 +112,20 @@ const BuyStepThree = (props:any) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // handleNextStep()
         
     }
     
+    const [kyc, setKyc] = useState(true)
+    const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
+    const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
+    const [isPublished] = useState(true)
+    const [isSwitchaMerchant] = useState(true)
+    
+
+
+    console.log("responses ", kyc, registeredZeroDaysAgo, moreThanDot1Btc, isPublished, isSwitchaMerchant)
+
+
     return (
 
         <>
@@ -157,12 +168,40 @@ const BuyStepThree = (props:any) => {
                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Counterparty Conditions</Text>  
                         
                             <VStack alignItems={"flex-start"} mt="12px">
-                                <Checkbox defaultChecked fontSize={"14px"} fontWeight={"400"}  iconColor='#8e9bae' colorScheme="#e2e8f0" >Completed KYC</Checkbox>
-                                <Checkbox fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Registered 0 Days ago</Checkbox>
-                                <Checkbox  fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Holdings more than 0.01 BTC</Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"} fontWeight={"400"}
+                                    iconColor='#8e9bae' colorScheme="#e2e8f0"
+                                    isChecked={kyc}
+                                    onChange={(e: any) => setKyc(e.target.checked)}
+                                >
+                                    Completed KYC
+                                </Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"}
+                                    fontWeight={"400"}
+                                    iconColor='#8e9bae'
+                                    colorScheme={"#e2e8f0"}
+                                    isChecked={registeredZeroDaysAgo}
+                                    onChange={(e: any) => setRegisteredZeroDaysAgo(e.target.checked)}
+                                >
+                                    Registered 0 Days ago
+                                </Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"}
+                                    fontWeight={"400"}
+                                    iconColor='#8e9bae'
+                                    colorScheme={"#e2e8f0"}
+                                    isChecked={moreThanDot1Btc}
+                                    onChange={(e: any) => setMoreThanDot1Btc(e.target.checked)}
+                                >
+                                    Holdings more than 0.01 BTC
+                                </Checkbox>
                             </VStack>
                             
                         </Box>
+
+
+                        {/* <CheckboxConditions /> */}
                         
 
                         <Box mt="18px" fontSize={"14px"}>
