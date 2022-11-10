@@ -82,8 +82,9 @@ const BuyStepThree = (props: any) => {
 
     
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
+        console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
