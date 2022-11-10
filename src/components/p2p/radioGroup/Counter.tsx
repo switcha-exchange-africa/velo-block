@@ -1,16 +1,15 @@
 import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, InputLeftElement } from '@chakra-ui/react'
 
 interface InputContainerProps {
-
-    value: number
+    price: number | any
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-    addValue: () => void
-    minusValue: () => void
+    addPrice: () => void
+    minusPrice: () => void
 }
 
 const InputCounter = ({
-    value, handleChange,
-    addValue, minusValue
+    price, handleChange,
+    addPrice, minusPrice
 }: InputContainerProps) => {
     
   
@@ -21,12 +20,12 @@ const InputCounter = ({
             <HStack>
                 <InputGroup size='sm' border="1px solid #8E9BAE" p="9px" borderRadius="5px">
                     <InputLeftElement  mx="5px">
-                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold" onClick={minusValue}>
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold" onClick={minusPrice}>
                             -
                         </Button>
                     </InputLeftElement>
                     <Input
-                        value={value}
+                        value={price}
                         onChange={handleChange}
                         placeholder='₦550.47'
                         type="number"
@@ -35,7 +34,7 @@ const InputCounter = ({
                         textAlign="center"
                     />
                     <InputRightElement mx="5px">
-                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold"   onClick={addValue}>
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold"   onClick={addPrice}>
                             +
                         </Button>
                     </InputRightElement>
