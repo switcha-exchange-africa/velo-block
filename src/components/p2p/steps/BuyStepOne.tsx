@@ -12,7 +12,7 @@ interface BuyStepProps {
     setCoin?: React.SetStateAction<string> | undefined | any
     priceType?: string | undefined | any
     setPriceType?: React.SetStateAction<string> | undefined | any
-    price: string |  any
+    price?: string |  any
     setPrice?: React.SetStateAction<string> | undefined | any
 }
 
