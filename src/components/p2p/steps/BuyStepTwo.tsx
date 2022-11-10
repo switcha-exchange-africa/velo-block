@@ -6,7 +6,7 @@ import {
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
-import { MouseEventHandler, useState } from 'react'
+import { MouseEventHandler} from 'react'
 import { useGetAddedBankQuery } from '../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
@@ -15,7 +15,7 @@ const BuyStepTwo = (props:any) => {
     
     const getAddedBanks:any = useGetAddedBankQuery()
 
-    const { handlePreviousStep, handleNextStep, coin } = props
+    const { handlePreviousStep, handleNextStep, coin, values, setValues, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
@@ -52,16 +52,6 @@ const BuyStepTwo = (props:any) => {
         )
     }
 
-
-    const initialValues = {
-        amount: "",
-        minLimit: "",
-        maxLimit: "",
-        paymentTimeLimit: "15"
-    }
-
-    const [values, setValues] = useState(initialValues)
-    const [banks] = useState<any>([])
 
     const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -107,8 +97,8 @@ const BuyStepTwo = (props:any) => {
                                     isRequired
                                     autoComplete='off' type="number" variant={'outline'}
                                     placeholder={'0'}
-                                    name="amount"
-                                    value={values.amount}
+                                    name="totalAmount"
+                                    value={values.totalAmount}
                                     onChange={handleInputChange}
                                 />
                                 <InputRightElement width={{ md: '120px', base: '100px' }} textAlign={"right"}>

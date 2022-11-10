@@ -6,12 +6,27 @@ import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
 
-
+interface InitialValuesProps {
+    totalAmount: string
+    minLimit: string
+    maxLimit: string
+    paymentTimeLimit: string
+}
 
 const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const [coin, setCoin] = useState('BTC')
     const [priceType, setPriceType] = useState('Fixed')
+
+    const initialValues:InitialValuesProps = {
+        totalAmount: "",
+        minLimit: "",
+        maxLimit: "",
+        paymentTimeLimit: "15"
+    }
+
+    const [values, setValues] = useState(initialValues)
+    const [banks] = useState<any>([])
 
     
     const handleNextStep = () => {
@@ -28,10 +43,28 @@ const BuyAds = () => {
                 return <BuyStepOne handleNextStep={handleNextStep} coin={coin} setCoin={setCoin} priceType={priceType} setPriceType={setPriceType} />
             }
             case 2: {
-                return <BuyStepTwo handlePreviousStep={handlePreviousStep} coin={coin} handleNextStep={handleNextStep} />
+                return (
+                    <BuyStepTwo
+                        handlePreviousStep={handlePreviousStep}
+                        coin={coin}
+                        handleNextStep={handleNextStep}
+                        values={values}
+                        setValues={setValues}
+                        banks={banks}
+                    />
+                )
             }
             case 3: {
-                return <BuyStepThree  handlePreviousStep={handlePreviousStep} coin={coin} priceType={priceType} handleNextStep={handleNextStep} />
+                return (
+                    <BuyStepThree
+                        handlePreviousStep={handlePreviousStep}
+                        coin={coin}
+                        priceType={priceType}
+                        handleNextStep={handleNextStep}
+                        values={values}
+                        banks={banks}
+                    />
+                )
             }
             default:
         }
