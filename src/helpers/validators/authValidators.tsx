@@ -8,6 +8,8 @@ const validateEmail = (value: string,) => {
     return error
 }
 
+
+
 const authValidators = { validateEmail }
 
 export default authValidators
