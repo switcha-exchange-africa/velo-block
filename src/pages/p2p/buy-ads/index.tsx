@@ -46,6 +46,8 @@ const BuyAds = () => {
                         handleNextStep={handleNextStep}
                         coin={coin}
                         setCoin={setCoin}
+                        price={price}
+                        setPrice={setPrice}
                         priceType={priceType}
                         setPriceType={setPriceType}
                     />
@@ -68,6 +70,7 @@ const BuyAds = () => {
                     <BuyStepThree
                         handlePreviousStep={handlePreviousStep}
                         coin={coin}
+                        price={price}
                         priceType={priceType}
                         handleNextStep={handleNextStep}
                         values={values}
