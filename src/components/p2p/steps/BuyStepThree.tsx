@@ -65,9 +65,11 @@ const BuyStepThree = (props: any) => {
         const response:any = await postP2pBuyAds(data) 
         console.log("response of api data ", response)
         if (response?.data?.status == 200) {
+            onClose()
             appAlert.success(`${response?.data?.message}`)
+            router.push("/p2p")
             // getAddedBanks.refetch()
-            // onClose()    
+                
         } if (response?.data?.status != 200) {
             onClose()    
             appAlert.error(`${response?.error?.data?.message}`)
