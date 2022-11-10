@@ -13,8 +13,7 @@ const BuyStepThree = (props:any) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
-    console.log(status)
-
+    
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
@@ -115,6 +114,7 @@ const BuyStepThree = (props:any) => {
         
     }
     
+    const [remark, setRemark] = useState("")
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
     const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
@@ -124,6 +124,8 @@ const BuyStepThree = (props:any) => {
 
 
     console.log("responses ", kyc, registeredZeroDaysAgo, moreThanDot1Btc, isPublished, isSwitchaMerchant)
+    console.log(status)
+    console.log(remark)
 
 
     return (
@@ -146,6 +148,8 @@ const BuyStepThree = (props:any) => {
                             letterSpacing={"0.1em"}
                             color={"#8E9BAE"}
                             mt="12px"
+                            value={remark}
+                            onChange={(e) => setRemark(e.target.value)}
                         />
 
                         
