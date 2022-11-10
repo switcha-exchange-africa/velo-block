@@ -25,7 +25,6 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         setPrice(event.target.value)
     }
     
-        console.log(" observing this value", price)
 
     const addPrice = () => {
         setPrice(price + 1)
