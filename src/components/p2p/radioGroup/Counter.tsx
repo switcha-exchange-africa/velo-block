@@ -1,7 +1,7 @@
 import { Button, HStack, InputGroup, Input, Text, VStack, InputRightElement, InputLeftElement } from '@chakra-ui/react'
 
 interface InputContainerProps {
-    price: number | any
+    price: any
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     addPrice: () => void
     minusPrice: () => void
@@ -25,10 +25,10 @@ const InputCounter = ({
                         </Button>
                     </InputLeftElement>
                     <Input
-                        value={price}
+                        defaultValue={price}
                         onChange={handleChange}
                         placeholder='₦550.47'
-                        type="number"
+                        // type="number"
                         border="none"
                         variant="unstyled"
                         textAlign="center"
