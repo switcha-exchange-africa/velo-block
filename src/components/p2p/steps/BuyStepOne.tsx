@@ -8,13 +8,15 @@ import { InfoOutlineIcon } from '@chakra-ui/icons';
 
 interface BuyStepProps {
     handleNextStep: () => void
+    asset?: any
+    setAsset?: any
 }
 
 
-const BuyStepOne = ({ handleNextStep }: BuyStepProps) => {
+const BuyStepOne = ({ handleNextStep, asset, setAsset }: BuyStepProps) => {
     
     const [value, setValue] = useState<any>('0')
-    const [asset, setAsset] = useState('BTC')
+    // const [asset, setAsset] = useState('BTC')
     const [withCash, setWithCash] = useState('NGN')
     const [priceType, setPriceType] = useState('Fixed')
 
