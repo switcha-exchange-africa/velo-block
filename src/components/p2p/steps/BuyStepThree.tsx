@@ -60,7 +60,6 @@ const BuyStepThree = (props: any) => {
             moreThanDot1Btc: moreThanDot1Btc,
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
-            isSwitchaMerchant:true
         }
         const response:any = await postP2pBuyAds(data) 
         console.log("response of api data ", response)
@@ -129,7 +128,7 @@ const BuyStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values.minLimit.toLocaleString()}NGN - {values.maxLimit.toLocaleString()}NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values.minLimit.toLocaleString()}{coin} - {values.maxLimit.toLocaleString()}{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
