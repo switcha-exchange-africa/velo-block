@@ -10,16 +10,16 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetSellAdsBTCQuery, useGetSellAdsETHQuery, useGetSellAdsUSDCQuery, useGetSellAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import { useGetSellAdsBTCQuery, useGetSellAdsETHQuery, useGetSellAdsQuery, useGetSellAdsUSDCQuery, useGetSellAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetSellAdsUSDTQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetSellAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetSellAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetSellAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetSellAdsQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetSellAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetSellAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetSellAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
 
     
     return (
