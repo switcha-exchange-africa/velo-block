@@ -79,8 +79,6 @@ const BuyStepThree = (props: any) => {
 
     
     
-
-    
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
