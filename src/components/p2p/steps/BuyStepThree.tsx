@@ -8,7 +8,7 @@ import { MouseEventHandler, useState } from 'react';
 import Status from '../radioGroup/Status';
 
 const BuyStepThree = (props:any) => {
-    const {handlePreviousStep, coin, priceType} = props;
+    const {handlePreviousStep, coin, priceType, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
@@ -46,15 +46,25 @@ const BuyStepThree = (props:any) => {
 
     console.log("responses ",
         coin,
+        banks,
         priceType,
         kyc,
+        values.totalAmount,
+        values.minLimit,
+        values.maxLimit,
+        values.paymentTimeLimit,
         registeredZeroDaysAgo,
         moreThanDot1Btc,
         isPublished,
         isSwitchaMerchant,
-        remark,
-        status
+        remark
+        // hightestPriceOrder: "1000"
     )
+
+
+    const data = {
+        
+    }
     
 
     
@@ -108,11 +118,11 @@ const BuyStepThree = (props:any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>20,000.00NGN - 200,000.00NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values.minLimit.toLocaleString()}NGN - {values.maxLimit.toLocaleString()}NGN</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>2,000.00USDT</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values.totalAmount}{coin}</Text>
                             </VStack>
                         </HStack>
 
