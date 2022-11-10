@@ -29,7 +29,7 @@ const BuyAds = () => {
                 return <BuyStepTwo handlePreviousStep={handlePreviousStep} asset={asset} handleNextStep={handleNextStep} />
             }
             case 3: {
-                return <BuyStepThree handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+                return <BuyStepThree  handlePreviousStep={handlePreviousStep} asset={asset} handleNextStep={handleNextStep} />
             }
             default:
         }
