@@ -10,7 +10,9 @@ import { useState } from 'react';
 
 const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
-    const [asset, setAsset] = useState('BTC')
+    const [coin, setCoin] = useState('BTC')
+    const [priceType, setPriceType] = useState('Fixed')
+
     
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1)
@@ -23,13 +25,13 @@ const BuyAds = () => {
     const displayStep = (step: number) => {
         switch (step) {
             case 1: {
-                return <BuyStepOne handleNextStep={handleNextStep} asset={asset} setAsset={setAsset} />
+                return <BuyStepOne handleNextStep={handleNextStep} coin={coin} setCoin={setCoin} priceType={priceType} setPriceType={setPriceType} />
             }
             case 2: {
-                return <BuyStepTwo handlePreviousStep={handlePreviousStep} asset={asset} handleNextStep={handleNextStep} />
+                return <BuyStepTwo handlePreviousStep={handlePreviousStep} coin={coin} handleNextStep={handleNextStep} />
             }
             case 3: {
-                return <BuyStepThree  handlePreviousStep={handlePreviousStep} asset={asset} handleNextStep={handleNextStep} />
+                return <BuyStepThree  handlePreviousStep={handlePreviousStep} coin={coin} priceType={priceType} handleNextStep={handleNextStep} />
             }
             default:
         }
