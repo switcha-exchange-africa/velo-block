@@ -61,6 +61,21 @@ export const adsOrdersApi = baseApi.injectEndpoints({
                 return responseData;
             },
         }),
+
+
+
+        createBuyAds: builder.mutation<any, any>({
+            query: (body) => {
+                return {
+                    url: `${endpoints.P2P_ADS}`,
+                    method: "POST",
+                    body: { ...body },
+                };
+            },
+            transformResponse: (responseData: any) => {
+                return responseData;
+            },
+        }),
     })
 })
 
@@ -75,6 +90,7 @@ export const {
     useGetSellAdsUSDTQuery,
     useGetSellAdsBTCQuery,
     useGetSellAdsETHQuery,
-    useGetSellAdsUSDCQuery
+    useGetSellAdsUSDCQuery,
 
+    useCreateBuyAdsMutation
 } = adsOrdersApi

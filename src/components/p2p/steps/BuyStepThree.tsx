@@ -1,23 +1,90 @@
-import {  QuestionOutlineIcon } from '@chakra-ui/icons';
-import {
-    Box, Button, Flex,
-    HStack, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl
-} from '@chakra-ui/react';
-import { MouseEventHandler, useState } from 'react';
+    import {  QuestionOutlineIcon } from '@chakra-ui/icons';
+    import {
+        Box, Button, Flex,
+        HStack, Modal, ModalBody, ModalCloseButton,
+        ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl
+    } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+    import { MouseEventHandler, useState } from 'react';
+import appAlert from '../../../helpers/appAlert';
+import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
 import Status from '../radioGroup/Status';
 
-const BuyStepThree = (props:any) => {
-    const {handlePreviousStep} = props;
+const BuyStepThree = (props: any) => {
+    const router = useRouter()
+    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     
-    console.log(status)
 
+    const [remark, setRemark] = useState("")
+    const [kyc, setKyc] = useState(true)
+    const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
+    const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
+    const [isPublished] = useState(true)
+    const [isSwitchaMerchant] = useState(true)
+    
+
+    console.log("responses ",
+        coin,
+        banks,
+        priceType,
+        kyc,
+        values.totalAmount,
+        values.minLimit,
+        values.maxLimit,
+        values.paymentTimeLimit,
+        registeredZeroDaysAgo,
+        moreThanDot1Btc,
+        isPublished,
+        isSwitchaMerchant,
+        remark
+    )
+
+    const [postP2pBuyAds] = useCreateBuyAdsMutation()
+    const handleBuyAds = async () => {
+        const data = {
+            type: "buy",
+            cash: "NGN",
+            coin: coin,
+            remark: remark,
+            paymentTimeLimit: values.paymentTimeLimit,
+            priceType: priceType,
+            price: parseInt(price),
+            totalAmount: parseInt(values.totalAmount),
+            minLimit: parseInt(values.minLimit),
+            maxLimit: parseInt(values.maxLimit),
+            highestPriceOrder: parseInt("1000"),
+            banks: banks,
+            kyc: kyc,
+            moreThanDot1Btc: moreThanDot1Btc,
+            registeredZeroDaysAgo: registeredZeroDaysAgo,
+            isPublished:true,
+            isSwitchaMerchant:true
+        }
+        const response:any = await postP2pBuyAds(data) 
+        console.log("response of api data ", response)
+        if (response?.data?.status == 200) {
+            onClose()
+            appAlert.success(`${response?.data?.message}`)
+            router.push("/p2p")
+            // getAddedBanks.refetch()
+                
+        } if (response?.data?.status != 200) {
+            onClose()    
+            appAlert.error(`${response?.error?.data?.message}`)
+            router.push("/p2p")
+        } 
+    }
+
+    
+    
+
+    
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
@@ -34,8 +101,8 @@ const BuyStepThree = (props:any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"}>Buy</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
-                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Asset</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>USDT</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">coin</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
@@ -47,7 +114,7 @@ const BuyStepThree = (props:any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Price Type</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Floating</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{priceType}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating Price Margin</Text>
@@ -55,7 +122,7 @@ const BuyStepThree = (props:any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>484.85NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price}NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -64,18 +131,20 @@ const BuyStepThree = (props:any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>20,000.00NGN - 200,000.00NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values.minLimit.toLocaleString()}NGN - {values.maxLimit.toLocaleString()}NGN</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>2,000.00USDT</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values.totalAmount}{coin}</Text>
                             </VStack>
                         </HStack>
 
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Counterpart Conditions</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Completed KYC</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{kyc && "Completed KYC"}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{registeredZeroDaysAgo && "Registered 0 days ago"}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{moreThanDot1Btc && "Hold more than 0.01 BTC"}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
@@ -93,15 +162,13 @@ const BuyStepThree = (props:any) => {
 
 
                         <Flex justifyContent={"space-between"} px="10px" mt="24px">
-                            <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
+                            <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={onOpen}>
+                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
                                 Confirm to Post
                             </Button>
                         </Flex>
-
-
                     </ModalBody>
 
                 </ModalContent>
@@ -111,10 +178,10 @@ const BuyStepThree = (props:any) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // handleNextStep()
         
     }
     
+
     return (
 
         <>
@@ -135,6 +202,8 @@ const BuyStepThree = (props:any) => {
                             letterSpacing={"0.1em"}
                             color={"#8E9BAE"}
                             mt="12px"
+                            value={remark}
+                            onChange={(e) => setRemark(e.target.value)}
                         />
 
                         
@@ -157,12 +226,40 @@ const BuyStepThree = (props:any) => {
                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Counterparty Conditions</Text>  
                         
                             <VStack alignItems={"flex-start"} mt="12px">
-                                <Checkbox defaultChecked fontSize={"14px"} fontWeight={"400"}  iconColor='#8e9bae' colorScheme="#e2e8f0" >Completed KYC</Checkbox>
-                                <Checkbox fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Registered 0 Days ago</Checkbox>
-                                <Checkbox  fontSize={"14px"} fontWeight={"400"} iconColor='#8e9bae' colorScheme={"#e2e8f0"} >Holdings more than 0.01 BTC</Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"} fontWeight={"400"}
+                                    iconColor='#8e9bae' colorScheme="#e2e8f0"
+                                    isChecked={kyc}
+                                    onChange={(e: any) => setKyc(e.target.checked)}
+                                >
+                                    Completed KYC
+                                </Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"}
+                                    fontWeight={"400"}
+                                    iconColor='#8e9bae'
+                                    colorScheme={"#e2e8f0"}
+                                    isChecked={registeredZeroDaysAgo}
+                                    onChange={(e: any) => setRegisteredZeroDaysAgo(e.target.checked)}
+                                >
+                                    Registered 0 Days ago
+                                </Checkbox>
+                                <Checkbox
+                                    fontSize={"14px"}
+                                    fontWeight={"400"}
+                                    iconColor='#8e9bae'
+                                    colorScheme={"#e2e8f0"}
+                                    isChecked={moreThanDot1Btc}
+                                    onChange={(e: any) => setMoreThanDot1Btc(e.target.checked)}
+                                >
+                                    Holdings more than 0.01 BTC
+                                </Checkbox>
                             </VStack>
                             
                         </Box>
+
+
+                        {/* <CheckboxConditions /> */}
                         
 
                         <Box mt="18px" fontSize={"14px"}>

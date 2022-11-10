@@ -6,18 +6,16 @@ import {
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
-import { MouseEventHandler, useState } from 'react'
+import { MouseEventHandler} from 'react'
 import { useGetAddedBankQuery } from '../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
-
-
 const BuyStepTwo = (props:any) => {
     
-    const getAddedBanks = useGetAddedBankQuery()
+    const getAddedBanks:any = useGetAddedBankQuery()
 
-    const { handlePreviousStep, handleNextStep } = props
+    const { handlePreviousStep, handleNextStep, coin, values, setValues, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
@@ -54,24 +52,6 @@ const BuyStepTwo = (props:any) => {
         )
     }
 
-    
-
-
-    const initialValues = {
-        amount: "",
-        minLimit: "",
-        maxLimit: "",
-        paymentTimeLimit: "15",
-        // banks: [
-        //     {
-        //         bankName: "",
-        //         bankCode: "",
-        //         img: ""
-        //     }
-        // ]
-    }
-
-    const [values, setValues] = useState(initialValues)
 
     const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target
@@ -81,11 +61,27 @@ const BuyStepTwo = (props:any) => {
         })
     }
 
+    const getAddedBanksIdValues = () => {
+        const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
+        for (let i = 0; i < ids.length; i++) {
+            banks.push(ids[i])
+        }
+    }
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        getAddedBanksIdValues()
         handleNextStep()
-        console.log(values)
+
+        const data = {
+            ...values,
+            banks: banks
+        }
+        console.log("second data", data)
     }
+
+
 
     return (
         <>
@@ -98,24 +94,26 @@ const BuyStepTwo = (props:any) => {
                         <Flex w={["100%", "100%", "50%"]} direction={"column"} alignItems={"flex-end"}>
                             <InputGroup>
                                 <Input
+                                    isRequired
                                     autoComplete='off' type="number" variant={'outline'}
                                     placeholder={'0'}
-                                    name="amount"
-                                    value={values.amount}
+                                    name="totalAmount"
+                                    value={values.totalAmount}
                                     onChange={handleInputChange}
                                 />
-                                <InputRightElement width={{ md: '60px', base: '70px' }}>
-                                    <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
+                                <InputRightElement width={{ md: '120px', base: '100px' }} textAlign={"right"}>
+                                    <Text fontSize={"14px"}  fontWeight={"400"}>{coin}</Text>
                                 </InputRightElement>
                             </InputGroup>
                             <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
                         </Flex>
                         
                         <HStack mt="24px"  w={["100%", "100%", "50%"]}>
-                            <Box w="50%" fontSize={"14px"} fontWeight={"600"}>
+                            <Box w="55%" fontSize={"14px"} fontWeight={"600"}>
                                 <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                                 <InputGroup mt="12px">
                                     <Input
+                                        isRequired
                                         autoComplete='off'
                                         type="number"
                                         variant={'outline'} placeholder={'0'}
@@ -123,8 +121,8 @@ const BuyStepTwo = (props:any) => {
                                         value={values.minLimit}
                                         onChange={handleInputChange}
                                     />
-                                    <InputRightElement width={{ md: '60px', base: '62px' }}>
-                                        <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
+                                    <InputRightElement width={{ md: '60px', base: '90px' }}>
+                                        <Text fontSize={"12px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
                             
@@ -135,10 +133,11 @@ const BuyStepTwo = (props:any) => {
                             </Box>
                         
 
-                            <Box w="50%" fontSize={"14px"} fontWeight={"600"}>
+                            <Box w="55%" fontSize={"14px"} fontWeight={"600"}>
                                 <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Order Limit</Text>
                                 <InputGroup mt="12px" >
                                     <Input
+                                        isRequired
                                         autoComplete='off'
                                         type="number"
                                         variant={'outline'}
@@ -147,8 +146,8 @@ const BuyStepTwo = (props:any) => {
                                         value={values.maxLimit}
                                         onChange={handleInputChange}
                                     />
-                                    <InputRightElement width={{ md: '60px', base: '62px' }}>
-                                        <Text fontSize={"14px"} fontWeight={"400"}>USDT</Text>
+                                    <InputRightElement width={{ md: '60px', base: '90px' }}>
+                                        <Text fontSize={"12px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
                             </Box>
@@ -163,8 +162,8 @@ const BuyStepTwo = (props:any) => {
                                 {/* rendering the data */}
                                 {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                     getAddedBanks?.data?.data?.map((item:any) => (
-                                        <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["40%", "40%", "136px"]} >
-                                            {item?.name.substring(0, 15)}
+                                        <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                            {item?.name.substring(0, 13)}
                                             <CloseIcon
                                                 mr="5px"
                                                 color={"#000000"}
@@ -184,7 +183,6 @@ const BuyStepTwo = (props:any) => {
                                                 color={"#FB5E04"}
                                                 w={"10px"}
                                                 h={"10px"}
-                                            
                                             />
                                             Add
                                         </Button>
@@ -203,9 +201,7 @@ const BuyStepTwo = (props:any) => {
                                 )
                                     
                                 }
-                                    
-                                {/* </Tooltip> */}
-                                
+                            
                             </Flex>
                             
                         </Box>
@@ -219,11 +215,7 @@ const BuyStepTwo = (props:any) => {
                             borderRadius="5px"
                             color='black'
                             placeholder='15 Min'
-                            // value={values.paymentTimeLimit}
-                            // onChange={handleInputChange}
                         />
-
-
 
                         <Flex  direction={"column"} mt={"24px"} justifyContent={"space-between"}  p={"12px"} w={"100%"} bg="#FFFFFF" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["flex", "flex", "none"]}>
                             <Flex mb="24px">

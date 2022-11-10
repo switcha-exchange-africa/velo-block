@@ -6,11 +6,30 @@ import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
 
-
+interface InitialValuesProps {
+    totalAmount: string
+    minLimit: string
+    maxLimit: string
+    paymentTimeLimit: string
+}
 
 const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
+    const [coin, setCoin] = useState('BTC')
+    const [priceType, setPriceType] = useState('fixed')
+    const [price, setPrice] = useState<any>('0.00')
+    
+    const initialValues:InitialValuesProps = {
+        totalAmount: "",
+        minLimit: "",
+        maxLimit: "",
+        paymentTimeLimit: "15"
+    }
 
+    const [values, setValues] = useState(initialValues)
+    const [banks] = useState<any>([])
+
+    
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1)
     }
@@ -22,13 +41,42 @@ const BuyAds = () => {
     const displayStep = (step: number) => {
         switch (step) {
             case 1: {
-                return <BuyStepOne handleNextStep={handleNextStep}  />
+                return (
+                    <BuyStepOne
+                        handleNextStep={handleNextStep}
+                        coin={coin}
+                        setCoin={setCoin}
+                        price={price}
+                        setPrice={setPrice}
+                        priceType={priceType}
+                        setPriceType={setPriceType}
+                    />
+                )
             }
             case 2: {
-                return <BuyStepTwo handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+                return (
+                    <BuyStepTwo
+                        handlePreviousStep={handlePreviousStep}
+                        coin={coin}
+                        handleNextStep={handleNextStep}
+                        values={values}
+                        setValues={setValues}
+                        banks={banks}
+                    />
+                )
             }
             case 3: {
-                return <BuyStepThree handlePreviousStep={handlePreviousStep} handleNextStep={handleNextStep} />
+                return (
+                    <BuyStepThree
+                        handlePreviousStep={handlePreviousStep}
+                        coin={coin}
+                        price={price}
+                        priceType={priceType}
+                        handleNextStep={handleNextStep}
+                        values={values}
+                        banks={banks}
+                    />
+                )
             }
             default:
         }
