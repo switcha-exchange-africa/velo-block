@@ -3,13 +3,21 @@ import { VStack, Text, Flex, FormControl, FormLabel, InputGroup, Input, InputRig
 import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React from 'react'
+import appAlert from '../../../helpers/appAlert'
+import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
+import { clearForgotPasswordCredentials } from '../../../redux/features/auth/authSlice'
+import { useResetPasswordMutation } from '../../../redux/services/auth.service'
 
 const ChangePassword = () => {
     const router = useRouter()
     const [passwordChecks, setPasswordChecks] = React.useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = React.useState<string[]>([])
     const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
+
+    const { fpemail, fptoken } = useAppSelector((state) => state.auth)
+    const dispatch = useAppDispatch()
+    const [resetPassword, { isLoading }] = useResetPasswordMutation()
     const validatePassword = (value: string,) => {
         let error
         let passwordChecks: string[] = []
@@ -86,36 +94,30 @@ const ChangePassword = () => {
                 <Formik
                     initialValues={{ password: '', confirmPassword: '' }}
 
-                    onSubmit={async () => {
+                    onSubmit={async (values, { }) => {
                         router.push('/signin')
-                        // try {
-                        //     setSubmitting(true)
-                        //     const response: any = await login({ email: values.email, password: values.password })
-                        //     // alert(JSON.stringify(response))
-                        //     if (response?.data?.status == 201 || response?.data?.status == 200) {
-                        //         setSubmitting(false)
-                        //         dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                        //         // alert(JSON.stringify(response?.data?.data))
-                        //         appAlert.success('Login Successful')
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         dispatch(clearFromLocalStorage())
-                        //         router.replace('/dashboard')
+                        try {
+
+                            const response: any = await resetPassword({ email: fpemail, password: values.password, token: fptoken })
+                            // alert(JSON.stringify(response))
+                            if (response?.data?.status == 201 || response?.data?.status == 200) {
 
 
-                        //     } else if (response?.data?.status == 202) {
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         setShouldSendOtp(true)
-                        //         sendOtp.refetch()
-                        //         // alert(JSON.stringify(res))
-                        //         router.replace('/verify-email')
-                        //     } else {
-                        //         setSubmitting(false)
-                        //         appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                        //     }
-                        // } catch (error) {
-                        //     setSubmitting(false)
-                        //     console.log(error)
-                        // }
+                                // alert(JSON.stringify(response?.data?.data))
+                                appAlert.success('Reset Password Successful, Login to continue')
+
+                                dispatch(clearForgotPasswordCredentials())
+                                router.replace('/dashboard')
+
+
+                            } else {
+
+                                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                            }
+                        } catch (error) {
+
+                            console.log(error)
+                        }
 
                     }}
                     validateOnChange
@@ -190,7 +192,7 @@ const ChangePassword = () => {
 
 
                                 <Flex>
-                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} mt={'2'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() => { handleSubmit() }}>Change Password </Text>
+                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} mt={'2'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() => { handleSubmit() }}>{isLoading ? 'Please wait...' : 'Change Password'}  </Text>
 
 
 

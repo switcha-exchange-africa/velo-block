@@ -53,6 +53,31 @@ export const authApi = baseApi.injectEndpoints({
       //   return responseData;
       // },
     }),
+    forgotPassword: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `auth/recover-password`,
+          method: "POST",
+          body: { ...body },
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    resetPassword: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `auth/reset-password?email=${body.email}&token=${body.token}`,
+          method: "POST",
+          body: { password: body.password },
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -63,4 +88,6 @@ export const {
   useSendOtpQuery,
   useGetUserQuery,
   useLazyGetUserQuery,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApi;

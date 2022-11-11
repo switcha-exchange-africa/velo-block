@@ -3,10 +3,15 @@ import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
+import appAlert from '../../../helpers/appAlert'
+import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
+import { useForgotPasswordMutation } from '../../../redux/services/auth.service'
 
 const VerificationCode = () => {
     const router = useRouter()
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
+    const { fpemail } = useAppSelector((state) => state.auth)
     const validatePin = (value: string,) => {
         let error
         if (!value) {
@@ -25,36 +30,28 @@ const VerificationCode = () => {
                 <Formik
                     initialValues={{ code: '', }}
 
-                    onSubmit={async () => {
+                    onSubmit={async (values, { }) => {
                         router.push('/forgot-password/change-password')
-                        // try {
-                        //     setSubmitting(true)
-                        //     const response: any = await login({ email: values.email, password: values.password })
-                        //     // alert(JSON.stringify(response))
-                        //     if (response?.data?.status == 201 || response?.data?.status == 200) {
-                        //         setSubmitting(false)
-                        //         dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                        //         // alert(JSON.stringify(response?.data?.data))
-                        //         appAlert.success('Login Successful')
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         dispatch(clearFromLocalStorage())
-                        //         router.replace('/dashboard')
+                        try {
+
+                            const response: any = await forgotPassword({ email: fpemail, code: values.code })
+                            // alert(JSON.stringify(response))
+                            if (response?.data?.status == 201 || response?.data?.status == 200) {
 
 
-                        //     } else if (response?.data?.status == 202) {
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         setShouldSendOtp(true)
-                        //         sendOtp.refetch()
-                        //         // alert(JSON.stringify(res))
-                        //         router.replace('/verify-email')
-                        //     } else {
-                        //         setSubmitting(false)
-                        //         appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                        //     }
-                        // } catch (error) {
-                        //     setSubmitting(false)
-                        //     console.log(error)
-                        // }
+                                // alert(JSON.stringify(response?.data?.data))
+                                appAlert.success(`Code Verified`)
+
+                                router.push('/forgot-password/verification-code')
+                            }
+                            else {
+
+                                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                            }
+                        } catch (error) {
+
+                            console.log(error)
+                        }
 
                     }}
                     validateOnChange
@@ -65,7 +62,7 @@ const VerificationCode = () => {
                         // handleChange,
                         // handleBlur,
                         handleSubmit,
-                        isSubmitting,
+                        // isSubmitting,
                         // values
                         /* and other goodies */
                     }) => (
@@ -83,7 +80,7 @@ const VerificationCode = () => {
 
                                 <Box pt={'6'}></Box>
 
-                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit}>
+                                <MainAppButton isLoading={isLoading} onClick={handleSubmit}>
                                     Verify
                                 </MainAppButton>
 
