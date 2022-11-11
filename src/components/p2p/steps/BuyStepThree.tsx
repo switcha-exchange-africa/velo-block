@@ -5,9 +5,10 @@
         ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl
     } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-    import { MouseEventHandler, useState } from 'react';
+    import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../helpers/appAlert';
 import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
+import CheckboxConditions from '../radioGroup/Conditions';
 import Status from '../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
@@ -21,32 +22,28 @@ const BuyStepThree = (props: any) => {
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
     const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
-    const [isPublished] = useState(true)
-    const [isSwitchaMerchant] = useState(true)
     
+    let [changeUSDTtronCoin, setChangeUSDTtronCoin] = useState(coin)
 
-    console.log("responses ",
-        coin,
-        banks,
-        priceType,
-        kyc,
-        values.totalAmount,
-        values.minLimit,
-        values.maxLimit,
-        values.paymentTimeLimit,
-        registeredZeroDaysAgo,
-        moreThanDot1Btc,
-        isPublished,
-        isSwitchaMerchant,
-        remark
-    )
+    const checkCoin = (coin:string) => {
+        if (coin === "USDT-TRON") {
+            setChangeUSDTtronCoin("USDT_TRON")
+        } else {
+            setChangeUSDTtronCoin(coin)
+        }
+    }
+
+    useEffect(() => {
+      checkCoin(coin)
+    }, [coin])
+    
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     const handleBuyAds = async () => {
         const data = {
             type: "buy",
             cash: "NGN",
-            coin: coin,
+            coin: changeUSDTtronCoin,
             remark: remark,
             paymentTimeLimit: values.paymentTimeLimit,
             priceType: priceType,
