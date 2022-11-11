@@ -117,7 +117,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(price).toLocaleString()}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -158,7 +158,6 @@ const BuyStepThree = (props: any) => {
                                         </Flex>        
                                     ))
                                 )}
-                                    {/* <Text fontSize={"14px"} fontWeight={"600"}>Kuda Bank</Text> */}
                                 
                                 </Flex>
                                 <Text fontSize={"14px"} fontWeight={"600"}>Bank Transfer</Text>
