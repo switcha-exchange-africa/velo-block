@@ -197,7 +197,7 @@ const TableComponent = ({
                                     <Text fontSize="14px">{api?.price.toLocaleString()}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
                                 </Td>
                                 <Td fontSize="14px">{api?.totalAmount.toLocaleString()}</Td>
-                                <Td fontSize="14px">{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin}</Td>
+                                <Td fontSize="14px">{api?.minLimit.toLocaleString()}&nbsp;-&nbsp;{api?.maxLimit.toLocaleString()}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
                                 <Td fontSize="14px">
                                     <Text
                                         fontSize={"12px"}
