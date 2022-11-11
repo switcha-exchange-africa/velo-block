@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../helpers/appAlert';
 import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
-import CheckboxConditions from '../radioGroup/Conditions';
 import Status from '../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
