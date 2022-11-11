@@ -117,7 +117,6 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                     </Button>
                 </Flex>
             </FormControl>
-             
         </form>
     )
 }
