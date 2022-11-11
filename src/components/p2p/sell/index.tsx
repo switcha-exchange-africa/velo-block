@@ -274,7 +274,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             <TableComponent
                                 buttonTitle="SELL BTC"
                                 backgroundColor="#EB4335"    
-                                apiData={usdt}
+                                apiData={btc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
@@ -289,7 +289,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             <TableComponent
                                 buttonTitle="SELL ETH"
                                 backgroundColor="#EB4335"    
-                                apiData={usdt}
+                                apiData={eth}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
@@ -317,7 +317,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             <TableComponent
                                 buttonTitle="SELL USDC"
                                 backgroundColor="#EB4335"    
-                                apiData={usdt}
+                                apiData={usdc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
@@ -327,7 +327,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
 
 
                     {/* Tab panel 5 */}
-                    <TabPanel px={["0", "0px", "28px", "28px"]}>
+                    <TabPanel paddingLeft={0}>
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="SELL USDT-TRON"
