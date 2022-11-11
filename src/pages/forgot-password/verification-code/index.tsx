@@ -4,14 +4,16 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import appAlert from '../../../helpers/appAlert'
-import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import AuthLayout from '../../../layouts/auth/AuthLayout'
+import { setForgotPasswordCredentials } from '../../../redux/features/auth/authSlice'
 import { useForgotPasswordMutation } from '../../../redux/services/auth.service'
 
 const VerificationCode = () => {
     const router = useRouter()
     const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
     const { fpemail } = useAppSelector((state) => state.auth)
+    const dispatch = useAppDispatch()
     const validatePin = (value: string,) => {
         let error
         if (!value) {
@@ -31,18 +33,18 @@ const VerificationCode = () => {
                     initialValues={{ code: '', }}
 
                     onSubmit={async (values, { }) => {
-                        router.push('/forgot-password/change-password')
+
                         try {
 
                             const response: any = await forgotPassword({ email: fpemail, code: values.code })
                             // alert(JSON.stringify(response))
                             if (response?.data?.status == 201 || response?.data?.status == 200) {
 
-
-                                // alert(JSON.stringify(response?.data?.data))
+                                dispatch(setForgotPasswordCredentials({ email: fpemail, fptoken: response?.data?.data }))
+                                // alert(JSON.stringify(response?.data))
                                 appAlert.success(`Code Verified`)
 
-                                router.push('/forgot-password/verification-code')
+                                router.push('/forgot-password/change-password')
                             }
                             else {
 

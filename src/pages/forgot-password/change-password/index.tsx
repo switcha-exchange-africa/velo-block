@@ -95,7 +95,7 @@ const ChangePassword = () => {
                     initialValues={{ password: '', confirmPassword: '' }}
 
                     onSubmit={async (values, { }) => {
-                        router.push('/signin')
+
                         try {
 
                             const response: any = await resetPassword({ email: fpemail, password: values.password, token: fptoken })
@@ -107,7 +107,7 @@ const ChangePassword = () => {
                                 appAlert.success('Reset Password Successful, Login to continue')
 
                                 dispatch(clearForgotPasswordCredentials())
-                                router.replace('/dashboard')
+                                router.replace('/signin')
 
 
                             } else {

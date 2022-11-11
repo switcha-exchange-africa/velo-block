@@ -31,7 +31,7 @@ const ForgotPassword = () => {
                             if (response?.data?.status == 201 || response?.data?.status == 200 || response?.data?.status == 202) {
 
                                 dispatch(setForgotPasswordCredentials({ email: values.email, fptoken: response?.data?.data }))
-                                // alert(JSON.stringify(response?.data?.data))
+                                // alert(JSON.stringify(response?.data))
                                 appAlert.success(`${response?.data?.message}`)
 
                                 router.push('/forgot-password/verification-code')
