@@ -10,17 +10,19 @@ import {
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
-import { useGetBuyAdsBTCQuery, useGetBuyAdsETHQuery, useGetBuyAdsUSDCQuery, useGetBuyAdsUSDTQuery } from '../../../redux/services/p2p-ads.service';
+import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
+    
+    
     return (
         <Box  position="relative">
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} >
@@ -211,7 +213,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
             </Modal>
             
             <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
-                <TabList gap={"60px"}>
+                <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
                         _selected={{
                         color: "black",
@@ -251,6 +253,16 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         fontSize={"small"}
                     >
                         USDC
+                    </Tab>
+                    <Tab
+                        _selected={{
+                        color: "black",
+                        borderBottom: "1px solid #FB5E04",
+                        }}
+                        padding={0}
+                        fontSize={"small"}
+                    >
+                        USDT-TRON
                     </Tab>
                 </TabList>
 
@@ -304,6 +316,20 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 buttonTitle="Buy USDC"
                                 backgroundColor="#22C36B"
                                 apiData={usdc}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
+                                onClick={onOpen}
+                            />      
+                        ) : "NO BUY ADS YET"}
+                    </TabPanel>
+
+                    <TabPanel paddingLeft={0}>
+                        <P2pTopfilter routeName='buy-ads'/>
+                        {usdt_tron?.data?.length !== 0 ? (
+                            <TableComponent
+                                buttonTitle="Buy USDT-TRON"
+                                backgroundColor="#22C36B"
+                                apiData={usdt_tron}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}

@@ -2,11 +2,12 @@
     import {
         Box, Button, Flex,
         HStack, Modal, ModalBody, ModalCloseButton,
-        ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl
+        ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl, Spinner
     } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-    import { MouseEventHandler, useState } from 'react';
+    import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../helpers/appAlert';
+import { useGetAddedBankQuery } from '../../../redux/services/bank.service';
 import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
 import Status from '../radioGroup/Status';
 
@@ -15,38 +16,36 @@ const BuyStepThree = (props: any) => {
     const {handlePreviousStep, price, coin, priceType, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
+    const getAddedBanks:any = useGetAddedBankQuery()
     
 
     const [remark, setRemark] = useState("")
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
     const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
-    const [isPublished] = useState(true)
-    const [isSwitchaMerchant] = useState(true)
+    
+    let [changeUSDTtronCoin, setChangeUSDTtronCoin] = useState(coin)
+
+    const checkCoin = (coin:string) => {
+        if (coin === "USDT-TRON") {
+            setChangeUSDTtronCoin("USDT_TRON")
+        } else {
+            setChangeUSDTtronCoin(coin)
+        }
+    }
+
+    useEffect(() => {
+      checkCoin(coin)
+    }, [coin])
     
 
-    console.log("responses ",
-        coin,
-        banks,
-        priceType,
-        kyc,
-        values.totalAmount,
-        values.minLimit,
-        values.maxLimit,
-        values.paymentTimeLimit,
-        registeredZeroDaysAgo,
-        moreThanDot1Btc,
-        isPublished,
-        isSwitchaMerchant,
-        remark
-    )
-
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
+    
     const handleBuyAds = async () => {
         const data = {
             type: "buy",
             cash: "NGN",
-            coin: coin,
+            coin: changeUSDTtronCoin,
             remark: remark,
             paymentTimeLimit: values.paymentTimeLimit,
             priceType: priceType,
@@ -60,10 +59,8 @@ const BuyStepThree = (props: any) => {
             moreThanDot1Btc: moreThanDot1Btc,
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
-            isSwitchaMerchant:true
         }
         const response:any = await postP2pBuyAds(data) 
-        console.log("response of api data ", response)
         if (response?.data?.status == 200) {
             onClose()
             appAlert.success(`${response?.data?.message}`)
@@ -78,8 +75,6 @@ const BuyStepThree = (props: any) => {
     }
 
     
-    
-
     
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -122,7 +117,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price}NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(price).toLocaleString()}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -131,15 +126,15 @@ const BuyStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values.minLimit.toLocaleString()}NGN - {values.maxLimit.toLocaleString()}NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.minLimit).toLocaleString()}&nbsp;{coin} - {parseInt(values.maxLimit).toLocaleString()}&nbsp;{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values.totalAmount}{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.totalAmount).toLocaleString()}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
 
-                        <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
+                        <HStack justifyContent="space-between" alignItems="flex-start" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Counterpart Conditions</Text>
                                 <Text fontSize={"14px"} fontWeight={"600"}>{kyc && "Completed KYC"}</Text>
@@ -155,7 +150,16 @@ const BuyStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Kuda Bank</Text>
+                                <Flex w="100%" flexWrap="wrap">
+                                    {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                    getAddedBanks?.data?.data?.map((item:any) => (
+                                        <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
+                                        </Flex>        
+                                    ))
+                                )}
+                                
+                                </Flex>
                                 <Text fontSize={"14px"} fontWeight={"600"}>Bank Transfer</Text>
                             </VStack>
                         </HStack>

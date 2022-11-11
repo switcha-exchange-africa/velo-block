@@ -1,29 +1,26 @@
 import { Box,  Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
-import {
-    useGetBuyAdsUSDTQuery,
-    useGetBuyAdsBTCQuery,
-    useGetBuyAdsETHQuery,
-    useGetBuyAdsUSDCQuery,
-} from "../../../redux/services/p2p-ads.service";
+import {useGetBuyAdsQuery} from "../../../redux/services/p2p-ads.service";
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 
 const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
-    const { data:usdt } = useGetBuyAdsUSDTQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsUSDCQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsETHQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsBTCQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
+    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT_TRON", pageNumber: `${pageNumber}`})
 
 
 
     return (
         <Tabs variant='unstyled'>
-            <TabList gap={"56px"} px={["0", "0px", "28px", "28px"]}>
-                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">BTC</Tab>
-                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">ETH</Tab>
-                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">USDT</Tab>
-                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="14px">USDC</Tab>
+            <TabList gap={"36px"} px={["0", "0px", "28px", "28px"]}>
+                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="small">BTC</Tab>
+                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="small">ETH</Tab>
+                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="small">USDT</Tab>
+                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="small">USDC</Tab>
+                <Tab p={0} _selected={{ color: "#000000",  borderBottom: "1px solid #FB5E04" }} fontSize="small">USDT-TRON</Tab>
             </TabList>                
             
             <Box background="#E2E8F0" height="0.1px" width={["100%", "100%", "97%"]} m="14px auto 8px"></Box>
@@ -76,6 +73,19 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             buttonTitle="Buy USDC"
                             backgroundColor="#22C36B"
                             apiData={usdc}
+                            handlePreviousPage = { handlePreviousPage }
+                            handleNextPage={handleNextPage}
+                        />      
+                    ) : "NO BUY ADS YET"}              
+                </TabPanel>
+
+                {/* Tab panel 5 */}
+                <TabPanel px={["0", "0px", "28px", "28px"]}>
+                    {usdt_tron?.data?.length !== 0 ? (
+                        <TableComponent
+                            buttonTitle="Buy USDT-TRON"
+                            backgroundColor="#22C36B"
+                            apiData={usdt_tron}
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
