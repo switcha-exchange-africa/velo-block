@@ -133,13 +133,14 @@ const TableComponent = ({
                         </Box>
                     </Flex>
                     <Button
-                        width={"100px"}
-                        fontSize={"sm"}
+                        width={"150px"}
+                        fontSize={"12px"}
                         bg={backgroundColor}
                         textAlign={"center"}
-                        color="#fff"
+                        color="#FFF"
                         borderRadius={"3px"}
                         onClick={onClick}
+                        disabled
                     >
                         {buttonTitle}
                     </Button>
@@ -210,7 +211,7 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={onClick} color="white" fontWeight="bold" bg={backgroundColor}>
+                                    <Button onClick={onClick} color="white" disabled fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             
