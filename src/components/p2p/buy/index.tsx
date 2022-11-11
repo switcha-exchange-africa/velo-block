@@ -283,7 +283,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
 
                     <TabPanel paddingLeft={0}>    
                         <P2pTopfilter routeName='buy-ads'/>
-                        {usdt?.data?.length !== 0 ? (
+                        {eth?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy ETH"
                                 backgroundColor="#22C36B"
