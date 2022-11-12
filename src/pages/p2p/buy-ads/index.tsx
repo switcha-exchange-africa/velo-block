@@ -91,7 +91,7 @@ const BuyAds = () => {
             <StepComponent
                 currentStep={currentStep}
             />
-
+            
             {/* shows the content for the stepper */}
             {displayStep(currentStep)}
         </DashboardLayout>

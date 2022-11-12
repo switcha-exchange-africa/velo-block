@@ -290,7 +290,7 @@ const SellStepThree = (props: any) => {
                                 <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
                                     Previous
                                 </Button>
-                                <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={onOpen}>
+                                <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} onClick={onOpen}>
                                     Post
                                 </Button>
                             </Flex>

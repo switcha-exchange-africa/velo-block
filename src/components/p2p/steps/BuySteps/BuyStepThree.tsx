@@ -152,12 +152,12 @@ const BuyStepThree = (props: any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBanks?.data?.data?.map((item:any) => (
-                                        <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
-                                        </Flex>        
-                                    ))
-                                )}
+                                        getAddedBanks?.data?.data?.map((item:any) => (
+                                            <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
+                                                <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
+                                            </Flex>        
+                                        ))
+                                    )}
                                 
                                 </Flex>
                             </VStack>
@@ -168,7 +168,7 @@ const BuyStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
+                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
                                 Confirm to Post
                             </Button>
                         </Flex>
