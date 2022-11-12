@@ -6,10 +6,10 @@
     } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
-import appAlert from '../../../helpers/appAlert';
-import { useGetAddedBankQuery } from '../../../redux/services/bank.service';
-import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
-import Status from '../radioGroup/Status';
+import appAlert from '../../../../helpers/appAlert';
+import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
+import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
+import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
     const router = useRouter()
