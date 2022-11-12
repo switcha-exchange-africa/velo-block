@@ -17,7 +17,7 @@ const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const [coin, setCoin] = useState('BTC')
     const [priceType, setPriceType] = useState('fixed')
-    const [price, setPrice] = useState<any>('0.00')
+    const [price, setPrice] = useState<any>(0)
     
     const initialValues:InitialValuesProps = {
         totalAmount: "",

@@ -21,7 +21,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
     
     const [withCash, setWithCash] = useState('NGN')
  
-    const handleChange = (event: any) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value)
     }
     
@@ -44,7 +44,6 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         }
 
         console.log("first data ", data)
-
         handleNextStep()   
         
     }
@@ -63,9 +62,9 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                             </HStack>
                         </TabList>
                         <TabPanels>
+                            {/* Buy Tab */}
                             <TabPanel px={["15px", "10px", "60px"]} pb="70px">
-                            
-                                    {/* coin radio group imported here*/}
+                                {/* coin radio group imported here*/}
                                     <Asset coin={coin} setCoin={setCoin} />
                                     {/* with Cash group imported here */}
                                     <WithCash withCash={withCash} setWithCash={setWithCash}/>
@@ -73,7 +72,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{parseInt(price).toLocaleString()}</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price).toLocaleString()}</Text>
                                         </VStack>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
@@ -104,10 +103,8 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                             </TabPanel>
 
 
+                            
 
-                            <TabPanel>
-                                I want to sell Tab
-                            </TabPanel>
                         </TabPanels>
                     </Tabs>
                 </Box>
