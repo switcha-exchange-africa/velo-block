@@ -1,10 +1,10 @@
 import { Box, Text  } from '@chakra-ui/react';
 import StepComponent from '../../../components/p2p/steps';
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
-import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
 import SellStepTwo from '../../../components/p2p/steps/BuySteps/SellStepTwo';
+import BuyStepOne from '../../../components/p2p/steps/BuySteps/BuyStepOne';
+import BuyStepThree from '../../../components/p2p/steps/BuySteps/BuyStepThree';
 
 
 

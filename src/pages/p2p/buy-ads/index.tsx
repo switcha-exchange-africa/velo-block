@@ -1,6 +1,6 @@
 import { Box, Text  } from '@chakra-ui/react';
 import { useState } from 'react';
-import StepComponent from '../../../components/p2p/steps/BuySteps';
+import StepComponent from '../../../components/p2p/steps';
 import BuyStepOne from '../../../components/p2p/steps/BuySteps/BuyStepOne';
 import BuyStepThree from '../../../components/p2p/steps/BuySteps/BuyStepThree';
 import BuyStepTwo from '../../../components/p2p/steps/BuySteps/BuyStepTwo';

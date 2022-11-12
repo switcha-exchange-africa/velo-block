@@ -34,6 +34,16 @@ const P2P = () =>  {
         }
     }
 
+    const [pageNumber, setPageNumber] = useState(1)
+    const handlePreviousPage = () => {
+      setPageNumber(prev => prev - 1)
+    }
+
+    const handleNextPage = () => {
+      setPageNumber(pageNumber + 1)
+    }
+
+
   return (
     <DashboardLayout title="P2p">
       <Box
@@ -64,7 +74,21 @@ const P2P = () =>  {
           </Link>
         </Flex>
 
-        { selectedId === "1" ? <BuyP2p/> : <SellP2p/> }
+        {selectedId === "1" ? (
+          <BuyP2p
+            handlePreviousPage={handlePreviousPage}
+            handleNextPage={handleNextPage}
+            pageNumber={pageNumber}
+          />
+        )
+          : (
+            <SellP2p
+              handlePreviousPage={handlePreviousPage}
+              handleNextPage={handleNextPage}
+              pageNumber={pageNumber}
+            />
+          )
+        }
             
       </Box>
     </DashboardLayout>
