@@ -1,10 +1,10 @@
 import { Box, Text  } from '@chakra-ui/react';
-import StepComponent from '../../../components/p2p/steps';
-import BuyStepTwo from '../../../components/p2p/steps/BuyStepTwo';
-import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
-import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
-import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
+import StepComponent from '../../../components/p2p/steps/BuySteps';
+import BuyStepOne from '../../../components/p2p/steps/BuySteps/BuyStepOne';
+import BuyStepThree from '../../../components/p2p/steps/BuySteps/BuyStepThree';
+import BuyStepTwo from '../../../components/p2p/steps/BuySteps/BuyStepTwo';
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
 
 interface InitialValuesProps {
     totalAmount: string
@@ -31,11 +31,11 @@ const BuyAds = () => {
 
     
     const handleNextStep = () => {
-        setCurrentStep(currentStep + 1)
+        setCurrentStep(prevStep => prevStep + 1)
     }
 
     const handlePreviousStep = () => {
-        setCurrentStep(currentStep - 1)
+        setCurrentStep(prevStep => prevStep - 1)
     }
 
     const displayStep = (step: number) => {

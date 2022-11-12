@@ -1,10 +1,10 @@
 import { Box, Button, Flex, FormControl, HStack, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
-import Asset from '../radioGroup/Asset';
-import InputCounter from '../radioGroup/Counter';
-import PriceType from '../radioGroup/PriceType';
-import WithCash from '../radioGroup/WithCash';
 import { useState } from 'react'
 import { InfoOutlineIcon } from '@chakra-ui/icons';
+import Asset from '../../radioGroup/Asset';
+import WithCash from '../../radioGroup/WithCash';
+import PriceType from '../../radioGroup/PriceType';
+import InputCounter from '../../radioGroup/Counter';
 
 interface BuyStepProps {
     handleNextStep: () => void
@@ -25,25 +25,35 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         setPrice(event.target.value)
     }
     
+    // const [currentPrice, setCurrentPrice] = useState(1)
+    // const [total, setTotal] = useState(0)
 
     const addPrice = () => {
-        setPrice(price + 1)
+        // let currentPrice = 1
+        // setCurrentPrice(1)
+        // setPrice(price + currentPrice)
+        // setTotal(price)
+        // const sum = price + 1any
+        // setPrice(sum)
+        setPrice((currentPrice: number)=>  currentPrice + 1)            
+        
+
     }
 
     const  minusPrice = () => {
-        setPrice( price - 1)
+        setPrice( (currentPrice:number) =>  currentPrice - 1)
     }
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const data = {
-            coin,
-            withCash,
-            priceType,
-            price
-        }
+        // const data = {
+        //     coin,
+        //     withCash,
+        //     priceType,
+        //     price
+        // }
 
-        console.log("first data ", data)
+        // console.log("first data ", data)
         handleNextStep()   
         
     }
@@ -68,7 +78,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                     <Asset coin={coin} setCoin={setCoin} />
                                     {/* with Cash group imported here */}
                                     <WithCash withCash={withCash} setWithCash={setWithCash}/>
-
+                                {/* <Text>{total}</Text> */}
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
@@ -92,7 +102,9 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                 <PriceType priceType={priceType} setPriceType={setPriceType} />                            
 
                                 {/* Floating Price Margin */}
-                                <InputCounter price={price} handleChange={handleChange} addPrice={addPrice} minusPrice={minusPrice} />
+                                <InputCounter price={price}
+                                    handleChange={handleChange}
+                                    addPrice={addPrice} minusPrice={minusPrice} />
 
                                 <Flex  bottom={"0px"} p={"12px"} w={"100%"} bg="white" mt="50px" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} display={["flex", "flex", "none"]}>
                                     <Button borderRadius={"5px"} bg={"#FB5E04"} color={"white"} p={"11px 44px"} type="submit" fontSize={"14px"} flex="1" >

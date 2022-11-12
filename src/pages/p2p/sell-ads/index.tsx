@@ -4,7 +4,7 @@ import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import BuyStepOne from '../../../components/p2p/steps/BuyStepOne';
 import BuyStepThree from '../../../components/p2p/steps/BuyStepThree';
 import { useState } from 'react';
-import SellStepTwo from '../../../components/p2p/steps/SellStepTwo';
+import SellStepTwo from '../../../components/p2p/steps/BuySteps/SellStepTwo';
 
 
 

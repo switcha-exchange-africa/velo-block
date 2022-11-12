@@ -5,8 +5,8 @@ import {
     Text,  InputLeftElement, Spinner 
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import appAlert from '../../../helpers/appAlert'
-import { useAddP2pBuyAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery } from '../../../redux/services/bank.service'
+import appAlert from '../../../../helpers/appAlert'
+import { useAddP2pBuyAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service'
 
 interface BankProps {
     bankName: string,
