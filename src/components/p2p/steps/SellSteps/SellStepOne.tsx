@@ -18,7 +18,7 @@ interface BuyStepProps {
 }
 
 
-const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
+const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
     
     const [withCash, setWithCash] = useState('NGN')
  
@@ -26,16 +26,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         setPrice(event.target.value)
     }
     
-    // const [currentPrice, setCurrentPrice] = useState(1)
-    // const [total, setTotal] = useState(0)
-
     const addPrice = () => {
-        // let currentPrice = 1
-        // setCurrentPrice(1)
-        // setPrice(price + currentPrice)
-        // setTotal(price)
-        // const sum = price + 1any
-        // setPrice(sum)
         setPrice((currentPrice: number)=>  currentPrice + 1)            
         
 
@@ -65,20 +56,24 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         <form style={{position: "relative"}} onSubmit={handleSubmit}>
             <FormControl isRequired>
                 <Box mt="50px" fontFamily={"Open Sans"} bg="white" >
-                    <Tabs variant='unstyled' w="100%">
+                    <Tabs variant='unstyled' w="100%" defaultIndex={1}>
                         <TabList px={["15px", "10px", "0px"]}>
                             <HStack w="100%" alignItems="center" >
-                                <Tab _selected={{ color: '#000000', bg: '#F5f5f5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Buy</Tab>
-                                <Link href="/p2p/sell-ads">
-                                
-                                    <Tab _selected={{ color: '#000000', bg: '#F5F5F5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Sell</Tab>
-                                
+                                <Link href="/p2p/buy-ads">
+                                    <Tab _selected={{ color: '#000000', bg: '#F5f5f5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Buy</Tab>
                                 </Link>
-                                
+                                <Tab _selected={{ color: '#000000', bg: '#F5F5F5' }} width="50%" py={"24px"} fontSize={"16px"} fontWeight={"600"}>I want to Sell</Tab>
                             </HStack>
                         </TabList>
                         <TabPanels>
                             {/* Buy Tab */}
+                            <TabPanel px={["15px", "10px", "60px"]} pb="70px">
+                                <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex>
+                            
+                                
+                            </TabPanel>
+                            
+                            {/* Sell Tab */}
                             <TabPanel px={["15px", "10px", "60px"]} pb="70px">
                                 {/* coin radio group imported here*/}
                                     <Asset coin={coin} setCoin={setCoin} />
@@ -118,13 +113,8 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                     </Button>
                                 </Flex>
                                 
-                            </TabPanel>
+                            </TabPanel>                            
 
-                            <TabPanel>
-                                <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex>
-                            </TabPanel>
-
-                        
                         </TabPanels>
                     </Tabs>
                 </Box>
@@ -138,4 +128,4 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
     )
 }
 
-export default BuyStepOne
+export default SellStepOne
