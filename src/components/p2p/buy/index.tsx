@@ -22,7 +22,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
-    
+
     return (
         <Box  position="relative">
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} >
@@ -256,8 +256,8 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                     </Tab>
                     <Tab
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -337,7 +337,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         ) : "NO BUY ADS YET"}
                     </TabPanel>
                 </TabPanels>
+
+
             </Tabs>
+
         </Box>
     )
 }

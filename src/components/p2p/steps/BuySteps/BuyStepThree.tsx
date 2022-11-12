@@ -160,7 +160,6 @@ const BuyStepThree = (props: any) => {
                                 )}
                                 
                                 </Flex>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Bank Transfer</Text>
                             </VStack>
                         </HStack>
 
