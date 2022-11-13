@@ -177,7 +177,7 @@ const SellStepTwo = (props:any) => {
                                         value={values.minLimit}
                                         onChange={handleInputChange}
                                     />
-                                    <InputRightElement width={{ md: '60px', base: '62px' }}>
+                                    <InputRightElement width={{ md: '100px', base: '100px' }}>
                                         <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
@@ -204,7 +204,7 @@ const SellStepTwo = (props:any) => {
                                         value={values.maxLimit}
                                         onChange={handleInputChange}
                                     />
-                                <InputRightElement width={{ md: '70px', base: '90px' }}>
+                                <InputRightElement width={{ md: '100px', base: '90px' }}>
                                         <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
