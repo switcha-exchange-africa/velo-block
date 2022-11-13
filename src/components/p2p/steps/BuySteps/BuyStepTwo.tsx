@@ -74,11 +74,11 @@ const BuyStepTwo = (props:any) => {
         getAddedBanksIdValues()
         handleNextStep()
 
-        const data = {
-            ...values,
-            banks: banks
-        }
-        console.log("second data ", data)
+        // const data = {
+        //     ...values,
+        //     banks: banks
+        // }
+        // console.log("second data ", data)
     }
 
 

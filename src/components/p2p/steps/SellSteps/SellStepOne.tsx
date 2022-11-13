@@ -19,7 +19,6 @@ interface SellStepProps {
 
 
 const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: SellStepProps) => {
-    console.log("here", coin, price, )
     const [withCash, setWithCash] = useState('NGN')
  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +37,13 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const data = {
-            coin,
-            withCash,
-            priceType,
-            price
-        }
+        // const data = {
+        //     coin,
+        //     withCash,
+        //     priceType,
+        //     price
+        // }
 
-        console.log("first data ", data)
         handleNextStep()   
         
     }

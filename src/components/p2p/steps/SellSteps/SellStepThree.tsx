@@ -42,7 +42,6 @@ const SellStepThree = (props: any) => {
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
     const handleBuyAds = async () => {
-        console.log(values.minLimit)
         const data = {
             type: "sell",
             cash: "NGN",
@@ -138,7 +137,7 @@ const SellStepThree = (props: any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseInt(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
-                        
+
                         <HStack justifyContent="space-between" alignItems="flex-start" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Counterpart Conditions</Text>
