@@ -44,7 +44,7 @@ const SellStepThree = (props: any) => {
     const handleBuyAds = async () => {
         console.log(values.minLimit)
         const data = {
-            type: "buy",
+            type: "sell",
             cash: "NGN",
             coin: changeUSDTtronCoin,
             remark: remark,
