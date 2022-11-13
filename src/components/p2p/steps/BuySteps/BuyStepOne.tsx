@@ -88,7 +88,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price).toLocaleString()}</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
                                         </VStack>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
