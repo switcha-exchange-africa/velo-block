@@ -62,14 +62,14 @@ const SellStepThree = (props: any) => {
         }
         const response:any = await postP2pBuyAds(data) 
         if (response?.data?.status == 200) {
-            appAlert.success(`${response?.data?.message}`)
+            onClose()
             router.push("/p2p")
-            // getAddedBanks.refetch()
+            appAlert.success(`${response?.data?.message}`)   
                 
         } if (response?.data?.status != 200) {    
+            onClose()
             appAlert.error(`${response?.error?.data?.message}`)
             router.push("/p2p")
-            // onClose()
         } 
     }
 
@@ -92,8 +92,6 @@ const SellStepThree = (props: any) => {
                     <ModalCloseButton />
                     
                     <ModalBody padding={"10px 0"}>
-                        
-
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Type</Text>
@@ -179,6 +177,7 @@ const SellStepThree = (props: any) => {
                     </ModalBody>
 
                 </ModalContent>
+            
             </Modal>
         );
     };
