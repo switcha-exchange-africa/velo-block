@@ -62,15 +62,13 @@ const BuyStepThree = (props: any) => {
         }
         const response:any = await postP2pBuyAds(data) 
         if (response?.data?.status == 200) {
-            onClose()
             appAlert.success(`${response?.data?.message}`)
             router.push("/p2p")
             // getAddedBanks.refetch()
                 
         } if (response?.data?.status != 200) {
-            onClose()    
             appAlert.error(`${response?.error?.data?.message}`)
-            router.push("/p2p")
+            onClose()
         } 
     }
 
@@ -79,7 +77,12 @@ const BuyStepThree = (props: any) => {
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                size="lg"
+                motionPreset='none'
+            >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>

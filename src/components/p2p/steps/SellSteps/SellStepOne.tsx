@@ -7,7 +7,7 @@ import PriceType from '../../radioGroup/PriceType';
 import InputCounter from '../../radioGroup/Counter';
 import Link from 'next/link';
 
-interface BuyStepProps {
+interface SellStepProps {
     handleNextStep: () => void
     coin?: string | undefined | any
     setCoin?: React.SetStateAction<string> | undefined | any
@@ -18,8 +18,8 @@ interface BuyStepProps {
 }
 
 
-const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
-    
+const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: SellStepProps) => {
+    console.log("here", coin, price, )
     const [withCash, setWithCash] = useState('NGN')
  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +38,14 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // const data = {
-        //     coin,
-        //     withCash,
-        //     priceType,
-        //     price
-        // }
+        const data = {
+            coin,
+            withCash,
+            priceType,
+            price
+        }
 
-        // console.log("first data ", data)
+        console.log("first data ", data)
         handleNextStep()   
         
     }
@@ -69,8 +69,7 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
                             {/* Buy Tab */}
                             <TabPanel px={["15px", "10px", "60px"]} pb="70px">
                                 <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex>
-                            
-                                
+                    
                             </TabPanel>
                             
                             {/* Sell Tab */}
