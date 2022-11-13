@@ -13,7 +13,7 @@ import TableComponent from '../../table/TableContainer';
 import { useGetSellAdsQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
-const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageReset}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data:usdt } = useGetSellAdsQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
@@ -214,6 +214,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
             <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
                 <TabList gap={["30px", "30px", "60px"]}>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -224,6 +225,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                         BTC
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -234,6 +236,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                         ETH
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -244,6 +247,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                         USDT
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -255,6 +259,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                     </Tab>
 
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",

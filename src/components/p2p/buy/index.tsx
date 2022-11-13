@@ -15,32 +15,19 @@ import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponen
 
 const BuyP2p = ({
     pageNumber,
-    secondPageNumber,
-    thirdPageNumber,
-    fourthPageNumber,
-    fifthPageNumber,
-    
     handlePreviousPage,
-    handleSecondPreviousPage,
-    handleThirdPreviousPage,
-    handleFourthPreviousPage,
-    handleFifthPreviousPage,
-    
     handleNextPage,
-    handleSecondNextPage,
-    handleThirdNextPage,
-    handleFourthNextPage,
-    handleFifthNextPage,
-    
+    handlePageReset
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${thirdPageNumber}`})
-    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${fourthPageNumber}`})
-    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${secondPageNumber}`})
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${fifthPageNumber}`})
+    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
+
 
     return (
         <Box  position="relative">
@@ -234,9 +221,10 @@ const BuyP2p = ({
             <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -244,9 +232,11 @@ const BuyP2p = ({
                         BTC
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -254,9 +244,10 @@ const BuyP2p = ({
                         ETH
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -264,9 +255,10 @@ const BuyP2p = ({
                         USDT
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -274,6 +266,7 @@ const BuyP2p = ({
                         USDC
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -286,7 +279,7 @@ const BuyP2p = ({
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0}>                        
+                    <TabPanel paddingLeft={0} >                        
                         <P2pTopfilter routeName='buy-ads'/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
@@ -307,8 +300,8 @@ const BuyP2p = ({
                                 buttonTitle="Buy ETH"
                                 backgroundColor="#22C36B"
                                 apiData={eth}
-                                handlePreviousPage = { handleSecondPreviousPage }
-                                handleNextPage={handleSecondNextPage}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -321,8 +314,8 @@ const BuyP2p = ({
                                 buttonTitle="Buy USDT"
                                 backgroundColor="#22C36B"
                                 apiData={usdt}
-                                handlePreviousPage = { handleThirdPreviousPage }
-                                handleNextPage={handleThirdNextPage}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -335,8 +328,8 @@ const BuyP2p = ({
                                 buttonTitle="Buy USDC"
                                 backgroundColor="#22C36B"
                                 apiData={usdc}
-                                handlePreviousPage = { handleFourthPreviousPage }
-                                handleNextPage={handleFourthNextPage}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -349,8 +342,8 @@ const BuyP2p = ({
                                 buttonTitle="Buy USDT-TRON"
                                 backgroundColor="#22C36B"
                                 apiData={usdt_tron}
-                                handlePreviousPage = { handleFifthPreviousPage }
-                                handleNextPage={handleFifthNextPage}
+                                handlePreviousPage = { handlePreviousPage }
+                                handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
