@@ -69,6 +69,7 @@ const SellStepThree = (props: any) => {
                 
         } if (response?.data?.status != 200) {    
             appAlert.error(`${response?.error?.data?.message}`)
+            router.push("/p2p")
             // onClose()
         } 
     }
