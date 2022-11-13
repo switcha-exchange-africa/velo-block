@@ -6,10 +6,10 @@
     } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
-import appAlert from '../../../helpers/appAlert';
-import { useGetAddedBankQuery } from '../../../redux/services/bank.service';
-import { useCreateBuyAdsMutation } from '../../../redux/services/p2p-ads.service';
-import Status from '../radioGroup/Status';
+import appAlert from '../../../../helpers/appAlert';
+import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
+import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
+import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
     const router = useRouter()
@@ -62,15 +62,13 @@ const BuyStepThree = (props: any) => {
         }
         const response:any = await postP2pBuyAds(data) 
         if (response?.data?.status == 200) {
-            onClose()
             appAlert.success(`${response?.data?.message}`)
             router.push("/p2p")
             // getAddedBanks.refetch()
                 
         } if (response?.data?.status != 200) {
-            onClose()    
             appAlert.error(`${response?.error?.data?.message}`)
-            router.push("/p2p")
+            onClose()
         } 
     }
 
@@ -79,7 +77,12 @@ const BuyStepThree = (props: any) => {
     const BuyStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                size="lg"
+                motionPreset='none'
+            >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
@@ -152,15 +155,14 @@ const BuyStepThree = (props: any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBanks?.data?.data?.map((item:any) => (
-                                        <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
-                                        </Flex>        
-                                    ))
-                                )}
+                                        getAddedBanks?.data?.data?.map((item:any) => (
+                                            <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
+                                                <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
+                                            </Flex>        
+                                        ))
+                                    )}
                                 
                                 </Flex>
-                                <Text fontSize={"14px"} fontWeight={"600"}>Bank Transfer</Text>
                             </VStack>
                         </HStack>
 
@@ -169,7 +171,7 @@ const BuyStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
+                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
                                 Confirm to Post
                             </Button>
                         </Flex>

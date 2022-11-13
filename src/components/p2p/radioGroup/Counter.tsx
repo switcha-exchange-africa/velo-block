@@ -25,16 +25,16 @@ const InputCounter = ({
                         </Button>
                     </InputLeftElement>
                     <Input
-                        defaultValue={price}
+                        value={price}
                         onChange={handleChange}
                         placeholder='₦550.47'
-                        // type="number"
+                        type="number"
                         border="none"
                         variant="unstyled"
                         textAlign="center"
                     />
                     <InputRightElement mx="5px">
-                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold"   onClick={addPrice}>
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold"   onClick={() => addPrice()}>
                             +
                         </Button>
                     </InputRightElement>

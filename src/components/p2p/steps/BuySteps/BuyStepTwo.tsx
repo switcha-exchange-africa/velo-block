@@ -7,7 +7,7 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
-import { useGetAddedBankQuery } from '../../../redux/services/bank.service'
+import { useGetAddedBankQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
@@ -78,7 +78,7 @@ const BuyStepTwo = (props:any) => {
             ...values,
             banks: banks
         }
-        console.log("second data", data)
+        console.log("second data ", data)
     }
 
 
@@ -146,7 +146,7 @@ const BuyStepTwo = (props:any) => {
                                         value={values.maxLimit}
                                         onChange={handleInputChange}
                                     />
-                                    <InputRightElement width={{ md: '60px', base: '90px' }}>
+                                    <InputRightElement width={{ md: '70px', base: '90px' }}>
                                         <Text fontSize={"12px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
