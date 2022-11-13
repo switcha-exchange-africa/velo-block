@@ -4,13 +4,31 @@ import {useGetBuyAdsQuery} from "../../../redux/services/p2p-ads.service";
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
 
-const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
-    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+const BuyCoin = ({
+    pageNumber,
+    secondPageNumber,
+    thirdPageNumber,
+    fourthPageNumber,
+    fifthPageNumber,
+    
+    handlePreviousPage,
+    handleSecondPreviousPage,
+    handleThirdPreviousPage,
+    handleFourthPreviousPage,
+    handleFifthPreviousPage,
+    
+    handleNextPage,
+    handleSecondNextPage,
+    handleThirdNextPage,
+    handleFourthNextPage,
+    handleFifthNextPage
+}: P2pAdsComponentProps) => {
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${thirdPageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${fourthPageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${secondPageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT_TRON", pageNumber: `${pageNumber}`})
-
+    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${fifthPageNumber}`})
+    
 
 
     return (
@@ -47,8 +65,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             buttonTitle="Buy ETH"
                             backgroundColor="#22C36B"
                             apiData={eth}
-                            handlePreviousPage = { handlePreviousPage }
-                            handleNextPage={handleNextPage}
+                            handlePreviousPage = { handleSecondPreviousPage }
+                            handleNextPage={handleSecondNextPage}
                         />      
                     ) : "NO BUY ADS YET"}
                 </TabPanel>
@@ -60,8 +78,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             buttonTitle="Buy USDT"
                             backgroundColor="#22C36B"
                             apiData={usdt}
-                            handlePreviousPage = { handlePreviousPage }
-                            handleNextPage={handleNextPage}
+                            handlePreviousPage = { handleThirdPreviousPage }
+                            handleNextPage={handleThirdNextPage}
                         />      
                     ) : "NO BUY ADS YET"}           
                 </TabPanel>
@@ -73,8 +91,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             buttonTitle="Buy USDC"
                             backgroundColor="#22C36B"
                             apiData={usdc}
-                            handlePreviousPage = { handlePreviousPage }
-                            handleNextPage={handleNextPage}
+                            handlePreviousPage = { handleFourthPreviousPage }
+                            handleNextPage={handleFourthNextPage}
                         />      
                     ) : "NO BUY ADS YET"}              
                 </TabPanel>
@@ -86,8 +104,8 @@ const BuyCoin = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsCompone
                             buttonTitle="Buy USDT-TRON"
                             backgroundColor="#22C36B"
                             apiData={usdt_tron}
-                            handlePreviousPage = { handlePreviousPage }
-                            handleNextPage={handleNextPage}
+                            handlePreviousPage = { handleFifthPreviousPage }
+                            handleNextPage={handleFifthNextPage}
                         />      
                     ) : "NO BUY ADS YET"}              
                 </TabPanel>
