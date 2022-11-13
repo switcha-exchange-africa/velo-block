@@ -42,6 +42,7 @@ const SellStepThree = (props: any) => {
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
     const handleBuyAds = async () => {
+        console.log(values.minLimit)
         const data = {
             type: "buy",
             cash: "NGN",
@@ -62,15 +63,13 @@ const SellStepThree = (props: any) => {
         }
         const response:any = await postP2pBuyAds(data) 
         if (response?.data?.status == 200) {
-            onClose()
             appAlert.success(`${response?.data?.message}`)
             router.push("/p2p")
             // getAddedBanks.refetch()
                 
-        } if (response?.data?.status != 200) {
-            onClose()    
+        } if (response?.data?.status != 200) {    
             appAlert.error(`${response?.error?.data?.message}`)
-            router.push("/p2p")
+            // onClose()
         } 
     }
 
@@ -79,7 +78,12 @@ const SellStepThree = (props: any) => {
     const SellStepThreeModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg" >
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                size="lg"
+                motionPreset='none'
+            >
                 <ModalOverlay />
                 <ModalContent padding={"10px 0"} mx="10px">
                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
@@ -168,7 +172,7 @@ const SellStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
+                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
                                 Confirm to Post
                             </Button>
                         </Flex>

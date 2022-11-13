@@ -1,9 +1,9 @@
 import { Box, Text  } from '@chakra-ui/react';
 import { useState } from 'react';
 import StepComponent from '../../../components/p2p/steps';
-import SellStepTwo from '../../../components/p2p/steps/BuySteps/SellStepTwo';
 import SellStepOne from '../../../components/p2p/steps/SellSteps/SellStepOne';
 import SellStepThree from '../../../components/p2p/steps/SellSteps/SellStepThree';
+import SellStepTwo from '../../../components/p2p/steps/SellSteps/SellStepTwo';
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
 
 interface InitialValuesProps {
