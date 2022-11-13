@@ -190,6 +190,18 @@ const DashboardPage = () => {
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}
           pageNumber={pageNumber}
+          secondPageNumber={secondPageNumber}
+          thirdPageNumber={thirdPageNumber}
+          fourthPageNumber={fourthPageNumber}
+          fifthPageNumber={fifthPageNumber}
+          handleSecondPreviousPage={handleSecondPreviousPage}
+          handleSecondNextPage={handleSecondNextPage}
+          handleThirdPreviousPage={handleThirdPreviousPage} 
+          handleThirdNextPage={handleThirdNextPage} 
+          handleFourthPreviousPage={handleFourthPreviousPage}
+          handleFourthNextPage={handleFourthNextPage}
+          handleFifthPreviousPage={handleFifthPreviousPage}
+          handleFifthNextPage={handleFifthNextPage} 
         />
       )}
 
