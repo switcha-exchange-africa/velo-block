@@ -65,52 +65,18 @@ const DashboardPage = () => {
   }
 
   const [pageNumber, setPageNumber] = useState(1)
-  const [secondPageNumber, setSecondPageNumber] = useState(1)
-  const [thirdPageNumber, setThirdPageNumber] = useState(1)
-  const [fourthPageNumber, setFourthPageNumber] = useState(1)
-  const [fifthPageNumber, setFifthPageNumber] = useState(1)
   
-    const handlePreviousPage = () => {
-      setPageNumber(pageNumber - 1)
-    }
+  const handlePreviousPage = () => {
+    setPageNumber(pageNumber - 1)
+  }
 
-    const handleNextPage = () => {
-      setPageNumber(pageNumber + 1)
-    }
+  const handleNextPage = () => {
+    setPageNumber(pageNumber + 1)
+  }
 
-    const handleSecondPreviousPage = () => {
-      setSecondPageNumber(secondPageNumber - 1)
-    }
-
-    const handleThirdPreviousPage = () => {
-      setThirdPageNumber(thirdPageNumber - 1)
-    }
-
-    const handleFourthPreviousPage = () => {
-      setFourthPageNumber(fourthPageNumber - 1)
-    }
-
-    const handleFifthPreviousPage = () => {
-      setFifthPageNumber(fifthPageNumber - 1)
-    }
-  
-    const handleSecondNextPage = () => {
-      setSecondPageNumber(secondPageNumber + 1)
-    }
-
-    const handleThirdNextPage = () => {
-      setThirdPageNumber(thirdPageNumber + 1)
-    }
-
-    const handleFourthNextPage = () => {
-      setFourthPageNumber(fourthPageNumber + 1)
-    }
-
-    const handleFifthNextPage = () => {
-      setFifthPageNumber(fifthPageNumber + 1)
-    }
-
-
+  const handlePageReset = () => {
+    setPageNumber(1)
+  }
 
   const checkString = (word: string) => {
     if (word.toString().includes('-')) {
@@ -172,36 +138,14 @@ const DashboardPage = () => {
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}
           pageNumber={pageNumber}
-          secondPageNumber={secondPageNumber}
-          thirdPageNumber={thirdPageNumber}
-          fourthPageNumber={fourthPageNumber}
-          fifthPageNumber={fifthPageNumber}
-          handleSecondPreviousPage={handleSecondPreviousPage}
-          handleSecondNextPage={handleSecondNextPage}
-          handleThirdPreviousPage={handleThirdPreviousPage} 
-          handleThirdNextPage={handleThirdNextPage} 
-          handleFourthPreviousPage={handleFourthPreviousPage}
-          handleFourthNextPage={handleFourthNextPage}
-          handleFifthPreviousPage={handleFifthPreviousPage}
-          handleFifthNextPage={handleFifthNextPage}
+          handlePageReset={handlePageReset}
         />
       ) : (
         <SellCoin
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}
           pageNumber={pageNumber}
-          secondPageNumber={secondPageNumber}
-          thirdPageNumber={thirdPageNumber}
-          fourthPageNumber={fourthPageNumber}
-          fifthPageNumber={fifthPageNumber}
-          handleSecondPreviousPage={handleSecondPreviousPage}
-          handleSecondNextPage={handleSecondNextPage}
-          handleThirdPreviousPage={handleThirdPreviousPage} 
-          handleThirdNextPage={handleThirdNextPage} 
-          handleFourthPreviousPage={handleFourthPreviousPage}
-          handleFourthNextPage={handleFourthNextPage}
-          handleFifthPreviousPage={handleFifthPreviousPage}
-          handleFifthNextPage={handleFifthNextPage} 
+          handlePageReset={handlePageReset} 
         />
       )}
 
