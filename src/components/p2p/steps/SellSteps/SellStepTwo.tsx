@@ -130,13 +130,13 @@ const SellStepTwo = (props:any) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // getAddedBanksIdValues()
-        // handleNextStep()
+        handleNextStep()
 
-        const data = {
-            ...values
-            // banks: banks
-        }
-        console.log("second data", data)
+        // const data = {
+        //     ...values
+        //     // banks: banks
+        // }
+        // console.log("second data", data)
     }
 
     

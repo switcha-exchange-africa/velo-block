@@ -54,7 +54,6 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
         //     price
         // }
 
-        // console.log("first data ", data)
         handleNextStep()   
         
     }

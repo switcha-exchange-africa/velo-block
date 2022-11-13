@@ -13,14 +13,33 @@ import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
-const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+const BuyP2p = ({
+    pageNumber,
+    secondPageNumber,
+    thirdPageNumber,
+    fourthPageNumber,
+    fifthPageNumber,
+    
+    handlePreviousPage,
+    handleSecondPreviousPage,
+    handleThirdPreviousPage,
+    handleFourthPreviousPage,
+    handleFifthPreviousPage,
+    
+    handleNextPage,
+    handleSecondNextPage,
+    handleThirdNextPage,
+    handleFourthNextPage,
+    handleFifthNextPage,
+    
+}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${thirdPageNumber}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${fourthPageNumber}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${secondPageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
+    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${fifthPageNumber}`})
     
 
     return (
@@ -288,8 +307,8 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 buttonTitle="Buy ETH"
                                 backgroundColor="#22C36B"
                                 apiData={eth}
-                                handlePreviousPage = { handlePreviousPage }
-                                handleNextPage={handleNextPage}
+                                handlePreviousPage = { handleSecondPreviousPage }
+                                handleNextPage={handleSecondNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -302,8 +321,8 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 buttonTitle="Buy USDT"
                                 backgroundColor="#22C36B"
                                 apiData={usdt}
-                                handlePreviousPage = { handlePreviousPage }
-                                handleNextPage={handleNextPage}
+                                handlePreviousPage = { handleThirdPreviousPage }
+                                handleNextPage={handleThirdNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -316,8 +335,8 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 buttonTitle="Buy USDC"
                                 backgroundColor="#22C36B"
                                 apiData={usdc}
-                                handlePreviousPage = { handlePreviousPage }
-                                handleNextPage={handleNextPage}
+                                handlePreviousPage = { handleFourthPreviousPage }
+                                handleNextPage={handleFourthNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
@@ -330,8 +349,8 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                                 buttonTitle="Buy USDT-TRON"
                                 backgroundColor="#22C36B"
                                 apiData={usdt_tron}
-                                handlePreviousPage = { handlePreviousPage }
-                                handleNextPage={handleNextPage}
+                                handlePreviousPage = { handleFifthPreviousPage }
+                                handleNextPage={handleFifthNextPage}
                                 onClick={onOpen}
                             />      
                         ) : "NO BUY ADS YET"}
