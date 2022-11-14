@@ -62,7 +62,7 @@ const AccountActivity = () => {
             <Text>Disabling your account will cause the following:</Text>
             <UnorderedList pl={"2rem"}>
               <ListItem>
-                All trading capacities and login for vour account will be disabled
+                All trading capacities and login for your account will be disabled
               </ListItem>
               <ListItem>All API keys for your account will be deleted</ListItem>
               <ListItem>All devices for your account will be deleted</ListItem>
