@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
-import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Select, Text, VStack } from '@chakra-ui/react';
+import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Select, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
@@ -18,6 +18,8 @@ const WalletWithdrawDrawer = (props: any) => {
                 size={"sm"}
 
             >
+                <DrawerOverlay bg="transparent"
+                    backdropFilter="blur(3px) " />
                 <DrawerContent p={'4'}>
                     <DrawerCloseButton /><br />
                     <DrawerHeader mt='4'>
