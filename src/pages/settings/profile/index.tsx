@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+
+
 const Profile = () => {
   const Router = useRouter()
   return (
@@ -104,9 +106,7 @@ const Profile = () => {
                   pr={{ base: '5', md: '0' }} fontSize={{ base: 'sm', lg: 'md' }}>Name
                 </Text>
                 <Input placeholder='Temitope'
-                  // ml={'7rem'}
                   mr={'1rem'}
-
                 />
 
 
