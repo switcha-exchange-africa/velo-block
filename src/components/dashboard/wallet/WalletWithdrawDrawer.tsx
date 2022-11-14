@@ -2,6 +2,7 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Select, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
+import remoteImages from '../../../constants/remoteImages';
 import MainAppButton from '../../buttons/MainAppButton';
 
 const WalletWithdrawDrawer = (props: any) => {
@@ -90,7 +91,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     <InputGroup>
                                                         <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => { setFieldValue('address', e.target.value); setFieldValue('creditCoinValue', e.target.value) }} />
                                                         <InputRightElement width={'16'} zIndex={'docked'}>
-                                                            <Img src='/assets/svgs/barcode.svg' alt='' boxSize={'4'} />
+                                                            <Img src={remoteImages.barcodeSVG} alt='' boxSize={'4'} />
 
                                                         </InputRightElement>
                                                     </InputGroup>

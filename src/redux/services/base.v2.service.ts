@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import endpoints from "../../constants/endpoints";
 
 export const baseV2Api = createApi({
-  reducerPath: "baseApi",
+  reducerPath: "baseV2Api",
   tagTypes: ["Wallet", "User", "Exchange", "Order"],
   baseQuery: fetchBaseQuery({
     baseUrl: `${endpoints.BASE_URL}/api/v2/`,

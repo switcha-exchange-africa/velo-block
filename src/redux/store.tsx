@@ -47,7 +47,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware, bankApi.middleware]),
+        }).concat([baseApi.middleware, baseV2Api.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware, bankApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

@@ -16,6 +16,7 @@ import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
 import { useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
+import remoteImages from '../../constants/remoteImages';
 
 
 
@@ -167,7 +168,7 @@ const Swap = () => {
                                                 )}
                                             </Field>
 
-                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img cursor={'pointer'} src={'/assets/svgs/swapIcon.svg'} alt='swap icon' onClick={() => { const tempCreditCoin = creditCoin; const tempDebitCoin = debitCoin; setDebitCoin(tempCreditCoin); setCreditCoin(tempDebitCoin) }} /></Flex>
+                                            <Flex justifyContent={'center'} w={'full'} pt={'4'} pb={'2'}><Img cursor={'pointer'} src={remoteImages.swapiconsvg} alt='swap icon' onClick={() => { const tempCreditCoin = creditCoin; const tempDebitCoin = debitCoin; setDebitCoin(tempCreditCoin); setCreditCoin(tempDebitCoin) }} /></Flex>
 
 
 

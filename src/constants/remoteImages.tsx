@@ -4,6 +4,7 @@ const ethLogo = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-
 const seperator = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/separator.png';
 const tronlogo = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/tronlogo.png';
 const usdcLogo = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/usdc-logo.png';
+const usdtLogo = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/usdt-logo.png';
 const vectorBar = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/Vectorbar.png';
 const vectorCamera = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/Vectorcamera.png';
 const vectorFiles = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/images/Vectorfiles.png';
@@ -17,7 +18,7 @@ const folderIcon = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/w
 const greenmenusvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/greenmenu.svg';
 const imageIconsvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/image-icon.svg';
 const linesvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/image-icon.svg'
-const singlesvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/logo-single.svg';
+const logosinglesvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/logo-single.svg';
 const logosvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/Logo.svg';
 const ngnsvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/NGN.svg';
 const pinkmenusvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/pinkmenu.svg';
@@ -27,6 +28,7 @@ const skymenusvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/w
 const swapiconsvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/swapIcon.svg';
 const successImageSvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/SwitchaSuccessImage.svg';
 const toggleDarkModeSvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/ToggleDarkMode.svg';
+const logoutSvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/LogOut.svg';
 const userAvatarSvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/UserAvatar.svg';
 const verifiedSvg = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/verified.svg';
 const faqsSelected = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/dashboard/desktop/selected/FAQS.svg';
@@ -76,6 +78,7 @@ const remoteImages = {
     imageIconsvg,
     linesvg,
     logosvg,
+    logoutSvg,
     ngnsvg,
     p2pDesktopUnselected,
     p2pMobileUnselected,
@@ -90,7 +93,7 @@ const remoteImages = {
     settingsDesktopUnselected,
     settingsMobileUnselected,
     settingsSelected,
-    singlesvg,
+    logosinglesvg,
     skymenusvg,
     successImageSvg,
     swapDesktopUnselected,
@@ -100,6 +103,7 @@ const remoteImages = {
     tronlogo,
     toggleDarkModeSvg,
     usdcLogo,
+    usdtLogo,
     userAvatarSvg,
     vectorBar,
     vectorCamera,
