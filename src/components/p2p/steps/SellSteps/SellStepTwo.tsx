@@ -6,12 +6,16 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
+import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
-    const { handlePreviousStep, handleNextStep, coin, values, setValues } = props
+    const { handlePreviousStep, handleNextStep, coin, banks, values, setValues } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
+    const getAddedBanks:any = useGetAddedBankQuery()
+
+
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
@@ -120,16 +124,16 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    // const getAddedBanksIdValues = () => {
-    //     const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
-    //     for (let i = 0; i < ids.length; i++) {
-    //         banks.push(ids[i])
-    //     }
-    // }
+    const getAddedBanksIdValues = () => {
+        const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
+        for (let i = 0; i < ids.length; i++) {
+            banks.push(ids[i])
+        }
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // getAddedBanksIdValues()
+        getAddedBanksIdValues()
         handleNextStep()
 
         // const data = {

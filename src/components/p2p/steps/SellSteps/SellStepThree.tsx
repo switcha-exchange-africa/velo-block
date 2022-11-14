@@ -60,13 +60,14 @@ const SellStepThree = (props: any) => {
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
-        const response:any = await postP2pBuyAds(data) 
-        if (response?.data?.status == 200) {
+        const response: any = await postP2pBuyAds(data)
+        console.log("this is the main ", response)
+        if (response?.data?.status == 201) {
             onClose()
             router.push("/p2p")
             appAlert.success(`${response?.data?.message}`)   
                 
-        } if (response?.data?.status != 200) {    
+        } if (response?.data?.status != 201) {    
             onClose()
             appAlert.error(`${response?.error?.data?.message}`)
             router.push("/p2p")
