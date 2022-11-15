@@ -16,6 +16,7 @@ import { quickTradeApi } from './services/quick-trade.service';
 import { swapApi } from './services/swap.service';
 import { walletApi } from './services/wallet.service';
 import { bankApi } from './services/bank.service';
+import { baseV2Api } from './services/base.v2.service';
 
 const persistConfig = {
     key: 'root',
@@ -31,6 +32,7 @@ const store = configureStore({
         quickTrade: persistQuickTradeReducer,
         [authApi.reducerPath]: authApi.reducer,
         [baseApi.reducerPath]: baseApi.reducer,
+        [baseV2Api.reducerPath]: baseV2Api.reducer,
         [walletApi.reducerPath]: walletApi.reducer,
         [buySellAPi.reducerPath]: buySellAPi.reducer,
         [swapApi.reducerPath]: swapApi.reducer,
@@ -45,7 +47,7 @@ const store = configureStore({
             serializableCheck: {
                 ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
             },
-        }).concat([baseApi.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware, bankApi.middleware]),
+        }).concat([baseApi.middleware, baseV2Api.middleware, authApi.middleware, walletApi.middleware, buySellAPi.middleware, swapApi.middleware, quickTradeApi.middleware, feesApi.middleware, exchangeRateApi.middleware, bankApi.middleware]),
     devTools: process.env.NODE_ENV !== 'production',
 });
 

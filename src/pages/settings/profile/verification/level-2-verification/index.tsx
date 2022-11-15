@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
+import remoteImages from "../../../../../constants/remoteImages";
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 
 const Level2Verification = () => {
@@ -78,7 +79,7 @@ const Level2Verification = () => {
                         alignItems={'center'}
                     >
 
-                        <Img src='/assets/svgs/scanIcon.svg' alt='' />
+                        <Img src={remoteImages.scaniconsvg} alt='' />
 
                     </Flex>
                     <Flex w={"100%"} flexDirection={'column'} alignItems={"start"}>
@@ -94,10 +95,10 @@ const Level2Verification = () => {
                             </ListItem>
                             <Flex mt={'8'} flexDirection={'column'} w={'full'} alignItems={'center'}>
                                 <MainAppButton isLoading={false} size={"md"} width={'70%'}>Take a snapshot
-                                    <Img src='/assets/svgs/cameraIcon.svg' alt='' pl={'1rem'} />
+                                    <Img src={remoteImages.cameraIcon} alt='' pl={'1rem'} />
                                 </MainAppButton>
                                 <Button mt={'4'} bg={'transparent'} width={'80%'} color={'primaryColor.900'} border='1px' borderColor='primaryColor.900'>Import from gallery
-                                    <Img src='/assets/svgs/folderIcon.svg' alt='' pl={'1rem'} />
+                                    <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                 </Button>
 
                             </Flex>

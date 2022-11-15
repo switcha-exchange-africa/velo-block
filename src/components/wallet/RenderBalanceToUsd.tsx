@@ -21,7 +21,7 @@ const RenderBalanceToUsd = ({ balance, coin }: any) => {
     }, [balance, coin, convertCoins])
     return (
         <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-            = {balance == 0 ? '$0' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ? '$' + balance : '$' + convertedValue}
+            = {balance == 0 ? '$0' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ? '$' + balance.toLocaleString() : '$' + convertedValue.toLocaleString()}
             {/* $200.33 */}
         </Text>
     )

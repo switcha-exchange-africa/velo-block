@@ -40,49 +40,50 @@ import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
+import remoteImages from "../../constants/remoteImages";
 
 // import appAlert from "../../helpers/appAlert";
 
 
 
-const wallets = [
-  {
-    id: 1,
-    coin: "BTC",
-    label: "Bitcoin",
-    balance: "0.0000256",
-    usdBalance: "$200.23",
-    address: "bc1q6ct9nuzjjqke47cztxrw0xwhrjej2nuhy963f0",
-    logo: "/assets/images/bitcoin-logo.png",
-  },
-  {
-    id: 2,
-    coin: "ETH",
-    label: "Ethereum",
-    balance: "0.04256",
-    usdBalance: "$137",
-    address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-    logo: "/assets/images/eth-logo.png",
-  },
-  {
-    id: 3,
-    coin: "USDT",
-    label: "TetherUS",
-    balance: "0.0000256",
-    usdBalance: "$200.23",
-    address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-    logo: "/assets/images/usdt-logo.png",
-  },
-  {
-    id: 4,
-    coin: "USDC",
-    label: "USD Coin",
-    balance: "0.0000256",
-    usdBalance: "$0.00",
-    address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-    logo: "/assets/images/usdc-logo.png",
-  },
-];
+// const wallets = [
+//   {
+//     id: 1,
+//     coin: "BTC",
+//     label: "Bitcoin",
+//     balance: "0.0000256",
+//     usdBalance: "$200.23",
+//     address: "bc1q6ct9nuzjjqke47cztxrw0xwhrjej2nuhy963f0",
+//     logo: remoteImages.bitcoinLogo,
+//   },
+//   {
+//     id: 2,
+//     coin: "ETH",
+//     label: "Ethereum",
+//     balance: "0.04256",
+//     usdBalance: "$137",
+//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+//     logo: remoteImages.ethLogo,
+//   },
+//   {
+//     id: 3,
+//     coin: "USDT",
+//     label: "TetherUS",
+//     balance: "0.0000256",
+//     usdBalance: "$200.23",
+//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+//     logo: remoteImages.usdtLogo,
+//   },
+//   {
+//     id: 4,
+//     coin: "USDC",
+//     label: "USD Coin",
+//     balance: "0.0000256",
+//     usdBalance: "$0.00",
+//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
+//     logo: remoteImages.usdcLogo,
+//   },
+// ];
 const recentActivity = [
   {
     id: 1,
@@ -111,7 +112,7 @@ const recentActivity = [
 ];
 
 function WalletPage() {
-  const [address, setAddress] = useState(wallets[0].address);
+
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -129,6 +130,7 @@ function WalletPage() {
   // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
 
   const [convertCoins] = useLazyConvertQuery()
+  const [address, setAddress] = useState(walletsquery?.data?.data[0].address);
 
   // const dispatch = useAppDispatch()
 
@@ -473,7 +475,7 @@ function RecentTransaction() {
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                 <Avatar
                   name="Bitcoin"
-                  src={"/assets/images/bitcoin-logo.png"}
+                  src={remoteImages.bitcoinLogo}
                   size="sm"
                 />
                 <Box>

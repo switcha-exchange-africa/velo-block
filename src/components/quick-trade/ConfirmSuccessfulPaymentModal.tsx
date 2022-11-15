@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import React from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import remoteImages from '../../constants/remoteImages'
 import appAlert from '../../helpers/appAlert'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
@@ -112,7 +113,7 @@ export const RenderBankName = ({ bankId }: any) => {
 
     }, [bankId, getSingleBank])
     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
 }
 export const RenderAccountName = ({ bankId }: any) => {
     const [getSingleBank] = useLazyGetBankByIdQuery()
@@ -127,7 +128,7 @@ export const RenderAccountName = ({ bankId }: any) => {
 
     }, [bankId, getSingleBank])
     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountName} <CopyToClipboard text={accountName}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
 }
 export const RenderAccountNumber = ({ bankId }: any) => {
     const [getSingleBank] = useLazyGetBankByIdQuery()
@@ -142,7 +143,7 @@ export const RenderAccountNumber = ({ bankId }: any) => {
 
     }, [bankId, getSingleBank])
     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountNumber} <CopyToClipboard text={accountNumber}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
 }
 
 export default ConfirmSuccessfulPaymentModal

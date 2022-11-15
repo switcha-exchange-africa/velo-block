@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Flex, FormLabel, Select, Text } from '@chakra-ui/react';
+import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormLabel, Select, Text } from '@chakra-ui/react';
 import React from 'react';
 import QRCode from 'react-qr-code';
 
@@ -14,6 +14,8 @@ const WalletDepositDrawer = (props: any) => {
                 finalFocusRef={props.btnRef}
                 size={"sm"}
             >
+                <DrawerOverlay bg="transparent"
+                    backdropFilter="blur(3px) " />
                 <DrawerContent>
                     <DrawerCloseButton /><br />
                     <DrawerHeader mt='4'>
