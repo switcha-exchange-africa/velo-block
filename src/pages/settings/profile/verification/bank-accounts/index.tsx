@@ -12,7 +12,6 @@ import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 const BankAccounts = () => {
     const Router = useRouter()
 
-    
     return (
         <DashboardLayout title="Profile">
             <Box
@@ -88,7 +87,12 @@ const BankAccounts = () => {
                             </HStack>
                             <HStack w="100%">
                                 <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                <Text  flex="1.79" color="#000000">0264748663</Text>
+                                <Text  flex="2.2" color="#000000">0264748663</Text>
+                                
+                            </HStack>
+                            <HStack w="100%">
+                                <Text flex="1" color="#8E9BAE">Bank name</Text>
+                                <Text flex="1.79" color="#000000">Access Bank</Text>
                                 <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
                                     <DeleteIcon
                                         mr="5px"
@@ -98,10 +102,6 @@ const BankAccounts = () => {
                                     />
                                     Delete
                                 </Box>
-                            </HStack>
-                            <HStack w="100%">
-                                <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                <Text flex="2.2" color="#000000">Access Bank</Text>
                             </HStack>
 
                             <HStack w="100%">
