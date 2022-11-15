@@ -9,10 +9,17 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
+import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
 
 
 const AddBankAccounts = () => {
     const Router = useRouter()
+    const {data:getBanks, isLoading} = useGetNigerianBankQuery()
+    
+    console.log("the get banks ", getBanks)
+
+    // bankCode: 044
+    // bankName: "Access Bank"
 
     return (
         <DashboardLayout title="Add bank account">
@@ -70,10 +77,13 @@ const AddBankAccounts = () => {
                             <Text fontSize={{ base: 'sm', lg: 'md' }}>
                                 Bank
                             </Text>
-                            <Select placeholder='Select option' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}>
-                                <option value='option1'>Access Bank</option>
-                                <option value='option2'>UBA</option>
-                                <option value='option3'>Zenith</option>
+                            <Select placeholder='Access Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}>
+                                {/* this filters access bank out as it is already placed as default on placeholder */}
+                                {getBanks?.filter((item: any) => (
+                                    item?.bankName !=='Access Bank'
+                                )).map((item:any) => (
+                                    <option key={item?.bankCode} value='option1'>{ item?.bankName}</option>
+                                ))}
                             </Select>
 
                         </VStack>
