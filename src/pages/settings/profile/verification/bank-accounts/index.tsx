@@ -1,13 +1,11 @@
 import { AddIcon, ArrowBackIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
-  Input, Show, Text,
+  Show, Text,
   HStack,
   VStack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import MainAppButton from "../../../../../components/buttons/MainAppButton"
-import SettingsButton from "../../../../../components/dashboard/settings/SettingsButton"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 
 
@@ -74,16 +72,32 @@ const BankAccounts = () => {
                         justifyContent={"space-between"}
                         p={"20px"}
                     >
-                    
                         <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                             <HStack w="100%">
                                 <Text flex="1" color="#8E9BAE">Name</Text>
                                 <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                <Text flex="0.2" color="#FB5E04">Edit</Text>
+                                <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                    <AddIcon
+                                        mr="5px"
+                                        color={"#fc1f00"}
+                                        w={"10px"}
+                                        h={"10px"}
+                                    />
+                                    Edit
+                                </Box>
                             </HStack>
                             <HStack w="100%">
                                 <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
                                 <Text  flex="2" color="#000000">0264748663</Text>
+                                <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                    <AddIcon
+                                        mr="5px"
+                                        color={"#fc1f00"}
+                                        w={"10px"}
+                                        h={"10px"}
+                                    />
+                                    Delete
+                                </Box>
                             </HStack>
                             <HStack w="100%">
                                 <Text flex="1" color="#8E9BAE">Bank name</Text>
