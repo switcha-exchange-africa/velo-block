@@ -70,12 +70,7 @@ const AddBankAccounts = () => {
                             <Text fontSize={{ base: 'sm', lg: 'md' }}>
                                 Bank
                             </Text>
-                            <Select placeholder='Select option' cursor="pointer" icon={
-                                <TriangleDownIcon
-                                    w={"5px"}
-                                    h={"5px"}
-                                />
-                            }>
+                            <Select placeholder='Select option' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}>
                                 <option value='option1'>Access Bank</option>
                                 <option value='option2'>UBA</option>
                                 <option value='option3'>Zenith</option>
