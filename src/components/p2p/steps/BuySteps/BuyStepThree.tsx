@@ -62,10 +62,9 @@ const BuyStepThree = (props: any) => {
         }
         const response:any = await postP2pBuyAds(data) 
         if (response?.data?.status == 200) {
-            appAlert.success(`${response?.data?.message}`)
+            onClose()
             router.push("/p2p")
-            // getAddedBanks.refetch()
-                
+            appAlert.success(`${response?.data?.message}`)    
         } if (response?.data?.status != 200) {
             appAlert.error(`${response?.error?.data?.message}`)
             onClose()
@@ -91,8 +90,6 @@ const BuyStepThree = (props: any) => {
                     <ModalCloseButton />
                     
                     <ModalBody padding={"10px 0"}>
-                        
-
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Type</Text>
@@ -120,7 +117,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(price).toLocaleString()}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseInt(price)?.toLocaleString() : price}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -129,11 +126,11 @@ const BuyStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.minLimit).toLocaleString()}&nbsp;{coin} - {parseInt(values.maxLimit).toLocaleString()}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseInt(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseInt(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.totalAmount).toLocaleString()}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseInt(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
 

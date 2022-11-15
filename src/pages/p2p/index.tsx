@@ -35,14 +35,20 @@ const P2P = () =>  {
     }
 
     const [pageNumber, setPageNumber] = useState(1)
+    
     const handlePreviousPage = () => {
-      setPageNumber(prev => prev - 1)
+      setPageNumber(pageNumber - 1)
     }
 
     const handleNextPage = () => {
       setPageNumber(pageNumber + 1)
     }
 
+    const handlePageReset = () => {
+      setPageNumber(1)
+    }
+
+    
 
   return (
     <DashboardLayout title="P2p">
@@ -79,6 +85,7 @@ const P2P = () =>  {
             handlePreviousPage={handlePreviousPage}
             handleNextPage={handleNextPage}
             pageNumber={pageNumber}
+            handlePageReset={handlePageReset}
           />
         )
           : (
@@ -86,6 +93,7 @@ const P2P = () =>  {
               handlePreviousPage={handlePreviousPage}
               handleNextPage={handleNextPage}
               pageNumber={pageNumber}
+              handlePageReset={handlePageReset}
             />
           )
         }

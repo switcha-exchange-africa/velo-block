@@ -42,7 +42,6 @@ const SellStepThree = (props: any) => {
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
     const handleBuyAds = async () => {
-        console.log(values.minLimit)
         const data = {
             type: "sell",
             cash: "NGN",
@@ -61,16 +60,17 @@ const SellStepThree = (props: any) => {
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
-        const response:any = await postP2pBuyAds(data) 
-        if (response?.data?.status == 200) {
-            appAlert.success(`${response?.data?.message}`)
+        const response: any = await postP2pBuyAds(data)
+        console.log("this is the main ", response)
+        if (response?.data?.status == 201) {
+            onClose()
             router.push("/p2p")
-            // getAddedBanks.refetch()
+            appAlert.success(`${response?.data?.message}`)   
                 
-        } if (response?.data?.status != 200) {    
+        } if (response?.data?.status != 201) {    
+            onClose()
             appAlert.error(`${response?.error?.data?.message}`)
             router.push("/p2p")
-            // onClose()
         } 
     }
 
@@ -93,8 +93,6 @@ const SellStepThree = (props: any) => {
                     <ModalCloseButton />
                     
                     <ModalBody padding={"10px 0"}>
-                        
-
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Type</Text>
@@ -122,7 +120,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(price).toLocaleString()}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseInt(price)?.toLocaleString() : price}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -131,11 +129,11 @@ const SellStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.minLimit).toLocaleString()}&nbsp;{coin} - {parseInt(values.maxLimit).toLocaleString()}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseInt(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseInt(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{parseInt(values.totalAmount).toLocaleString()}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseInt(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
 
@@ -180,6 +178,7 @@ const SellStepThree = (props: any) => {
                     </ModalBody>
 
                 </ModalContent>
+            
             </Modal>
         );
     };

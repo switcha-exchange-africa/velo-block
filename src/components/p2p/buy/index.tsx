@@ -13,7 +13,12 @@ import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 
-const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponentProps) => {
+const BuyP2p = ({
+    pageNumber,
+    handlePreviousPage,
+    handleNextPage,
+    handlePageReset
+}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
@@ -22,6 +27,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
+
 
     return (
         <Box  position="relative">
@@ -215,9 +221,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
             <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -225,9 +232,11 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         BTC
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -235,9 +244,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         ETH
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -245,9 +255,10 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         USDT
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
-                        color: "black",
-                        borderBottom: "1px solid #FB5E04",
+                            color: "black",
+                            borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -255,6 +266,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                         USDC
                     </Tab>
                     <Tab
+                        onClick={handlePageReset}
                         _selected={{
                             color: "black",
                             borderBottom: "1px solid #FB5E04",
@@ -267,7 +279,7 @@ const BuyP2p = ({pageNumber, handlePreviousPage, handleNextPage}: P2pAdsComponen
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0}>                        
+                    <TabPanel paddingLeft={0} >                        
                         <P2pTopfilter routeName='buy-ads'/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent

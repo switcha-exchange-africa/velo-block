@@ -65,12 +65,17 @@ const DashboardPage = () => {
   }
 
   const [pageNumber, setPageNumber] = useState(1)
+  
   const handlePreviousPage = () => {
     setPageNumber(pageNumber - 1)
   }
 
   const handleNextPage = () => {
     setPageNumber(pageNumber + 1)
+  }
+
+  const handlePageReset = () => {
+    setPageNumber(1)
   }
 
   const checkString = (word: string) => {
@@ -133,12 +138,14 @@ const DashboardPage = () => {
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}
           pageNumber={pageNumber}
+          handlePageReset={handlePageReset}
         />
       ) : (
         <SellCoin
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}
           pageNumber={pageNumber}
+          handlePageReset={handlePageReset} 
         />
       )}
 

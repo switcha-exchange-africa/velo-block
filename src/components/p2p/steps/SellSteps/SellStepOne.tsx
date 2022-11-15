@@ -19,7 +19,6 @@ interface SellStepProps {
 
 
 const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: SellStepProps) => {
-    console.log("here", coin, price, )
     const [withCash, setWithCash] = useState('NGN')
  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +37,13 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const data = {
-            coin,
-            withCash,
-            priceType,
-            price
-        }
+        // const data = {
+        //     coin,
+        //     withCash,
+        //     priceType,
+        //     price
+        // }
 
-        console.log("first data ", data)
         handleNextStep()   
         
     }
@@ -82,7 +80,7 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price).toLocaleString()}</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
                                         </VStack>
                                         <VStack alignItems={"flex-start"}>
                                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>

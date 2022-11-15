@@ -6,12 +6,16 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
+import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
-    const { handlePreviousStep, handleNextStep, coin, values, setValues } = props
+    const { handlePreviousStep, handleNextStep, coin, banks, values, setValues } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
+    const getAddedBanks:any = useGetAddedBankQuery()
+
+
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
@@ -120,23 +124,23 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    // const getAddedBanksIdValues = () => {
-    //     const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
-    //     for (let i = 0; i < ids.length; i++) {
-    //         banks.push(ids[i])
-    //     }
-    // }
+    const getAddedBanksIdValues = () => {
+        const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
+        for (let i = 0; i < ids.length; i++) {
+            banks.push(ids[i])
+        }
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // getAddedBanksIdValues()
-        // handleNextStep()
+        getAddedBanksIdValues()
+        handleNextStep()
 
-        const data = {
-            ...values
-            // banks: banks
-        }
-        console.log("second data", data)
+        // const data = {
+        //     ...values
+        //     // banks: banks
+        // }
+        // console.log("second data", data)
     }
 
     
@@ -177,7 +181,7 @@ const SellStepTwo = (props:any) => {
                                         value={values.minLimit}
                                         onChange={handleInputChange}
                                     />
-                                    <InputRightElement width={{ md: '60px', base: '62px' }}>
+                                    <InputRightElement width={{ md: '100px', base: '100px' }}>
                                         <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>
@@ -204,7 +208,7 @@ const SellStepTwo = (props:any) => {
                                         value={values.maxLimit}
                                         onChange={handleInputChange}
                                     />
-                                <InputRightElement width={{ md: '70px', base: '90px' }}>
+                                <InputRightElement width={{ md: '100px', base: '90px' }}>
                                         <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                     </InputRightElement>
                                 </InputGroup>

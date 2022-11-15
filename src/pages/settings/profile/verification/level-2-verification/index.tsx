@@ -10,24 +10,27 @@ import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 
 const Level2Verification = () => {
     const Router = useRouter()
+
     return (
         <DashboardLayout title="Level 2 Verification">
             <Flex flexDirection={'column'} alignItems={'center'}
                 background={"#F8FAFC"}
                 color="black" px={{ md: "10%", base: '0' }} >
                 <Show above='md'>
-                    <Flex w='full'> <Button
-                        onClick={() => Router.back()}
-                        leftIcon={<ArrowBackIcon />}
-                        colorScheme="transparent"
-                        variant="solid"
-                        pl={0}
-                        py={"3rem"}
-                        color={'black'}
-                        ml={'1rem'}
-                    >
-                        Back
-                    </Button></Flex>
+                    <Flex w='full'>
+                        <Button
+                            onClick={() => Router.back()}
+                            leftIcon={<ArrowBackIcon />}
+                            colorScheme="transparent"
+                            variant="solid"
+                            pl={0}
+                            py={"3rem"}
+                            color={'black'}
+                            ml={'1rem'}
+                        >
+                            Back
+                        </Button>
+                    </Flex>
                 </Show>
 
                 <Show below='sm'>
@@ -52,21 +55,16 @@ const Level2Verification = () => {
 
                 <Flex
                     background={'#FFFFFF'}
-                    // width={"35%"}
                     py={"8"}
                     mt={{ base: '12', md: '0' }}
                     px={'8'}
                     flexDirection={'column'}
-                    overflowY={'scroll'}
                     alignItems={'center'}
                     mb={'12'}
-                // ml={'20rem'}
-
                 >
                     <Box>
                         <HStack>
                             <Heading fontSize={'1.5rem'}>Level 2 Verification</Heading>
-
                         </HStack>
                     </Box>
                     <Flex
