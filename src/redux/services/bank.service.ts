@@ -35,6 +35,8 @@ export const bankApi = baseApi.injectEndpoints({
     }),
 
 
+
+
     getAddedBank: builder.query<any, void>({
       query: () => `p2p/bank`,
       transformResponse: (responseData: any) => {

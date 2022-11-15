@@ -15,6 +15,21 @@ import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.s
 const AddBankAccounts = () => {
     const Router = useRouter()
     const {data:getBanks} = useGetNigerianBankQuery()
+
+//     {
+//     "name":"Guaranty Trust Bank",
+//     "code":"058",
+//     "accountName":"Goodness Chinemerem Ezeokafor",
+//     "accountNumber":"0553561556"
+// }
+
+    // const data = {
+    //     name: "",
+    //     code: "",
+    //     accountName: "",
+    //     accountNumber: ""
+    // }
+
     
     console.log("the get banks ", getBanks)
 

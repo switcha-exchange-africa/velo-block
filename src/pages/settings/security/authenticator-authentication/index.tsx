@@ -29,7 +29,7 @@ const AuthenticatorAuthenticationPage = () => {
           <VStack alignItems={"start"} gap={"1rem"}>
             <Heading size="md"
               py={'2rem'}
-              ml={'1rem'}>Authentication Authenticator</Heading>
+              ml={'1rem'}>Two-Factor Authentication (2FA)</Heading>
           </VStack>
         </Show>
 
@@ -60,7 +60,14 @@ const AuthenticatorAuthenticationPage = () => {
               <br />
               you withdraw money or release a transaction to protect your account.
             </Text>
-            <SettingsOptionComponent buttonLabel='Enable' title='Authentication Authenticator' >Disabled</SettingsOptionComponent>
+            <SettingsOptionComponent buttonLabel='Enable' title='Google Authenticator/Authy (Recommended)'>
+              <Text >Protect your account and transactions</Text>
+              <Text >Having trouble?</Text>
+            </SettingsOptionComponent>
+
+            <SettingsOptionComponent buttonLabel='Enable' title='Phone Number Verification'>
+              <Text >Protect your account and transactions</Text>
+            </SettingsOptionComponent>
           </VStack>
         </Box>
 
