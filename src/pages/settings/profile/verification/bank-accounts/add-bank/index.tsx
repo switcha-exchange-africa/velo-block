@@ -14,7 +14,7 @@ import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.s
 
 const AddBankAccounts = () => {
     const Router = useRouter()
-    const {data:getBanks, isLoading} = useGetNigerianBankQuery()
+    const {data:getBanks} = useGetNigerianBankQuery()
     
     console.log("the get banks ", getBanks)
 
