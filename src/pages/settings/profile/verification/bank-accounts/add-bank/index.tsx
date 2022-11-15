@@ -1,10 +1,11 @@
-import { AddIcon, ArrowBackIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
   Show, Text,
   HStack,
   VStack,
-  Input
+  Input,
+  Select
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
@@ -65,14 +66,21 @@ const AddBankAccounts = () => {
                         justifyContent={"space-between"}
                         p={"20px"}
                     >
-                        <VStack width={'100%'} mb="24px"  alignItems="start">
+                        <VStack width={'100%'} mb="24px"  alignItems="start" >
                             <Text fontSize={{ base: 'sm', lg: 'md' }}>
                                 Bank
                             </Text>
-                            <Input
-                                placeholder='Olumideoyeleye@gmail.com'
-                                mr={'1rem'}
-                            />
+                            <Select placeholder='Select option' cursor="pointer" icon={
+                                <TriangleDownIcon
+                                    w={"5px"}
+                                    h={"5px"}
+                                />
+                            }>
+                                <option value='option1'>Access Bank</option>
+                                <option value='option2'>UBA</option>
+                                <option value='option3'>Zenith</option>
+                            </Select>
+
                         </VStack>
 
                         <VStack width={'100%'} mb="24px"  alignItems="start">
