@@ -72,7 +72,7 @@ const BankAccounts = () => {
                         background={'#FFFFFF'}
                         width={{ lg: "70%", base: '100%' }}
                         justifyContent={"space-between"}
-                        py={"20px"}
+                        p={"20px"}
                     >
                     
                         <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
