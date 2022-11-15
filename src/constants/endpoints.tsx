@@ -22,7 +22,7 @@ const GET_EXCHANGE_URL = "rates/markets?base=USD";
 const P2P_ADS = "p2p/ads"
 const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
 const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
-const GET_NIGERIAN_BANKS = "nigeria-banks"
+const GET_NIGERIAN_BANKS = "bank/default/nigerian-banks"
 
 const endpoints = {
   BASE_URL,

@@ -1,13 +1,22 @@
-import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowBackIcon, TriangleDownIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
   Show, Text,
   HStack,
   VStack,
   Input,
-  Select
+  Select,
+  FormControl,
+  FormLabel,
+  InputGroup,
+  InputRightElement,
+  FormErrorMessage
 } from '@chakra-ui/react'
+import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
+import { useState } from "react"
+import MainAppButton from "../../../../../../components/buttons/MainAppButton"
+import authValidators from "../../../../../../helpers/validators/authValidators"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
 
@@ -29,6 +38,17 @@ const AddBankAccounts = () => {
     //     accountName: "",
     //     accountNumber: ""
     // }
+
+    const validatePassword = (value: string,) => {
+        let error
+        // let passwordChecks: string[] = []
+        if (!value) {
+            error = 'Password should not be empty '
+        }
+
+        return error
+    }
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     
     console.log("the get banks ", getBanks)
@@ -81,6 +101,7 @@ const AddBankAccounts = () => {
                     </Flex>
                 </Show>
 
+                {/* this is where the form starts from */}
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
                     <Box 
                         background={'#FFFFFF'}
@@ -124,9 +145,262 @@ const AddBankAccounts = () => {
                             Add Bank
                         </Button>
 
+                        <Formik
+                    initialValues={{ email: '', password: '', accountName: "" }}
+
+                    onSubmit={async (values, { setSubmitting }) => {
+                        try {
+                            setSubmitting(true)
+                            // const response: any = await login({ email: values.email, password: values.password })
+                            // alert(JSON.stringify(response))
+                            // if (response?.data?.status == 201 || response?.data?.status == 200) {
+                            //     setSubmitting(false)
+                            //     // dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
+                                // // alert(JSON.stringify(response?.data?.data))
+                                // appAlert.success('Login Successful')
+                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                // dispatch(clearFromLocalStorage())
+                                // router.replace('/dashboard')
+                                // if (isEmailVerified == true) {
+                                //     appAlert.success('Login Successful')
+                                //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                //     dispatch(clearFromLocalStorage())
+                                //     router.replace('/dashboard')
+                                // } else {
+                                //     router.replace('/verify-email')
+                                // }
+
+                            // } else if (response?.data?.status == 202) {
+                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                // setShouldSendOtp(true)
+                                // sendOtp.refetch()
+                                // // alert(JSON.stringify(res))
+                            //     // router.replace('/verify-email')
+                            // } else {
+                            //     setSubmitting(false)
+                            //     // appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                            // }
+                        } catch (error) {
+                            // setSubmitting(false)
+                            // console.log(error)
+                        }
+                        // try {
+                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('password')
+
+                        //     if (isEmailVerified == true) {
+                        //         console.log('check verified', isEmailVerified)
+                        //         router.push('/dashboard')
+                        //     } else {
+                        //         console.log('check verified', isEmailVerified)
+                        //         dispatch(sendOtp()).unwrap()
+                        //         router.push('/verify-email')
+
+                        //     }
+
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        // router.push('/dashboard')
+                    }}
+                    validateOnChange
+                    validateOnBlur
+                    validateOnMount
+                >
+                    {({
+                        // handleChange,
+                        // handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                        // values
+                        /* and other goodies */
+                    }) => (
+                        <Form  >
+                            <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
+                                
+                                <Field name="accountName" id="accountName">
+                                    {({ field, form }: any) => (
+                                    <FormControl >
+                                        <FormLabel>Bank</FormLabel>
+                                        <Select
+                                            // name="ingredientId"
+                                            // id="ingredientId"
+                                            // onChange={field.onChange} // or {form.handleChange}
+                                                    // value={values}
+                                                        {...field}           
+                                            placeholder='Access Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
+                                        >
+                                        {/* {ingredients!.map((ingredient: any) => (
+                                            <option
+                                            key={ingredient.id}
+                                            value={ingredient.id}
+                                            id="ingredientId">
+                                            {ingredient.name}
+                                            </option>
+
+
+                                        ))} */}
+
+                                            {getBanks?.filter((item: any) => (
+                                                item?.bankName !=='Access Bank'
+                                            )).map((item:any) => (
+                                                <option key={item?.bankCode} value='option1'>{ item?.bankName}</option>
+                                            ))}
+                                                    </Select>
+                                    </FormControl>
+                                    )}
+                                </Field>
+                                
+                                <Field name='email' validate={authValidators.validateEmail}>
+                                    {({ field, form }: any) => (
+                                        <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
+                                            <FormLabel>Email</FormLabel>
+                                            <Input {...field} />
+                                            <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                                        </FormControl>
+                                    )}
+                                </Field>
+
+                                <Field name='password' validate={validatePassword}>
+                                    {({ field, form }: any) => (
+                                        <FormControl isInvalid={form.errors.password && form.touched.password} py='4'>
+                                            <FormLabel>Password</FormLabel>
+                                            <InputGroup>
+                                                <Input {...field} type={isPasswordVisible ? 'text' : 'password'} />
+                                                <InputRightElement width='16'  >
+                                                    {isPasswordVisible ? <ViewOffIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(false)} /> : <ViewIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(true)} />}
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+
+                                        </FormControl>
+                                    )}
+                                </Field>
+
+                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit}>
+                                    Login
+                                </MainAppButton>
+
+
+                            </VStack>
+                        </Form>
+                    )}
+
+                </Formik>
                     </Box>
 
                 </Box>
+
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+
+                    onSubmit={async (values, { setSubmitting }) => {
+                        try {
+                            setSubmitting(true)
+                            // const response: any = await login({ email: values.email, password: values.password })
+                            // alert(JSON.stringify(response))
+                            // if (response?.data?.status == 201 || response?.data?.status == 200) {
+                            //     setSubmitting(false)
+                            //     // dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
+                                // // alert(JSON.stringify(response?.data?.data))
+                                // appAlert.success('Login Successful')
+                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                // dispatch(clearFromLocalStorage())
+                                // router.replace('/dashboard')
+                                // if (isEmailVerified == true) {
+                                //     appAlert.success('Login Successful')
+                                //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                //     dispatch(clearFromLocalStorage())
+                                //     router.replace('/dashboard')
+                                // } else {
+                                //     router.replace('/verify-email')
+                                // }
+
+                            // } else if (response?.data?.status == 202) {
+                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                                // setShouldSendOtp(true)
+                                // sendOtp.refetch()
+                                // // alert(JSON.stringify(res))
+                            //     // router.replace('/verify-email')
+                            // } else {
+                            //     setSubmitting(false)
+                            //     // appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                            // }
+                        } catch (error) {
+                            // setSubmitting(false)
+                            // console.log(error)
+                        }
+                        // try {
+                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
+                        //     localStorage.removeItem('lastname')
+                        //     localStorage.removeItem('password')
+
+                        //     if (isEmailVerified == true) {
+                        //         console.log('check verified', isEmailVerified)
+                        //         router.push('/dashboard')
+                        //     } else {
+                        //         console.log('check verified', isEmailVerified)
+                        //         dispatch(sendOtp()).unwrap()
+                        //         router.push('/verify-email')
+
+                        //     }
+
+                        // } catch (error) {
+                        //     console.log(error)
+                        // }
+                        // router.push('/dashboard')
+                    }}
+                    validateOnChange
+                    validateOnBlur
+                    validateOnMount
+                >
+                    {({
+                        // handleChange,
+                        // handleBlur,
+                        handleSubmit,
+                        isSubmitting,
+                        // values
+                        /* and other goodies */
+                    }) => (
+                        <Form>
+                            <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='start'>
+                                <Field name='email' validate={authValidators.validateEmail}>
+                                    {({ field, form }: any) => (
+                                        <FormControl isInvalid={form.errors.email && form.touched.email} pt='4'>
+                                            <FormLabel>Email</FormLabel>
+                                            <Input {...field} />
+                                            <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                                        </FormControl>
+                                    )}
+                                </Field>
+
+                                <Field name='password' validate={validatePassword}>
+                                    {({ field, form }: any) => (
+                                        <FormControl isInvalid={form.errors.password && form.touched.password} py='4'>
+                                            <FormLabel>Password</FormLabel>
+                                            <InputGroup>
+                                                <Input {...field} type={isPasswordVisible ? 'text' : 'password'} />
+                                                <InputRightElement width='16'  >
+                                                    {isPasswordVisible ? <ViewOffIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(false)} /> : <ViewIcon cursor={'pointer'} onClick={() => setIsPasswordVisible(true)} />}
+                                                </InputRightElement>
+                                            </InputGroup>
+                                            <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+
+                                        </FormControl>
+                                    )}
+                                </Field>
+
+                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit}>
+                                    Login
+                                </MainAppButton>
+
+
+                            </VStack>
+                        </Form>
+                    )}
+
+                </Formik>
 
             </Box>
         </DashboardLayout>
