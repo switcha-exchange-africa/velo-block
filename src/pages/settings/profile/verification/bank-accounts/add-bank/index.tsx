@@ -1,4 +1,4 @@
-import { AddIcon, ArrowBackIcon, TriangleDownIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons"
+import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
   Show, Text,
@@ -8,15 +8,13 @@ import {
   Select,
   FormControl,
   FormLabel,
-  InputGroup,
-  InputRightElement,
   FormErrorMessage
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import { useState } from "react"
-import MainAppButton from "../../../../../../components/buttons/MainAppButton"
-import authValidators from "../../../../../../helpers/validators/authValidators"
+// import MainAppButton from "../../../../../../components/buttons/MainAppButton"
+// import authValidators from "../../../../../../helpers/validators/authValidators"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
 
@@ -58,8 +56,7 @@ const AddBankAccounts = () => {
 
         return error
     }
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-
+    
     
     console.log("the get banks ", getBanks)
 
@@ -189,7 +186,7 @@ const AddBankAccounts = () => {
                     {({
                         // handleChange,
                         // handleBlur,
-                        handleSubmit,
+                        // handleSubmit,
                         isSubmitting,
                         // values
                         /* and other goodies */
@@ -198,28 +195,13 @@ const AddBankAccounts = () => {
                             <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                 
                                 <Field name="name" id="name">
-                                    {({ field, form }: any) => (
+                                    {({ field }: any) => (
                                     <FormControl >
                                         <FormLabel>Bank</FormLabel>
                                         <Select
-                                            // name="ingredientId"
-                                            // id="ingredientId"
-                                            // onChange={field.onChange} // or {form.handleChange}
-                                                    // value={values}
-                                                        {...field}           
+                                            {...field}           
                                             placeholder='Access Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
                                         >
-                                        {/* {ingredients!.map((ingredient: any) => (
-                                            <option
-                                            key={ingredient.id}
-                                            value={ingredient.id}
-                                            id="ingredientId">
-                                            {ingredient.name}
-                                            </option>
-
-
-                                        ))} */}
-
                                             {getBanks?.filter((item: any) => (
                                                 item?.bankName !=='Access Bank'
                                             )).map((item: any, index: number) => (
