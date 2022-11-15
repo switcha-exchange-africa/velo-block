@@ -186,7 +186,7 @@ const AddBankAccounts = () => {
                     {({
                         // handleChange,
                         // handleBlur,
-                        // handleSubmit,
+                        handleSubmit,
                         isSubmitting,
                         // values
                         /* and other goodies */
@@ -234,22 +234,17 @@ const AddBankAccounts = () => {
                                 </Field>
                                         
 
-                                {/* <MainAppButton isLoading={isSubmitting} onClick={handleSubmit}>
-                                    Login
-                                </MainAppButton> */}
 
-
-
-                                    </VStack>
-                                 <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
-                                    <AddIcon
-                                        mr="5px"
-                                        color={"white"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                    Add Bank
-                                </Button>
+                            </VStack>
+                            <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                <AddIcon
+                                    mr="5px"
+                                    color={"white"}
+                                    w={"10px"}
+                                    h={"10px"}
+                                />
+                                Add Bank
+                            </Button>
 
                         </Form>
                     )}
