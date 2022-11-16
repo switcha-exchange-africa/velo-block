@@ -6,6 +6,8 @@ import {
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
+import config from "../../../../../components/digitalOcean/config";
+import s3 from "../../../../../components/digitalOcean/DigitalOcean";
 import remoteImages from "../../../../../constants/remoteImages";
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 
@@ -32,6 +34,32 @@ export const FileInput = (props: InputProps) => {
 
 const Level2Verification = () => {
     const Router = useRouter()
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            const blob = e.target.files[0];
+            const params = { Body: blob, 
+                            Bucket: `${Config.bucketName}`, 
+                            Key: blob.name};
+            // Sending the file to the Spaces
+            s3.putObject(params)
+            .on('build', request => {
+                request.httpRequest.headers.Host = `${Config.digitalOceanSpaces}`;
+                request.httpRequest.headers['Content-Length'] = blob.size;
+                request.httpRequest.headers['Content-Type'] = blob.type;
+                request.httpRequest.headers['x-amz-acl'] = 'public-read';
+            })
+            .send((err) => {
+                if (err) errorCallback();
+                else {
+                // If there is no error updating the editor with the imageUrl
+                const imageUrl = `${config.digitalOceanSpaces}` + blob.name
+                callback(imageUrl, blob.name)
+            }
+            });
+        }
+    };
+
 
 
     return (
@@ -122,7 +150,12 @@ const Level2Verification = () => {
                                     <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                 </Button>
 
-                                <input id="file-upload" type="file" onChange={handleProfileImageUpload}/>
+                                <input
+                                    type="file"
+                                    id="inputfile"
+                                    accept="image/*"
+                                    onChange={this.handleImageChange}
+                                />
                             </Flex>
 
 
