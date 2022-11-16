@@ -1,6 +1,7 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, Img, Flex, Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
+import remoteImages from '../constants/remoteImages'
 import MainAppButton from './buttons/MainAppButton'
 
 const SuccessModal = ({ isOpen, onClose, size = { md: 'xl', base: 'sm' }, bodyText }: any) => {
@@ -16,7 +17,7 @@ const SuccessModal = ({ isOpen, onClose, size = { md: 'xl', base: 'sm' }, bodyTe
                 <ModalCloseButton size={'16'} p={'4'} />
                 <ModalBody py={12} textAlign={{ md: 'left', base: 'center' }}>
                     <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
-                        <Img src="/assets/svgs/SwitchaSuccessImage.svg" alt="" />
+                        <Img src={remoteImages.successImageSvg} alt="" />
                         <Text textAlign={'center'} py={'8'} fontWeight={'bold'} fontSize={'xl'} >
                             Success!
                         </Text>

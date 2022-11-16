@@ -5,6 +5,8 @@ import Cookie from "js-cookie";
 const initialState: AuthState = {
   user: null,
   token: null,
+  fptoken: null,
+  fpemail: null,
   error: null,
   isEmailVerified: false,
 };
@@ -60,6 +62,20 @@ export const authSlice = createSlice({
       localStorage.removeItem("user");
       Cookie.remove("SwitchaJWT");
     },
+    setForgotPasswordCredentials: (
+      state,
+      {
+        payload: { email, fptoken },
+      }: PayloadAction<{ email: any; fptoken: string }>
+    ) => {
+      state.fpemail = email;
+      state.fptoken = fptoken;
+    },
+
+    clearForgotPasswordCredentials: (state) => {
+      state.fpemail = null;
+      state.fptoken = null;
+    },
   },
 });
 
@@ -71,6 +87,8 @@ export const {
   clearFromLocalStorage,
   getTokenFromLocalStorage,
   removeTokenFromLocalStorage,
+  setForgotPasswordCredentials,
+  clearForgotPasswordCredentials,
 } = authSlice.actions;
 
 export default authSlice.reducer;

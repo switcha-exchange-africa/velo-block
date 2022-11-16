@@ -13,6 +13,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 
 import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
+import remoteImages from '../../../constants/remoteImages'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -61,7 +62,7 @@ const NotifyTraders = () => {
                             <Text fontWeight={'medium'} flexDirection={'row'} fontSize={'sm'} color={'#64748B'} >Order number</Text>
                             <Text display={'flex'} alignItems={'center'} fontWeight={'medium'} fontSize={'sm'} px={'2'}>{orderDetail?.data?.data?.orderId} <CopyToClipboard text={orderDetail?.data?.data?.orderId}
                                 onCopy={() => appAlert.success('copied to clipboard')}>
-                                <Img src={'/assets/svgs/copyIcon.svg'} alt='' />
+                                <Img src={remoteImages.copyIcon} alt='' />
                             </CopyToClipboard></Text>
 
                         </Flex>
@@ -210,7 +211,7 @@ const NotifyTraders = () => {
                                 <Divider orientation='horizontal' w={'full'} />
                                 <Flex w={'full'} alignItems={'center'} pr={'4'}>
                                     <Input type={'text'} w={'full'} border={'none'} placeholder={'Type your Message'} _placeholder={{ fontSize: 'xs' }} />
-                                    <Text display={'flex'} cursor={'pointer'} fontSize='xs' color={'primaryColor.900'} fontWeight={'medium'}>Send <Img pl={'1'} src={'/assets/svgs/image-icon.svg'} alt='' /></Text>
+                                    <Text display={'flex'} cursor={'pointer'} fontSize='xs' color={'primaryColor.900'} fontWeight={'medium'}>Send <Img pl={'1'} src={remoteImages.imageIconsvg} alt='' /></Text>
                                 </Flex>
                             </Flex>
                         </Flex>
@@ -286,7 +287,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
 
 //     }, [bankId, getSingleBank])
 //     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></CopyToClipboard> </Text>
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
 // }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

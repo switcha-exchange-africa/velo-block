@@ -7,6 +7,7 @@ import Currency from 'react-currency-formatter';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
 import appAlert from '../../../helpers/appAlert';
+import remoteImages from '../../../constants/remoteImages';
 
 const NotifySeller = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +33,7 @@ const NotifySeller = () => {
                             <Text fontWeight={'medium'} flexDirection={'row'} fontSize={'sm'} color={'#64748B'} >Order number</Text>
                             <Text display={'flex'} alignItems={'center'} fontWeight={'medium'} fontSize={'sm'} px={'2'}>{order?.order?.orderId} <CopyToClipboard text={order?.order?.orderId}
                                 onCopy={() => appAlert.success('copied to clipboard')}>
-                                <Img src={'/assets/svgs/copyIcon.svg'} alt='' />
+                                <Img src={remoteImages.copyIcon} alt='' />
                             </CopyToClipboard></Text>
 
                         </Flex>
@@ -100,15 +101,15 @@ const NotifySeller = () => {
                                         <Flex pt={'4'}>
                                             <Flex flexDirection={'column'} pr={'8'}>
                                                 <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >OLUMIDE OYELEYE <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
+                                                <Text display={'flex'} fontSize={'sm'} >OLUMIDE OYELEYE <Img pl={'1'} src={remoteImages.copyIcon} alt='' /></Text>
                                             </Flex>
                                             <Flex flexDirection={'column'} pr={'8'}>
                                                 <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >2016939941 <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
+                                                <Text display={'flex'} fontSize={'sm'} >2016939941 <Img pl={'1'} src={remoteImages.copyIcon} alt='' /></Text>
                                             </Flex>
                                             <Flex flexDirection={'column'} pr={'8'}>
                                                 <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
-                                                <Text display={'flex'} fontSize={'sm'} >KUDA <Img pl={'1'} src={'/assets/svgs/copyIcon.svg'} alt='' /></Text>
+                                                <Text display={'flex'} fontSize={'sm'} >KUDA <Img pl={'1'} src={remoteImages.copyIcon} alt='' /></Text>
                                             </Flex>
                                         </Flex>
                                     </Flex>
@@ -161,7 +162,7 @@ const NotifySeller = () => {
                                 <Divider orientation='horizontal' w={'full'} />
                                 <Flex w={'full'} alignItems={'center'} pr={'4'}>
                                     <Input type={'text'} w={'full'} border={'none'} placeholder={'Type your Message'} _placeholder={{ fontSize: 'xs' }} />
-                                    <Text display={'flex'} cursor={'pointer'} fontSize='xs' color={'primaryColor.900'} fontWeight={'medium'}>Send <Img pl={'1'} src={'/assets/svgs/image-icon.svg'} alt='' /></Text>
+                                    <Text display={'flex'} cursor={'pointer'} fontSize='xs' color={'primaryColor.900'} fontWeight={'medium'}>Send <Img pl={'1'} src={remoteImages.imageIconsvg} alt='' /></Text>
                                 </Flex>
                             </Flex>
                         </Flex>

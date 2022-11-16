@@ -3,11 +3,17 @@ import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../components/buttons/MainAppButton'
+import appAlert from '../../helpers/appAlert'
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import authValidators from '../../helpers/validators/authValidators'
 import AuthLayout from '../../layouts/auth/AuthLayout'
+import { setForgotPasswordCredentials } from '../../redux/features/auth/authSlice'
+import { useForgotPasswordMutation } from '../../redux/services/auth.service'
 
 const ForgotPassword = () => {
     const router = useRouter()
+    const [forgotPassword, { isLoading }] = useForgotPasswordMutation()
+    const dispatch = useAppDispatch()
     return (
         <AuthLayout title='Forgot Password'>
             <VStack bg={{ md: 'appWhiteColor', base: 'transparent' }} px={{ lg: '12', md: '4', base: '0' }} align='start' py='20'>
@@ -16,36 +22,28 @@ const ForgotPassword = () => {
                 <Formik
                     initialValues={{ email: '', }}
 
-                    onSubmit={async () => {
-                        router.push('/forgot-password/verification-code')
-                        // try {
-                        //     setSubmitting(true)
-                        //     const response: any = await login({ email: values.email, password: values.password })
-                        //     // alert(JSON.stringify(response))
-                        //     if (response?.data?.status == 201 || response?.data?.status == 200) {
-                        //         setSubmitting(false)
-                        //         dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                        //         // alert(JSON.stringify(response?.data?.data))
-                        //         appAlert.success('Login Successful')
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         dispatch(clearFromLocalStorage())
-                        //         router.replace('/dashboard')
+                    onSubmit={async (values, { }) => {
 
+                        try {
 
-                        //     } else if (response?.data?.status == 202) {
-                        //         dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         setShouldSendOtp(true)
-                        //         sendOtp.refetch()
-                        //         // alert(JSON.stringify(res))
-                        //         router.replace('/verify-email')
-                        //     } else {
-                        //         setSubmitting(false)
-                        //         appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                        //     }
-                        // } catch (error) {
-                        //     setSubmitting(false)
-                        //     console.log(error)
-                        // }
+                            const response: any = await forgotPassword({ email: values.email })
+                            // alert(JSON.stringify(response))
+                            if (response?.data?.status == 201 || response?.data?.status == 200 || response?.data?.status == 202) {
+
+                                dispatch(setForgotPasswordCredentials({ email: values.email, fptoken: response?.data?.data }))
+                                // alert(JSON.stringify(response?.data))
+                                appAlert.success(`${response?.data?.message}`)
+
+                                router.push('/forgot-password/verification-code')
+                            }
+                            else {
+
+                                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                            }
+                        } catch (error) {
+
+                            console.log(error)
+                        }
 
                     }}
                     validateOnChange
@@ -56,7 +54,7 @@ const ForgotPassword = () => {
                         // handleChange,
                         // handleBlur,
                         handleSubmit,
-                        isSubmitting,
+                        // isSubmitting,
                         // values
                         /* and other goodies */
                     }) => (
@@ -74,7 +72,7 @@ const ForgotPassword = () => {
 
                                 <Box pt={'8'}></Box>
 
-                                <MainAppButton isLoading={isSubmitting} onClick={handleSubmit}>
+                                <MainAppButton isLoading={isLoading} onClick={handleSubmit}>
                                     Verify
                                 </MainAppButton>
 
