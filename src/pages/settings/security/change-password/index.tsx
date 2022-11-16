@@ -1,56 +1,33 @@
-import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
+import { ArrowBackIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
   Show,
   HStack,
   VStack,
   Input,
-  Select,
   FormControl,
   FormLabel,
-  FormErrorMessage
+  FormErrorMessage,
+  Text
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import appAlert from "../../../../helpers/appAlert"
 import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout"
-import { useAddBankMutation, useGetNigerianBankQuery, useGetUsersBankQuery } from "../../../../redux/services/bank.service"
 
 const ChangePassword = () => {
     const Router = useRouter()
-    const {data:getBanks} = useGetNigerianBankQuery()
 
 
-    const validateAccountName = (value: string, ) => {
+    const validatePassword = (value: string, ) => {
         let error
         if (!value) {
-            error = 'Account name should not be empty '
+            error = 'Required Field'
         }
         return error
     }
 
-    const validateAccountNumber = (value: string, ) => {
-        let error
-        if (!value) {
-            error = 'Account number should not be empty '
-        }
-
-        return error
-    }
-
-    const validateBankName = (value: string, ) => {
-        let error
-        if (!value) {
-            error = 'Bank not selected '
-        }
-
-        return error
-    }
     
-    
-    const [addBank] = useAddBankMutation()
-    const fetchAllUsersBank = useGetUsersBankQuery()
-
 
     return (
         <DashboardLayout title="Add bank account">
@@ -68,11 +45,11 @@ const ChangePassword = () => {
                         color={'black'}
                         ml={'1rem'}
                     >
-                        Bank Accounts
+                        Security
                     </Button>
                     
                     <HStack width={{ lg: "70%", base: '100%' }}  alignItems={"center"} justifyContent={"space-between"} py={'2rem'} gap={"1rem"}>
-                        <Heading size="md"  ml={'1rem'}>Add bank account </Heading>
+                        <Heading size="md"  ml={'1rem'}>Change Login password </Heading>
                     </HStack>
                 </Show>
 
@@ -89,10 +66,10 @@ const ChangePassword = () => {
                             ml={'2'}
                             fontSize="14px"
                         >
-                            bank account
+                            Security
                             <Heading size="md"
                                 ml={'2rem'}>
-                                Add bank account
+                                Change Login Password
                             </Heading>
                         </Button>
                     </Flex>
@@ -107,33 +84,29 @@ const ChangePassword = () => {
                         p={"20px"}
                     >
                        
+                        <Text>Input your old password to confirm its really you</Text>
+
                         <Formik
-                            initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
+                            initialValues={{password: ""}}
 
                             onSubmit={async (values:any) => {                                
-                                let res = values.name
-                                let filteredBank =  getBanks?.filter(function(bank:any) {
-                                    return bank.bankName === res;
-                                });
-                                let codeValue = filteredBank.map((code: any) => code?.bankCode)
-
-                                let newItem = codeValue[0]
-
+                                
 
                                 const data = {
                                     ...values,
-                                    accountNumber: values.accountNumber.toString(),
-                                    code: newItem
+                                
                                 }
-                                const response:any = await addBank(data)
-                                if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                    appAlert.success(response?.data?.data?.message)
-                                    fetchAllUsersBank.refetch()
-                                    Router.back()
-                                } else {
-                                    console.log(response?.error?.data?.message)
-                                        appAlert.error(response?.error?.data?.message)
-                                    } 
+
+                                console.log(data)
+                                // const response:any = await addBank(data)
+                                // if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                //     appAlert.success(response?.data?.data?.message)
+                                //     fetchAllUsersBank.refetch()
+                                //     Router.back()
+                                // } else {
+                                //     console.log(response?.error?.data?.message)
+                                //         appAlert.error(response?.error?.data?.message)
+                                //     } 
                                 }}
                             validateOnChange
                             validateOnBlur
@@ -150,56 +123,29 @@ const ChangePassword = () => {
                                 <Form  >
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                         
-                                        <Field name="name" id="name" validate={validateBankName}>
-                                            {({ field , form}: any) => (
-                                            <FormControl isInvalid={form.errors.name && form.touched.name}>
-                                                <FormLabel>Bank</FormLabel>
-                                                    <Select
-                                                    {...field}           
-                                                    placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
-                                                >
-                                                    {getBanks?.map((item: any, index: number) => (
-                                                        <option key={index} value={item?.bankName}>{item?.bankName}</option>
-                                                    ))}
-                                                </Select>
-                                                <FormErrorMessage>{form.errors.name}</FormErrorMessage>    
-                                            </FormControl>
-                                            )}
-                                        </Field>
                                         
-                                        <Field name='accountNumber' validate={validateAccountNumber}>
+
+                                        <Field name='password' validate={validatePassword}>
                                             {({ field, form }: any) => (
-                                                <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
-                                                    <FormLabel>Account Number</FormLabel>
-                                                    <Input {...field} type="number" placeholder="215xxxxx900"/>
-                                                    <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
+                                                <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
+                                                    <FormLabel>Old password</FormLabel>
+                                                    <Input {...field} type="text" placeholder="*********"/>
+                                                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                                                 </FormControl>
                                             )}
                                         </Field>
-
-                                        <Field name='accountName' validate={validateAccountName}>
-                                            {({ field, form }: any) => (
-                                                <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
-                                                    <FormLabel>Account Name</FormLabel>
-                                                    <Input {...field} type="text" placeholder="Otinomo Richard"/>
-                                                    <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
-                                                </FormControl>
-                                            )}
-                                        </Field>
-                                                
-
-
                                     </VStack>
-                                    <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
-                                        <AddIcon
-                                            mr="5px"
-                                            color={"white"}
-                                            w={"10px"}
-                                            h={"10px"}
-                                        />
-                                        Add Bank
-                                    </Button>
 
+
+                                    <Flex alignItems="center">
+                                        <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                            Next
+                                        </Button>
+                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                            Cancel
+                                        </Button>
+
+                                    </Flex>
                                 </Form>
                             )}
 
