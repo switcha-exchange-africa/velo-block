@@ -27,7 +27,6 @@ const AddBankAccounts = () => {
         if (!value) {
             error = 'Account name should not be empty '
         }
-
         return error
     }
 
@@ -89,10 +88,11 @@ const AddBankAccounts = () => {
                             py={"2rem"}
                             color={'black'}
                             ml={'2'}
+                            fontSize="14px"
                         >
-                            Add bank account
+                            bank account
                             <Heading size="md"
-                                ml={'1rem'}>
+                                ml={'2rem'}>
                                 Add bank account
                             </Heading>
                         </Button>
