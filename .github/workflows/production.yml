@@ -43,7 +43,7 @@ jobs:
         run: echo ::set-output name=IMG_TAG::$(echo $GITHUB_SHA)
 
       - name: Build and tag the Docker image
-        run: docker build --rm ./ --file ./Dockerfile
+        run: docker build --rm ./ --file ./Prod-Dockerfile
           --tag registry.digitalocean.com/switcha-africa/${{secrets.SWITCHA_PRODUCTION_EXCHANGE_NAME_IMAGE_NAME}}:latest
 
       - name: Push the tagged Docker image
