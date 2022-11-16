@@ -84,7 +84,7 @@ const VerificationCode = () => {
                         p={"20px"}
                     >
                        
-                        <Text>A verification code has been sent to your email. Input the code to proceed</Text>
+                        <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">A verification code has been sent to your email. Input the code to proceed</Text>
 
                         <Formik
                             initialValues={{password: ""}}

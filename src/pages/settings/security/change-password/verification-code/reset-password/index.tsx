@@ -84,21 +84,17 @@ const ResetPassword = () => {
                         p={"20px"}
                     >
                        
-                        <Text>Input the new password you want for your account</Text>
+                        <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">Input the new password you want for your account</Text>
 
                         <Formik
                             initialValues={{password: ""}}
 
                             onSubmit={async (values:any) => {                                
-                                
 
                                 const data = {
                                     ...values,
                                 
                                 }
-
-
-
                                 console.log(data)
                                 // const response:any = await addBank(data)
                                 // if (response?.data?.status == 200 || response?.data?.status == 201 ) {

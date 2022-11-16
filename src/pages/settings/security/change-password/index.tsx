@@ -84,7 +84,7 @@ const ChangePassword = () => {
                         p={"20px"}
                     >
                        
-                        <Text>Input your old password to confirm its really you</Text>
+                        <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">Input your old password to confirm its really you</Text>
 
                         <Formik
                             initialValues={{password: ""}}
