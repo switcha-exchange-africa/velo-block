@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import { useState } from "react"
 import appAlert from "../../../../../../helpers/appAlert"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 import { useAddBankMutation, useGetNigerianBankQuery, useGetUsersBankQuery } from "../../../../../../redux/services/bank.service"
@@ -40,10 +39,19 @@ const AddBankAccounts = () => {
 
         return error
     }
+
+    const validateBankName = (value: string, ) => {
+        let error
+        if (!value) {
+            error = 'Bank name not selected '
+        }
+
+        return error
+    }
     
     
     const [addBank] = useAddBankMutation()
-    const {data:getUsersBank} = useGetUsersBankQuery()
+    const fetchAllUsersBank = useGetUsersBankQuery()
 
 
     return (
@@ -121,7 +129,10 @@ const AddBankAccounts = () => {
                                 const response:any = await addBank(data)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
                                     appAlert.success(response?.data?.data?.message)
+                                    fetchAllUsersBank.refetch()
+                                    Router.back()
                                 } else {
+                                    console.log(response?.error?.data?.message)
                                         appAlert.error(response?.error?.data?.message)
                                     } 
                                 }}
@@ -140,20 +151,19 @@ const AddBankAccounts = () => {
                                 <Form  >
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                         
-                                        <Field name="name" id="name">
-                                            {({ field }: any) => (
-                                            <FormControl >
+                                        <Field name="name" id="name" validate={validateBankName}>
+                                            {({ field , form}: any) => (
+                                            <FormControl isInvalid={form.errors.name && form.touched.name}>
                                                 <FormLabel>Bank</FormLabel>
                                                     <Select
-                                                            
                                                     {...field}           
                                                     placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
                                                 >
                                                     {getBanks?.map((item: any, index: number) => (
-                                                        // item?.bankCode
                                                         <option key={index} value={item?.bankName}>{item?.bankName}</option>
                                                     ))}
                                                 </Select>
+                                                <FormErrorMessage>{form.errors.name}</FormErrorMessage>    
                                             </FormControl>
                                             )}
                                         </Field>
@@ -162,7 +172,7 @@ const AddBankAccounts = () => {
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
                                                     <FormLabel>Account Number</FormLabel>
-                                                    <Input {...field} type="number"/>
+                                                    <Input {...field} type="number" placeholder="215xxxxx900"/>
                                                     <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
                                                 </FormControl>
                                             )}
@@ -172,7 +182,7 @@ const AddBankAccounts = () => {
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
                                                     <FormLabel>Account Name</FormLabel>
-                                                    <Input {...field} />
+                                                    <Input {...field} type="text" placeholder="Otinomo Richard"/>
                                                     <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
                                                 </FormControl>
                                             )}
@@ -207,33 +217,3 @@ const AddBankAccounts = () => {
 }
 
 export default AddBankAccounts
-
-
-
-
-
-// <VStack width={'100%'} mb="24px"  alignItems="start" >
-// <Text fontSize={{ base: 'sm', lg: 'md' }}>
-//     Bank
-// </Text>
-// <Select placeholder='Access Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}>
-//     {/* this filters access bank out as it is already placed as default on placeholder */}
-//     {getBanks?.filter((item: any) => (
-//         item?.bankName !=='Access Bank'
-//     )).map((item:any) => (
-//         <option key={item?.bankCode} value='option1'>{ item?.bankName}</option>
-//     ))}
-// </Select>
-
-// </VStack>
-
-// <VStack width={'100%'} mb="24px"  alignItems="start">
-// <Text fontSize={{ base: 'sm', lg: 'md' }}>
-//     Account Number
-// </Text>
-// <Input
-//     type="number"
-//     placeholder='080xxxxx900'
-//     mr={'1rem'}
-// />
-// </VStack>
