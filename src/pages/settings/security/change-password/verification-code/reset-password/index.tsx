@@ -19,9 +19,9 @@ const ResetPassword = () => {
     const Router = useRouter()
 
 
-    const [passwordChecks, setPasswordChecks] = React.useState<string[]>([])
-    const [passwordChecksPassed, setPasswordChecksPassed] = React.useState<string[]>([])
-    const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
+    const [passwordChecks, setPasswordChecks] = useState<string[]>([])
+    const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const validatePassword = (value: string,) => {
         let error
         let passwordChecks: string[] = []
