@@ -1,7 +1,7 @@
 import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
   Box, Button, Flex, Heading,
-  Show, Text,
+  Show,
   HStack,
   VStack,
   Input,
@@ -14,8 +14,6 @@ import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import { useState } from "react"
 import appAlert from "../../../../../../helpers/appAlert"
-// import MainAppButton from "../../../../../../components/buttons/MainAppButton"
-// import authValidators from "../../../../../../helpers/validators/authValidators"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 import { useAddBankMutation, useGetNigerianBankQuery, useGetUsersBankQuery } from "../../../../../../redux/services/bank.service"
 
@@ -25,29 +23,8 @@ const AddBankAccounts = () => {
     const {data:getBanks} = useGetNigerianBankQuery()
 
 
-    const getBankCode = getBanks?.map((item:any) => item?.bankName)
-    
-    const getBankName = getBanks?.map((item: any) => item)
-
-    let idYouWant = "bankName"
-    let propertyYouWant = "bankCode"
-
-    // Using Array.filter( ) method
-    // we are iterating through each
-    // items in the array and
-    // checking which item's
-    // id value is equal to the id we want
-
-    // let res = getBankName?.filter((item:any) => {
-    //     return item.id == idYouWant;
-    // });
-    //  let exactRes = res[0][propertyYouWant];
-    //  console.log("exact response is ", exactRes)
-
-
     const validateAccountName = (value: string, ) => {
         let error
-        // let passwordChecks: string[] = []
         if (!value) {
             error = 'Account name should not be empty '
         }
@@ -57,7 +34,6 @@ const AddBankAccounts = () => {
 
     const validateAccountNumber = (value: string, ) => {
         let error
-        // let passwordChecks: string[] = []
         if (!value) {
             error = 'Account number should not be empty '
         }
@@ -66,20 +42,6 @@ const AddBankAccounts = () => {
     }
     
     
-    console.log("the get banks ", getBanks)
-
-    // bankCode: 044
-    // bankName: "Access Bank"
-
-    const [select, setSelect] = useState("")
-
-    console.log("selectCOde is ", select)
-    // const handleSelect = (code: string) => {
-    //     setSelect(code)
-
-    //     console.log("was it selected ", code)
-    // }
-
     const [addBank] = useAddBankMutation()
     const {data:getUsersBank} = useGetUsersBankQuery()
 
@@ -138,184 +100,101 @@ const AddBankAccounts = () => {
                         p={"20px"}
                     >
                        
-
                         <Formik
-                    initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
+                            initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
 
-                    onSubmit={async (values:any, { setSubmitting }) => {
-                        
-                        let res = values.name
-                        
-                        var filteredBank =  getBanks?.filter(function(bank:any) {
-                            return bank.bankName === res;
-                        });
+                            onSubmit={async (values:any) => {                                
+                                let res = values.name
+                                let filteredBank =  getBanks?.filter(function(bank:any) {
+                                    return bank.bankName === res;
+                                });
+                                let codeValue = filteredBank.map((code: any) => code?.bankCode)
 
-                        const item=[]
-                        console.log("see this", filteredBank)
-                        let codeValue = filteredBank.map((code: any) => code?.bankCode)
+                                let newItem = codeValue[0]
 
-                        var newItem = codeValue[0]
 
-                        item.push(codeValue)
-                        // let codeValue = codeValue.replace(/[{}]/g, '')
-
-                        console.log("this is the code man ", newItem)
-
-                        // res.filter
-
-                        // const data = {
-                        //     ...values,
-                        //     accountName: values.accountName,
-                        //     accountNumber: values.accountNumber.toString(),
-                        //     code: select
-                        // }
-                        // console.log(data)
-                        //  const response:any = await addBank(data)
-                        // console.log({response})
-                        // if (response?.error?.status == 400 ) {
-                        //     appAlert.error(response?.error?.data?.message?.map((item:any)=> item))
-                        //     console.log(response?.error?.data?.message?.map((item:any)=> item.replace(/[]/g, '')))
-                        //     console.log("success")
-                        // } else {
-                                
-                        // }
-                        // if (response.error.status == 400) {
-                            // appAlert.error(response?.data?.error?.data?.message.map((item:any)=> item[0]))
-                        // }
-
-                        // try {
-                        //     setSubmitting(true)
-                        //     const response = await addBank(data)
-
-                        //     console.log(response)
-                        //     // const response: any = await login({ email: values.email, password: values.password })
-                        //     // alert(JSON.stringify(response))
-                        //     // if (response?.data?.status == 201 || response?.data?.status == 200) {
-                        //     //     setSubmitting(false)
-                        //     //     // dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                        //         // // alert(JSON.stringify(response?.data?.data))
-                        //         // appAlert.success('Login Successful')
-                        //         // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         // dispatch(clearFromLocalStorage())
-                        //         // router.replace('/dashboard')
-                        //         // if (isEmailVerified == true) {
-                        //         //     appAlert.success('Login Successful')
-                        //         //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         //     dispatch(clearFromLocalStorage())
-                        //         //     router.replace('/dashboard')
-                        //         // } else {
-                        //         //     router.replace('/verify-email')
-                        //         // }
-
-                        //     // } else if (response?.data?.status == 202) {
-                        //         // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                        //         // setShouldSendOtp(true)
-                        //         // sendOtp.refetch()
-                        //         // // alert(JSON.stringify(res))
-                        //     //     // router.replace('/verify-email')
-                        //     // } else {
-                        //     //     setSubmitting(false)
-                        //     //     // appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                        //     // }
-                        // } catch (error) {
-                        //     appAlert.error(error?.data?.message.map((item:any)=> item[0]))
-                            
-                        //     // setSubmitting(false)
-                        //     // console.log(error)
-                        // }
-                        // try {
-                        //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
-                        //     localStorage.removeItem('lastname')
-                        //     localStorage.removeItem('password')
-
-                        //     if (isEmailVerified == true) {
-                        //         console.log('check verified', isEmailVerified)
-                        //         router.push('/dashboard')
-                        //     } else {
-                        //         console.log('check verified', isEmailVerified)
-                        //         dispatch(sendOtp()).unwrap()
-                        //         router.push('/verify-email')
-
-                        //     }
-
-                        // } catch (error) {
-                        //     console.log(error)
-                        // }
-                        // router.push('/dashboard')
-                    }}
-                    validateOnChange
-                    validateOnBlur
-                    validateOnMount
-                >
-                    {({
-                        // handleChange,
-                        // handleBlur,
-                        // handleSubmit,
-                        isSubmitting,
-                        // values
-                        /* and other goodies */
-                    }) => (
-                        <Form  >
-                            <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
-                                
-                                <Field name="name" id="name">
-                                    {({ field }: any) => (
-                                    <FormControl >
-                                        <FormLabel>Bank</FormLabel>
-                                            <Select
-                                                    
-                                            {...field}           
-                                            placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
-                                        >
-                                            {getBanks?.map((item: any, index: number) => (
-                                                // item?.bankCode
-                                                <option key={index} value={item?.bankName}>
-                                                    <Text >{item?.bankName}</Text>
-                                                    <Text >{item?.bankCode }</Text>
-                                                </option>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    )}
-                                </Field>
-                                
-                                <Field name='accountNumber' validate={validateAccountNumber}>
-                                    {({ field, form }: any) => (
-                                        <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
-                                            <FormLabel>Account Number</FormLabel>
-                                            <Input {...field} type="number"/>
-                                            <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
-                                        </FormControl>
-                                    )}
-                                </Field>
-
-                                <Field name='accountName' validate={validateAccountName}>
-                                    {({ field, form }: any) => (
-                                        <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
-                                            <FormLabel>Account Name</FormLabel>
-                                            <Input {...field} />
-                                            <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
-                                        </FormControl>
-                                    )}
-                                </Field>
+                                const data = {
+                                    ...values,
+                                    accountNumber: values.accountNumber.toString(),
+                                    code: newItem
+                                }
+                                const response:any = await addBank(data)
+                                if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                    appAlert.success(response?.data?.data?.message)
+                                } else {
+                                        appAlert.error(response?.error?.data?.message)
+                                    } 
+                                }}
+                            validateOnChange
+                            validateOnBlur
+                            validateOnMount
+                        >
+                            {({
+                                // handleChange,
+                                // handleBlur,
+                                // handleSubmit,
+                                isSubmitting,
+                                // values
+                                /* and other goodies */
+                            }) => (
+                                <Form  >
+                                    <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                         
+                                        <Field name="name" id="name">
+                                            {({ field }: any) => (
+                                            <FormControl >
+                                                <FormLabel>Bank</FormLabel>
+                                                    <Select
+                                                            
+                                                    {...field}           
+                                                    placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
+                                                >
+                                                    {getBanks?.map((item: any, index: number) => (
+                                                        // item?.bankCode
+                                                        <option key={index} value={item?.bankName}>{item?.bankName}</option>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            )}
+                                        </Field>
+                                        
+                                        <Field name='accountNumber' validate={validateAccountNumber}>
+                                            {({ field, form }: any) => (
+                                                <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
+                                                    <FormLabel>Account Number</FormLabel>
+                                                    <Input {...field} type="number"/>
+                                                    <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
+                                                </FormControl>
+                                            )}
+                                        </Field>
+
+                                        <Field name='accountName' validate={validateAccountName}>
+                                            {({ field, form }: any) => (
+                                                <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
+                                                    <FormLabel>Account Name</FormLabel>
+                                                    <Input {...field} />
+                                                    <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
+                                                </FormControl>
+                                            )}
+                                        </Field>
+                                                
 
 
-                            </VStack>
-                            <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
-                                <AddIcon
-                                    mr="5px"
-                                    color={"white"}
-                                    w={"10px"}
-                                    h={"10px"}
-                                />
-                                Add Bank
-                            </Button>
+                                    </VStack>
+                                    <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <AddIcon
+                                            mr="5px"
+                                            color={"white"}
+                                            w={"10px"}
+                                            h={"10px"}
+                                        />
+                                        Add Bank
+                                    </Button>
 
-                        </Form>
-                    )}
+                                </Form>
+                            )}
 
-                </Formik>
+                        </Formik>
                     </Box>
 
                 </Box>
