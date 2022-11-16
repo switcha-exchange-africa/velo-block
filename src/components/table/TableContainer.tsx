@@ -36,12 +36,10 @@ const TableComponent = ({
 }: TableComponentProps) => {
     
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
-        let percent = ((completedOrder / adsCreated) * 100).toFixed(2) 
-        if (adsCreated === 0){
-            return 0
-        } else {
-            return percent
-        }
+        
+        const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
+        return percent
+
     }
 
     return (
