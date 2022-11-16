@@ -33,25 +33,6 @@ export const FileInput = (props: InputProps) => {
 const Level2Verification = () => {
     const Router = useRouter()
 
-    const handleImageChange = () => {
-
-    }
-
-    async function handleProfileImageUpload(e:any) {
-        const file = e.target.files[0];
-        const formData:any = new FormData();
-        formData.append('file', file);
-        
-        // Check that file is in proper format before making request
-        
-        await fetch(`/api/image/profileUpload`, {
-            method: 'POST',
-            body: formData,
-            'Content-Type': 'image/jpg',
-        })
-    }
-
-
 
     return (
         <DashboardLayout title="Level 2 Verification">
@@ -141,61 +122,6 @@ const Level2Verification = () => {
                                     <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                 </Button>
 
-                                {/* <FileInput
-                                    placeholder="import from gallery"
-                                    name="demo"
-                                    onChange={async (e) => {
-                                    if (e?.target?.files?.length > 0) {
-                                    // Update UI to show file is uploading
-                                    const file = e?.target?.files[0];
-                                    
-                                    // Create FormData and pass picked file with other necessary details
-                                    const formData = new FormData();
-                                    formData.append("file", file);
-                                    // formData.append("id", userId);
-                                    try {
-                                        const uploadFileRes = await fetch("/api/upload", {
-                                            method: "POST",
-                                            body: formData,
-                                        });
-                                        const uploadFileData = await uploadFileRes.json();
-                                        // Retrieve url and show it to user?
-                                        // Update UI to show file has been uploaded
-                                        console.log("user ", uploadFileData)
-                                    } catch (e) {
-                                        console.log(e);
-                                        // Update UI to show file upload failed
-                                    }
-                                    }
-                                }}
-                                /> */}
-                                {/* <input
-                                    type="file"
-                                    // accept={fileTypes}
-                                    onChange={async (e) => {
-                                        if (e.target.files.length > 0) {
-                                        // Update UI to show file is uploading
-                                        const file = e.target.files[0];
-                                        
-                                        // Create FormData and pass picked file with other necessary details
-                                        const formData = new FormData();
-                                        formData.append("file", file);
-                                        // formData.append("id", userId);
-                                        try {
-                                            const uploadFileRes = await fetch("/api/uploadFile", {
-                                            method: "POST",
-                                            body: formData,
-                                            });
-                                            const uploadFileData = await uploadFileRes.json();
-                                            // Retrieve url and show it to user?
-                                            // Update UI to show file has been uploaded
-                                        } catch (e) {
-                                            console.log(e);
-                                            // Update UI to show file upload failed
-                                        }
-                                        }
-                                    }}
-                                    /> */}
                                 <input id="file-upload" type="file" onChange={handleProfileImageUpload}/>
                             </Flex>
 
