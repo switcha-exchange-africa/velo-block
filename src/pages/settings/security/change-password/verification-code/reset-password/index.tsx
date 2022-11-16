@@ -12,7 +12,8 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import appAlert from "../../../../../../helpers/appAlert"
+import { useState } from "react"
+// import appAlert from "../../../../../../helpers/appAlert"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 
 const ResetPassword = () => {
@@ -21,7 +22,7 @@ const ResetPassword = () => {
 
     const [passwordChecks, setPasswordChecks] = useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+
     const validatePassword = (value: string,) => {
         let error
         let passwordChecks: string[] = []
@@ -88,6 +89,18 @@ const ResetPassword = () => {
     }
 
 
+    const validateConfirmPassword = (value: any) => {
+        let error
+        if (!value) {
+            error = 'Required Field'
+        } else if (value !== passwordChecksPassed) {
+            error = "Password do not match"
+        }
+        return error
+    }
+
+    console.log("password check ", passwordChecks)
+
     
 
     return (
@@ -148,8 +161,9 @@ const ResetPassword = () => {
                         <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">Input the new password you want for your account</Text>
 
                         <Formik
-                            initialValues={{password: ""}}
+                            initialValues={{password: "", confirmPassword: ""}}
 
+                            // let password =
                             onSubmit={async (values:any) => {                                
 
                                 const data = {
@@ -186,12 +200,48 @@ const ResetPassword = () => {
                                         <Field name='password' validate={validatePassword}>
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
-                                                    <FormLabel>Verification Code</FormLabel>
+                                                    <FormLabel>New Passoword</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********"/>
-                                                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                                                    {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
+
+                                                    {passwordChecksPassed && passwordChecksPassed.map((p: any,) => {
+                                                        return (<Text key={p} fontSize='sm' color='secondaryColor.900' >{'✓ ' + p}</Text>)
+                                                    })}
+                                                    {form.errors.password && passwordChecks.map((p: any,) => {
+                                                        if (passwordChecksPassed.includes(p)) {
+                                                            return (<Text key={p} fontSize='sm' color='secondaryColor.900'>{'✓ ' + p}</Text>)
+                                                        } else {
+                                                            return (<FormErrorMessage key={p} >{'✕ ' + p}</FormErrorMessage>)
+                                                        }
+
+                                                    })}
                                                 </FormControl>
                                             )}
                                         </Field>
+
+                                        <Field name='confirmPassword' validate={validateConfirmPassword}>
+                                            {({ field, form }: any) => (
+                                                <FormControl  pt='4' isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}>
+                                                    <FormLabel>New Passoword</FormLabel>
+                                                    <Input {...field} type="text" placeholder="*********" />
+                                                    <FormErrorMessage>{'✕' + form.errors.confirmPassword}</FormErrorMessage>
+                                                    {/* {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
+
+                                                    {passwordChecksPassed && passwordChecksPassed.map((p: any,) => {
+                                                        return (<Text key={p} fontSize='sm' color='secondaryColor.900' >{'✓ ' + p}</Text>)
+                                                    })}
+                                                    {form.errors.password && passwordChecks.map((p: any,) => {
+                                                        if (passwordChecksPassed.includes(p)) {
+                                                            return (<Text key={p} fontSize='sm' color='secondaryColor.900'>{'✓ ' + p}</Text>)
+                                                        } else {
+                                                            return (<FormErrorMessage key={p} >{'✕ ' + p}</FormErrorMessage>)
+                                                        }
+
+                                                    })} */}
+                                                </FormControl>
+                                            )}
+                                        </Field>
+                                        
                                     </VStack>
 
 

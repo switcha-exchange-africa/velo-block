@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import appAlert from "../../../../../helpers/appAlert"
+// import appAlert from "../../../../../helpers/appAlert"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 
 const VerificationCode = () => {
