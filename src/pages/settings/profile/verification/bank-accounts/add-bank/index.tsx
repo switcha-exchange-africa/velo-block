@@ -43,7 +43,7 @@ const AddBankAccounts = () => {
     const validateBankName = (value: string, ) => {
         let error
         if (!value) {
-            error = 'Bank name not selected '
+            error = 'Bank not selected '
         }
 
         return error
