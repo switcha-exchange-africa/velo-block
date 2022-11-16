@@ -141,10 +141,10 @@ const VerificationCode = () => {
 
 
                                     <Flex alignItems="center">
-                                        <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" fontSize="14px"  mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Next
                                         </Button>
-                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" fontSize="14px"  isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
                                         </Button>
 

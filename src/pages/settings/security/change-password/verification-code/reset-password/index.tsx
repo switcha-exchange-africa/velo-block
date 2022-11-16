@@ -19,13 +19,74 @@ const ResetPassword = () => {
     const Router = useRouter()
 
 
-    const validatePassword = (value: string, ) => {
+    const [passwordChecks, setPasswordChecks] = React.useState<string[]>([])
+    const [passwordChecksPassed, setPasswordChecksPassed] = React.useState<string[]>([])
+    const [isPasswordVisible, setIsPasswordVisible] = React.useState(false)
+    const validatePassword = (value: string,) => {
         let error
+        let passwordChecks: string[] = []
         if (!value) {
-            error = 'Required Field'
+            error = 'Password must Contain '
+        } if (value.length < 8) {
+            var index = passwordChecksPassed.indexOf('At least 8 characters');
+            if (index > -1) {
+                passwordChecksPassed.splice(index, 1);
+            }
+            error = 'Password must Contain '
+            passwordChecks.push('At least 8 characters');
+            setPasswordChecks(passwordChecks)
+        } else {
+            if (!passwordChecksPassed.includes('At least 8 characters')) {
+                passwordChecksPassed.push('At least 8 characters')
+                setPasswordChecksPassed(passwordChecksPassed)
+            }
         }
+        if (!/[A-Z]+/g.test(value)) {
+            var index = passwordChecksPassed.indexOf('At least one upper case character');
+            if (index > -1) {
+                passwordChecksPassed.splice(index, 1);
+            }
+            error = 'Password must Contain '
+            passwordChecks.push('At least one upper case character');
+            setPasswordChecks(passwordChecks)
+        } else {
+            if (!passwordChecksPassed.includes('At least one upper case character')) {
+                passwordChecksPassed.push('At least one upper case character')
+                setPasswordChecksPassed(passwordChecksPassed)
+            }
+        } if (!/[0-9]+/i.test(value)) {
+            var index = passwordChecksPassed.indexOf('At least one number');
+            if (index > -1) {
+                passwordChecksPassed.splice(index, 1);
+            }
+            error = 'Password must Contain '
+            passwordChecks.push('At least one number');
+            setPasswordChecks(passwordChecks)
+        } else {
+            if (!passwordChecksPassed.includes('At least one number')) {
+                passwordChecksPassed.push('At least one number')
+                setPasswordChecksPassed(passwordChecksPassed)
+            }
+        } if (!/\W|_/i.test(value)) {
+            var index = passwordChecksPassed.indexOf('At least one special character (!@#&$)');
+            if (index > -1) {
+                passwordChecksPassed.splice(index, 1);
+            }
+            error = 'Password must Contain '
+            passwordChecks.push('At least one special character (!@#&$)');
+            setPasswordChecks(passwordChecks)
+        } else {
+            if (!passwordChecksPassed.includes('At least one special character (!@#&$)')) {
+                passwordChecksPassed.push('At least one special character (!@#&$)')
+                setPasswordChecksPassed(passwordChecksPassed)
+            }
+
+        }
+        setPasswordChecks(passwordChecks)
+
         return error
     }
+
 
     
 
@@ -135,10 +196,10 @@ const ResetPassword = () => {
 
 
                                     <Flex alignItems="center">
-                                        <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" mr="36px" fontSize="14px"  isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Change password
                                         </Button>
-                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" fontSize="14px"  isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
                                         </Button>
 

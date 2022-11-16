@@ -141,10 +141,10 @@ const ChangePassword = () => {
 
 
                                     <Flex alignItems="center">
-                                        <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} fontSize="14px"  >
                                             Next
                                         </Button>
-                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" fontSize="14px"  onClick={() => Router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
                                         </Button>
 
