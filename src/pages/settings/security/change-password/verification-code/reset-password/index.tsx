@@ -12,10 +12,10 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import appAlert from "../../../../../helpers/appAlert"
-import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
+import appAlert from "../../../../../../helpers/appAlert"
+import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
 
-const VerificationCode = () => {
+const ResetPassword = () => {
     const Router = useRouter()
 
 
@@ -49,7 +49,7 @@ const VerificationCode = () => {
                     </Button>
                     
                     <HStack width={{ lg: "70%", base: '100%' }}  alignItems={"center"} justifyContent={"space-between"} py={'2rem'} gap={"1rem"}>
-                        <Heading size="md"  ml={'1rem'}>Verification Code </Heading>
+                        <Heading size="md"  ml={'1rem'}>Change Password </Heading>
                     </HStack>
                 </Show>
 
@@ -69,7 +69,7 @@ const VerificationCode = () => {
                             Security
                             <Heading size="md"
                                 ml={'2rem'}>
-                                Verification Code
+                                Change Password
                             </Heading>
                         </Button>
                     </Flex>
@@ -84,7 +84,7 @@ const VerificationCode = () => {
                         p={"20px"}
                     >
                        
-                        <Text>A verification code has been sent to your email. Input the code to proceed</Text>
+                        <Text>Input the new password you want for your account</Text>
 
                         <Formik
                             initialValues={{password: ""}}
@@ -96,8 +96,6 @@ const VerificationCode = () => {
                                     ...values,
                                 
                                 }
-
-                                Router.push("/settings/security/change-password/verification-code/reset-password")
 
 
 
@@ -142,7 +140,7 @@ const VerificationCode = () => {
 
                                     <Flex alignItems="center">
                                         <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
-                                            Next
+                                            Change password
                                         </Button>
                                         <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
@@ -164,4 +162,4 @@ const VerificationCode = () => {
     )
 }
 
-export default VerificationCode
+export default ResetPassword
