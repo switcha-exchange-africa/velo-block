@@ -17,7 +17,7 @@ import appAlert from "../../../../../../helpers/appAlert"
 // import MainAppButton from "../../../../../../components/buttons/MainAppButton"
 // import authValidators from "../../../../../../helpers/validators/authValidators"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
-import { useAddBankMutation, useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
+import { useAddBankMutation, useGetNigerianBankQuery, useGetUsersBankQuery } from "../../../../../../redux/services/bank.service"
 
 
 const AddBankAccounts = () => {
@@ -25,20 +25,25 @@ const AddBankAccounts = () => {
     const {data:getBanks} = useGetNigerianBankQuery()
 
 
+    const getBankCode = getBanks?.map((item:any) => item?.bankName)
+    
+    const getBankName = getBanks?.map((item: any) => item)
 
-//     {
-//     "name":"Guaranty Trust Bank",
-//     "code":"058",
-//     "accountName":"Goodness Chinemerem Ezeokafor",
-//     "accountNumber":"0553561556"
-// }
+    let idYouWant = "bankName"
+    let propertyYouWant = "bankCode"
 
-    // const data = {
-    //     name: "",
-    //     code: "",
-    //     accountName: "",
-    //     accountNumber: ""
-    // }
+    // Using Array.filter( ) method
+    // we are iterating through each
+    // items in the array and
+    // checking which item's
+    // id value is equal to the id we want
+
+    // let res = getBankName?.filter((item:any) => {
+    //     return item.id == idYouWant;
+    // });
+    //  let exactRes = res[0][propertyYouWant];
+    //  console.log("exact response is ", exactRes)
+
 
     const validateAccountName = (value: string, ) => {
         let error
@@ -68,13 +73,16 @@ const AddBankAccounts = () => {
 
     const [select, setSelect] = useState("")
 
-    const handleSelect = (code: string) => {
-        setSelect(code)
+    console.log("selectCOde is ", select)
+    // const handleSelect = (code: string) => {
+    //     setSelect(code)
 
-        console.log("was it selected ", code)
-    }
+    //     console.log("was it selected ", code)
+    // }
 
     const [addBank] = useAddBankMutation()
+    const {data:getUsersBank} = useGetUsersBankQuery()
+
 
     return (
         <DashboardLayout title="Add bank account">
@@ -135,22 +143,42 @@ const AddBankAccounts = () => {
                     initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
 
                     onSubmit={async (values:any, { setSubmitting }) => {
+                        
+                        let res = values.name
+                        
+                        var filteredBank =  getBanks?.filter(function(bank:any) {
+                            return bank.bankName === res;
+                        });
 
-                        const data = {
-                            ...values,
-                            accountNumber: values.accountNumber.toString(),
-                            code: select
-                        }
-                        console.log(data)
-                         const response:any = await addBank(data)
-                        console.log({response})
-                        if (response?.error?.status == 400 ) {
-                            appAlert.error(response?.error?.data?.message?.map((item:any)=> item))
-                            console.log(response?.error?.data?.message?.map((item:any)=> item))
-                            console.log("success")
-                        } else {
+                        const item=[]
+                        console.log("see this", filteredBank)
+                        let codeValue = filteredBank.map((code: any) => code?.bankCode)
+
+                        var newItem = codeValue[0]
+
+                        item.push(codeValue)
+                        // let codeValue = codeValue.replace(/[{}]/g, '')
+
+                        console.log("this is the code man ", newItem)
+
+                        // res.filter
+
+                        // const data = {
+                        //     ...values,
+                        //     accountName: values.accountName,
+                        //     accountNumber: values.accountNumber.toString(),
+                        //     code: select
+                        // }
+                        // console.log(data)
+                        //  const response:any = await addBank(data)
+                        // console.log({response})
+                        // if (response?.error?.status == 400 ) {
+                        //     appAlert.error(response?.error?.data?.message?.map((item:any)=> item))
+                        //     console.log(response?.error?.data?.message?.map((item:any)=> item.replace(/[]/g, '')))
+                        //     console.log("success")
+                        // } else {
                                 
-                        }
+                        // }
                         // if (response.error.status == 400) {
                             // appAlert.error(response?.data?.error?.data?.message.map((item:any)=> item[0]))
                         // }
@@ -241,7 +269,10 @@ const AddBankAccounts = () => {
                                         >
                                             {getBanks?.map((item: any, index: number) => (
                                                 // item?.bankCode
-                                                <option key={index} value={ item?.bankName} >{ item?.bankName && item?.bankCode ? item?.bankName : ""}</option>
+                                                <option key={index} value={item?.bankName}>
+                                                    <Text >{item?.bankName}</Text>
+                                                    <Text >{item?.bankCode }</Text>
+                                                </option>
                                             ))}
                                         </Select>
                                     </FormControl>
