@@ -7,10 +7,14 @@ import {
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
+import { useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
 
 
 const BankAccounts = () => {
     const Router = useRouter()
+
+    const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
+
 
     return (
         <DashboardLayout title="Bank account">
@@ -65,52 +69,59 @@ const BankAccounts = () => {
                 </Show>
 
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
-                    <Box 
-                        background={'#FFFFFF'}
-                        width={{ lg: "70%", base: '100%' }}
-                        justifyContent={"space-between"}
-                        p={"20px"}
-                    >
-                        <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                            <HStack w="100%">
-                                <Text flex="1" color="#8E9BAE">Name</Text>
-                                <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
-                                    <EditIcon
-                                        mr="5px"
-                                        color={"#fc1f00"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                    Edit
-                                </Box>
-                            </HStack>
-                            <HStack w="100%">
-                                <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                <Text  flex="2.2" color="#000000">0264748663</Text>
-                                
-                            </HStack>
-                            <HStack w="100%">
-                                <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                <Text flex="1.79" color="#000000">Access Bank</Text>
-                                <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
-                                    <DeleteIcon
-                                        mr="5px"
-                                        color={"#fc1f00"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                    Delete
-                                </Box>
-                            </HStack>
+                    {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> :(
+                        getUsersBank?.data?.map((bank: any) => (       
+                            <Box
+                                key={bank?._id} 
+                                background={'#FFFFFF'}
+                                width={{ lg: "70%", base: '100%' }}
+                                justifyContent={"space-between"}
+                                p={"20px"}
+                            >
+                                <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                                    <HStack w="100%">
+                                        <Text flex="1" color="#8E9BAE">Name</Text>
+                                        <Text flex="1.76" color="#000000">{bank?.accountName} </Text>
+                                        <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                            <EditIcon
+                                                mr="5px"
+                                                color={"#fc1f00"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />
+                                            Edit
+                                        </Box>
+                                    </HStack>
+                                    <HStack w="100%">
+                                        <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
+                                        <Text  flex="2.2" color="#000000">{bank?.accountNumber} </Text>
+                                        
+                                    </HStack>
+                                    <HStack w="100%">
+                                        <Text flex="1" color="#8E9BAE">Bank name</Text>
+                                        <Text flex="1.79" color="#000000">{bank?.name} </Text>
+                                        <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                            <DeleteIcon
+                                                mr="5px"
+                                                color={"#fc1f00"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />
+                                            Delete
+                                        </Box>
+                                    </HStack>
 
-                            <HStack w="100%">
-                                <Text flex="1" color="#8E9BAE">Transactions</Text>
-                                <Text flex="2.2" color="#000000">36</Text>
-                            </HStack>
-                        </VStack>
+                                    <HStack w="100%">
+                                        <Text flex="1" color="#8E9BAE">Transactions</Text>
+                                        <Text flex="2.2" color="#000000">{bank?.code}</Text>
+                                    </HStack>
+                                </VStack>
 
-                    </Box>
+                            </Box>
+                        ))
+                       
+                    )}
+                    
 
                 </Box>
 

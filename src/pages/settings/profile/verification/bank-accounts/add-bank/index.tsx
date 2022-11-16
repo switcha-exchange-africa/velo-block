@@ -13,15 +13,18 @@ import {
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import { useState } from "react"
+import appAlert from "../../../../../../helpers/appAlert"
 // import MainAppButton from "../../../../../../components/buttons/MainAppButton"
 // import authValidators from "../../../../../../helpers/validators/authValidators"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
-import { useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
+import { useAddBankMutation, useGetNigerianBankQuery } from "../../../../../../redux/services/bank.service"
 
 
 const AddBankAccounts = () => {
     const Router = useRouter()
     const {data:getBanks} = useGetNigerianBankQuery()
+
+
 
 //     {
 //     "name":"Guaranty Trust Bank",
@@ -62,6 +65,16 @@ const AddBankAccounts = () => {
 
     // bankCode: 044
     // bankName: "Access Bank"
+
+    const [select, setSelect] = useState("")
+
+    const handleSelect = (code: string) => {
+        setSelect(code)
+
+        console.log("was it selected ", code)
+    }
+
+    const [addBank] = useAddBankMutation()
 
     return (
         <DashboardLayout title="Add bank account">
@@ -119,46 +132,69 @@ const AddBankAccounts = () => {
                        
 
                         <Formik
-                    initialValues={{name: "", accountName: "", accountNumber: "" }}
+                    initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
 
-                    onSubmit={async (values, { setSubmitting }) => {
+                    onSubmit={async (values:any, { setSubmitting }) => {
 
-                        console.log(values)
-                        try {
-                            setSubmitting(true)
-                            // const response: any = await login({ email: values.email, password: values.password })
-                            // alert(JSON.stringify(response))
-                            // if (response?.data?.status == 201 || response?.data?.status == 200) {
-                            //     setSubmitting(false)
-                            //     // dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                                // // alert(JSON.stringify(response?.data?.data))
-                                // appAlert.success('Login Successful')
-                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                                // dispatch(clearFromLocalStorage())
-                                // router.replace('/dashboard')
-                                // if (isEmailVerified == true) {
-                                //     appAlert.success('Login Successful')
-                                //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                                //     dispatch(clearFromLocalStorage())
-                                //     router.replace('/dashboard')
-                                // } else {
-                                //     router.replace('/verify-email')
-                                // }
-
-                            // } else if (response?.data?.status == 202) {
-                                // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                                // setShouldSendOtp(true)
-                                // sendOtp.refetch()
-                                // // alert(JSON.stringify(res))
-                            //     // router.replace('/verify-email')
-                            // } else {
-                            //     setSubmitting(false)
-                            //     // appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                            // }
-                        } catch (error) {
-                            // setSubmitting(false)
-                            // console.log(error)
+                        const data = {
+                            ...values,
+                            accountNumber: values.accountNumber.toString(),
+                            code: select
                         }
+                        console.log(data)
+                         const response:any = await addBank(data)
+                        console.log({response})
+                        if (response?.error?.status == 400 ) {
+                            appAlert.error(response?.error?.data?.message?.map((item:any)=> item))
+                            console.log(response?.error?.data?.message?.map((item:any)=> item))
+                            console.log("success")
+                        } else {
+                                
+                        }
+                        // if (response.error.status == 400) {
+                            // appAlert.error(response?.data?.error?.data?.message.map((item:any)=> item[0]))
+                        // }
+
+                        // try {
+                        //     setSubmitting(true)
+                        //     const response = await addBank(data)
+
+                        //     console.log(response)
+                        //     // const response: any = await login({ email: values.email, password: values.password })
+                        //     // alert(JSON.stringify(response))
+                        //     // if (response?.data?.status == 201 || response?.data?.status == 200) {
+                        //     //     setSubmitting(false)
+                        //     //     // dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
+                        //         // // alert(JSON.stringify(response?.data?.data))
+                        //         // appAlert.success('Login Successful')
+                        //         // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                        //         // dispatch(clearFromLocalStorage())
+                        //         // router.replace('/dashboard')
+                        //         // if (isEmailVerified == true) {
+                        //         //     appAlert.success('Login Successful')
+                        //         //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                        //         //     dispatch(clearFromLocalStorage())
+                        //         //     router.replace('/dashboard')
+                        //         // } else {
+                        //         //     router.replace('/verify-email')
+                        //         // }
+
+                        //     // } else if (response?.data?.status == 202) {
+                        //         // dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
+                        //         // setShouldSendOtp(true)
+                        //         // sendOtp.refetch()
+                        //         // // alert(JSON.stringify(res))
+                        //     //     // router.replace('/verify-email')
+                        //     // } else {
+                        //     //     setSubmitting(false)
+                        //     //     // appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                        //     // }
+                        // } catch (error) {
+                        //     appAlert.error(error?.data?.message.map((item:any)=> item[0]))
+                            
+                        //     // setSubmitting(false)
+                        //     // console.log(error)
+                        // }
                         // try {
                         //     await dispatch(login({ email: values.email, password: values.password })).unwrap()
                         //     localStorage.removeItem('lastname')
@@ -186,7 +222,7 @@ const AddBankAccounts = () => {
                     {({
                         // handleChange,
                         // handleBlur,
-                        handleSubmit,
+                        // handleSubmit,
                         isSubmitting,
                         // values
                         /* and other goodies */
@@ -198,15 +234,14 @@ const AddBankAccounts = () => {
                                     {({ field }: any) => (
                                     <FormControl >
                                         <FormLabel>Bank</FormLabel>
-                                        <Select
+                                            <Select
+                                                    
                                             {...field}           
-                                            placeholder='Access Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
+                                            placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
                                         >
-                                            {getBanks?.filter((item: any) => (
-                                                item?.bankName !=='Access Bank'
-                                            )).map((item: any, index: number) => (
+                                            {getBanks?.map((item: any, index: number) => (
                                                 // item?.bankCode
-                                                <option key={index} value={ item?.bankName}>{ item?.bankName}</option>
+                                                <option key={index} value={ item?.bankName} >{ item?.bankName && item?.bankCode ? item?.bankName : ""}</option>
                                             ))}
                                         </Select>
                                     </FormControl>
