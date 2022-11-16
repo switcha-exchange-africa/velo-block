@@ -12,10 +12,10 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import appAlert from "../../../../helpers/appAlert"
-import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout"
+import appAlert from "../../../../../helpers/appAlert"
+import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 
-const ChangePassword = () => {
+const VerificationCode = () => {
     const Router = useRouter()
 
 
@@ -36,7 +36,7 @@ const ChangePassword = () => {
                 color="black" px={{ lg: "10%", base: '0' }} >
                 <Show above='md'>
                     <Button
-                        onClick={() => Router.back()}
+                        onClick={() => Router.push("/settings/security")}
                         leftIcon={<ArrowBackIcon />}
                         colorScheme="transparent"
                         variant="solid"
@@ -49,7 +49,7 @@ const ChangePassword = () => {
                     </Button>
                     
                     <HStack width={{ lg: "70%", base: '100%' }}  alignItems={"center"} justifyContent={"space-between"} py={'2rem'} gap={"1rem"}>
-                        <Heading size="md"  ml={'1rem'}>Change Login password </Heading>
+                        <Heading size="md"  ml={'1rem'}>Verification Code </Heading>
                     </HStack>
                 </Show>
 
@@ -69,7 +69,7 @@ const ChangePassword = () => {
                             Security
                             <Heading size="md"
                                 ml={'2rem'}>
-                                Change Login Password
+                                Verification Code
                             </Heading>
                         </Button>
                     </Flex>
@@ -84,7 +84,7 @@ const ChangePassword = () => {
                         p={"20px"}
                     >
                        
-                        <Text>Input your old password to confirm its really you</Text>
+                        <Text>A verification code has been sent to your email. Input the code to proceed</Text>
 
                         <Formik
                             initialValues={{password: ""}}
@@ -98,7 +98,6 @@ const ChangePassword = () => {
                                 }
 
 
-                                Router.push("/settings/security/change-password/verification-code")
 
                                 console.log(data)
                                 // const response:any = await addBank(data)
@@ -126,12 +125,11 @@ const ChangePassword = () => {
                                 <Form  >
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                         
-                                        
-
+                                    
                                         <Field name='password' validate={validatePassword}>
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
-                                                    <FormLabel>Old password</FormLabel>
+                                                    <FormLabel>Verification Code</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********"/>
                                                     <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                                                 </FormControl>
@@ -144,7 +142,7 @@ const ChangePassword = () => {
                                         <Button mt="24px" mr="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Next
                                         </Button>
-                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" onClick={() => Router.push("/settings/security")} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
                                         </Button>
 
@@ -164,4 +162,4 @@ const ChangePassword = () => {
     )
 }
 
-export default ChangePassword
+export default VerificationCode
