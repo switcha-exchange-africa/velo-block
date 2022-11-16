@@ -1,0 +1,10 @@
+FROM node:alpine
+WORKDIR /app
+COPY package.json ./
+COPY yarn.lock ./
+COPY ./ ./
+COPY env-production_zechsm.txt ./.env.local
+RUN yarn install
+RUN npm run build
+EXPOSE 8953
+CMD ["npm", "run", "prod"]
