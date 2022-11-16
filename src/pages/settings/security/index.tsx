@@ -54,7 +54,7 @@ const Security = () => {
         <VStack alignItems={"start"} gap={"1rem"} px={{ base: '4', md: '0' }} pt={{ base: '12', md: '0' }}>
           <SettingsOptionComponent onClick={() => { router.push('/settings/security/authenticator-authentication') }} buttonLabel='Enable' title='Two-Factor Authentication (2FA)' >Disabled</SettingsOptionComponent>
 
-          <SettingsOptionComponent buttonLabel='Change' title='Login Password' >Login password is used to log in to your account</SettingsOptionComponent>
+          <SettingsOptionComponent onClick={() => { router.push('/settings/security/change-password') }} buttonLabel='Change' title='Login Password' >Login password is used to log in to your account</SettingsOptionComponent>
 
           <SettingsOptionComponent buttonLabel='Request' title='Email Change' >Email used to open the account</SettingsOptionComponent>
 
