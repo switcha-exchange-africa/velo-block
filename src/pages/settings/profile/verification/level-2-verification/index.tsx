@@ -6,7 +6,7 @@ import {
     Show, UnorderedList, useMultiStyleConfig
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
 // import Config from "../../../../../components/digitalOcean/Config";
 // import config from "../../../../../components/digitalOcean/Config";
@@ -38,7 +38,6 @@ export const FileInput = (props: InputProps) => {
 
 const Level2Verification = () => {
     const Router = useRouter()
-
 
     // Step 3: Define the parameters for the object you want to upload.
     const params = {
@@ -83,13 +82,13 @@ const Level2Verification = () => {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await uploadObject()
-        console.log("res is this ", res)
-        }
+        // const fetchData = async () => {
+        //     const res = await uploadObject()
+        // console.log("res is this ", res)
+        // }
 
-        fetchData()
-        .catch(console.error)
+        // fetchData()
+        // .catch(console.error)
 
     }, [])
     
@@ -97,8 +96,8 @@ const Level2Verification = () => {
     // const handleImageChange = (e:any) => {
     //     if (e.target.files && e.target.files[0]) {
     //         const blob = e.target.files[0];
-    //         const params = { Body: blob, 
-    //                         Bucket: `${Config.bucketName}`, 
+    //         const params = { Body: blob,
+    //                         Bucket: `${Config.bucketName}`,
     //                         Key: blob.name};
     //         // Sending the file to the Spaces
     //         s3.putObject(params)
@@ -118,7 +117,16 @@ const Level2Verification = () => {
     //         });
     //     }
     // };
+    const [selectedFile, setSelectedFile] = useState(null)
 
+    const handleFileSelected = (event: any) => {
+        console.log(event.target.files[0])
+        setSelectedFile(event.target.files[0])
+    }
+
+    const handleUpload = () => {
+        
+    }
 
 
     return (
@@ -205,10 +213,23 @@ const Level2Verification = () => {
                                 <MainAppButton isLoading={false} size={"md"} width={'70%'} disabled={true}>Take a snapshot
                                     <Img src={remoteImages.cameraIcon} alt='' pl={'1rem'} />
                                 </MainAppButton>
-                                <Button mt={'4'} bg={'transparent'} width={'80%'} color={'primaryColor.900'} border='1px' borderColor='primaryColor.900'>Import from gallery
-                                    <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
-                                </Button>
 
+
+                                
+
+                                <input type="file" onChange={handleFileSelected} />
+
+
+                                <Flex alignItems="center" width={'100%'} justifyContent="space-between" >
+                                    <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
+                                        <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
+                                    </Button>
+
+                                    <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>Upload
+                                        
+                                    </Button>
+
+                                </Flex>
                                 {/* <input
                                     type="file"
                                     id="inputfile"
