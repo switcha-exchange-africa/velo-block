@@ -6,7 +6,7 @@ export const Account2faApi = baseApi.injectEndpoints({
     valid2fa: builder.mutation<any, any>({
         query: (code) => {
             return {
-                url: `account/enable-two-fa`,
+                url: `account/two-fa-valid`,
                 method: "POST",
                 body: {
                     code: `${code}`,
@@ -18,7 +18,7 @@ export const Account2faApi = baseApi.injectEndpoints({
       },
     }),
 
-   enable2fa: builder.mutation<any, any>({
+   enable2fa: builder.mutation({
       query: () => {
         return {
           url: `account/enable-two-fa`,
@@ -31,10 +31,10 @@ export const Account2faApi = baseApi.injectEndpoints({
     }),
 
 
-   disable2fa: builder.mutation<any, any>({
+   disable2fa: builder.mutation({
       query: () => {
         return {
-          url: `account/enable-two-fa`,
+          url: `account/disable-two-fa`,
           method: "PUT"
         };
       },
@@ -43,10 +43,10 @@ export const Account2faApi = baseApi.injectEndpoints({
       },
     }),
 
-   generate2fa: builder.mutation<any, any>({
+   generate2fa: builder.mutation({
       query: () => {
         return {
-          url: `account/enable-two-fa`,
+          url: `account/generate-two-fa`,
           method: "PUT"
         };
       },
