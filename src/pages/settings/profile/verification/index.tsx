@@ -5,9 +5,15 @@ import {
 import { useRouter } from 'next/router'
 import SettingsOptionComponent from '../../../../components/dashboard/settings/SettingsOptionComponent'
 import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
+import { useGetVerificationStatusQuery } from "../../../../redux/services/kyc.service"
 
 const Verification = () => {
     const Router = useRouter()
+
+    const {verificationStatus} = useGetVerificationStatusQuery()
+
+
+
     return (
         <DashboardLayout title='Verification'>
             <Box
