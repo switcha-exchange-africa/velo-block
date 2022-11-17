@@ -9,8 +9,9 @@ import { useGetVerificationStatusQuery } from "../../../../redux/services/kyc.se
 
 const Verification = () => {
     const Router = useRouter()
-
     const {data:levelTwoVerificationStatus} = useGetVerificationStatusQuery("two")
+    const {data:levelThreeVerificationStatus} = useGetVerificationStatusQuery("three")
+
 
 
     return (
@@ -67,10 +68,12 @@ const Verification = () => {
                     {levelTwoVerificationStatus?.data?.status === "declined" && <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel="try again" title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>}
                     
 
-
+                    {levelThreeVerificationStatus?.data === null && <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-3-verification')} buttonLabel="verify" title='Level 3 Verification' >Selfie holding ID</SettingsOptionComponent>}
+                    {levelThreeVerificationStatus?.data?.status === "pending" && <SettingsOptionComponent disabled buttonLabel={levelTwoVerificationStatus?.data?.status} title='Level 3 Verification' >Selfie holding ID</SettingsOptionComponent>}
+                    {levelThreeVerificationStatus?.data?.status === "approved" && <SettingsOptionComponent disabled buttonLabel="verified" title='Level 3 Verification' >Selfie holding ID</SettingsOptionComponent>}
+                    {levelThreeVerificationStatus?.data?.status === "declined" && <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-3-verification')} buttonLabel="try again" title='Level 3 Verification' >Selfie holding ID</SettingsOptionComponent>}
                     
                     
-                    <SettingsOptionComponent buttonLabel='Verify' title='Level 3 Verification' disabled>Selfie holding ID</SettingsOptionComponent>
                 </Box>
 
 
