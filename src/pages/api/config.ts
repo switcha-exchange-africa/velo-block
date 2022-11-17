@@ -14,11 +14,11 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 // Step 2: The s3Client function validates your request and directs it to your Space's specified endpoint using the AWS SDK.
 const s3Client = new S3Client({
-    endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_URL}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
+    endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
     forcePathStyle: false,
     region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
     credentials: {
-      accessKeyId: `${process.env.NEXT_PUBLIC_DO_DO_SPACES_ID}`,
+      accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
       secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
       // Secret access key defined through an environment variable.
     }
@@ -40,7 +40,20 @@ const params = {
 // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
 export const uploadObject = async () => {
   try {
+    console.log("S3 consfig")
+    console.log({
+      endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
+      forcePathStyle: false,
+      region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
+      credentials: {
+        accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
+        secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
+        // Secret access key defined through an environment variable.
+      }
+  })
+  console.log(s3Client)
     const data = await s3Client.send(new PutObjectCommand(params));
+    console.log("DATA", data)
     console.log(
       "Successfully uploaded object: " +
         params.Bucket +
