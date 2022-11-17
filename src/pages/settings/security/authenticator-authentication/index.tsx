@@ -21,7 +21,6 @@ const AuthenticatorAuthenticationPage = () => {
 
 
   const handleGoogleAuthEnable = async () => {
-    console.log("the first button")
     const resp = await enable2fa()
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
       appAlert.success(resp?.data?.message) 
@@ -33,7 +32,6 @@ const AuthenticatorAuthenticationPage = () => {
   }
   
   const handleGoogleAuthDisable = async () => {
-    console.log("the disable button")
     const resp = await disable2fa()
     console.log("resp for ", resp)
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
