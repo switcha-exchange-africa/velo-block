@@ -41,6 +41,7 @@ const VerificationCode = () => {
                             if (response?.data?.status == 201 || response?.data?.status == 200) {
 
                                 dispatch(setForgotPasswordCredentials({ email: fpemail, fptoken: response?.data?.data }))
+                                console.log(response)
                                 // alert(JSON.stringify(response?.data))
                                 appAlert.success(`Code Verified`)
 

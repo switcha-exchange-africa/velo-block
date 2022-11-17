@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import { setQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice';
-import { useConvertQuery, useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
+import { useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
+import { useQuickTradeConvertQuery } from '../../redux/services/new-conversion.service';
 import MainAppButton from '../buttons/MainAppButton';
 import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
@@ -19,7 +20,13 @@ const QuickSellComponent = () => {
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
-    const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
+    // const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
+
+    const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: debitCoin.toLowerCase() == 'btc' ? 'bitcoin' : debitCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
+
+    const calculateConversion = (numberAmount: number) => {
+        return !isNaN(numberAmount) && amountt && amountt != '' ? debitCoin.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : debitCoin.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
+    }
 
     const dispatch = useAppDispatch()
     return (
@@ -29,7 +36,7 @@ const QuickSellComponent = () => {
 
                 onSubmit={async (values, { }) => {
                     console.log(values)
-                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount, fee: '0.5%', cash: creditCoin, coin: debitCoin, rate: 'no rate for now' }))
+                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: calculateConversion(parseFloat(amountt)), fee: '0.5%', cash: creditCoin, coin: debitCoin, rate: 'no rate for now' }))
                     router.push('/quick-trade/confirm-sales')
                 }}
                 validateOnChange
@@ -57,12 +64,16 @@ const QuickSellComponent = () => {
                                                 setAmountt(e.target.value)
                                                 // alert(amount)
                                                 // setFieldValue('creditCoinValue', e.target.value) 
-                                                !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+                                                // !(convertFromCreditCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
-                                            }} />
-                                            <InputRightElement width='36'  >
+                                                !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
 
-                                                {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
+                                            }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} />
+                                            <InputRightElement width={{ md: '52', base: '36' }}  >
+                                                <Flex w={'full'} justifyContent={'flex-end'}>
+                                                    {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
+                                                </Flex>
+
 
 
                                             </InputRightElement>
@@ -76,13 +87,11 @@ const QuickSellComponent = () => {
                                 {({ form }: any) => (
                                     <FormControl isInvalid={form.errors.creditCoinValue && form.touched.creditCoinValue} py='4'>
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>{convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount?.toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0}</Text> {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}</Flex>
-                                        {/* <InputGroup>
-                                        <Input disabled autoComplete='off' variant={'outline'} {...field} />
-                                        <InputRightElement width={'40'} >
-                                            {allCoins?.data?.data && <RenderCoinsDropdown items={allCoins?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
-                                        </InputRightElement>
-                                    </InputGroup> */}
+                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>
+                                            {/* {convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount?.toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0}</Text> {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />} */}
+                                            {isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0}</Text> {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
+                                        </Flex>
+
                                         <FormErrorMessage>{form.errors.creditCoinValue}</FormErrorMessage>
                                     </FormControl>
                                 )}
