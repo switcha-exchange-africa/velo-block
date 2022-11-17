@@ -118,7 +118,7 @@ const Level2Verification = () => {
     //         });
     //     }
     // };
-    const [selectedFile, setSelectedFile] = useState("")
+    const [selectedFile, setSelectedFile] = useState<any>(null)
 
     const handleFileSelected = (event: any) => {
         console.log(event.target.files[0])
@@ -128,8 +128,8 @@ const Level2Verification = () => {
     const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
 
     const handleUpload = async () => {
-        const fd = newFormData
-        fd.append('image', selectedFile, selectedFile.name)
+        const fd = new FormData()
+        fd.append('image', selectedFile, selectedFile?.name)
         const resp = await addLevelTwoKyc(selectedFile)
 
 
