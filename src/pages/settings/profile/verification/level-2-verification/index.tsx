@@ -13,6 +13,7 @@ import MainAppButton from '../../../../../components/buttons/MainAppButton';
 // import s3 from "../../../../../components/digitalOcean/DigitalOcean";
 import remoteImages from "../../../../../constants/remoteImages";
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
+import { useAddLevelTwoKycMutation } from "../../../../../redux/services/kyc.service";
 import { s3Client } from "../../../../api/config";
 
 
@@ -117,15 +118,21 @@ const Level2Verification = () => {
     //         });
     //     }
     // };
-    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFile, setSelectedFile] = useState("")
 
     const handleFileSelected = (event: any) => {
         console.log(event.target.files[0])
         setSelectedFile(event.target.files[0])
     }
 
-    const handleUpload = () => {
-        
+    const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
+
+    const handleUpload = async () => {
+        const fd = newFormData
+        fd.append('image', selectedFile, selectedFile.name)
+        const resp = await addLevelTwoKyc(selectedFile)
+
+
     }
 
 
