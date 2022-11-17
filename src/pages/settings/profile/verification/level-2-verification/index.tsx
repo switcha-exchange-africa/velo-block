@@ -1,3 +1,4 @@
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
     Box, Button, Flex, Heading,
