@@ -18,11 +18,11 @@ export const KycApi = baseApi.injectEndpoints({
       },
     }),
 
-    verificationStatus: builder.query<any>({
+    getVerificationStatus: builder.query<any, any>({
         query: (level) => `kyc/${level}`,
         transformResponse: (responseData: any) => {
             return responseData;
-        },
+      }
     }),
 
 
@@ -31,6 +31,6 @@ export const KycApi = baseApi.injectEndpoints({
 });
 
 export const {
-    useAddLevelTwoKycMutation,
-    useGetVerificationStatusQuery    
+    useGetVerificationStatusQuery,
+    useAddLevelTwoKycMutation   
 } = KycApi;

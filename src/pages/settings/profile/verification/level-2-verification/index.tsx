@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react"
 import MainAppButton from '../../../../../components/buttons/MainAppButton'
 import remoteImages from "../../../../../constants/remoteImages"
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
-import { useAddLevelTwoKycMutation } from "../../../../../redux/services/kyc.service"
+import { useAddLevelTwoKycMutation, useGetVerificationStatusQuery } from "../../../../../redux/services/kyc.service"
 import { s3Client } from "../../../../api/config"
 import uuid from 'react-uuid';
 import appAlert from "../../../../../helpers/appAlert"
@@ -20,6 +20,8 @@ const Level2Verification = () => {
     const Router = useRouter()
 
     const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
+    const levelTwoVerificationStatus = useGetVerificationStatusQuery("two")
+
 
     const fileInputRef = useRef<any>()    
     const [idImage, setIdImage] = useState<any>(null)
@@ -75,6 +77,8 @@ const Level2Verification = () => {
                 const kycResponse:any = await addLevelTwoKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
+                    levelTwoVerificationStatus.refetch()
+                    Router.back()
                 } else {
                     appAlert.error(kycResponse?.data?.message)
                 }

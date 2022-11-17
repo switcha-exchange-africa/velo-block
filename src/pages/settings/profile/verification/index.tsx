@@ -10,8 +10,7 @@ import { useGetVerificationStatusQuery } from "../../../../redux/services/kyc.se
 const Verification = () => {
     const Router = useRouter()
 
-    const {verificationStatus} = useGetVerificationStatusQuery()
-
+    const {data:levelTwoVerificationStatus} = useGetVerificationStatusQuery("two")
 
 
     return (
@@ -62,8 +61,15 @@ const Verification = () => {
                 <Box px={{ md: '0', base: '4' }} pt={{ md: '0', base: '12' }}>
                     <SettingsOptionComponent buttonLabel='Verified' title='Level 1 Verification' disabled>Email Authentication and Phone number Authentication</SettingsOptionComponent>
 
-                    <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel='Verify' title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>
+                    {levelTwoVerificationStatus?.data === null && <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel="verify" title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>}
+                    {levelTwoVerificationStatus?.data?.status === "pending" && <SettingsOptionComponent disabled buttonLabel={levelTwoVerificationStatus?.data?.status} title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>}
+                    {levelTwoVerificationStatus?.data?.status === "approved" && <SettingsOptionComponent disabled buttonLabel="verified" title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>}
+                    {levelTwoVerificationStatus?.data?.status === "declined" && <SettingsOptionComponent onClick={() => Router.push('/settings/profile/verification/level-2-verification')} buttonLabel="try again" title='Level 2 Verification' >Picture of ID</SettingsOptionComponent>}
+                    
 
+
+                    
+                    
                     <SettingsOptionComponent buttonLabel='Verify' title='Level 3 Verification' disabled>Selfie holding ID</SettingsOptionComponent>
                 </Box>
 
