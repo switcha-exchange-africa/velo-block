@@ -12,6 +12,7 @@ import remoteImages from "../../../../../constants/remoteImages"
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
 import { useAddLevelTwoKycMutation } from "../../../../../redux/services/kyc.service"
 import { s3Client } from "../../../../api/config"
+import uuid from 'react-uuid';
 
 
 
@@ -36,18 +37,19 @@ const Level2Verification = () => {
         }
     }, [idImage])
 
-
+    console.log()
 
 
     // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
         const params = {
             Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
-            Key: idImage.name, // Object key, referenced whenever you want to access this file later.
+            Key: uuid(), // Object key, referenced whenever you want to access this file later.
             Body: idImage, // The object's contents. This variable is an object, not a string.
             ACL: "public-read", // Defines ACL permissions, such as private or public.
+            ContentType: "image/png",
             Metadata: { // Defines metadata tags.
-                "x-amz-meta-my-key": "your-value"
+                "x-amz-meta-my-key": "your-value",
             }
         }
         
@@ -66,17 +68,19 @@ const Level2Verification = () => {
             const data = await s3Client.send(new PutObjectCommand(params))
             console.log("DATA", data, params)
             console.log(
-            "Successfully uploaded object: " +
+            "Successfully uploaded object: " +process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+
                 params.Bucket +
                 "/" +
                 params.Key
             )
             if (data) {
                 console.log("data was a success", data)
-                // const resp = 
+                const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
+                const newImage = await addLevelTwoKyc(imageUrl)
+                console.log("checking to see ", newImage?.data?.message) 
             }
         } catch (err) {
-            console.log("Error", err)
+            console.log("Error", {err})
         }
     }
 
