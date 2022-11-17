@@ -18,6 +18,14 @@ export const newConversionAPi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    quickTradeConvert: builder.query<any, any>({
+      query: (queryParams) =>
+        `rates/single?sub=${queryParams.sub}&base=${queryParams.base}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -27,4 +35,5 @@ export const {
 
   useSwapConvertToGetEstimatedRateQuery,
   useLazySwapConvertQuery,
+  useQuickTradeConvertQuery,
 } = newConversionAPi;
