@@ -18,7 +18,7 @@ export const Account2faApi = baseApi.injectEndpoints({
       },
     }),
 
-   enable2fa: builder.mutation({
+   enable2fa: builder.mutation<void, any>({
       query: () => {
         return {
           url: `account/enable-two-fa`,
@@ -31,7 +31,7 @@ export const Account2faApi = baseApi.injectEndpoints({
     }),
 
 
-   disable2fa: builder.mutation({
+   disable2fa: builder.mutation<void, any>({
       query: () => {
         return {
           url: `account/disable-two-fa`,

@@ -19,7 +19,7 @@ const AuthenticatorAuthenticationPage = () => {
   const [enabledGoogle, setEnableGoogle] = useState(true)
   const [enabledPhone] = useState(true)
 
-
+  
   const handleGoogleAuthEnable = async () => {
     const resp = await enable2fa()
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {

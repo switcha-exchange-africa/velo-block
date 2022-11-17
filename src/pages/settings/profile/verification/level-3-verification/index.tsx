@@ -52,7 +52,6 @@ const Level3Verification = () => {
         }
         setLoading(true)
 
-
         try {
             const data:any = await s3Client.send(new PutObjectCommand(params))
             
