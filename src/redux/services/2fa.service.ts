@@ -1,6 +1,6 @@
 import { baseApi } from "./base.service";
 
-export const Account2faApi = baseApi.injectEndpoints({
+export const Account2faApi:any = baseApi.injectEndpoints({
   endpoints: (builder) => ({
    
     valid2fa: builder.mutation<any, any>({
