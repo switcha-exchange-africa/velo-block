@@ -84,7 +84,6 @@ const SignUpPage = () => {
             }
 
         }
-        console.log(passwordChecks)
         setPasswordChecks(passwordChecks)
 
         return error

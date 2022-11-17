@@ -152,12 +152,12 @@ const Profile = () => {
               >
                 Bank Accounts
               </Text>
-              <Box mr={'1rem'} textAlign={'center'} border={" 1px solid #fb5e04"} color={"#333333"} px={{ base: '2', lg: '4' }} py={{ base: '1', lg: '2' }} background={"transparent"} fontSize={{ base: 'xs', lg: '14px' }} cursor={'pointer'}>
+              <Box w={{ md: '150px', base: '60%' }}  mr={'1rem'} onClick={() => Router.push('/settings/profile/verification/bank-accounts')} textAlign={'center'} border={" 1px solid #fb5e04"} color={"#333333"} px={{ base: '2', lg: '4' }} py={{ base: '1', lg: '2' }} background={"transparent"} fontSize={{ base: 'xs', lg: '14px' }} cursor={'pointer'}>
                 Manage accounts
               </Box>
             </Flex>
             
-            <Flex mt={{ md: '2rem', base: '12' }} justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
+            <Flex justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
               <MainAppButton isLoading={false} size={{ base: "sm", md: 'md' }} width={{ base: '40%', md: '35%' }}>Save</MainAppButton>
             </Flex>
           </Box>

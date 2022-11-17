@@ -1,16 +1,84 @@
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
     Box, Button, Flex, Heading,
-    HStack, Img, ListItem,
-    Show, UnorderedList
+    HStack, Img, Input, InputProps, ListItem,
+    Show, UnorderedList, useMultiStyleConfig
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { useEffect } from "react";
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
+// import Config from "../../../../../components/digitalOcean/Config";
+// import config from "../../../../../components/digitalOcean/Config";
+// import s3 from "../../../../../components/digitalOcean/DigitalOcean";
 import remoteImages from "../../../../../constants/remoteImages";
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
+import { uploadObject } from "../../../../api/config";
+
+
+export const FileInput = (props: InputProps) => {
+  const styles = useMultiStyleConfig("Button", { variant: "outline" });
+
+  return (
+    <Input
+      type="file"
+      sx={{
+        "::file-selector-button": {
+          border: "none",
+          outline: "none",
+          mr: 2,
+          ...styles,
+        },
+      }}
+      {...props}
+    />
+  );
+};
+
 
 const Level2Verification = () => {
     const Router = useRouter()
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await uploadObject()
+        console.log("res is this ", res)
+        }
+
+        fetchData()
+        .catch(console.error)
+
+    }, [])
+    
+
+    
+
+    // const handleImageChange = (e:any) => {
+    //     if (e.target.files && e.target.files[0]) {
+    //         const blob = e.target.files[0];
+    //         const params = { Body: blob, 
+    //                         Bucket: `${Config.bucketName}`, 
+    //                         Key: blob.name};
+    //         // Sending the file to the Spaces
+    //         s3.putObject(params)
+    //         .on('build', request => {
+    //             request.httpRequest.headers.Host = `${Config.digitalOceanSpaces}`;
+    //             request.httpRequest.headers['Content-Length'] = blob.size;
+    //             request.httpRequest.headers['Content-Type'] = blob.type;
+    //             request.httpRequest.headers['x-amz-acl'] = 'public-read';
+    //         })
+    //         .send((err) => {
+    //             if (err) console.log(err);
+    //             else {
+    //             // If there is no error updating the editor with the imageUrl
+    //             const imageUrl = `${config.digitalOceanSpaces}` + blob.name
+    //             console.log(imageUrl, blob.name)
+    //         }
+    //         });
+    //     }
+    // };
+
+
 
     return (
         <DashboardLayout title="Level 2 Verification">
@@ -78,8 +146,7 @@ const Level2Verification = () => {
                         mt={'8'}
                         alignItems={'center'}
                     >
-
-                        <Img src={remoteImages.scaniconsvg} alt='' />
+                       <Img src='/assets/svgs/scanIcon.svg' alt='' />
 
                     </Flex>
                     <Flex w={"100%"} flexDirection={'column'} alignItems={"start"}>
@@ -101,6 +168,12 @@ const Level2Verification = () => {
                                     <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                 </Button>
 
+                                {/* <input
+                                    type="file"
+                                    id="inputfile"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                /> */}
                             </Flex>
 
 

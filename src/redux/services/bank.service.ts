@@ -34,13 +34,38 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
-
     getAddedBank: builder.query<any, void>({
       query: () => `p2p/bank`,
       transformResponse: (responseData: any) => {
         return responseData;
       },
     }),
+
+
+    // settings page bank addition
+    addBank: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `${endpoints.ADD_BANK}`,
+          method: "POST",
+          body: {...body}
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+    // get users settings bank
+    getUsersBank: builder.query<any, void>({
+      query: () => `${endpoints.ADD_BANK}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+
+
+    
 
   }),
 });
@@ -50,5 +75,7 @@ export const {
   useGetBankByIdQuery,
   useLazyGetBankByIdQuery,
   useAddP2pBuyAdsBankMutation,
-  useGetAddedBankQuery
+  useAddBankMutation,
+  useGetAddedBankQuery,
+  useGetUsersBankQuery
 } = bankApi;

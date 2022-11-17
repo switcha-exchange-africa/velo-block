@@ -78,7 +78,6 @@ const ChangePassword = () => {
             }
 
         }
-        console.log(passwordChecks)
         setPasswordChecks(passwordChecks)
 
         return error
