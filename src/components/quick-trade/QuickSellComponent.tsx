@@ -60,9 +60,11 @@ const QuickSellComponent = () => {
                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                             }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} />
-                                            <InputRightElement width='36'  >
+                                            <InputRightElement width={{ md: '52', base: '36' }}  >
+                                                <Flex w={'full'} justifyContent={'flex-end'}>
+                                                    {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
+                                                </Flex>
 
-                                                {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
 
 
                                             </InputRightElement>

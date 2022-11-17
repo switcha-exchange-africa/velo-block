@@ -66,9 +66,12 @@ const QuickBuyComponent = () => {
                                                 !(convertFromDebitCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
                                             }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} />
-                                            <InputRightElement width='28'  >
+                                            <InputRightElement width={{ md: '52', base: '36' }}  >
+                                                <Flex w={'full'} justifyContent={'flex-end'}>
+                                                    {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
+                                                </Flex>
 
-                                                {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
+
 
 
                                             </InputRightElement>
