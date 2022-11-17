@@ -65,7 +65,7 @@ const Level3Verification = () => {
                     levelThreeVerificationStatus.refetch()
                     Router.back()
                 } else {
-                    setLaoading(false)
+                    setLoading(false)
                     appAlert.error(kycResponse?.data?.message)
                 }
             }

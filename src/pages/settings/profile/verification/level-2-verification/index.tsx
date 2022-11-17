@@ -3,7 +3,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons"
 import {
     Box, Button, Flex, Heading,
     HStack, Img, ListItem,
-    Show, UnorderedList
+    Show, Spinner, UnorderedList
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from "react"
@@ -21,6 +21,7 @@ const Level2Verification = () => {
 
     const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
     const levelTwoVerificationStatus = useGetVerificationStatusQuery("two")
+    const [loading, setLoading] = useState(false)
 
 
     const fileInputRef = useRef<any>()    
@@ -51,6 +52,9 @@ const Level2Verification = () => {
                 "x-amz-meta-my-key": "your-value",
             }
         }
+
+        setLoading(true)
+                    
         
         try {
             // console.log("S3 consfig")
@@ -77,13 +81,16 @@ const Level2Verification = () => {
                 const kycResponse:any = await addLevelTwoKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
+                    setLoading(false)
                     levelTwoVerificationStatus.refetch()
                     Router.back()
                 } else {
+                    setLoading(false)
                     appAlert.error(kycResponse?.data?.message)
                 }
             }
         } catch (err:any) {
+            setLoading(false)
             appAlert.error(err?.message)
         }
     }
@@ -181,21 +188,28 @@ const Level2Verification = () => {
                                     <Img src={remoteImages.cameraIcon} alt='' pl={'1rem'} />
                                 </MainAppButton>
 
-                                <Flex alignItems="center" width={'100%'} justifyContent="space-between" >
-                                    <Button
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            fileInputRef?.current?.click()        
-                                        }}
-                                        mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
-                                        <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
-                                    </Button>
+                                {loading ? (
+                                    <Flex alignItems="center" width={'100%'} mt="20px" justifyContent="center" >
+                                        <Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} />
+                                    </Flex>
+                                ) : (
+                                    <Flex alignItems="center" width={'100%'} justifyContent="space-between" >
+                                        <Button
+                                            onClick={(e) => {
+                                                e.preventDefault()
+                                                fileInputRef?.current?.click()        
+                                            }}
+                                            mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
+                                            <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
+                                        </Button>
 
-                                    <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
-                                        Upload
-                                    </Button>
-
-                                </Flex>
+                                        <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
+                                            Upload
+                                            
+                                        </Button>
+                                    </Flex>
+                                )}
+                                
                         
                                 <input
                                     style={{display: "none"}}
