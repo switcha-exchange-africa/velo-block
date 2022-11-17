@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 COPY ./ ./
-COPY env-production_zechsm.txt ./.env.local
+COPY env-production_vupgbk.txt ./.env.local
 RUN yarn install
 RUN npm run build
 EXPOSE 8953
