@@ -13,6 +13,7 @@ import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
 import { useAddLevelTwoKycMutation } from "../../../../../redux/services/kyc.service"
 import { s3Client } from "../../../../api/config"
 import uuid from 'react-uuid';
+import appAlert from "../../../../../helpers/appAlert"
 
 
 
@@ -74,10 +75,14 @@ const Level2Verification = () => {
                 params.Key
             )
             if (data) {
-                console.log("data was a success", data)
                 const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
-                const newImage = await addLevelTwoKyc(imageUrl)
-                console.log("checking to see ", newImage?.data?.message) 
+                const kycResponse = await addLevelTwoKyc(imageUrl)
+                console.log("checking to see ", kycResponse) 
+                if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
+                    appAlert.success(kycResponse?.data?.message)
+                } else {
+                    appAlert.error(kycResponse?.data?.message)
+                }
             }
         } catch (err) {
             console.log("Error", {err})
