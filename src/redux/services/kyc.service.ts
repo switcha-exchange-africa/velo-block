@@ -18,12 +18,12 @@ export const KycApi = baseApi.injectEndpoints({
     }),
 
     addLevelThreeKyc: builder.mutation<any, any>({
-        query: (image) => {
+        query: (selfie) => {
             return {
                 url: `kyc/level-three`,
                 method: "POST",
                 body: {
-                    image: `${image}`,
+                    selfie: `${selfie}`,
                 }
             };
         },
