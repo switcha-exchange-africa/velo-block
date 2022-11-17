@@ -18,8 +18,8 @@ const AuthenticatorAuthenticationPage = () => {
 
   const handleGoogleAuth = async () => {
     const resp = await enable2fa()
-    if (resp.data.status === 200 | 201) {
-      console.log(resp.data.message)  
+    if (resp?.data?.status === 200 | resp?.data?.status === 201) {
+      console.log(resp?.data?.message)  
     } else {
 
     }
