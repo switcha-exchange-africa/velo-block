@@ -6,7 +6,7 @@ import {
     Show, UnorderedList, useMultiStyleConfig
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
 // import Config from "../../../../../components/digitalOcean/Config";
 // import config from "../../../../../components/digitalOcean/Config";
@@ -90,19 +90,23 @@ const Level2Verification = () => {
     const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
 
 
-    const params = {
-        Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
-        Key: "folder-path/hello-world.txt", // Object key, referenced whenever you want to access this file later.
-        Body: selectedFile, // The object's contents. This variable is an object, not a string.
-        ACL: "private", // Defines ACL permissions, such as private or public.
-        Metadata: { // Defines metadata tags.
-            "x-amz-meta-my-key": "your-value"
-        }
-    };
+
+    
 
 
     // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
+
+        const params = {
+            Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
+            Key: selectedFile.name, // Object key, referenced whenever you want to access this file later.
+            Body: selectedFile, // The object's contents. This variable is an object, not a string.
+            ACL: "public-read", // Defines ACL permissions, such as private or public.
+            Metadata: { // Defines metadata tags.
+                "x-amz-meta-my-key": "your-value"
+            }
+        };
+        
         try {
             console.log("S3 consfig")
             console.log({
@@ -116,27 +120,54 @@ const Level2Verification = () => {
         })
         console.log(s3Client)
             const data = await s3Client.send(new PutObjectCommand(params));
-            console.log("DATA", data)
+            console.log("DATA", data, params)
             console.log(
             "Successfully uploaded object: " +
                 params.Bucket +
                 "/" +
                 params.Key
             );
-            return data;
+            if (data) {
+                console.log("data was a success", data)
+                // const resp = 
+            }
         } catch (err) {
             console.log("Error", err);
         }
     };
 
-    const handleUpload = () => {
+    const handleUpload = async () => {
         // const fd = new FormData()
         // fd.append('image', selectedFile, selectedFile?.name)
         // const resp = await addLevelTwoKyc(fd)
-        uploadObject()
+        
+        const resp = await uploadObject()
+        console.log("na the last one be thus ", selectedFile.name)
 
+        console.log("resp data is ", resp)
 
     }
+
+
+    const fileInputRef = useRef()
+    const passportInputRef = useRef()    
+    
+
+    const [idImage, setIdImage] = useState<any>(null)
+
+    const [previewIdImage, setPreviewIdImage] = useState<any>("")
+
+     useEffect(() => {
+        if (idImage) {
+            const idReader = new FileReader()
+            idReader.onloadend = () => {
+                setPreviewIdImage(idReader?.result?.toString())
+            }
+            idReader.readAsDataURL(idImage)
+        } else {
+            setPreviewIdImage(null)
+        }
+    }, [idImage])
 
 
     return (
@@ -205,7 +236,7 @@ const Level2Verification = () => {
                         mt={'8'}
                         alignItems={'center'}
                     >
-                       <Img src='/assets/svgs/scanIcon.svg' alt='' />
+                       <Img src={previewIdImage} alt='image from gallery' />
 
                     </Flex>
                     <Flex w={"100%"} flexDirection={'column'} alignItems={"start"}>
@@ -227,11 +258,11 @@ const Level2Verification = () => {
 
                                 
 
-                                <input type="file" onChange={handleFileSelected} />
+                                <input type="file"  style={{display: "none"}} onChange={handleFileSelected} />
 
 
                                 <Flex alignItems="center" width={'100%'} justifyContent="space-between" >
-                                    <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
+                                    <Button  mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
                                         <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                     </Button>
 
@@ -246,6 +277,48 @@ const Level2Verification = () => {
                                     accept="image/*"
                                     onChange={handleImageChange}
                                 /> */}
+
+                                {idImage ? (    
+                            <button
+                                className="passportNumber"            
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    passportInputRef?.current?.click()        
+                                }}
+                            >
+                                        <p>upload Image</p>    
+                                <img src={previewIdImage} alt="national identity photos" />          
+                            </button>
+                        ) : (
+                            <button
+                                className="passportNumber"            
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    passportInputRef?.current?.click()        
+                                }}
+                            >
+                                <p>upload Image</p>            
+                                <img src="https://res.cloudinary.com/fastrack12/image/upload/v1659784783/camera_dxbggm.svg" alt="photos icon" />   
+                            </button>      
+                        )}
+                        
+                        <input
+                            type="file"
+                            ref={passportInputRef}
+                            accept="image/*"
+                            onChange={(e) => {
+                                const file = e?.target?.files[0] 
+                                if (file && file?.type?.substr(0, 5) === "image") {
+                                    setIdImage(file)
+                                } 
+                                else {
+                                    setIdImage(null)
+                                }
+                            }}    
+                            required
+                        />
+
+
                             </Flex>
 
 
