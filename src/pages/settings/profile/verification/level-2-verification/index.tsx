@@ -7,9 +7,9 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect } from "react";
 import MainAppButton from '../../../../../components/buttons/MainAppButton';
-import Config from "../../../../../components/digitalOcean/Config";
-import config from "../../../../../components/digitalOcean/Config";
-import s3 from "../../../../../components/digitalOcean/DigitalOcean";
+// import Config from "../../../../../components/digitalOcean/Config";
+// import config from "../../../../../components/digitalOcean/Config";
+// import s3 from "../../../../../components/digitalOcean/DigitalOcean";
 import remoteImages from "../../../../../constants/remoteImages";
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout';
 import { uploadObject } from "../../../../api/config";
