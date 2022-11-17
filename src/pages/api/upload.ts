@@ -44,9 +44,9 @@
 // }
 
 
-import aws from "aws-sdk";
-const s3 = new aws.S3({
-  endpoint: process.env.NEXT_PUBLIC_DO_SPACES_URL,
-  accessKeyId: process.env.NEXT_PUBLIC_DO_SPACES_ID,
-  secretAccessKey: process.env.NEXT_PUBLIC_DO_SPACES_SECRET,
-});
+// import aws from "aws-sdk";
+// const s3 = new aws.S3({
+//   endpoint: process.env.NEXT_PUBLIC_DO_SPACES_URL,
+//   accessKeyId: process.env.NEXT_PUBLIC_DO_SPACES_ID,
+//   secretAccessKey: process.env.NEXT_PUBLIC_DO_SPACES_SECRET,
+// });
