@@ -85,11 +85,7 @@ const Level2Verification = () => {
     }
 
     const handleUpload = async () => {
-        const resp = await uploadObject()
-        console.log("na the last one be thus ", idImage.name)
-
-        console.log("resp data is ", resp)
-
+        await uploadObject()
     }
 
     return (
