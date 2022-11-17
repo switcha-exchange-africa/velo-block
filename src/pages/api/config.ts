@@ -1,11 +1,10 @@
-export const s3Config = {
-  bucketName: `${process.env.NEXT_PUBLIC_DO_SPACES_BUCKET}`,
-  region: `fra1`,
-  accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-  secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
-  s3Url: `${process.env.NEXT_PUBLIC_DO_SPACES_URL}` /* Optional */
-};
-
+// export const s3Config = {
+//   bucketName: `${process.env.NEXT_PUBLIC_DO_SPACES_BUCKET}`,
+//   region: `fra1`,
+//   accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
+//   secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
+//   s3Url: `${process.env.NEXT_PUBLIC_DO_SPACES_URL}` /* Optional */
+// };
 
 
 // Step 1: Import the S3Client object and all necessary SDK commands.
@@ -19,7 +18,7 @@ const s3Client = new S3Client({
     region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
     credentials: {
       accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-      secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
+      secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
       // Secret access key defined through an environment variable.
     }
 });
@@ -47,8 +46,7 @@ export const uploadObject = async () => {
       region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
       credentials: {
         accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-        secretAccessKey: `${process.env.NEXT_PUBLIC_DO_SPACES_SECRET}`,
-        // Secret access key defined through an environment variable.
+        secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
       }
   })
   console.log(s3Client)
