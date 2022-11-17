@@ -202,7 +202,7 @@ const Level2Verification = () => {
                                 Ensure your picture on the ID is clear
                             </ListItem>
                             <Flex mt={'8'} flexDirection={'column'} w={'full'} alignItems={'center'}>
-                                <MainAppButton isLoading={false} size={"md"} width={'70%'}>Take a snapshot
+                                <MainAppButton isLoading={false} size={"md"} width={'70%'} disabled={true}>Take a snapshot
                                     <Img src={remoteImages.cameraIcon} alt='' pl={'1rem'} />
                                 </MainAppButton>
                                 <Button mt={'4'} bg={'transparent'} width={'80%'} color={'primaryColor.900'} border='1px' borderColor='primaryColor.900'>Import from gallery
