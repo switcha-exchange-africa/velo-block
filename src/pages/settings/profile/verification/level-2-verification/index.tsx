@@ -62,7 +62,7 @@ const Level2Verification = () => {
         //     }
         // })
         // console.log(s3Client)
-            const data = await s3Client.send(new PutObjectCommand(params))
+            const data:any = await s3Client.send(new PutObjectCommand(params))
             // console.log("DATA", data, params)
             // console.log(
             // "Successfully uploaded object: " +process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+
@@ -79,7 +79,7 @@ const Level2Verification = () => {
                     appAlert.error(kycResponse?.data?.message)
                 }
             }
-        } catch (err) {
+        } catch (err:any) {
             appAlert.error(err?.message)
         }
     }
