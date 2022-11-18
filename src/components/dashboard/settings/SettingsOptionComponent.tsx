@@ -20,7 +20,7 @@ const SettingsOptionComponent = ({ disabled = false, title, children, onClick, b
             mt={'1rem'}
             // mx={{ base: '4', md: '0' }}
             mr={{ md: '2rem', base: '2rem' }}
-            pl={{ md: '1rem', base: '2' }}
+            pl={{ md: '0', base: '2' }}
             pr={{ md: '4rem', base: '2' }}
         >
             <Box mr={{ md: '2rem', base: '2' }}>

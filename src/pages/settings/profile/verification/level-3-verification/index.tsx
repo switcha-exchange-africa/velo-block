@@ -10,19 +10,18 @@ import { useEffect, useRef, useState } from "react"
 import MainAppButton from '../../../../../components/buttons/MainAppButton'
 import remoteImages from "../../../../../constants/remoteImages"
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
-import { useAddLevelTwoKycMutation, useGetVerificationStatusQuery } from "../../../../../redux/services/kyc.service"
+import { useAddLevelThreeKycMutation, useGetVerificationStatusQuery } from "../../../../../redux/services/kyc.service"
 import { s3Client } from "../../../../api/config"
 import uuid from 'react-uuid';
 import appAlert from "../../../../../helpers/appAlert"
 
 
-const Level2Verification = () => {
+const Level3Verification = () => {
     const Router = useRouter()
 
-    const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
-    const levelTwoVerificationStatus = useGetVerificationStatusQuery("two")
+    const [addLevelThreeKyc] = useAddLevelThreeKycMutation()
+    const levelThreeVerificationStatus = useGetVerificationStatusQuery("three")
     const [loading, setLoading] = useState(false)
-
 
     const fileInputRef = useRef<any>()    
     const [idImage, setIdImage] = useState<any>(null)
@@ -40,7 +39,6 @@ const Level2Verification = () => {
     }, [idImage])
 
 
-    // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
         const params = {
             Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
@@ -52,37 +50,18 @@ const Level2Verification = () => {
                 "x-amz-meta-my-key": "your-value",
             }
         }
-
         setLoading(true)
-                    
-        
+
         try {
-            // console.log("S3 consfig")
-        //     console.log({
-        //     endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
-        //     forcePathStyle: false,
-        //     region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
-        //     credentials: {
-        //         accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-        //         secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
-        //     }
-        // })
-        // console.log(s3Client)
             const data:any = await s3Client.send(new PutObjectCommand(params))
-            // console.log("DATA", data, params)
-            // console.log(
-            // "Successfully uploaded object: " +process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+
-            //     params.Bucket +
-            //     "/" +
-            //     params.Key
-            // )
+            
             if (data) {
                 const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
-                const kycResponse:any = await addLevelTwoKyc(imageUrl)
+                const kycResponse:any = await addLevelThreeKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
                     setLoading(false)
-                    levelTwoVerificationStatus.refetch()
+                    levelThreeVerificationStatus.refetch()
                     Router.back()
                 } else {
                     setLoading(false)
@@ -100,7 +79,7 @@ const Level2Verification = () => {
     }
 
     return (
-        <DashboardLayout title="Level 2 Verification">
+        <DashboardLayout title="Level 3 Verification">
             <Flex flexDirection={'column'} alignItems={'center'}
                 background={"#F8FAFC"}
                 color="black" px={{ md: "10%", base: '0' }} >
@@ -152,7 +131,7 @@ const Level2Verification = () => {
                 >
                     <Box>
                         <HStack>
-                            <Heading fontSize={'1.5rem'}>Level 2 Verification</Heading>
+                            <Heading fontSize={'1.5rem'}>Level 3 Verification</Heading>
                         </HStack>
                     </Box>
                     <Flex
@@ -175,7 +154,7 @@ const Level2Verification = () => {
                     <Flex w={"100%"} flexDirection={'column'} alignItems={"start"}>
                         <UnorderedList mt={'2rem'} >
                             <ListItem fontSize={'sm'}>
-                                Take a Picture of your valid ID
+                                Take a Picture of you holding your valid ID
                             </ListItem>
                             <ListItem fontSize={'sm'}>
                                 Ensure the Picture is clear and readable
@@ -243,4 +222,4 @@ const Level2Verification = () => {
         </DashboardLayout>
     )
 }
-export default Level2Verification
+export default Level3Verification
