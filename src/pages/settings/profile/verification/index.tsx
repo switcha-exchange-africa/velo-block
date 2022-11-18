@@ -18,7 +18,7 @@ const Verification = () => {
         <DashboardLayout title='Verification'>
             <Box
                 background={"#F8FAFC"} height={"full"}
-                color="black" px={{ lg: "10%", base: '0' }} >
+                color="black" px={{ lg: "5%", base: '0' }} >
                 <Show above='md'>
                     <Button
                         onClick={() => Router.back()}
