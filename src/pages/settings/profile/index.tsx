@@ -162,9 +162,9 @@ const Profile = () => {
               </Box>
             </Flex>
             
-            <Flex justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
+            {/* <Flex justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
               <MainAppButton isLoading={false} size={{ base: "sm", md: 'md' }} width={{ base: '40%', md: '35%' }}>Save</MainAppButton>
-            </Flex>
+            </Flex> */}
           </Box>
 
         </Box>

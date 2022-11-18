@@ -10,7 +10,7 @@ const Settings = () => {
     const router = useRouter()
     return (
         <DashboardLayout title='Settings'>
-            <Box background={'#F8FAFC'} height={"full"} color="black" px={{ md: "10%", base: '0' }}>
+            <Box background={'#F8FAFC'} height={"full"} color="black" px={{ md: "10%", base: '0' }} bg="yellow">
                 <Box bg={{ base: 'white', md: 'transparent' }}>
                     <Heading
                         py={{ md: '2rem', base: '4' }}
@@ -18,7 +18,7 @@ const Settings = () => {
                         fontSize={{ base: '24', md: '38' }}
                     >Settings</Heading>
                 </Box>
-                <Box px={{ base: '4', md: '0' }} pt={{ base: '8', md: '0' }}>
+                <Box px={{ base: '4', md: '0' }} pt={{ base: '8', md: '0' }} bg="red">
                     <SettingsOptionComponent onClick={() => router.push('/settings/profile')} buttonLabel='Update profile' title='Profile' >Email,Username,Phone number,Account verification</SettingsOptionComponent>
 
                     <SettingsOptionComponent onClick={() => router.push('/settings/security')} buttonLabel='Update Security' title='Security' >Password,Email Change,Authenticator</SettingsOptionComponent>
