@@ -121,7 +121,7 @@ const AuthenticatorAuthenticationPage = () => {
               ): (
                 <SettingsOptionComponent buttonLabel='Disable' title='Phone Number Verification'>
                   <HStack>
-                    <Text fontSize="14px" color="rgba(0, 0, 0, 0.5)">08141994081</Text>
+                    <Text fontSize="14px" color="rgba(0, 0, 0, 0.5)">08123890981</Text>
                     <Text ml="10px" fontSize="14px" color="#FB5E04">Change</Text>
                   </HStack>
                 </SettingsOptionComponent>
