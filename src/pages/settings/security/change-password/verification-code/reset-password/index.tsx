@@ -174,8 +174,6 @@ const ResetPassword = () => {
                                     code: `${code}`
                                 }
 
-                                console.log(data)
-
                                 const response = await resetAccountPassword(data)
                                 if (response?.data?.status === 200 || response?.data?.status === 201 || response?.data?.status === 202 ) {
                                     appAlert.success(response?.data?.message)

@@ -93,8 +93,6 @@ const VerificationCode = () => {
                             onSubmit={async (values:any) => {
                                 dispatch(setCode({code: values.code}))
                                 Router.push("/settings/security/change-password/verification-code/reset-password")    
-                                
-                                
                             }}
                             validateOnChange
                             validateOnBlur
