@@ -114,7 +114,7 @@ const BankAccounts = () => {
 
                                     <HStack w="100%">
                                         <Text flex="1" color="#8E9BAE">Transactions</Text>
-                                        <Text flex="2.2" color="#000000">{bank?.code}</Text>
+                                        {/* <Text flex="2.2" color="#000000">{bank?.code}</Text> */}
                                     </HStack>
                                 </VStack>
 
