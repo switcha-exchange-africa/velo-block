@@ -6,6 +6,7 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 
 import authReducer from './features/auth/authSlice'
 import quickTradeReducer from './features/quick-trade/quickTradeSlice'
+import accountSettingsReducer from "./features/accountSettings/accounSettingsSlice"
 
 import { authApi } from './services/auth.service'
 import { baseApi } from './services/base.service';
@@ -26,11 +27,14 @@ const persistConfig = {
 
 const persistQuickTradeReducer = persistReducer(persistConfig, quickTradeReducer)
 const persistAuthReducer = persistReducer(persistConfig, authReducer)
+const persistAccountSettingsReducer = persistReducer(persistConfig, accountSettingsReducer)
+
 
 const store = configureStore({
     reducer: {
         auth: persistAuthReducer,
         quickTrade: persistQuickTradeReducer,
+        accountSettings: persistAccountSettingsReducer,
         [authApi.reducerPath]: authApi.reducer,
         [baseApi.reducerPath]: baseApi.reducer,
         [baseV2Api.reducerPath]: baseV2Api.reducer,

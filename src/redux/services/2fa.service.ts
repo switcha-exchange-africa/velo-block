@@ -2,7 +2,37 @@ import { baseApi } from "./base.service";
 
 export const Account2faApi:any = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-   
+    confirmOldAccountPassword: builder.mutation<string, any>({
+        query: (oldPassword) => {
+            return {
+                url: `account/change-password`,
+                method: "POST",
+                body: {
+                    oldPassword: `${oldPassword}`,
+                }
+            };
+        },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    resetAccountPassword: builder.mutation<string, any>({
+        query: (body) => {
+            return {
+                url: `account/change-password`,
+                method: "POST",
+                body: {
+                  ...body
+                }
+            };
+        },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+
     valid2fa: builder.mutation<any, any>({
         query: (code) => {
             return {
@@ -60,8 +90,11 @@ export const Account2faApi:any = baseApi.injectEndpoints({
 });
 
 export const {
-    useValid2faMutation,
-    useEnable2faMutation,
-    useDisable2faMutation,
-    useGenerate2faMutation,
+  useConfirmOldAccountPasswordMutation,
+  useResetAccountPasswordMutation,
+
+  useValid2faMutation,
+  useEnable2faMutation,
+  useDisable2faMutation,
+  useGenerate2faMutation,
 } = Account2faApi;

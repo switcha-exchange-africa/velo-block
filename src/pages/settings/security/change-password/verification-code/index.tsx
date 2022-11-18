@@ -12,14 +12,15 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-// import appAlert from "../../../../../helpers/appAlert"
+import { useAppDispatch } from "../../../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
+import { setCode } from "../../../../../redux/features/accountSettings/accounSettingsSlice"
 
 const VerificationCode = () => {
     const Router = useRouter()
+    const dispatch = useAppDispatch()
 
-
-    const validatePassword = (value: string, ) => {
+    const validatePasswordCode = (value: string, ) => {
         let error
         if (!value) {
             error = 'Required Field'
@@ -87,31 +88,14 @@ const VerificationCode = () => {
                         <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">A verification code has been sent to your email. Input the code to proceed</Text>
 
                         <Formik
-                            initialValues={{password: ""}}
+                            initialValues={{code: ""}}
 
-                            onSubmit={async (values:any) => {                                
+                            onSubmit={async (values:any) => {
+                                dispatch(setCode({code: values.code}))
+                                Router.push("/settings/security/change-password/verification-code/reset-password")    
                                 
-
-                                const data = {
-                                    ...values,
                                 
-                                }
-
-                                Router.push("/settings/security/change-password/verification-code/reset-password")
-
-
-
-                                console.log(data)
-                                // const response:any = await addBank(data)
-                                // if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                //     appAlert.success(response?.data?.data?.message)
-                                //     fetchAllUsersBank.refetch()
-                                //     Router.back()
-                                // } else {
-                                //     console.log(response?.error?.data?.message)
-                                //         appAlert.error(response?.error?.data?.message)
-                                //     } 
-                                }}
+                            }}
                             validateOnChange
                             validateOnBlur
                             validateOnMount
@@ -128,12 +112,12 @@ const VerificationCode = () => {
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                         
                                     
-                                        <Field name='password' validate={validatePassword}>
+                                        <Field name='code' validate={validatePasswordCode}>
                                             {({ field, form }: any) => (
-                                                <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
+                                                <FormControl  pt='4' isInvalid={form.errors.code && form.touched.code}>
                                                     <FormLabel>Verification Code</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********"/>
-                                                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                                                    <FormErrorMessage>{form.errors.code}</FormErrorMessage>
                                                 </FormControl>
                                             )}
                                         </Field>

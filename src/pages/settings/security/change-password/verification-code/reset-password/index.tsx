@@ -13,17 +13,23 @@ import {
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import { useState } from "react"
-// import appAlert from "../../../../../../helpers/appAlert"
+import appAlert from "../../../../../../helpers/appAlert"
+import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
+import { useResetAccountPasswordMutation } from "../../../../../../redux/services/2fa.service"
 
 const ResetPassword = () => {
     const Router = useRouter()
+    const { oldPassword, code } = useAppSelector((state) => state.accountSettings)
+    const [resetAccountPassword] = useResetAccountPasswordMutation()
 
-
+    const [password, setPassword] = useState<string>("")
     const [passwordChecks, setPasswordChecks] = useState<string[]>([])
     const [passwordChecksPassed, setPasswordChecksPassed] = useState<string[]>([])
 
     const validatePassword = (value: string,) => {
+        setPassword(value)
+
         let error
         let passwordChecks: string[] = []
         if (!value) {
@@ -93,13 +99,11 @@ const ResetPassword = () => {
         let error
         if (!value) {
             error = 'Required Field'
-        } else if (value !== passwordChecksPassed) {
-            error = "Password do not match"
+        } else if (value !== password) {
+            error = "Password not the same as"
         }
         return error
     }
-
-    console.log("password check ", passwordChecks)
 
     
 
@@ -162,24 +166,23 @@ const ResetPassword = () => {
 
                         <Formik
                             initialValues={{password: "", confirmPassword: ""}}
-
-                            // let password =
-                            onSubmit={async (values:any) => {                                
-
-                                const data = {
-                                    ...values,
+                            onSubmit={async (values:any) => {                     
                                 
+                                const data = {
+                                    oldPassword: `${oldPassword}`,
+                                    password: values.password,
+                                    code: `${code}`
                                 }
+
                                 console.log(data)
-                                // const response:any = await addBank(data)
-                                // if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                //     appAlert.success(response?.data?.data?.message)
-                                //     fetchAllUsersBank.refetch()
-                                //     Router.back()
-                                // } else {
-                                //     console.log(response?.error?.data?.message)
-                                //         appAlert.error(response?.error?.data?.message)
-                                //     } 
+
+                                const response = await resetAccountPassword(data)
+                                if (response?.data?.status === 200 || response?.data?.status === 201 || response?.data?.status === 202 ) {
+                                    appAlert.success(response?.data?.message)
+                                    Router.push("/settings/security")
+                                } else {
+                                    appAlert.error(response?.error?.data?.message)
+                                } 
                                 }}
                             validateOnChange
                             validateOnBlur
@@ -200,7 +203,7 @@ const ResetPassword = () => {
                                         <Field name='password' validate={validatePassword}>
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
-                                                    <FormLabel>New Passoword</FormLabel>
+                                                    <FormLabel>New Password</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********"/>
                                                     {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
 
@@ -222,7 +225,7 @@ const ResetPassword = () => {
                                         <Field name='confirmPassword' validate={validateConfirmPassword}>
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.confirmPassword && form.touched.confirmPassword}>
-                                                    <FormLabel>New Passoword</FormLabel>
+                                                    <FormLabel>Verify Passoword</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********" />
                                                     <FormErrorMessage>{'✕' + form.errors.confirmPassword}</FormErrorMessage>
                                                     {/* {form.errors.password || passwordChecks && <Text fontWeight='light' mt='2' mb={passwordChecks.length >= 0 || passwordChecksPassed.length >= 0 ? '8' : '1'}>{form.errors.password}</Text>}
