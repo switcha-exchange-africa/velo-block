@@ -14,6 +14,7 @@ const Profile = () => {
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
 
+
   const name = getUser?.data?.firstName + " " + getUser?.data?.lastName
 
   return (
@@ -152,7 +153,7 @@ const Profile = () => {
                 Account Status
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'center' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text m={{ base: '2px', md: '0' }}>Level 1 Verified</Text>
+                <Text m={{ base: '2px', md: '0' }} textTransform="capitalize">Level {getUser?.data?.level} Verified</Text>
                 <SettingsButton onClick={() => Router.push('/settings/profile/verification')}>Upgrade Verification</SettingsButton>
               </Flex>
             </Flex>
