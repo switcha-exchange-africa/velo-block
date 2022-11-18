@@ -5,7 +5,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import MainAppButton from '../../../components/buttons/MainAppButton'
+// import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetUserQuery } from "../../../redux/services/auth.service"
@@ -20,7 +20,7 @@ const Profile = () => {
     <DashboardLayout title="Profile">
       <Box
         background={"#F8FAFC"} height={"full"}
-        color="black" px={{ lg: "10%", base: '0' }} >
+        color="black" px={{ lg: "5%", base: '0' }} >
         <Show above='md'>
           <Button
             onClick={() => Router.back()}
@@ -77,11 +77,14 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Email
               </Text>
               <Input
+                fontSize={'14px'}
                 placeholder={getUser?.data?.email}
+                color="#8E9BAE"
                 value={getUser?.data?.email}
                 mr={'1rem'}
               />
@@ -93,10 +96,12 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Username
               </Text>
               <Input placeholder={getUser?.data?.username}
+                color="#8E9BAE"
                 value={getUser?.data?.username}
                 mr={'1rem'}
               />
@@ -108,10 +113,14 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Name
               </Text>
-              <Input placeholder={name}
+              <Input
+                fontSize={"14px"}
+                placeholder={name}
+                color="#8E9BAE"
                 value={name}
                 mr={'1rem'}
               />
