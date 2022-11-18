@@ -7,5 +7,5 @@ export interface AuthState {
     fpemail: null | string;
     isLoading?: boolean;
     error: any;
-    isEmailVerified: boolean | any
+    isEmailVerified: boolean | any   
 }

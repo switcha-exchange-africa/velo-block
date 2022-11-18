@@ -12,12 +12,17 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-// import appAlert from "../../../../helpers/appAlert"
+import appAlert from "../../../../helpers/appAlert"
+import { useAppDispatch } from "../../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout"
+import { setOldPassword } from "../../../../redux/features/accountSettings/accounSettingsSlice"
+import { useConfirmOldAccountPasswordMutation } from "../../../../redux/services/2fa.service"
 
 const ChangePassword = () => {
     const Router = useRouter()
+    const dispatch = useAppDispatch();
 
+    const [confirmOldPassword] = useConfirmOldAccountPasswordMutation()
 
     const validatePassword = (value: string, ) => {
         let error
@@ -87,29 +92,18 @@ const ChangePassword = () => {
                         <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">Input your old password to confirm its really you</Text>
 
                         <Formik
-                            initialValues={{password: ""}}
+                            initialValues={{oldPassword: ""}}
 
                             onSubmit={async (values:any) => {                                
-                                
+                                const response = await confirmOldPassword(values.oldPassword)
 
-                                const data = {
-                                    ...values,
-                                
-                                }
-
-
-                                Router.push("/settings/security/change-password/verification-code")
-
-                                console.log(data)
-                                // const response:any = await addBank(data)
-                                // if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                //     appAlert.success(response?.data?.data?.message)
-                                //     fetchAllUsersBank.refetch()
-                                //     Router.back()
-                                // } else {
-                                //     console.log(response?.error?.data?.message)
-                                //         appAlert.error(response?.error?.data?.message)
-                                //     } 
+                                if (response?.data?.status === 200 || response?.data?.status === 201 || response?.data?.status === 202 ) {
+                                    appAlert.success(response?.data?.message)
+                                    dispatch(setOldPassword({oldPassword:values.oldPassword}))
+                                    Router.push("/settings/security/change-password/verification-code")
+                                } else {
+                                        appAlert.error(response?.error?.data?.message)
+                                    } 
                                 }}
                             validateOnChange
                             validateOnBlur
@@ -128,12 +122,12 @@ const ChangePassword = () => {
                                         
                                         
 
-                                        <Field name='password' validate={validatePassword}>
+                                        <Field name='oldPassword' validate={validatePassword}>
                                             {({ field, form }: any) => (
-                                                <FormControl  pt='4' isInvalid={form.errors.password && form.touched.password}>
+                                                <FormControl  pt='4' isInvalid={form.errors.oldPassword && form.touched.oldPassword}>
                                                     <FormLabel>Old password</FormLabel>
                                                     <Input {...field} type="text" placeholder="*********"/>
-                                                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                                                    <FormErrorMessage>{form.errors.oldPassword}</FormErrorMessage>
                                                 </FormControl>
                                             )}
                                         </Field>
