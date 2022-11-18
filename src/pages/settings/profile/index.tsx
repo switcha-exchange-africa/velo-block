@@ -8,10 +8,14 @@ import { useRouter } from 'next/router'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-
+import { useGetUserQuery } from "../../../redux/services/auth.service"
 
 const Profile = () => {
   const Router = useRouter()
+  const {data: getUser} = useGetUserQuery()
+
+  const name = getUser?.data?.firstName + " " + getUser?.data?.lastName
+
   return (
     <DashboardLayout title="Profile">
       <Box
@@ -77,7 +81,8 @@ const Profile = () => {
                 Email
               </Text>
               <Input
-                placeholder='Olumideoyeleye@gmail.com'
+                placeholder={getUser?.data?.email}
+                value={getUser?.data?.email}
                 mr={'1rem'}
               />
             </Flex>
@@ -91,10 +96,9 @@ const Profile = () => {
               >
                 Username
               </Text>
-              <Input placeholder='Eclusive'
-              
+              <Input placeholder={getUser?.data?.username}
+                value={getUser?.data?.username}
                 mr={'1rem'}
-
               />
             </Flex>
 
@@ -107,7 +111,8 @@ const Profile = () => {
               >
                 Name
               </Text>
-              <Input placeholder='Temitope'
+              <Input placeholder={name}
+                value={name}
                 mr={'1rem'}
               />
             </Flex>
