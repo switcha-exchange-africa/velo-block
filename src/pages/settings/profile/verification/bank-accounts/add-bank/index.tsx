@@ -182,7 +182,7 @@ const AddBankAccounts = () => {
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
                                                     <FormLabel>Account Name</FormLabel>
-                                                    <Input {...field} type="text" placeholder="Otinomo Richard"/>
+                                                    <Input {...field} type="text" placeholder="John Doe"/>
                                                     <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
                                                 </FormControl>
                                             )}
