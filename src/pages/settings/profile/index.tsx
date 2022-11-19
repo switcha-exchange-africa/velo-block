@@ -140,7 +140,7 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>{num ? num.toString().slice(-3) : "xxxxxx"}</Text>
+                <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
                 <Text
                   color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
               </Flex>
