@@ -15,6 +15,7 @@ import { useValid2faMutation } from "../../../../../../redux/services/2fa.servic
 import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks";
 import QRCode from 'qrcode'
 import { useEffect, useState } from "react";
+import appAlert from "../../../../../../helpers/appAlert";
 
 
 const AuthVerification = () => {
@@ -114,21 +115,12 @@ const AuthVerification = () => {
                             initialValues={{code: ""}}
 
                             onSubmit={async (values:any) => {                                
-                                // const response = await confirmcode(values.code)
-                                console.log(values)
-                                try {
-                                    const response = verify2fa(values.code)
-                                    console.log(response)
-                                } catch(e: any) {
-                                    console.log(e)
+                                const response = await verify2fa(values.code)
+                                if (response?.data?.status === 200 || response?.data?.status === 201) {
+                                    router.push("/settings/security/authenticator-authentication/auth-security/auth-verification/success")
+                                } else {
+                                    appAlert.error(response?.error?.data?.message)
                                 }
-                                // if (response?.data?.status === 200 || response?.data?.status === 201 || response?.data?.status === 202 ) {
-                                //     appAlert.success(response?.data?.message)
-                                //     dispatch(setcode({code:values.code}))
-                                //     Router.push("/settings/security/change-password/verification-code")
-                                // } else {
-                                //         appAlert.error(response?.error?.data?.message)
-                                //     } 
                                 }}
                             validateOnChange
                             validateOnBlur
