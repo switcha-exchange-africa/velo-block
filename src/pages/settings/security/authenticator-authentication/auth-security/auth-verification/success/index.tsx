@@ -75,7 +75,7 @@ const AuthSuccess = () => {
                             <Text fontSize={"14px"} color="#8E9BAE" textAlign="center">You have successfully added Google Authenticator</Text>
                         </HStack>
                         <HStack>
-                            <MainAppButton isLoading={false} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Dashboard</MainAppButton>
+                            <MainAppButton isLoading={false} onClick={() => router.push("/dashboard")} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Dashboard</MainAppButton>
                         </HStack>
                     </Box>
 
