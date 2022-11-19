@@ -17,7 +17,7 @@ import { setAuthSecurity } from "../../../../../redux/features/accountSettings/a
 
 const AuthSecurity = () => {
     const router = useRouter();
-    const dispatch = useAppDispatch()
+    const dispatch:any = useAppDispatch()
     const [generateKey] = useGenerate2faMutation()
     const [loading, setLoading] = useState({
         googleAuth: false,

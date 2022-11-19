@@ -14,7 +14,7 @@ import { Field, Form, Formik } from "formik"
 import { useValid2faMutation } from "../../../../../../redux/services/2fa.service";
 import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks";
 import QRCode from 'qrcode'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 const AuthVerification = () => {
