@@ -13,6 +13,7 @@ import { useGenerate2faMutation } from "../../../../../redux/services/2fa.servic
 import { useState } from "react";
 import appAlert from "../../../../../helpers/appAlert";
 import { useAppDispatch } from "../../../../../helpers/hooks/reduxHooks";
+import { setAuthSecurity } from "../../../../../redux/features/accountSettings/accounSettingsSlice";
 
 const AuthSecurity = () => {
     const router = useRouter();
@@ -35,10 +36,10 @@ const AuthSecurity = () => {
             } else setLoading({googleAuth: false, authy: false})
             appAlert.success(response?.data?.message) 
             console.log(response.data.data)
-            dispatch({
-                secretKey: response?.data?.data?.secret
+            dispatch(setAuthSecurity({
+                secretKey: response?.data?.data?.secret,
                 url: response?.data?.data?.url
-            })
+            }))
             // router.push("/settings/security/authenticator-authentication/auth-security")
         } else {
             if (value === 1) {
