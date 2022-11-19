@@ -35,12 +35,11 @@ const AuthSecurity = () => {
                 setLoading({googleAuth: false, authy: false})
             } else setLoading({googleAuth: false, authy: false})
             appAlert.success(response?.data?.message) 
-            console.log(response.data.data)
             dispatch(setAuthSecurity({
                 secretKey: response?.data?.data?.secret,
                 url: response?.data?.data?.url
             }))
-            // router.push("/settings/security/authenticator-authentication/auth-security")
+            router.push("/settings/security/authenticator-authentication/auth-security/auth-verification")
         } else {
             if (value === 1) {
                 setLoading({googleAuth: false, authy: false})
