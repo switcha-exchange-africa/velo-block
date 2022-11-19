@@ -25,7 +25,7 @@ const AuthenticatorAuthenticationPage = () => {
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
       appAlert.success(resp?.data?.message) 
       setEnableGoogle(false)
-      // router.push("/settings/security/authenticator-authentication/auth-security")
+      router.push("/settings/security/authenticator-authentication/auth-security")
     } else {
       appAlert.error(resp?.data?.message)
     }

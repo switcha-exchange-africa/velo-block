@@ -12,11 +12,13 @@ import QR from "../../../../../../../public/assets/svgs/qr.svg"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout";
 import Image from "next/image";
 import { Field, Form, Formik } from "formik"
+import { useValid2faMutation } from "../../../../../../redux/services/2fa.service";
 
 
 
 const AuthVerification = () => {
-  const router = useRouter();
+    const router = useRouter();
+    const [verify2fa] = useValid2faMutation()
 
     const validateCode = (value: string, ) => {
         let error
@@ -103,6 +105,12 @@ const AuthVerification = () => {
                             onSubmit={async (values:any) => {                                
                                 // const response = await confirmcode(values.code)
                                 console.log(values)
+                                try {
+                                    const response = verify2fa(values.code)
+                                    console.log(response)
+                                } catch(e: any) {
+                                    console.log(e)
+                                }
                                 // if (response?.data?.status === 200 || response?.data?.status === 201 || response?.data?.status === 202 ) {
                                 //     appAlert.success(response?.data?.message)
                                 //     dispatch(setcode({code:values.code}))
