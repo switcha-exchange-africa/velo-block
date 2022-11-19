@@ -11,9 +11,12 @@ import MainAppButton from "../../../../../components/buttons/MainAppButton";
 import Image from "next/image";
 import { useGenerate2faMutation } from "../../../../../redux/services/2fa.service";
 import { useState } from "react";
+import appAlert from "../../../../../helpers/appAlert";
+import { useAppDispatch } from "../../../../../helpers/hooks/reduxHooks";
 
 const AuthSecurity = () => {
     const router = useRouter();
+    const dispatch = useAppDispatch()
     const [generateKey] = useGenerate2faMutation()
     const [loading, setLoading] = useState({
         googleAuth: false,
@@ -26,12 +29,23 @@ const AuthSecurity = () => {
             setLoading({googleAuth: true, authy: false})
         } else setLoading({googleAuth: false, authy: true})
         const response = await generateKey()
-        if (response) {
+        if (response?.data?.status === 200 || response?.data?.status === 201) {
+            if (value === 1) {
+                setLoading({googleAuth: false, authy: false})
+            } else setLoading({googleAuth: false, authy: false})
+            appAlert.success(response?.data?.message) 
+            console.log(response.data.data)
+            dispatch({
+                secretKey: response?.data?.data?.secret
+                url: response?.data?.data?.url
+            })
+            // router.push("/settings/security/authenticator-authentication/auth-security")
+        } else {
             if (value === 1) {
                 setLoading({googleAuth: false, authy: false})
             } else setLoading({googleAuth: false, authy: false})
             
-            console.log(response)
+            appAlert.error(response?.data?.message)    
         }
     }
   
