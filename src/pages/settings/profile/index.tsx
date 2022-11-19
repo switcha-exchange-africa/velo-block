@@ -14,7 +14,7 @@ const Profile = () => {
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
 
-    console.log(getUser)
+    // console.log(getUser)
 
   const name = getUser?.data?.firstName + " " + getUser?.data?.lastName
 
