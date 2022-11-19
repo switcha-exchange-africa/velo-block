@@ -20,6 +20,7 @@ import {useCopyToClipboard} from "usehooks-ts"
 
 const AuthVerification = () => {
     const { secretKey, url } = useAppSelector((state) => state.accountSettings)
+    // const [value, copy] = useCopyToClipboard()
     const [value, copy] = useCopyToClipboard()
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
@@ -31,18 +32,18 @@ const AuthVerification = () => {
         })
     }, [])
     
-    const [show, setShow] = useState(true)
+    // const [show, setShow] = useState(true)
 
-    useEffect(() => {
-        const timeId = setTimeout(() => {
-            setShow(false)
-        }, 2000)
-        return () => {
-            clearTimeout(timeId)
-        }
-    }, [])
+    // useEffect(() => {
+    //     const timeId = setTimeout(() => {
+    //         setShow(false)
+    //     }, 2000)
+    //     return () => {
+    //         clearTimeout(timeId)
+    //     }
+    // }, [])
 
-    console.log(value)
+    // console.log(value)
     
 
     const validateCode = (value: string, ) => {
@@ -114,8 +115,7 @@ const AuthVerification = () => {
                         <VStack mb="24px" alignItems="flex-start">
                             <Text fontSize={"14px"} color="#8E9BAE">Text Code</Text>
 
-                                {/* {value &&  <Text fontWeight="bold" w="100%" textAlign="right" color="green" fontSize={"14px"} >Copied!</Text>}  */}
-                              <HStack>
+                            <HStack>
                                 <Text fontSize={"13px"} w={{md: "60%", base: "50%"}}>{secretKey}</Text>
                                   
                                 <Button  cursor="pointer" p="0" bg="transparent" onClick={() => {
@@ -123,6 +123,8 @@ const AuthVerification = () => {
                                 }} >
                                   <CopyIcon />
                                 </Button>
+                                {value &&  <Text fontWeight="bold" w="50%" textAlign="left" color="green" fontSize={"14px"} >Copied!</Text>} 
+                              
                             </HStack>  
                             
                         </VStack>
