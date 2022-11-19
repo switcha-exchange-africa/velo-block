@@ -25,6 +25,7 @@ const AuthenticatorAuthenticationPage = () => {
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
       appAlert.success(resp?.data?.message) 
       setEnableGoogle(false)
+      router.push("/settings/security/authenticator-authentication/auth-security")
     } else {
       appAlert.error(resp?.data?.message)
     }
@@ -45,7 +46,7 @@ const AuthenticatorAuthenticationPage = () => {
   
   return (
     <DashboardLayout title="Authenticator Authentication">
-      <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
+      <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "5%", base: '0' }}>
         <Show above="md">
           <Button
             leftIcon={<ArrowBackIcon />}

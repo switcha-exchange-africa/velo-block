@@ -2,11 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AccountState {
   oldPassword: string
-  code: string
+  code: string,
+  secretKey: string,
+  url: string
 }
-const initialState:AccountState = {
-  oldPassword: "",
-  code: ""
+const initialState: AccountState = {
+    
+    oldPassword: "",
+    code: "",
+    secretKey: "",
+    url: ""
 }
 
 
@@ -20,14 +25,21 @@ export const accountSlice = createSlice({
         
         setCode: (state, { payload: { code } }: PayloadAction<{ code: any }>) => {
             state.code = code;
+        },
+
+        setAuthSecurity: (state, { payload: { secretKey, url } }: PayloadAction<{ secretKey: any, url: any }>) => {
+            state.secretKey = secretKey;
+            state.url = url
         }
+
     },
 });
 
 
 export const {
     setOldPassword,
-    setCode
+    setCode,
+    setAuthSecurity
 } = accountSlice.actions
 
 
