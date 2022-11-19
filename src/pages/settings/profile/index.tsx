@@ -138,7 +138,7 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>***176</Text>
+                <Text>{!getUser?.data?.phoneNumber ? "xxxxxx" : "xxx"}</Text>
                 <Text
                   color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
               </Flex>
