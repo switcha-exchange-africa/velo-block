@@ -14,7 +14,9 @@ const Profile = () => {
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
 
-    // console.log(getUser)
+  const num = getUser?.phoneNumber
+
+
 
   const name = getUser?.data?.firstName + " " + getUser?.data?.lastName
 
@@ -138,7 +140,7 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>{!getUser?.data?.phoneNumber ? "xxxxxx" : "xxx"}</Text>
+                <Text>{num ? num.toString().slice(-3) : "xxxxxx"}</Text>
                 <Text
                   color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
               </Flex>
