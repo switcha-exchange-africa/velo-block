@@ -16,11 +16,11 @@ import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks";
 import QRCode from 'qrcode'
 import { useEffect, useState } from "react";
 import appAlert from "../../../../../../helpers/appAlert";
-
+import {useCopyToClipboard} from "usehooks-ts"
 
 const AuthVerification = () => {
     const { secretKey, url } = useAppSelector((state) => state.accountSettings)
-    
+    const [value, copy] = useCopyToClipboard()
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
     const [qrSrc, setQrSrc] = useState("")
@@ -31,8 +31,19 @@ const AuthVerification = () => {
         })
     }, [])
     
-    
+    const [show, setShow] = useState(true)
 
+    useEffect(() => {
+        const timeId = setTimeout(() => {
+            setShow(false)
+        }, 2000)
+        return () => {
+            clearTimeout(timeId)
+        }
+    }, [])
+
+    console.log(value)
+    
 
     const validateCode = (value: string, ) => {
         let error
@@ -102,9 +113,16 @@ const AuthVerification = () => {
                           
                         <VStack mb="24px" alignItems="flex-start">
                             <Text fontSize={"14px"} color="#8E9BAE">Text Code</Text>
-                            <HStack>
-                                <Text fontSize={"13px"}>{secretKey}</Text>
-                                <CopyIcon />
+
+                                {/* {value &&  <Text fontWeight="bold" w="100%" textAlign="right" color="green" fontSize={"14px"} >Copied!</Text>}  */}
+                              <HStack>
+                                <Text fontSize={"13px"} w={{md: "60%", base: "50%"}}>{secretKey}</Text>
+                                  
+                                <Button  cursor="pointer" p="0" bg="transparent" onClick={() => {
+                                    copy(secretKey)    
+                                }} >
+                                  <CopyIcon />
+                                </Button>
                             </HStack>  
                             
                         </VStack>
