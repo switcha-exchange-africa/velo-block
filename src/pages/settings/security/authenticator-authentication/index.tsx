@@ -45,7 +45,7 @@ const AuthenticatorAuthenticationPage = () => {
   
   return (
     <DashboardLayout title="Authenticator Authentication">
-      <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
+      <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "5%", base: '0' }}>
         <Show above="md">
           <Button
             leftIcon={<ArrowBackIcon />}
