@@ -25,7 +25,7 @@ const AuthVerification = () => {
     const [qrSrc, setQrSrc] = useState("")
 
     useEffect(() => {
-        QRCode.toDataURL(url).then((data) => {
+        QRCode.toDataURL(url).then((data: any) => {
             setQrSrc(data)
         })
     }, [])
@@ -95,14 +95,14 @@ const AuthVerification = () => {
 
                 <Flex direction={{ md: 'row', base: 'column' }} alignItems={{ md: 'flex-start', base: 'center' }} justifyContent={"space-between"}  w="100%">
                     <Flex w={{ md: '40%', base: '85%' }} direction="column" mb={{ md: '0%', base: '0px' }}  >
-                        <HStack  my="24px" w="35%" >
-                            <Image src={qrSrc} alt="google Authenticator icon" />
+                        <HStack  my="24px" w="200px">
+                            <Image src={qrSrc} height="150px" width="180px" alt="google Authenticator icon" />
                         </HStack>
                           
                         <VStack mb="24px" alignItems="flex-start">
                             <Text fontSize={"14px"} color="#8E9BAE">Text Code</Text>
                             <HStack>
-                                <Text fontSize={"14px"}>{secretKey}</Text>
+                                <Text fontSize={"13px"}>{secretKey}</Text>
                                 <CopyIcon />
                             </HStack>  
                             
