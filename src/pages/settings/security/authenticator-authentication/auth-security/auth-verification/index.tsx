@@ -8,13 +8,13 @@ import {
   FormErrorMessage,
   Input,  
 } from "@chakra-ui/react";
-import QR from "../../../../../../../public/assets/svgs/qr.svg"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout";
 import Image from "next/image";
 import { Field, Form, Formik } from "formik"
 import { useValid2faMutation } from "../../../../../../redux/services/2fa.service";
 import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks";
 import QRCode from 'qrcode'
+import { useEffect } from "react";
 
 
 const AuthVerification = () => {
@@ -22,10 +22,11 @@ const AuthVerification = () => {
     
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
+    const [qrSrc, setQrSrc] = useState("")
 
     useEffect(() => {
         QRCode.toDataURL(url).then((data) => {
-            
+            setQrSrc(data)
         })
     }, [])
     
@@ -95,7 +96,7 @@ const AuthVerification = () => {
                 <Flex direction={{ md: 'row', base: 'column' }} alignItems={{ md: 'flex-start', base: 'center' }} justifyContent={"space-between"}  w="100%">
                     <Flex w={{ md: '40%', base: '85%' }} direction="column" mb={{ md: '0%', base: '0px' }}  >
                         <HStack  my="24px" w="35%" >
-                            <Image src={url} alt="google Authenticator icon" />
+                            <Image src={qrSrc} alt="google Authenticator icon" />
                         </HStack>
                           
                         <VStack mb="24px" alignItems="flex-start">
