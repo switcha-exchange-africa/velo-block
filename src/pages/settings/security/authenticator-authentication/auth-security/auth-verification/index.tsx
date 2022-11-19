@@ -13,10 +13,13 @@ import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout
 import Image from "next/image";
 import { Field, Form, Formik } from "formik"
 import { useValid2faMutation } from "../../../../../../redux/services/2fa.service";
+import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks";
 
 
 
 const AuthVerification = () => {
+    const { secretKey, url } = useAppSelector((state) => state.accountSettings)
+    
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
 
@@ -82,16 +85,14 @@ const AuthVerification = () => {
 
                 <Flex direction={{ md: 'row', base: 'column' }} alignItems={{ md: 'flex-start', base: 'center' }} justifyContent={"space-between"}  w="100%">
                     <Flex w={{ md: '40%', base: '85%' }} direction="column" mb={{ md: '0%', base: '0px' }}  >
-                        
-
-                          <HStack  my="24px" w="35%" >
-                              <Image src={QR} alt="google Authenticator icon" />
-                          </HStack>
+                        <HStack  my="24px" w="35%" >
+                            <Image src={QR} alt="google Authenticator icon" />
+                        </HStack>
                           
                         <VStack mb="24px" alignItems="flex-start">
                             <Text fontSize={"14px"} color="#8E9BAE">Text Code</Text>
                             <HStack>
-                                <Text fontSize={"14px"}>hviahd78y93bkbbcbkbjvjhbadlwi839b9</Text>
+                                <Text fontSize={"14px"}>{secretKey}</Text>
                                 <CopyIcon />
                             </HStack>  
                             
@@ -147,7 +148,7 @@ const AuthVerification = () => {
 
 
                                     <Flex justifyContent="flex-end" mt={{ md: '150px', base: '30px' }}>
-                                        <Button mt="24px" isLoading={isSubmitting} bg="transparent" fontSize="14px"  onClick={() => router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                        <Button mt="24px"  bg="transparent" fontSize="14px"  onClick={() => router.back()} p={"11px 22px"} color="#FB5E04" border="1px solid #FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                             Cancel
                                         </Button>
                                         <Button mt="24px" ml="36px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} fontSize="14px"  >
