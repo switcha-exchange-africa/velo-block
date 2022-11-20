@@ -18,7 +18,7 @@ const Profile = () => {
 
 
 
-  const name = getUser?.data?.firstName + " " + getUser?.data?.lastName
+  const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
 
   return (
     <DashboardLayout title="Profile">
@@ -89,7 +89,7 @@ const Profile = () => {
                 fontSize={'14px'}
                 placeholder={getUser?.data?.email}
                 color="#8E9BAE"
-                value={getUser?.data?.email}
+                value={getUser?.data?.email ? getUser?.data?.email : ""}
                 mr={'1rem'}
               />
             </Flex>
@@ -106,7 +106,7 @@ const Profile = () => {
               </Text>
               <Input placeholder={getUser?.data?.username}
                 color="#8E9BAE"
-                value={getUser?.data?.username}
+                value={getUser?.data?.username ? getUser?.data?.username : ""}
                 mr={'1rem'}
               />
             </Flex>
@@ -156,7 +156,7 @@ const Profile = () => {
                 Account Status
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'center' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text m={{ base: '2px', md: '0' }} textTransform="capitalize">Level {getUser?.data?.level} Verified</Text>
+                <Text m={{ base: '2px', md: '0' }} textTransform="capitalize">Level {getUser?.data?.level ? getUser?.data?.level : ""} Verified</Text>
                 <SettingsButton onClick={() => Router.push('/settings/profile/verification')}>Upgrade Verification</SettingsButton>
               </Flex>
             </Flex>

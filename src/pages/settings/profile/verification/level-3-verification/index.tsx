@@ -172,7 +172,7 @@ const Level3Verification = () => {
                                         <Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} />
                                     </Flex>
                                 ) : (
-                                    <Flex alignItems="center" width={'100%'} justifyContent="space-between" >
+                                    <Flex alignItems="center" width={'100%'} justifyContent="center" >
                                         <Button
                                             onClick={(e) => {
                                                 e.preventDefault()
@@ -182,10 +182,11 @@ const Level3Verification = () => {
                                             <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                         </Button>
 
-                                        <Button mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
-                                            Upload
-                                            
-                                        </Button>
+                                        {idImage && (
+                                            <Button ml="20px" mt={'4'} bg={'transparent'}  px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
+                                                Upload
+                                            </Button>
+                                        )}
                                     </Flex>
                                 )}
                                 
