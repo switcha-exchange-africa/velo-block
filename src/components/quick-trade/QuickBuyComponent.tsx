@@ -41,7 +41,7 @@ const QuickBuyComponent = () => {
     // const [quickTrade] = useQuickTradeMutation()
     const dispatch = useAppDispatch()
 
-    console.log(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+    // console.log(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
 
     return (
         <Flex flexDirection={'column'} p={'8'}>
