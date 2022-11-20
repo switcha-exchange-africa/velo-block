@@ -17,6 +17,7 @@ import QRCode from 'qrcode'
 import { useEffect, useState } from "react";
 import appAlert from "../../../../../../helpers/appAlert";
 import {useCopyToClipboard} from "usehooks-ts"
+import { useGetUserQuery } from "../../../../../../redux/services/auth.service";
 
 const AuthVerification = () => {
     const { secretKey, url } = useAppSelector((state) => state.accountSettings)
@@ -25,7 +26,8 @@ const AuthVerification = () => {
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
     const [qrSrc, setQrSrc] = useState("")
-
+    const refetchUser = useGetUserQuery()
+  
     useEffect(() => {
         QRCode.toDataURL(url).then((data: any) => {
             setQrSrc(data)
@@ -137,9 +139,10 @@ const AuthVerification = () => {
                             onSubmit={async (values:any) => {                                
                                 const response = await verify2fa(values.code)
                                 if (response?.data?.status === 200 || response?.data?.status === 201) {
-                                    router.push("/settings/security/authenticator-authentication/auth-security/auth-verification/success")
+                                  refetchUser.refetch()
+                                  router.push("/settings/security/authenticator-authentication/auth-security/auth-verification/success")
                                 } else {
-                                    appAlert.error(response?.error?.data?.message)
+                                  appAlert.error(response?.error?.data?.message)
                                 }
                                 }}
                             validateOnChange

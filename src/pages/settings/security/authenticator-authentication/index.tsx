@@ -9,22 +9,22 @@ import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout";
 import { useDisable2faMutation, useEnable2faMutation } from "../../../../redux/services/2fa.service";
 import { useState } from "react";
 import appAlert from "../../../../helpers/appAlert";
+import { useGetUserQuery } from "../../../../redux/services/auth.service";
 
 const AuthenticatorAuthenticationPage = () => {
   const router = useRouter();
   const [enable2fa] = useEnable2faMutation()
   const [disable2fa] = useDisable2faMutation()
 
-
-  const [enabledGoogle, setEnableGoogle] = useState(true)
+  const {data: getUser} = useGetUserQuery()
   const [enabledPhone] = useState(true)
-
+  const refetchUser = useGetUserQuery()
   
   const handleGoogleAuthEnable = async () => {
     const resp = await enable2fa()
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
-      appAlert.success(resp?.data?.message) 
-      setEnableGoogle(false)
+      appAlert.success(resp?.data?.message)
+      refetchUser.refetch()
       router.push("/settings/security/authenticator-authentication/auth-security")
     } else {
       appAlert.error(resp?.data?.message)
@@ -34,10 +34,10 @@ const AuthenticatorAuthenticationPage = () => {
   
   const handleGoogleAuthDisable = async () => {
     const resp = await disable2fa()
-    console.log("resp for ", resp)
     if (resp?.data?.status === 200 || resp?.data?.status === 201) {
       appAlert.success(resp?.data?.message) 
-      setEnableGoogle(true)
+      refetchUser.refetch()
+      router.push("/settings/security")
     } else {
       appAlert.error(resp?.data?.message)
     }
@@ -96,7 +96,7 @@ const AuthenticatorAuthenticationPage = () => {
                 you withdraw money or release a transaction to protect your account.
               </Text>
               
-              {enabledGoogle ? (
+              {getUser?.data?.authenticator === false ? (
                 <SettingsOptionComponent buttonLabel='Enable' title='Google Authenticator/Authy (Recommended)' onClick={handleGoogleAuthEnable}>
                   <Text fontSize="14px" color="rgba(0, 0, 0, 0.5)">Protect your account and transactions</Text>
                   <Text fontSize="14px" color="#FB5E04" textDecoration="underline">Having trouble?</Text>
