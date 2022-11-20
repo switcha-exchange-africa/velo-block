@@ -34,7 +34,7 @@ const QuickSellComponent = () => {
             <Formik
                 initialValues={{ debitCoinValue: amount ?? '', creditCoinValue: creditCoinAmount ?? '' }}
 
-                onSubmit={async (values, { }) => {
+                onSubmit={async () => {
                     
                     dispatch(setQuickBuyPayload({
                         amount: parseFloat(amountt),

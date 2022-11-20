@@ -27,7 +27,10 @@ const QuickBuyComponent = () => {
     // const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })
     // const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
-    const convertFromDebitCoin: any = useQuickTradeConvertQuery({ base: debitCoin.toLowerCase(), sub: creditCoin.toLowerCase() == 'btc' ? 'bitcoin' : creditCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
+    const convertFromDebitCoin: any = useQuickTradeConvertQuery({
+        base: debitCoin.toLowerCase(),
+        sub: creditCoin.toLowerCase() == 'btc' ? 'bitcoin' : creditCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether'
+    }, { refetchOnMountOrArgChange: true })
 
     const calculateQuickBuyFees: any = useCalculateTradeFeesQuery({ amount: amountt, operation: 'buy' }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
@@ -37,6 +40,9 @@ const QuickBuyComponent = () => {
 
     // const [quickTrade] = useQuickTradeMutation()
     const dispatch = useAppDispatch()
+
+    console.log(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+
     return (
         <Flex flexDirection={'column'} p={'8'}>
             <Formik
