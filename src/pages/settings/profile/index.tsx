@@ -5,18 +5,26 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import MainAppButton from '../../../components/buttons/MainAppButton'
+// import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-
+import { useGetUserQuery } from "../../../redux/services/auth.service"
 
 const Profile = () => {
   const Router = useRouter()
+  const {data: getUser} = useGetUserQuery()
+
+  const num = getUser?.phoneNumber
+
+
+
+  const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
+
   return (
     <DashboardLayout title="Profile">
       <Box
         background={"#F8FAFC"} height={"full"}
-        color="black" px={{ lg: "10%", base: '0' }} >
+        color="black" px={{ lg: "5%", base: '0' }} >
         <Show above='md'>
           <Button
             onClick={() => Router.back()}
@@ -73,11 +81,15 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Email
               </Text>
               <Input
-                placeholder='Olumideoyeleye@gmail.com'
+                fontSize={'14px'}
+                placeholder={getUser?.data?.email}
+                color="#8E9BAE"
+                value={getUser?.data?.email ? getUser?.data?.email : ""}
                 mr={'1rem'}
               />
             </Flex>
@@ -88,13 +100,14 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Username
               </Text>
-              <Input placeholder='Eclusive'
-              
+              <Input placeholder={getUser?.data?.username}
+                color="#8E9BAE"
+                value={getUser?.data?.username ? getUser?.data?.username : ""}
                 mr={'1rem'}
-
               />
             </Flex>
 
@@ -104,10 +117,15 @@ const Profile = () => {
                 pr={{ base: '5', md: '0' }}
                 fontSize={{ base: 'sm', lg: 'md' }}
                 pl="20px"
+                fontWeight={"400"}
               >
                 Name
               </Text>
-              <Input placeholder='Temitope'
+              <Input
+                fontSize={"14px"}
+                placeholder={name}
+                color="#8E9BAE"
+                value={name}
                 mr={'1rem'}
               />
             </Flex>
@@ -122,7 +140,7 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>***176</Text>
+                <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
                 <Text
                   color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
               </Flex>
@@ -138,7 +156,7 @@ const Profile = () => {
                 Account Status
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'center' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text m={{ base: '2px', md: '0' }}>Level 1 Verified</Text>
+                <Text m={{ base: '2px', md: '0' }} textTransform="capitalize">Level {getUser?.data?.level ? getUser?.data?.level : ""} Verified</Text>
                 <SettingsButton onClick={() => Router.push('/settings/profile/verification')}>Upgrade Verification</SettingsButton>
               </Flex>
             </Flex>
@@ -157,9 +175,9 @@ const Profile = () => {
               </Box>
             </Flex>
             
-            <Flex justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
+            {/* <Flex justifyContent={{ md: 'end', base: 'start' }} px={{ md: '24px', base: '4' }}>
               <MainAppButton isLoading={false} size={{ base: "sm", md: 'md' }} width={{ base: '40%', md: '35%' }}>Save</MainAppButton>
-            </Flex>
+            </Flex> */}
           </Box>
 
         </Box>

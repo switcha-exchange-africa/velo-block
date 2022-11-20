@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   VStack,
@@ -21,8 +21,8 @@ import { useRouter } from "next/router";
 // import { useGetUserQuery } from "../../redux/services/auth.service";
 // import appAlert from "../../helpers/appAlert";
 // import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
-import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
-import { removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
+import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import Head from "next/head";
 import remoteImages from "../../constants/remoteImages";
 
@@ -34,22 +34,22 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const router = useRouter()
-  // const { token } = useAppSelector((state) => state.auth)
+  const { token } = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch();
   // const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
-  // const checkForToken = () => {
-  //   dispatch(getTokenFromLocalStorage())
-  //   // getUser.isFetching
-  //   // alert(token)
-  //   // if (!token) {
-  //   //   router.replace('/signin')
-  //   // }
-  // }
+  const checkForToken = () => {
+    dispatch(getTokenFromLocalStorage())
+    // getUser.isFetching
+    // alert(token)
+    if (!token) {
+      router.replace('/signin')
+    }
+  }
 
-  // useEffect(() => {
-  //   checkForToken()
-  // }, [])
+  useEffect(() => {
+    checkForToken()
+  }, [])
 
   // if (getUser?.isFetching) {
   //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
@@ -392,7 +392,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
               marginTop={"auto"}
               display={["none", "none", "flex", "flex"]}
               cursor={'pointer'}
-              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.reload() }}
+              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
             >
               <Img
                 src={remoteImages.logoutSvg}

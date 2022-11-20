@@ -6,9 +6,14 @@ import {
 } from "@chakra-ui/react";
 import SettingsOptionComponent from "../../../components/dashboard/settings/SettingsOptionComponent";
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
+import { useGetUserQuery } from "../../../redux/services/auth.service";
 
 const Security = () => {
   const router = useRouter();
+    
+
+  const {data: getUser} = useGetUserQuery()
+  
   return (
     <DashboardLayout title="Security">
       <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
@@ -17,7 +22,7 @@ const Security = () => {
             leftIcon={<ArrowBackIcon />}
             colorScheme="transparent"
             variant="solid"
-            pl={0}
+            pl={"1.8rem"}
             py={"3rem"}
             onClick={() => router.back()}
             color={'black'}
@@ -28,7 +33,7 @@ const Security = () => {
           <VStack alignItems={"start"} gap={"1rem"}>
             <Heading size="md"
               py={'2rem'}
-              ml={'1rem'}>Security</Heading>
+              ml={'2rem'}>Security</Heading>
           </VStack>
         </Show>
 
@@ -52,7 +57,7 @@ const Security = () => {
           </Flex>
         </Show>
         <VStack alignItems={"start"} gap={"1rem"} px={{ base: '4', md: '0' }} pt={{ base: '12', md: '0' }}>
-          <SettingsOptionComponent onClick={() => { router.push('/settings/security/authenticator-authentication') }} buttonLabel='Enable' title='Two-Factor Authentication (2FA)' >Disabled</SettingsOptionComponent>
+          <SettingsOptionComponent onClick={() => { router.push('/settings/security/authenticator-authentication') }} buttonLabel={getUser?.data?.authenticator === false  ? "Enable" : "Disable"} title='Two-Factor Authentication (2FA)' >{getUser?.data?.authenticator === false ? "Disabled" : "Enabled"}</SettingsOptionComponent>
 
           <SettingsOptionComponent onClick={() => { router.push('/settings/security/change-password') }} buttonLabel='Change' title='Login Password' >Login password is used to log in to your account</SettingsOptionComponent>
 
