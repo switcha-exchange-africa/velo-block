@@ -52,7 +52,7 @@ const AuthenticatorAuthenticationPage = () => {
             leftIcon={<ArrowBackIcon />}
             colorScheme="transparent"
             variant="solid"
-            pl={0}
+            pl={"2.5rem"}
             py={"3rem"}
             onClick={() => router.back()}
             color={'black'}
@@ -63,7 +63,7 @@ const AuthenticatorAuthenticationPage = () => {
           <VStack alignItems={"start"} gap={"1rem"}>
             <Heading size="md"
               py={'2rem'}
-              ml={'1rem'}>Two-Factor Authentication (2FA)</Heading>
+              ml={'2.5rem'}>Two-Factor Authentication (2FA)</Heading>
           </VStack>
         </Show>
 
@@ -90,7 +90,7 @@ const AuthenticatorAuthenticationPage = () => {
 
           <Box px={{ md: '0', base: '4' }} pt={{ md: '0', base: '12' }}>
             <VStack alignItems={"start"} gap={"1rem"} bg={'white'}  px="4">
-              <Text fontSize={{ md: 'md', base: 'sm' }}  pt='4' >
+              <Text fontSize={{ md: 'md', base: 'sm' }}  pt='4' pl="2rem">
                 Enter the OTP code (which will be generated on the app) every time{" "}
                 <br />
                 you withdraw money or release a transaction to protect your account.

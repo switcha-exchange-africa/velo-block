@@ -17,7 +17,7 @@ const Security = () => {
             leftIcon={<ArrowBackIcon />}
             colorScheme="transparent"
             variant="solid"
-            pl={0}
+            pl={"1.8rem"}
             py={"3rem"}
             onClick={() => router.back()}
             color={'black'}
@@ -28,7 +28,7 @@ const Security = () => {
           <VStack alignItems={"start"} gap={"1rem"}>
             <Heading size="md"
               py={'2rem'}
-              ml={'1rem'}>Security</Heading>
+              ml={'2rem'}>Security</Heading>
           </VStack>
         </Show>
 
