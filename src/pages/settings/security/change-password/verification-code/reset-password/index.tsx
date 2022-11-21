@@ -108,7 +108,7 @@ const ResetPassword = () => {
     
 
     return (
-        <DashboardLayout title="Add bank account">
+        <DashboardLayout title="Reset password">
             <Box
                 background={"#F8FAFC"} height={"full"}
                 color="black" px={{ lg: "10%", base: '0' }} >

@@ -35,7 +35,7 @@ const ChangePassword = () => {
     
 
     return (
-        <DashboardLayout title="Add bank account">
+        <DashboardLayout title="Change Password">
             <Box
                 background={"#F8FAFC"} height={"full"}
                 color="black" px={{ lg: "10%", base: '0' }} >

@@ -34,9 +34,16 @@ const QuickSellComponent = () => {
             <Formik
                 initialValues={{ debitCoinValue: amount ?? '', creditCoinValue: creditCoinAmount ?? '' }}
 
-                onSubmit={async (values, { }) => {
-                    console.log(values)
-                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: calculateConversion(parseFloat(amountt)), fee: '0.5%', cash: creditCoin, coin: debitCoin, rate: 'no rate for now' }))
+                onSubmit={async () => {
+                    
+                    dispatch(setQuickBuyPayload({
+                        amount: parseFloat(amountt),
+                        creditCoinAmount: calculateConversion(parseFloat(amountt)),
+                        fee: '0.5%',
+                        cash: creditCoin,
+                        coin: debitCoin,
+                        rate: 'no rate for now'
+                    }))
                     router.push('/quick-trade/confirm-sales')
                 }}
                 validateOnChange
