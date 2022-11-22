@@ -112,7 +112,7 @@ export const RenderOrderComponent = ({ data }: any) => {
     return (
         <Box>
             <Show above='md'>
-                <Flex justifyContent={'space-between'} pt={'12'} pb={'6'} px={'4'} w="95%">
+                <Flex justifyContent={'space-between'} pt={'12'} pb={'6'} pl={'4'} w="908px">
                     <Text fontWeight={'medium'} color={'#64748B'}>Asset Type</Text>
                     <Text fontWeight={'medium'} color={'#64748B'}>Amount</Text>
                     <Text fontWeight={'medium'} color={'#64748B'}>Price & Quantity</Text>
@@ -124,7 +124,7 @@ export const RenderOrderComponent = ({ data }: any) => {
 
             {data.length !== 0 ? data.map((order: any,) => {
                 return (
-                    <Flex key={order?._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px">
+                    <Flex key={order?._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px" w="1000px">
                         <Flex alignItems={'center'} px={{ md: '4', base: '1' }}>
                             <Text fontWeight={'medium'} color={order?.ad[0]?.type != 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.type != 'buy' ? 'BUY' : 'Sell'}</Text>
                             <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
@@ -204,11 +204,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     </Flex>
 
                                     <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        {/* <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Actions</Text> */}
-                                        {/* <Button>
-                                            Open Trade
-                                        </Button> */}
-
+                                        <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
                                     </Flex>
                                 </Flex>
                             </Flex>

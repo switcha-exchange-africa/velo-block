@@ -60,9 +60,7 @@ const QuickTrade = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
     return checkValidToken(context)
-
 }
 
 export default QuickTrade
