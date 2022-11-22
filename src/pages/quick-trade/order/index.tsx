@@ -21,9 +21,6 @@ const Orders = () => {
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
-
-    console.log({merchantOrders})
-
     const [isClientSelected, setIsClientSelected] = useState(true)
 
 
@@ -110,8 +107,8 @@ const Orders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
 
-    const handleClick = (id: string) => {
-        router.push('/quick-trade/order/'+id)
+    const handleClick = (orderId: string) => {
+        router.push('/quick-trade/order/'+orderId)
     }
     
     return (
@@ -164,7 +161,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
                                 
-                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handleClick(order?._id)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
             
 
                             </Flex>
