@@ -8,19 +8,18 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
+import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 
 
 const Orders = () => {
     const [orderType, setOrderType] = useState(`Buy/Sell`)
+    const { isClientSelected } = useAppSelector((state) => state.quickTrade)
     const [coinType, setCoinType] = useState(`All Coins`)
     const [statusType, setStatusType] = useState(`All Status`)
-
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
-
-    const [isClientSelected, setIsClientSelected] = useState(true)
 
 
     return (
@@ -123,7 +122,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                 </Flex>
             </Show>
 
-            {data && data.map((order: any,) => {
+            {data.length !== 0 ? data.map((order: any,) => {
                 return (
                     <Flex key={order?._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px">
                         <Flex alignItems={'center'} px={{ md: '4', base: '1' }}>
@@ -217,8 +216,9 @@ export const RenderOrderComponent = ({ data }: any) => {
 
                     </Flex>
                 )
-            })}
+            }) : <Text mt="50px" py="20px" textAlign="center" fontSize="20px" color="grey">You Dont Have Any Order Yet</Text>}
 
+            
         </Box>
     )
 }

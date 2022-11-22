@@ -59,8 +59,6 @@ const QuickBuyComponent = () => {
                         coin: creditCoin,
                         rate: 'no rate for now'
                     }
-
-                    console.log("ready to be moved", data)
                     dispatch(setQuickBuyPayload(data))
                     router.push('/quick-trade/confirm-purchase')
                 }}

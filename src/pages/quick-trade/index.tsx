@@ -9,14 +9,21 @@ import { checkValidToken } from '../../helpers/functions/checkValidToken';
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout';
 import OrderIcon from "../../../public/assets/svgs/orderIcon.svg"
 import Image from 'next/image';
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks';
+import { setIsClientSelected } from '../../redux/features/quick-trade/quickTradeSlice';
 
 
 const QuickTrade = () => {
     const router = useRouter()
     const { type } = router.query
-
+    const dispatch = useAppDispatch()
     const [isBuySelected, setIsBuySelected] = useState(type == 'buy' ? true : type == 'sell' ? false : true )  
     
+
+    const handleOrderRoute = () => {
+        dispatch(setIsClientSelected({isClientSelected: true}))
+        router.push("/quick-trade/order")    
+    }
     
     React.useEffect(() => {
         // alert(isBuySelectedProps)
@@ -30,7 +37,8 @@ const QuickTrade = () => {
                         <Flex>
                             <Text fontSize={{ md: '3xl', base: '2xl' }} as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == true ? 'appWhiteColor' : '#F1F5F9'} cursor={'pointer'} onClick={() => setIsBuySelected(true)}>Buy</Text>
                             <Text fontSize={{ md: '3xl', base: '2xl' }} as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == false ? 'appWhiteColor' : '#F1F5F9'} cursor={'pointer'} onClick={() => setIsBuySelected(false)}>Sell</Text>
-                            <Flex py={'4'} w={'full'}bg={'mainBGColor'} alignItems="center"  justifyContent="center" onClick={() => router.push('quick-trade/order')} cursor="pointer">
+                            <Flex py={'4'} w={'full'} bg={'mainBGColor'} alignItems="center" justifyContent="center"
+                                onClick={handleOrderRoute} cursor="pointer">
                                 <Box mr="7px">
                                     <Image src={OrderIcon} alt="orders icon"/>
                                 </Box>
