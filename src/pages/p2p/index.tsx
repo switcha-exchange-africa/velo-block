@@ -1,9 +1,9 @@
 import {
   Box, Flex, HStack, 
-  Link, 
    Text, 
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import { useState } from "react";
 import BuyP2p from "../../components/p2p/buy";
 import SellP2p from "../../components/p2p/sell";
@@ -69,13 +69,13 @@ const P2P = () =>  {
             </HStack>  
         </HStack>
         
-          <Link>
+          <Link href="/quick-trade/order">
             <Text
               textDecoration={"underline"}
-              color={"#8B8CA7"}
-              fontSize={"small"}
+              color={"#FB5E04"}
+              fontSize={"16px"}
             >
-              See all
+              See Your Ads
             </Text>
           </Link>
         </Flex>

@@ -12,7 +12,6 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 
 
-
 const Orders = () => {
     const [orderType, setOrderType] = useState(`Buy/Sell`)
     const [coinType, setCoinType] = useState(`All Coins`)
@@ -26,8 +25,8 @@ const Orders = () => {
 
     return (
         <DashboardLayout title='Orders'>
-            <Tabs variant='unstyled'>
-                <TabList left={["0%", "0", "15%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
+             <Tabs variant='unstyled'>
+                <TabList left={["0%", "0", "12%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "100%"]}  position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
                     <Tab _selected={{ color: '#fb5e04' }}>
                         <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
                     </Tab>
