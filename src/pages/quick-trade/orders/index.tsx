@@ -29,20 +29,20 @@ const Orders = () => {
             <Tabs variant='unstyled'>
                 <TabList left={["0%", "0", "15%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
                     <Tab _selected={{ color: '#fb5e04' }}>
-                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
+                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
                     </Tab>
                     <Tab _selected={{ color: '#fb5e04'}}>            
-                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>Pending</Text>
+                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>Pending</Text>
                     </Tab>
                     <Tab _selected={{ color: '#fb5e04' }}>
-                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>Completed</Text>
+                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>Completed</Text>
                     </Tab>
                 </TabList>
 
                 <TabPanels>
                     {/* Tab one */}
-                    <TabPanel> 
-                        <Flex flexDirection={'column'} mt="100px" p={{ base: '2px', md: '' }}>
+                    <TabPanel  p="0"> 
+                        <Flex flexDirection={'column'} mt="100px" p={{ base: '0px', md: '' }}>
                             <Flex gap="24px" cursor="pointer">
                                 <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
                                     <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
@@ -88,7 +88,11 @@ const Orders = () => {
                     </TabPanel>
 
                     <TabPanel>
-                        <p>two!</p>
+                        <Text mt="100px">Pending</Text>
+                    </TabPanel>
+
+                    <TabPanel>
+                        <Text mt="100px">Completed</Text>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
@@ -101,6 +105,9 @@ const Orders = () => {
 
 
 export const RenderOrderComponent = ({ data }: any) => {
+    const handleClick = (value: string) => {
+        console.log("value was selected ", value)
+    }
     return (
         <Box>
             <Show above='md'>
@@ -116,7 +123,7 @@ export const RenderOrderComponent = ({ data }: any) => {
 
             {data && data.map((order: any,) => {
                 return (
-                    <Flex key={order._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px">
+                    <Flex key={order?._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px">
                         <Flex alignItems={'center'} px={{ md: '4', base: '1' }}>
                             <Text fontWeight={'medium'} color={order?.ad[0]?.type != 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.type != 'buy' ? 'BUY' : 'Sell'}</Text>
                             <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
@@ -151,7 +158,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
                                 
-                                <Button p="9px 22px" bg="#FB5E04" borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handlleClick(order?._id)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
             
 
                             </Flex>
