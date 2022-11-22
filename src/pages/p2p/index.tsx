@@ -1,22 +1,31 @@
 import {
   Box, Flex, HStack, 
-  Link, 
    Text, 
 } from "@chakra-ui/react";
 import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import BuyP2p from "../../components/p2p/buy";
 import SellP2p from "../../components/p2p/sell";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
+import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
+import { setIsClientSelected } from "../../redux/features/quick-trade/quickTradeSlice";
 
-const P2P = () =>  {  
-    const [selectedId, setSelectedId] = useState("1")
-    const [color, setColor] = useState({
-        color1: "black",
-        color2: "#8E9BAE"
-    })
+const P2P = () => {  
+  const router = useRouter()
+  const dispatch= useAppDispatch()
+  const [selectedId, setSelectedId] = useState("1")
+  const [color, setColor] = useState({
+      color1: "black",
+      color2: "#8E9BAE"
+  })
 
+  const handleOrderRoute = () => {
+    dispatch(setIsClientSelected({isClientSelected: false}))
+    router.push("/quick-trade/order")    
+  }
+  
     const handleSelect = (id: string) => {
         if (id === "1") {
         setSelectedId(id)
@@ -69,15 +78,19 @@ const P2P = () =>  {
             </HStack>  
         </HStack>
         
-          <Link>
-            <Text
-              textDecoration={"underline"}
-              color={"#8B8CA7"}
-              fontSize={"small"}
-            >
-              See all
-            </Text>
-          </Link>
+          <Text
+            textDecoration={"underline"}
+            color={"#FB5E04"}
+            fontSize={"16px"}
+            cursor="pointer"
+            _hover={{
+              color: "#fb5e09"
+            }}
+            onClick={handleOrderRoute}
+          >
+            See Your Ads
+          </Text>
+          
         </Flex>
 
         {selectedId === "1" ? (

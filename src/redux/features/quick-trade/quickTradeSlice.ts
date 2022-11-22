@@ -9,6 +9,7 @@ export interface QuickTradeState {
   rate?: any;
   order?: any;
   isModalOpen?: any;
+  isClientSelected: boolean
 }
 const initialState: QuickTradeState = {
   amount: null,
@@ -19,6 +20,7 @@ const initialState: QuickTradeState = {
   rate: null,
   order: null,
   isModalOpen: false,
+  isClientSelected: true
 };
 
 export const quickTradeSlice = createSlice({
@@ -91,6 +93,17 @@ export const quickTradeSlice = createSlice({
         state.cash = fromWallet;
       }
     },
+
+    setIsClientSelected: (
+      state,
+      {
+        payload: { isClientSelected },
+      }: PayloadAction<{
+        isClientSelected: any;
+      }>
+    ) => {
+      state.isClientSelected = isClientSelected;
+    },
   },
 });
 
@@ -100,6 +113,7 @@ export const {
   resetQuickTradePayload,
   setIsModalOpen,
   setCoinOrCash,
+  setIsClientSelected
 } = quickTradeSlice.actions;
 
 export default quickTradeSlice.reducer;

@@ -46,6 +46,7 @@ const ConfirmRelease = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, 
 
         }
     }
+    
     return (
         <Modal size={size} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay

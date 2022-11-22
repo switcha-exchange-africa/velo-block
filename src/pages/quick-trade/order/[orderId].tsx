@@ -179,8 +179,6 @@ const NotifyTraders = () => {
 
                             }
 
-
-
                         </Box>}
                     </Flex>
                     <Box w={{ lg: '48%', md: '80%', base: 'full' }} pt={{ base: '8', lg: '0px' }}>
