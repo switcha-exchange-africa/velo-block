@@ -1,9 +1,10 @@
-import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/layout'
+import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
 import { Tabs, TabList, TabPanels, Tab, TabPanel} from "@chakra-ui/react"
 import { Button, Show} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
@@ -20,6 +21,8 @@ const Orders = () => {
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
+
+    console.log({merchantOrders})
 
     const [isClientSelected, setIsClientSelected] = useState(true)
 
@@ -105,9 +108,12 @@ const Orders = () => {
 
 
 export const RenderOrderComponent = ({ data }: any) => {
-    const handleClick = (value: string) => {
-        console.log("value was selected ", value)
+    const router = useRouter()
+
+    const handleClick = (id: string) => {
+        router.push('/quick-trade/order/'+id)
     }
+    
     return (
         <Box>
             <Show above='md'>
@@ -158,7 +164,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
                                 
-                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handlleClick(order?._id)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handleClick(order?._id)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
             
 
                             </Flex>

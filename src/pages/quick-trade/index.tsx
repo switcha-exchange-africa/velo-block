@@ -30,7 +30,7 @@ const QuickTrade = () => {
                         <Flex>
                             <Text fontSize={{ md: '3xl', base: '2xl' }} as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == true ? 'appWhiteColor' : '#F1F5F9'} cursor={'pointer'} onClick={() => setIsBuySelected(true)}>Buy</Text>
                             <Text fontSize={{ md: '3xl', base: '2xl' }} as='b' py={'4'} w={'full'} align={'center'} bg={isBuySelected == false ? 'appWhiteColor' : '#F1F5F9'} cursor={'pointer'} onClick={() => setIsBuySelected(false)}>Sell</Text>
-                            <Flex py={'4'} w={'full'}bg={'mainBGColor'} alignItems="center"  justifyContent="center" onClick={() => router.push('quick-trade/orders')} cursor="pointer">
+                            <Flex py={'4'} w={'full'}bg={'mainBGColor'} alignItems="center"  justifyContent="center" onClick={() => router.push('quick-trade/order')} cursor="pointer">
                                 <Box mr="7px">
                                     <Image src={OrderIcon} alt="orders icon"/>
                                 </Box>
