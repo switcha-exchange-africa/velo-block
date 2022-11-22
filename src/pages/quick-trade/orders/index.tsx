@@ -1,12 +1,11 @@
 import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/layout'
+import { Tabs, TabList, TabPanels, Tab, TabPanel} from "@chakra-ui/react"
 import { Button, Show} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
-
-import React from 'react'
+import { useState } from 'react'
 import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
-
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
@@ -14,60 +13,87 @@ import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '
 
 
 const Orders = () => {
-    const [orderType, setOrderType] = React.useState(`Buy/Sell`)
-    const [coinType, setCoinType] = React.useState(`All Coins`)
-    const [statusType, setStatusType] = React.useState(`All Status`)
+    const [orderType, setOrderType] = useState(`Buy/Sell`)
+    const [coinType, setCoinType] = useState(`All Coins`)
+    const [statusType, setStatusType] = useState(`All Status`)
 
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
 
-    const [isClientSelected, setIsClientSelected] = React.useState(true)
+    const [isClientSelected, setIsClientSelected] = useState(true)
 
 
-    // .reverse()
     return (
         <DashboardLayout title='Orders'>
-            <Flex flexDirection={'column'} p={{ base: '2px', md: '' }}>
-                <Flex gap="24px" cursor="pointer">
-                    <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
-                            setCoinType(e.target.value);
-                        }}>
-                            <option value={'buy'}>All Coins</option>
-                        </Select>
+            <Tabs variant='unstyled'>
+                <TabList left={["0%", "0", "15%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
+                    <Tab _selected={{ color: '#fb5e04' }}>
+                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
+                    </Tab>
+                    <Tab _selected={{ color: '#fb5e04'}}>            
+                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>Pending</Text>
+                    </Tab>
+                    <Tab _selected={{ color: '#fb5e04' }}>
+                        <Text fontSize={["20px", "20px", "20px"]} fontWeight={"600"}>Completed</Text>
+                    </Tab>
+                </TabList>
 
-                    </Flex>
+                <TabPanels>
+                    {/* Tab one */}
+                    <TabPanel> 
+                        <Flex flexDirection={'column'} mt="100px" p={{ base: '2px', md: '' }}>
+                            <Flex gap="24px" cursor="pointer">
+                                <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
+                                    <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
+                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
+                                        setCoinType(e.target.value);
+                                    }}>
+                                        <option value={'buy'}>All Coins</option>
+                                    </Select>
 
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                                </Flex>
+
+                                <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
+                                    <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                                    
+                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
+                                        setOrderType(e.target.value);
+                                    }}>
+                                        <option value={'buy'}>Buy/Sell</option>
+                                        <option value={'buy'}>Buy</option>
+                                        <option value={'sell'}>Sell</option>
+                                    </Select>
+                                </Flex>
+                                
+                                <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                                    <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
+                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
+                                        setStatusType(e.target.value);
+                                    }}>
+                                        <option value={'buy'}>All Status</option>
+                                    </Select>
+                                </Flex>
+                            </Flex>
+                            {/* <Flex bg={'gray.300'} mt={'4'} justifyContent={'space-evenly'}>
+                                <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(true) }}>Client</Heading>
+                                <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={!isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(false) }}>Merchant</Heading>
+                            </Flex> */}
+                            
+                            
+                            {clientOrders?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? clientOrders?.data?.data : merchantOrders?.data?.data} />}
+
+                        </Flex>
                         
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
-                            setOrderType(e.target.value);
-                        }}>
-                            <option value={'buy'}>Buy/Sell</option>
-                            <option value={'buy'}>Buy</option>
-                            <option value={'sell'}>Sell</option>
-                        </Select>
-                    </Flex>
-                     
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                            setStatusType(e.target.value);
-                        }}>
-                            <option value={'buy'}>All Status</option>
-                        </Select>
-                    </Flex>
-                </Flex>
-                <Flex bg={'gray.300'} mt={'4'} justifyContent={'space-evenly'}>
-                    <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(true) }}>Client</Heading>
-                    <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={!isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(false) }}>Merchant</Heading>
-                </Flex>
-                {clientOrders?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? clientOrders?.data?.data : merchantOrders?.data?.data} />}
+                    </TabPanel>
 
-            </Flex>
+                    <TabPanel>
+                        <p>two!</p>
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+
+            
         </DashboardLayout>
     )
 }
@@ -75,7 +101,6 @@ const Orders = () => {
 
 
 export const RenderOrderComponent = ({ data }: any) => {
-    // alert(JSON.stringify(data))
     return (
         <Box>
             <Show above='md'>
@@ -126,7 +151,8 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
                                 
-                                <Button>Open Trade</Button>
+                                <Button p="9px 22px" bg="#FB5E04" borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+            
 
                             </Flex>
                         </Show>

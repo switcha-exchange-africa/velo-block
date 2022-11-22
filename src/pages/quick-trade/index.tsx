@@ -34,7 +34,7 @@ const QuickTrade = () => {
                                 <Box mr="7px">
                                     <Image src={OrderIcon} alt="orders icon"/>
                                 </Box>
-                                <Text color="#FB5E04" fontSize={{ md: '2xl', base: 'xl' }} as='b'  align={'center'} >Orders</Text>
+                                <Text color="#FB5E04" fontSize={{ md: '16px', base: '14px' }} as='b' >Orders</Text>
                             </Flex>
 
                         </Flex>
