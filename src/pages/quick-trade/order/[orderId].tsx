@@ -25,7 +25,7 @@ const NotifyTraders = () => {
 
     const today = moment().valueOf()
 
-    // console.log(" orderDetail detail about to check the behaviour of the bank fuck! ", orderDetail.data)
+    console.log(" orderDetail detail about to check the behaviour of the bank fuck! ", orderDetail.data)
 
     // React.useEffect(() => {
     //     if (isModalOpen == true) {
