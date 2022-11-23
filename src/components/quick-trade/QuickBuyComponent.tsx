@@ -49,7 +49,7 @@ const QuickBuyComponent = () => {
             <Formik
                 initialValues={{ debitCoinValue: amount ?? '', creditCoinValue: creditCoinAmount ?? '' }}
                 
-                onSubmit={async (values, { }) => {
+                onSubmit={async () => {
                     const data = {
                         amount: parseFloat(amountt),
                         // creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount,
