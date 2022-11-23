@@ -1,7 +1,7 @@
 import { Box, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import { setQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice';
 import { useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
@@ -21,6 +21,7 @@ const QuickBuyComponent = () => {
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
+
 
     // const sum = isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0
     // console.log(" naim be this o ", sum )
@@ -47,13 +48,12 @@ const QuickBuyComponent = () => {
         <Flex flexDirection={'column'} p={'8'}>
             <Formik
                 initialValues={{ debitCoinValue: amount ?? '', creditCoinValue: creditCoinAmount ?? '' }}
-
+                
                 onSubmit={async (values, { }) => {
-                   
                     const data = {
                         amount: parseFloat(amountt),
                         // creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount,
-                        creditCoinAmount: values.creditCoinValue,
+                        creditCoinAmount: calculateConversion(parseFloat(amountt)).toFixed(3),
                         fee: calculateQuickBuyFees?.data?.data?.fee,
                         cash: debitCoin,
                         coin: creditCoin,
@@ -96,10 +96,6 @@ const QuickBuyComponent = () => {
                                                 <Flex w={'full'} justifyContent={'flex-end'}>
                                                     {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
                                                 </Flex>
-
-
-
-
                                             </InputRightElement>
                                         </InputGroup>
                                         <FormErrorMessage>{form.errors.debitCoinValue}</FormErrorMessage>
