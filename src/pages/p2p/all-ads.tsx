@@ -198,9 +198,9 @@ export const RenderOrderComponent = ({ data }: any) => {
                             </Td>
 
                             <Td pl="0"  fontSize="14px" color="#000000" fontWeight="600">
-                                <Text mb="11px" >Download</Text>
-                                <Text mb="11px">Edit</Text>
-                                <Text mb="11px" color="#FF1F00">Delete</Text>
+                                <Text mb="11px" cursor="pointer">Download</Text>
+                                <Text mb="11px" cursor="pointer">Edit</Text>
+                                <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
                             </Td>
                         </Tr>
                         <Tr w="100%" height="24px"></Tr>
