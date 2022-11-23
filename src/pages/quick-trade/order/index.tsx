@@ -25,8 +25,8 @@ const Orders = () => {
     return (
         <DashboardLayout title='Orders'>
              <Tabs variant='unstyled'>
-                <TabList left={["0%", "0", "12%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "100%"]}  position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
-                    <Tab _selected={{ color: '#fb5e04' }}>
+                {/* <TabList left={["0%", "0", "12%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "100%"]}  position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
+                     <Tab _selected={{ color: '#fb5e04' }}>
                         <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
                     </Tab>
                     <Tab _selected={{ color: '#fb5e04'}}>            
@@ -34,13 +34,13 @@ const Orders = () => {
                     </Tab>
                     <Tab _selected={{ color: '#fb5e04' }}>
                         <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>Completed</Text>
-                    </Tab>
-                </TabList>
+                    </Tab> 
+                </TabList>*/}
 
                 <TabPanels>
                     {/* Tab one */}
-                    <TabPanel  p="0"> 
-                        <Flex flexDirection={'column'} mt="100px" p={{ base: '0px', md: '' }}>
+                    <TabPanel p="0"> 
+                        <Flex flexDirection={'column'} mt='60px' p={{ base: '0px', md: '' }}>
                             <Flex gap="24px" cursor="pointer">
                                 <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
                                     <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
@@ -83,14 +83,6 @@ const Orders = () => {
 
                         </Flex>
                         
-                    </TabPanel>
-
-                    <TabPanel>
-                        <Text mt="100px">Pending</Text>
-                    </TabPanel>
-
-                    <TabPanel>
-                        <Text mt="100px">Completed</Text>
                     </TabPanel>
                 </TabPanels>
             </Tabs>
