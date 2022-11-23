@@ -63,11 +63,13 @@ const ConfirmPurchase = () => {
                             <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'buy' } }) }} />
                             <Text fontSize='lg' as='p' fontWeight={'light'} py={'2'} w={'full'} align={'center'} >Confirm Purchase</Text>
                         </Flex>
-                        <Text fontSize='2xl' as='b' w={'full'} align={'center'} ><Currency
-                            quantity={amount}
-                            currency={cash}
-                        /></Text>
-                        <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive {creditCoinAmount} {coin}</Text>
+                        <Text fontSize='2xl' as='b' w={'full'} align={'center'} >
+                            <Currency
+                                quantity={amount}
+                                currency={cash}
+                            />
+                        </Text>
+                        <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive {creditCoinAmount} {coin === 'USDT_TRON' ? 'USDT-TRON' : coin}</Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
                         <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'}
                         // rate={
