@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Tabs, TabList, TabPanels, Tab, TabPanel} from "@chakra-ui/react"
+import { Tabs, TabPanels,  TabPanel} from "@chakra-ui/react"
 import { Button, Show} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
@@ -40,7 +40,7 @@ const Orders = () => {
                 <TabPanels>
                     {/* Tab one */}
                     <TabPanel p="0"> 
-                        <Flex flexDirection={'column'} mt='60px' p={{ base: '0px', md: '' }}>
+                        <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
                             <Flex gap="24px" cursor="pointer">
                                 <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
                                     <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
