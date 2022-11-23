@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Tabs, TabPanels,  TabPanel} from "@chakra-ui/react"
-import { Button, Show} from '@chakra-ui/react'
+import { Tabs, TabPanels,  TabPanel , Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
+import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
@@ -58,7 +58,7 @@ const Orders = () => {
                                     <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
                                         setOrderType(e.target.value);
                                     }}>
-                                        <option value={'buy'}>Buy/Sell</option>
+                                        <option value={'buy/sell'}>Buy/Sell</option>
                                         <option value={'buy'}>Buy</option>
                                         <option value={'sell'}>Sell</option>
                                     </Select>
@@ -103,108 +103,133 @@ export const RenderOrderComponent = ({ data }: any) => {
     
     return (
         <Box>
-            <Show above='md'>
-                <Flex justifyContent={'space-between'} pt={'12'} pb={'6'} pl={'4'} w="908px">
-                    <Text fontWeight={'medium'} color={'#64748B'}>Asset Type</Text>
-                    <Text fontWeight={'medium'} color={'#64748B'}>Amount</Text>
-                    <Text fontWeight={'medium'} color={'#64748B'}>Price & Quantity</Text>
-                    <Text fontWeight={'medium'} color={'#64748B'}>Counterparty</Text>
-                    <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                    <Text fontWeight={'medium'} color={'#64748B'}>Actions</Text>
-                </Flex>
-            </Show>
 
-            {data.length !== 0 ? data.map((order: any,) => {
-                return (
-                    <Flex key={order?._id} flexDirection={'column'} pt={{ base: '6', md: '1' }} mb="24px" w="1000px">
-                        <Flex alignItems={'center'} px={{ md: '4', base: '1' }}>
-                            <Text fontWeight={'medium'} color={order?.ad[0]?.type != 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.type != 'buy' ? 'BUY' : 'Sell'}</Text>
-                            <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
-                            <Text fontSize={{ base: 'sm', md: 'md' }}>{order?.orderId}</Text>
-                            <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
-                            <Text color={'#64748B'} fontSize={{ base: 'sm', md: 'md' }}>{moment(order?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
-                        </Flex>
-                        <Show above='md'>
-                            <Flex justifyContent={'space-between'} mt={'3'} bg={'white'} px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'} boxShadow={'sm'} borderRadius={'sm'}>
+                <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
+                        sm: '100px',
+                        md: '1000px',
+                        lg: '1000px',
+                        xl: '1300px',
+                        '2xl': '80%'
+                    }}>
+                    <Table  >
+                        <Thead borderBottomColor={"transparent"}>
+                            <Tr>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Asset Type</Th>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Amount</Th>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}> Price & Quantity</Th>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Counterparty</Th>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Status</Th>
+                                <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Actions</Th>
+                            </Tr>
+                        </Thead>
+                        {data.length !== 0 ? data.map((order: any) => (
+                            <>
+                                <Flex bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
+                                    <Text fontWeight={'medium'} color={order?.ad[0]?.type != 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.type != 'buy' ? 'BUY' : 'Sell'}</Text>
+                                    <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
+                                    <Text fontSize={{ base: 'sm', md: 'md' }}>{order?.orderId}</Text>
+                                    <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
+                                    <Text color={'#64748B'} fontSize={{ base: 'sm', md: 'md' }}>{moment(order?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                </Flex>
+                                
+                                <Tbody my={'20px'}  px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
+                                    <Tr>
+                                        <Td >
+                                            <Flex alignItems={'center'} p="80px 0 0px" >
+                                                <RenderCoinComponent coin={order?.ad[0]?.coin} />
+                                                <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                                            </Flex>
+                                        </Td>
+                                        <Td>
+                                            <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()}</Text>
+                                        </Td>
+                                        <Td>
+                                            <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
+                                                <Flex fontSize={{ base: 'sm', lg: 'md' }}>
+                                                    <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Price</Text>
+                                                    <Text fontWeight={'medium'} fontSize="14px" >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : order?.ad[0]?.coin}</Text>
+                                                </Flex>
+                                                <Flex fontSize={{ base: 'sm', lg: 'md' }} >
+                                                    <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Quantity</Text>
+                                                    <Text fontWeight={'medium'} fontSize="14px" >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : order?.ad[0]?.coin}</Text>
+                                                </Flex>
+                                            </Flex>            
+                                        </Td>
+
+                                        <Td>
+                                            <Text  p="80px 0 0px" fontWeight={'medium'} mt={'2.5'} color={'#64748B'}>ANNULAR</Text>
+                                        </Td>
+                                        <Td>
+                                            <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
+                                                <Text fontWeight={'medium'} textTransform="capitalize">{order?.status}</Text>
+                                                <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
+                                            </Flex>
+                                        </Td>
+                                        <Td>
+                                            <Flex p="80px 0 0px">
+                                                <Button p="9px 22px"   bg="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+                                            </Flex>
+                                        </Td>
+                                    </Tr>
+                                </Tbody> 
+                            </>
+                        )) : "You Don't Have Any Order Yet"}
+                    </Table>
+                </TableContainer>
+
+            
+                {/* mobile */}
+                {data.length !== 0 ? data.map((order: any) => (
+                // <Show below='sm' key="">
+                    <Flex key=""  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
+                        <Flex flexDirection={'column'}>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Asset Type</Text>
                                 <Flex alignItems={'center'}>
                                     <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                    <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                                    <Text pl={'1.5'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
                                 </Flex>
-                                
-                                <Text   fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()}</Text>
-                                
-                                <Flex  flexDirection={'column'} mt={'2.5'}>
-                                    <Flex fontSize={{ base: 'sm', lg: 'md' }}>
-                                        <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Price</Text>
-                                        <Text fontWeight={'medium'} fontSize="14px" >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin}</Text>
-                                    </Flex>
-                                    <Flex fontSize={{ base: 'sm', lg: 'md' }} >
-                                        <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Quantity</Text>
-                                        <Text fontWeight={'medium'} fontSize="14px" >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin}</Text>
-                                    </Flex>
-                                </Flex>
-                                
-                                <Text  fontWeight={'medium'} mt={'2.5'} color={'#64748B'}>ANNULAR</Text>
-                                
-                                <Flex  flexDirection={'column'} mt={'2.5'}>
-                                    <Text fontWeight={'medium'} textTransform="capitalize">{order?.status}</Text>
+                            </Flex>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Price</Text>
+                                <Text fontWeight={'medium'} >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                            </Flex>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Quantity</Text>
+                                <Text fontWeight={'medium'} >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                            </Flex>
+                        </Flex>
+
+                        <Flex flexDirection={'column'}>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Amount</Text>
+                                <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()}</Text>
+                            </Flex>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Counterparty</Text>
+                                <Text fontWeight={'medium'} color={'#64748B'} >ANNULAR</Text>
+                            </Flex>
+                            <Flex fontSize={{ base: 'sm', md: 'md' }}>
+                                <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Status</Text>
+                                <Flex flexDirection={'column'}>
+                                    <Text fontWeight={'medium'}>{order?.status}</Text>
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
-                                
-                                <Button p="9px 22px"  bg="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
+                            </Flex>
+
+                            <Flex fontSize={{ base: 'sm', md: 'md' }}>
+                                <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
+                            </Flex>
+                        </Flex>
+                    </Flex>
+                // </Show> 
+                )) : "You Don't Have Any Order Yet"}
+ 
+
+                
+                
             
 
-                            </Flex>
-                        </Show>
-
-                        
-                        <Show below='sm'>
-                            <Flex justifyContent={'space-between'} my={'2'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
-                                <Flex flexDirection={'column'}>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Asset Type</Text>
-                                        <Flex alignItems={'center'}>
-                                            <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                            <Text pl={'1.5'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
-                                        </Flex>
-                                    </Flex>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Price</Text>
-                                        <Text fontWeight={'medium'} >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin}</Text>
-                                    </Flex>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Quantity</Text>
-                                        <Text fontWeight={'medium'} >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin}</Text>
-                                    </Flex>
-                                </Flex>
-
-                                <Flex flexDirection={'column'}>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Amount</Text>
-                                        <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()}</Text>
-                                    </Flex>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Counterparty</Text>
-                                        <Text fontWeight={'medium'} color={'#64748B'} >ANNULAR</Text>
-                                    </Flex>
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Status</Text>
-                                        <Flex flexDirection={'column'}>
-                                            <Text fontWeight={'medium'}>{order?.status}</Text>
-                                            <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
-                                        </Flex>
-                                    </Flex>
-
-                                    <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
-                                    </Flex>
-                                </Flex>
-                            </Flex>
-                        </Show>
-
-                    </Flex>
-                )
-            }) : <Text mt="50px" py="20px" textAlign="center" fontSize="20px" color="grey">You Dont Have Any Order Yet</Text>}
 
             
         </Box>
