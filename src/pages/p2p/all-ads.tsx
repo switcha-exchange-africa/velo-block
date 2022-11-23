@@ -94,7 +94,7 @@ const AllAds = () => {
                 </Flex> */}
                 
                 
-                {clientOrders?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? clientOrders?.data?.data : merchantOrders?.data?.data} />}
+                {merchantOrders?.data && <RenderOrderComponent data={merchantOrders?.data?.data} />}
 
             </Flex>
 
@@ -106,6 +106,8 @@ const AllAds = () => {
 
 
 export const RenderOrderComponent = ({ data }: any) => {
+    console.log("make we see this data ", data)
+    
     const router = useRouter()
 
     const handleClick = (orderId: string) => {
@@ -119,143 +121,118 @@ export const RenderOrderComponent = ({ data }: any) => {
                 <Table >
                     <Thead borderBottomColor={"transparent"} >
                         <Tr >
-                            <Th textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text>Ad Number</Text>
-                                <Text>Type</Text>
-                                <Text>Asset/Fiat</Text>
+                            <Th textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px" >
+                                <Flex direction="column" height="50px">
+                                    <Text>Ad Number</Text>
+                                    <Text>Type</Text>
+                                    <Text>Asset/Fiat</Text>
+                                </Flex>
                             </Th>
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text>Available Amount</Text>
-                                <Text>Completed Trade QTY</Text>
-                                <Text>Limit</Text>
+                                <Flex direction="column"  height="50px">
+                                    <Text>Available Amount</Text>
+                                    <Text>Completed Trade QTY</Text>
+                                    <Text>Limit</Text>
+                                </Flex>
                             </Th>
                             <Th pl="0" textAlign={"left"}  fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text mt="-20px">Price</Text>
-                                <Text>Exchange Rate</Text>
+                                <Flex direction="column"  height="50px">
+                                    <Text>Price</Text>
+                                </Flex>
+                                {/* <Text>Exchange Rate</Text> */}
                             </Th>
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text mt="-28px">Payment Method</Text>
+                                <Flex direction="column"  height="50px">
+                                    <Text>Payment Method</Text>
+                                </Flex>
+                                
                             </Th>
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text mt="-25px">Last Updated</Text>
-                                <Text>Create Time</Text>
+                               <Flex direction="column"  height="50px">
+                                    <Text>Last Updated</Text>
+                                    <Text>Create Time</Text>    
+                                </Flex>
+                                
                             </Th>
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text mt="-28px">Status</Text>
+                                <Flex direction="column" height="50px">
+                                    <Text>Status</Text>  
+                                </Flex>
                             </Th>
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
-                                <Text mt="-28px">Actions</Text>
+                                <Flex direction="column"  height="50px">
+                                    <Text>Actions</Text>    
+                                </Flex>
+                                
                             </Th>
                         </Tr>
                     </Thead>
 
+                    
                     <Tbody bg="white" mt="20px" >
-                        <Tr w="100%" height="24px"></Tr>
-                        <Tr>
+                        {data.map((ad: any) => (
+                            <>
+                                <Tr w="100%" height="24px" ></Tr>
+                                    <Tr>
+                                        <Td fontSize="14px" color="#000000" fontWeight="600" >
+                                            <Flex direction="column" h="100px">
+                                                <Text mb="11px">{ad?.adId}</Text>
+                                                <Text mb="11px" textTransform="uppercase" color={ad?.ad[0]?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.ad[0]?.type}</Text>
+                                                <Text mb="11px">{ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin} / {ad?.ad[0]?.cash}</Text>
+                                            </Flex>
+                                        </Td>
 
-                            <Td fontSize="14px" color="#000000" fontWeight="600">
-                                <Flex direction="column">
-                                    <Text mb="11px">63721b6901c848d9c9a7dc2a</Text>
-                                    <Text mb="11px">BUY</Text>
-                                    <Text mb="11px">USDT / NGN</Text>
-                                </Flex>
-                            </Td>
+                                        <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600" >
+                                            <Flex direction="column" height="100px"  justifyContent="flex-start" alignItems="flex-start">
+                                                <Text mb="11px">{ad?.ad[0]?.totalAmount?.toLocaleString()}</Text>
+                                                {/* <Text mb="11px">{ad?.ad[0]?.quantity}</Text> */}
+                                                <Text mb="11px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                                            </Flex>
+                                        </Td>
 
-                            <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600">
-                                <Flex direction="column" height="100%" >
-                                    <Text mb="11px">2000.00</Text>
-                                    <Text mb="11px">0.00</Text>
-                                    <Text mb="11px">50,000.00-2,000,000.00 NGN</Text>
-                                </Flex>
-                            </Td>
+                                        <Td pl="0" fontSize="14px" color="#000000" fontWeight="600" pt="0" pb="0">
+                                            <Flex  height="100px"  direction="column" >
+                                                <Text mb="11px">{ad?.ad[0]?.price.toLocaleString()}</Text>
+                                                <Text mb="11px">--</Text>
+                                            </Flex>
+                                        </Td>
 
-                            <Td pl="0" fontSize="14px" color="#000000" fontWeight="600" pt="0" pb="0">
-                                <Flex  direction="column" mt="-25px">
-                                    <Text mb="11px">484.85 (-0.03%)</Text>
-                                    <Text mb="11px">--</Text>
-                                </Flex>
-                            </Td>
+                                        <Td pl="0" fontSize="12px">
+                                            <Flex direction="column" height="100px" >
+                                                <Text mb="11px">Bank Transfer</Text>
+                                                <Text >{ad?.ad[0]?.bank[0]?.name}</Text>
+                                                <Text>{ad?.ad[0]?.bank[1]?.name}</Text>
+                                                {/* <Text >{ad?.ad[0]?.bank[2]?.name}</Text>
+                                                <Text >{ad?.ad[0]?.bank[3]?.name}</Text> */}
+                                            </Flex>
+                                            
+                                        </Td>
 
-                            <Td pl="0" fontSize="12px">
-                                <Flex direction="column" mt="-25px">
-                                    <Text mb="11px" >Bank Transfer</Text>
-                                    <Text mb="11px">Kuda Bank</Text>    
-                                </Flex>
-                                
-                            </Td>
+                                        <Td pl="0" fontSize="12px" >
+                                            <Flex height="100px"  direction="column">
+                                                <Text mb="11px">{moment(ad?.ad[0]?.bank[1]?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                                <Text mb="11px">{moment(ad?.ad[0]?.bank[1]?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                            </Flex>
+                                        </Td>
 
-                            <Td pl="0" fontSize="12px" >
-                                <Flex mt="-25px" direction="column">
-                                    <Text mb="11px" >2021-01-18 08-59:17</Text>
-                                    <Text mb="11px">2021-01-18 08-59:17</Text>
-                                </Flex>
-                            </Td>
+                                        <Td pl="0" color="#22C36B" fontSize="14px" fontWeight="600">
+                                            <Flex height="100px"  direction="column">
+                                                <Text mb="11px">Published</Text>
+                                            </Flex>
+                                        </Td>
 
-                            <Td pl="0" color="#22C36B" fontSize="14px" fontWeight="600">
-                                <Flex mt="-45px" direction="column">
-                                    <Text mb="11px">Published</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0"  fontSize="14px" color="#000000" fontWeight="600">
-                                <Text mb="11px" cursor="pointer">Download</Text>
-                                <Text mb="11px" cursor="pointer">Edit</Text>
-                                <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
-                            </Td>
-                        </Tr>
-                        <Tr w="100%" height="24px"></Tr>
-                        <Tr>
-
-                            <Td fontSize="14px" color="#000000" fontWeight="600">
-                                <Flex direction="column">
-                                    <Text mb="11px">63721b6901c848d9c9a7dc2a</Text>
-                                    <Text mb="11px">BUY</Text>
-                                    <Text mb="11px">USDT / NGN</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600">
-                                <Flex direction="column" height="100%" >
-                                    <Text mb="11px">2000.00</Text>
-                                    <Text mb="11px">0.00</Text>
-                                    <Text mb="11px">50,000.00-2,000,000.00 NGN</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0" fontSize="14px" color="#000000" fontWeight="600" pt="0" pb="0">
-                                <Flex  direction="column" mt="-25px">
-                                    <Text mb="11px">484.85 (-0.03%)</Text>
-                                    <Text mb="11px">--</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0" fontSize="12px">
-                                <Flex direction="column" mt="-25px">
-                                    <Text mb="11px" >Bank Transfer</Text>
-                                    <Text mb="11px">Kuda Bank</Text>    
-                                </Flex>
-                                
-                            </Td>
-
-                            <Td pl="0" fontSize="12px" >
-                                <Flex mt="-25px" direction="column">
-                                    <Text mb="11px" >2021-01-18 08-59:17</Text>
-                                    <Text mb="11px">2021-01-18 08-59:17</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0" color="#22C36B" fontSize="14px" fontWeight="600">
-                                <Flex mt="-45px" direction="column">
-                                    <Text mb="11px">Published</Text>
-                                </Flex>
-                            </Td>
-
-                            <Td pl="0"  fontSize="14px" color="#000000" fontWeight="600">
-                                <Text mb="11px" >Download</Text>
-                                <Text mb="11px">Edit</Text>
-                                <Text mb="11px" color="#FF1F00">Delete</Text>
-                            </Td>
-                        </Tr>
+                                    <Td pl="0" fontSize="14px" color="#000000" fontWeight="600">
+                                        <Flex height="100px"  direction="column">
+                                            <Text mb="11px" cursor="pointer">Download</Text>
+                                            <Text mb="11px" cursor="pointer">Edit</Text>
+                                            <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
+                                        </Flex>
+                                            
+                                    </Td>
+                                </Tr>
+                            </>
+                            
+                        ))}
                     </Tbody>
 
 
