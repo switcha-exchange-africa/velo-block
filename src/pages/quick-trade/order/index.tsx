@@ -147,7 +147,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                 <Text  fontWeight={'medium'} mt={'2.5'} color={'#64748B'}>ANNULAR</Text>
                                 
                                 <Flex  flexDirection={'column'} mt={'2.5'}>
-                                    <Text fontWeight={'medium'}  >{order?.status}</Text>
+                                    <Text fontWeight={'medium'} textTransform="capitalize">{order?.status}</Text>
                                     <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
                                 </Flex>
                                 
