@@ -187,6 +187,7 @@ const NotifyTraders = () => {
                                 <Flex w={'full'}>
                                     <Flex alignItems={'center'} justifyContent={'center'} fontWeight={'medium'} fontSize={'md'} color={'#ffffff'} rounded={'full'} borderRadius={'full'} bg={'primaryColor.900'} w={'8'} h={'8'}>{orderDetail?.data?.data?.merchant[0]?.username[0]}</Flex>
                                     <Flex flexDirection={'column'} pl={'2'} w={'full'}>
+                                        {/* the merchant firstName is used instead of their userName */}
                                         <Text fontSize={'xs'} color={'primaryColor.900'}>{orderDetail?.data?.data?.merchant[0]?.firstName}</Text>
                                         {/* {orderDetail?.data?.data?.merchant[0]?.firstName} */}
                                         <Text fontSize={'xs'} >Verified Merchant</Text>

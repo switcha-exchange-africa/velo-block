@@ -1,7 +1,7 @@
 import { Box, Flex, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import { setQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice';
 import { useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
