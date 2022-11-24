@@ -148,7 +148,7 @@ const AllAds = () => {
 
 export const RenderOrderComponent = ({ data }: any) => {
     
-    const router = useRouter()
+    // const router = useRouter()
 
     // const handleClick = (orderId: string) => {
     //     router.push('/quick-trade/order/'+orderId)
