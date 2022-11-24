@@ -12,24 +12,27 @@ import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
-import { useGetFilterForClientQuery, useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
+import { useGetP2pOrderFilterForClientQuery, useGetP2pOrderFilterForMerchantQuery } from '../../../redux/services/p2p.service'
 
 
 const Orders = () => {
     const [orderType, setOrderType] = useState(`Buy/Sell`)
     const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
-    // const [coinType, setCoinType] = useState(`All Coins`)
     const [statusType, setStatusType] = useState(`All Status`)
-    const clientOrders = useGetP2pOrderForClientsQuery()
-    const merchantOrders = useGetP2pOrderForMerchantsQuery()
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
     const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
+    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
+    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
+    
+    // const [coinType, setCoinType] = useState(`All Coins`)
+    // const clientOrders = useGetP2pOrderForClientsQuery()
+    // const merchantOrders = useGetP2pOrderForMerchantsQuery()
+    // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
+    
     
 
-    const filterOrderByTypeAndStatus = useGetFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
-
-    console.log("chekc this data out bro ", filterOrderByTypeAndStatus)
+    // // useGetFilterForMerchantQuery
+    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus)
 
 
     return (
@@ -73,13 +76,8 @@ const Orders = () => {
                                     </Select>
                                 </Flex>
                             </Flex>
-                            {/* <Flex bg={'gray.300'} mt={'4'} justifyContent={'space-evenly'}>
-                                <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(true) }}>Client</Heading>
-                                <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={!isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(false) }}>Merchant</Heading>
-                            </Flex> */}
                             
-                            
-                            {filterOrderByTypeAndStatus?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? filterOrderByTypeAndStatus?.data?.data : merchantOrders?.data?.data} />}
+                            {filterClientOrderByTypeAndStatus?.data && filterMerchantOrderByTypeAndStatus?.data && <RenderOrderComponent data={isClientSelected ? filterClientOrderByTypeAndStatus?.data?.data : filterMerchantOrderByTypeAndStatus?.data?.data} />}
 
                         </Flex>
                         
