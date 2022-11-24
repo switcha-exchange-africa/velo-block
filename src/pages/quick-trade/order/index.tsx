@@ -7,20 +7,25 @@ import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
+import RenderCoinsDropdown from '../../../components/select/RenderCoinsDropdown'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
 import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 
 
 const Orders = () => {
     const [orderType, setOrderType] = useState(`Buy/Sell`)
-    const { isClientSelected } = useAppSelector((state) => state.quickTrade)
-    const [coinType, setCoinType] = useState(`All Coins`)
+    const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
+    // const [coinType, setCoinType] = useState(`All Coins`)
     const [statusType, setStatusType] = useState(`All Status`)
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
-
+    const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
+    // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
+    const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
+    console.log("credit coin is ", creditCoin)
 
     return (
         <DashboardLayout title='Orders'>
@@ -44,18 +49,21 @@ const Orders = () => {
                             <Flex gap="24px" cursor="pointer">
                                 <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
                                     <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
+                                    {/* <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
                                         setCoinType(e.target.value);
                                     }}>
-                                        <option value={'buy'}>All Coins</option>
-                                    </Select>
-
+                                        <option value={'buy'}></option>
+                                    </Select> */}
+                                    <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
+                                        {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
+                                    </Flex>
+                                    
                                 </Flex>
 
                                 <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
                                     <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
                                     
-                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
+                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
                                         setOrderType(e.target.value);
                                     }}>
                                         <option value={'buy/sell'}>Buy/Sell</option>
@@ -132,7 +140,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Text color={'#64748B'} fontSize={{ base: 'sm', md: 'md' }}>{moment(order?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
                                 </Flex>
                                 
-                                <Tbody my={'20px'}  px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
+                                <Tbody my={'20px'} key={order?._id} px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
                                     <Tr>
                                         <Td >
                                             <Flex alignItems={'center'} p="80px 0 0px" >
@@ -181,7 +189,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                 {/* mobile */}
                 {data.length !== 0 ? data.map((order: any) => (
                 // <Show below='sm' key="">
-                    <Flex key=""  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
+                    <Flex key={order?._id}  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
                         <Flex flexDirection={'column'}>
                             <Flex fontSize={{ base: 'sm', md: 'md' }}>
                                 <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Asset Type</Text>
