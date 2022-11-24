@@ -1,12 +1,12 @@
 import { ArrowBackIcon } from '@chakra-ui/icons'
-import { Box, Divider, Flex, Text, HStack } from '@chakra-ui/layout'
-import { Tabs, TabPanels,  TabPanel , Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input} from "@chakra-ui/react"
+import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input} from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import RenderCoinComponent from '../../components/dashboard/wallet/RenderCoinComponent'
 import { checkValidToken } from '../../helpers/functions/checkValidToken'
 import { useAppSelector } from '../../helpers/hooks/reduxHooks'
@@ -23,7 +23,19 @@ const AllAds = () => {
     const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
-    console.log("merchant Orders ", merchantOrders.data)
+    // console.log("merchant Orders ", merchantOrders?.error?.status)
+
+    // // console.log(merchantOrders?.error?.status)
+    // useEffect(() => {0
+
+    //     if(merchantOrders?.error?.status === 401){
+    //         console.log("young man")
+    //         router.push("/signin")
+    //     }
+
+    // }, [])
+    
+
 
     return (
         <DashboardLayout title='All Ads'>
@@ -36,45 +48,48 @@ const AllAds = () => {
                 ml="35px"
                 py={"3rem"}
                 color={'black'}
+                display={{ base: 'none', md: 'block' }}
             >
                 Back
             </Button>
-            <Flex  flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }} >
-                
-                <Flex gap="24px" ml="35px" cursor="pointer" alignItems="center">
-                    <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Asset/Type</Text>
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
-                            setCoinType(e.target.value);
-                        }}>
-                            <option value={'buy'}>All Assets</option>
-                        </Select>
+            <Flex  flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
+       
+                <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{base: 'column', md: 'row'}} cursor="pointer" alignItems="center" mb={{base: "20px", md: "0"}} >
+                    <Flex gap="24px">
+                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                            <Text fontWeight={'medium'} color={'#64748B'}>Asset/Type</Text>
+                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
+                                setCoinType(e.target.value);
+                            }}>
+                                <option value={'buy'}>All Assets</option>
+                            </Select>
 
-                    </Flex>
+                        </Flex>
 
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
+                            <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                            
+                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
+                                setOrderType(e.target.value);
+                            }}>
+                                <option value={'buy/sell'}>Buy/Sell</option>
+                                <option value={'buy'}>Buy</option>
+                                <option value={'sell'}>Sell</option>
+                            </Select>
+                        </Flex>
                         
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
-                            setOrderType(e.target.value);
-                        }}>
-                            <option value={'buy/sell'}>Buy/Sell</option>
-                            <option value={'buy'}>Buy</option>
-                            <option value={'sell'}>Sell</option>
-                        </Select>
+                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                            <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
+                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
+                                setStatusType(e.target.value);
+                            }}>
+                                <option value={'buy'}>All Status</option>
+                            </Select>
+                        </Flex>
                     </Flex>
                     
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                            setStatusType(e.target.value);
-                        }}>
-                            <option value={'buy'}>All Status</option>
-                        </Select>
-                    </Flex>
-
-                    <form>
-                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: '14px' }}>
+                    <form style={{padding: "0"}}>
+                        <Flex  ml={{ base: '-20px', md: '0' }}  flexDirection={'column'} fontSize={{ base: 'sm', md: '14px' }}>
                             <Text fontWeight={'medium'} color={'#64748B'}>Created Time</Text>
                             
                             <Flex mt={'3'} alignItems="center">
@@ -86,7 +101,8 @@ const AllAds = () => {
                     </form>
 
 
-                    <Text mt="25px" flex="1" textAlign="right" color="#FB5E04" fontWeight="600" fontSize="14px">Ad History</Text>
+                    <Text  mt={{ base: '0px', md: '25px' }} flex="1" textAlign={{ base: 'left', md: 'right' }} w="100%" color="#FB5E04" fontWeight="600" fontSize="14px">Ad History</Text>
+       
                 </Flex>
                 {/* <Flex bg={'gray.300'} mt={'4'} justifyContent={'space-evenly'}>
                     <Heading w={'full'} textAlign={'center'} cursor={'pointer'} bg={isClientSelected ? 'white' : ''} as={'h6'} py={{ base: '2', lg: '4' }} onClick={() => { setIsClientSelected(true) }}>Client</Heading>
@@ -185,7 +201,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                         <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600" >
                                             <Flex direction="column" height="100px"  justifyContent="flex-start" alignItems="flex-start">
                                                 <Text mb="11px">{ad?.ad[0]?.totalAmount?.toLocaleString()}</Text>
-                                                {/* <Text mb="11px">{ad?.ad[0]?.quantity}</Text> */}
+                                                <Text mb="11px">{ad?.quantity.toLocaleString()}</Text>
                                                 <Text mb="11px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.cash}</Text>
                                             </Flex>
                                         </Td>
@@ -202,8 +218,6 @@ export const RenderOrderComponent = ({ data }: any) => {
                                                 <Text mb="11px">Bank Transfer</Text>
                                                 <Text >{ad?.ad[0]?.bank[0]?.name}</Text>
                                                 <Text>{ad?.ad[0]?.bank[1]?.name}</Text>
-                                                {/* <Text >{ad?.ad[0]?.bank[2]?.name}</Text>
-                                                <Text >{ad?.ad[0]?.bank[3]?.name}</Text> */}
                                             </Flex>
                                             
                                         </Td>
@@ -234,103 +248,87 @@ export const RenderOrderComponent = ({ data }: any) => {
                             
                         ))}
                     </Tbody>
-
-
-
-
-
-                    {/* {data.length !== 0 ? data.map((order: any) => (
-                        <>
-                            
-                            <Tbody my={'20px'}  px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
-                                <Tr>
-                                    <Td >
-                                        <Flex alignItems={'center'} p="80px 0 0px" >
-                                            <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                            <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
-                                        </Flex>
-                                    </Td>
-                                    <Td>
-                                        <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()}</Text>
-                                    </Td>
-                                    <Td>
-                                        <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
-                                            <Flex fontSize={{ base: 'sm', lg: 'md' }}>
-                                                <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Price</Text>
-                                                <Text fontWeight={'medium'} fontSize="14px" >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : order?.ad[0]?.coin}</Text>
-                                            </Flex>
-                                            <Flex fontSize={{ base: 'sm', lg: 'md' }} >
-                                                <Text fontWeight={'medium'} pr={'4'} color={'#64748B'}>Quantity</Text>
-                                                <Text fontWeight={'medium'} fontSize="14px" >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : order?.ad[0]?.coin}</Text>
-                                            </Flex>
-                                        </Flex>            
-                                    </Td>
-
-                                    <Td>
-                                        <Text  p="80px 0 0px" fontWeight={'medium'} mt={'2.5'} color={'#64748B'}>ANNULAR</Text>
-                                    </Td>
-                                    <Td>
-                                        <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
-                                            <Text fontWeight={'medium'} textTransform="capitalize">{order?.status}</Text>
-                                            <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
-                                        </Flex>
-                                    </Td>
-                                    <Td>
-                                        <Flex p="80px 0 0px">
-                                            <Button p="9px 22px"   bg="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px" color="white" _hover={{bg: "#f35f09"}} fontSize="14px">Open Trade</Button>
-                                        </Flex>
-                                    </Td>
-                                </Tr>
-                            </Tbody> 
-                        </>
-                    )) : "You Don't Have Any Order Yet"} */}
+                    
                 </Table>
             </TableContainer>
 
         
             {/* mobile */}
-            {data.length !== 0 ? data.map((order: any) => (
+            {data.length !== 0 ? data.map((ad: any) => (
             // <Show below='sm' key="">
-                <Flex key=""  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
-                    <Flex flexDirection={'column'}>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Asset Type</Text>
-                            <Flex alignItems={'center'}>
-                                <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                <Text pl={'1.5'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                <Flex key={ad?._id} direction="column"  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
+                    <Flex justifyContent="space-between">
+                        <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text>Ad Number</Text>
+                            <Text>Type</Text>
+                            <Text mb="11px">Asset/Fiat</Text>
+
+                            <Flex direction="column" h="100px" fontSize="14px" color="#000000" fontWeight="600">
+                                <Text  mb="8px">{ad?.adId}</Text>
+                                <Text mb="8px" textTransform="uppercase" color={ad?.ad[0]?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.ad[0]?.type}</Text>
+                                <Text mb="8px">{ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin} / {ad?.ad[0]?.cash}</Text>
+                            </Flex>
+                        
+                        </Flex>
+
+                        <Flex direction="column" alignItems="flex-end" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text>Price</Text>
+
+                            <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
+                                <Text mb="8px">{ad?.ad[0]?.price.toLocaleString()}</Text>
+                                <Text mb="8px">--</Text>
                             </Flex>
                         </Flex>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Price</Text>
-                            <Text fontWeight={'medium'} >{order?.price?.toLocaleString()} / {order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                    </Flex>
+                    <Divider orientation="horizontal" border="1px solid #8E9BAE" />
+
+                    <Flex justifyContent="space-between" mt="10px">
+                        <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text>Available Amount</Text>
+                            <Text>Completed Trade QTY</Text>
+                            <Text mb="11px">Limit</Text>
+
+                            <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
+                                <Text mb="8x">{ad?.ad[0]?.totalAmount?.toLocaleString()}</Text>
+                                <Text mb="8px">{ad?.quantity.toLocaleString()}</Text>
+                                <Text mb="8px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                            </Flex>
+                        
                         </Flex>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Quantity</Text>
-                            <Text fontWeight={'medium'} >{order?.quantity?.toLocaleString()} {order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+
+                        <Flex direction="column" alignItems="flex-end" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text mb="11px">Payment Method</Text>
+                            <Flex direction="column" mt="20px" w="80%" height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
+                                <Text mb="8px">Bank Transfer</Text>
+                                <Text bg="green">{ad?.ad[0]?.bank[0]?.name}</Text>
+                                <Text bg="green">{ad?.ad[0]?.bank[1]?.name}</Text>
+                            </Flex>
+                        </Flex>
+                    </Flex>
+                    <Divider orientation="horizontal" border="1px solid #8E9BAE" />
+
+
+                    <Flex justifyContent="space-between" mt="10px">
+                        <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text>Last Updated</Text>
+                            <Text mb="11px">Create Time</Text>
+
+                            <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
+                                <Text mb="8px">{moment(ad?.ad[0]?.bank[1]?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                <Text mb="8px">{moment(ad?.ad[0]?.bank[1]?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
+                            </Flex>
+                        </Flex>
+
+                        <Flex direction="column" alignItems="flex-end" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
+                            <Text mb="11px">Actions</Text>
+                            <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end">
+                                <Text mb="8px" cursor="pointer">Download</Text>
+                                <Text mb="8px" cursor="pointer">Edit</Text>
+                                <Text mb="8px" cursor="pointer" color="#FF1F00">Delete</Text>
+                            </Flex>
                         </Flex>
                     </Flex>
 
-                    <Flex flexDirection={'column'}>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Amount</Text>
-                            <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()}</Text>
-                        </Flex>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Counterparty</Text>
-                            <Text fontWeight={'medium'} color={'#64748B'} >ANNULAR</Text>
-                        </Flex>
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Status</Text>
-                            <Flex flexDirection={'column'}>
-                                <Text fontWeight={'medium'}>{order?.status}</Text>
-                                <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
-                            </Flex>
-                        </Flex>
-
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
-                        </Flex>
-                    </Flex>
                 </Flex>
             // </Show> 
             )) : "You Don't Have Any Order Yet"}
