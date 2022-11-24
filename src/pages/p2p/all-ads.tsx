@@ -39,6 +39,29 @@ const AllAds = () => {
 
     return (
         <DashboardLayout title='All Ads'>
+            <Flex direction={{ base: "column", md: "row" }} justifyContent="flex-end" gap="63px" pr="250px" display={{base: "none", md: "flex"}} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px"  top="60px" w="100%">
+                    <Text>My Ads</Text>
+                    <Text> Orders</Text>
+                    <Text> More</Text>
+                {/* </Flex> */}
+            </Flex>
+            
+            {/* for mobile */}
+            <Flex direction={{ base: "column", md: "row" }} display={{base: "flex", md: "none"}}  position="fixed" bg="white" zIndex="40" left="0" px="20px" pb="5px" top="60px" w="100%">
+                <Flex h="25px">
+                    <Text onClick={() => router.back()}>P2P</Text>
+                    <Divider orientation="vertical" mx="12px" border="1px solid #8E9BAE" />
+                    <Text> Express</Text>
+                </Flex>
+
+                <Flex justifyContent="flex-end" mt="5px" gap="40px">
+                    <Text>My Ads</Text>
+                    <Text> Orders</Text>
+                    <Text> More</Text>
+                </Flex>
+            </Flex>
+            
+            
             <Button
                 onClick={() => router.back()}
                 leftIcon={<ArrowBackIcon />}
@@ -46,13 +69,14 @@ const AllAds = () => {
                 variant="solid"
                 pl={0}
                 ml="35px"
+                mt="20px"
                 py={"3rem"}
                 color={'black'}
                 display={{ base: 'none', md: 'block' }}
             >
                 Back
             </Button>
-            <Flex  flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
+            <Flex  flexDirection={'column'} mt={{base: "100px", md: "30px"}} p={{ base: '0px', md: '' }}>
        
                 <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{base: 'column', md: 'row'}} cursor="pointer" alignItems="center" mb={{base: "20px", md: "0"}} >
                     <Flex gap="24px">
@@ -332,13 +356,6 @@ export const RenderOrderComponent = ({ data }: any) => {
             // </Show> 
             )) : "You Don't Have Any Order Yet"}
  
-
-                
-                
-            
-
-
-            
         </Box>
     )
 }
