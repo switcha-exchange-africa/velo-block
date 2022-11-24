@@ -12,7 +12,7 @@ import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
-import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
+import { useGetFilterForClientQuery, useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 
 
 const Orders = () => {
@@ -25,23 +25,16 @@ const Orders = () => {
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
     const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
-    console.log("credit coin is ", creditCoin)
+    
+
+    const filterOrderByTypeAndStatus = useGetFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
+
+    console.log("chekc this data out bro ", filterOrderByTypeAndStatus)
+
 
     return (
         <DashboardLayout title='Orders'>
              <Tabs variant='unstyled'>
-                {/* <TabList left={["0%", "0", "12%"]} py={["7px", "7px", "10px"]} top={"60px"} bg={"white"} w={["100%", "100%", "100%"]}  position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
-                     <Tab _selected={{ color: '#fb5e04' }}>
-                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>All Orders</Text>
-                    </Tab>
-                    <Tab _selected={{ color: '#fb5e04'}}>            
-                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>Pending</Text>
-                    </Tab>
-                    <Tab _selected={{ color: '#fb5e04' }}>
-                        <Text fontSize={["18px", "20px", "20px"]} fontWeight={"600"}>Completed</Text>
-                    </Tab> 
-                </TabList>*/}
-
                 <TabPanels>
                     {/* Tab one */}
                     <TabPanel p="0"> 
@@ -49,11 +42,6 @@ const Orders = () => {
                             <Flex gap="24px" cursor="pointer">
                                 <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
                                     <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                                    {/* <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
-                                        setCoinType(e.target.value);
-                                    }}>
-                                        <option value={'buy'}></option>
-                                    </Select> */}
                                     <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
                                         {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
                                     </Flex>
@@ -77,7 +65,11 @@ const Orders = () => {
                                     <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
                                         setStatusType(e.target.value);
                                     }}>
-                                        <option value={'buy'}>All Status</option>
+                                        <option value={'All Status'}>All Status</option>
+                                        <option value={'pending'}>Pending</option>
+                                        <option value={'processing'}>Processing</option>
+                                        <option value={'completed'}>Completed</option>
+                                        <option value={'expired'}>Expired</option>
                                     </Select>
                                 </Flex>
                             </Flex>
@@ -87,7 +79,7 @@ const Orders = () => {
                             </Flex> */}
                             
                             
-                            {clientOrders?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? clientOrders?.data?.data : merchantOrders?.data?.data} />}
+                            {filterOrderByTypeAndStatus?.data && merchantOrders?.data && <RenderOrderComponent data={isClientSelected ? filterOrderByTypeAndStatus?.data?.data : merchantOrders?.data?.data} />}
 
                         </Flex>
                         
@@ -119,7 +111,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                         xl: '1300px',
                         '2xl': '80%'
                     }}>
-                    <Table  >
+                    <Table>
                         <Thead borderBottomColor={"transparent"}>
                             <Tr>
                                 <Th textAlign={"left"} fontWeight={'medium'}  color={'#64748B'}>Asset Type</Th>
@@ -132,15 +124,16 @@ export const RenderOrderComponent = ({ data }: any) => {
                         </Thead>
                         {data.length !== 0 ? data.map((order: any) => (
                             <>
-                                <Flex bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
-                                    <Text fontWeight={'medium'} color={order?.ad[0]?.type != 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.type != 'buy' ? 'BUY' : 'Sell'}</Text>
+                            
+                                <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
+                                    <Text fontWeight={'medium'} color={order?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.type === 'buy' ? 'BUY' : 'SELL'}</Text>
                                     <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
                                     <Text fontSize={{ base: 'sm', md: 'md' }}>{order?.orderId}</Text>
                                     <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
                                     <Text color={'#64748B'} fontSize={{ base: 'sm', md: 'md' }}>{moment(order?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
                                 </Flex>
                                 
-                                <Tbody my={'20px'} key={order?._id} px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
+                                <Tbody my={'20px'}  px={{ lg: '4', base: '1.5' }} pt={'4'} pb={'12'}  borderRadius={'sm'} bg="white" borderBottomColor="transparent" boxShadow="sm" >
                                     <Tr>
                                         <Td >
                                             <Flex alignItems={'center'} p="80px 0 0px" >
@@ -181,14 +174,23 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     </Tr>
                                 </Tbody> 
                             </>
-                        )) : "You Don't Have Any Order Yet"}
+                        )) : (
+                            <Flex bg="red"  w={{
+                                sm: '100px',
+                                md: '1000px',
+                                lg: '1000px',
+                                xl: '1300px',
+                                '2xl': '100%'
+                            }}>
+                                <Text>You Do Not Have Any Orders For Now!</Text>   
+                            </Flex>
+                        )}
                     </Table>
                 </TableContainer>
 
             
                 {/* mobile */}
                 {data.length !== 0 ? data.map((order: any) => (
-                // <Show below='sm' key="">
                     <Flex key={order?._id}  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
                         <Flex flexDirection={'column'}>
                             <Flex fontSize={{ base: 'sm', md: 'md' }}>
