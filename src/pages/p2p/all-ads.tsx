@@ -299,8 +299,8 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Payment Method</Text>
                             <Flex direction="column" mt="20px" w="80%" height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
                                 <Text mb="8px">Bank Transfer</Text>
-                                <Text bg="green">{ad?.ad[0]?.bank[0]?.name}</Text>
-                                <Text bg="green">{ad?.ad[0]?.bank[1]?.name}</Text>
+                                <Text >{ad?.ad[0]?.bank[0]?.name}</Text>
+                                <Text >{ad?.ad[0]?.bank[1]?.name}</Text>
                             </Flex>
                         </Flex>
                     </Flex>
