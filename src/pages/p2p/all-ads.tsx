@@ -122,7 +122,6 @@ const AllAds = () => {
 
 
 export const RenderOrderComponent = ({ data }: any) => {
-    console.log("make we see this data ", data)
     
     const router = useRouter()
 
