@@ -10,7 +10,11 @@ export const authApi = baseApi.injectEndpoints({
         return {
           url: `${endpoints.REGISTER_URL}`,
           method: "POST",
-          body: { ...body },
+          body: {
+            ...body,
+            operation: "signin",
+            platform: "web"
+          },
         };
       },
       transformResponse: (responseData: any) => {

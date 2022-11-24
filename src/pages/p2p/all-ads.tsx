@@ -6,21 +6,22 @@ import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import RenderCoinComponent from '../../components/dashboard/wallet/RenderCoinComponent'
+import { useState } from 'react'
+// import RenderCoinComponent from '../../components/dashboard/wallet/RenderCoinComponent'
 import { checkValidToken } from '../../helpers/functions/checkValidToken'
-import { useAppSelector } from '../../helpers/hooks/reduxHooks'
+// import { useAppSelector } from '../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
+// import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
+import {  useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
 
 
 const AllAds = () => {
     const router = useRouter()
     const [orderType, setOrderType] = useState(`Buy/Sell`)
-    const { isClientSelected } = useAppSelector((state) => state.quickTrade)
+    // const { isClientSelected } = useAppSelector((state) => state.quickTrade)
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
-    const clientOrders = useGetP2pOrderForClientsQuery()
+    // const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
     // console.log("merchant Orders ", merchantOrders?.error?.status)
@@ -149,9 +150,9 @@ export const RenderOrderComponent = ({ data }: any) => {
     
     const router = useRouter()
 
-    const handleClick = (orderId: string) => {
-        router.push('/quick-trade/order/'+orderId)
-    }
+    // const handleClick = (orderId: string) => {
+    //     router.push('/quick-trade/order/'+orderId)
+    // }
     
     return (
         <Box>
@@ -211,7 +212,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                     <Tbody bg="white" mt="20px" >
                         {data.map((ad: any) => (
                             <>
-                                <Tr w="100%" height="24px" ></Tr>
+                                <Tr w="100%" height="24px" key={ad?._id}></Tr>
                                     <Tr>
                                         <Td fontSize="14px" color="#000000" fontWeight="600" >
                                             <Flex direction="column" h="100px">
