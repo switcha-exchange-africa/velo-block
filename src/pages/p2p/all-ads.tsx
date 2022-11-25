@@ -5,6 +5,7 @@ import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 // import RenderCoinComponent from '../../components/dashboard/wallet/RenderCoinComponent'
@@ -14,6 +15,11 @@ import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { setIsClientSelected } from '../../redux/features/quick-trade/quickTradeSlice'
 // import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
 import {  useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
+import Ads from "../../../public/assets/svgs/ads.svg"
+import Orders from "../../../public/assets/svgs/orders.svg"
+import More from "../../../public/assets/svgs/more.svg"
+import mobileOrders from "../../../public/assets/svgs/mobileOrders.svg"
+import mobileMore from "../../../public/assets/svgs/mobileMore.svg"
 
 
 const AllAds = () => {
@@ -37,9 +43,21 @@ const AllAds = () => {
     return (
         <DashboardLayout title='All Ads'>
             <Flex direction={{ base: "column", md: "row" }} fontWeight="700" fontSize={{base: "16px", md: "20px"}} justifyContent="flex-end" gap="63px" pr="250px" display={{base: "none", md: "flex"}} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px"  top="60px" w="100%">
-                <Text color="#FB5E04">My Ads</Text>
-                <Text cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
-                <Text> More</Text>
+                <Flex alignItems="center">
+                    <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                    <Text ml="5px" color="#FB5E04">My Ads</Text>
+                </Flex>
+                <Flex alignItems="center">
+                    <Image height="20px" width="20px" src={Orders} alt="orders icon" />
+                    <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
+                </Flex>
+                <Flex alignItems="center">
+                    <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
+                        <Image  src={More} alt="more icon" />
+                    </Flex>
+                    <Text ml="5px"> More</Text>
+                </Flex>
+                
             </Flex>
             
             {/* for mobile */}
@@ -50,10 +68,21 @@ const AllAds = () => {
                     <Text> Express</Text>
                 </Flex>
 
-                <Flex justifyContent="flex-end" mt="5px" gap="40px">
-                    <Text>My Ads</Text>
-                    <Text> Orders</Text>
-                    <Text> More</Text>
+                <Flex justifyContent="flex-end" mt="5px" gap="40px" fontWeight="700">
+                   <Flex alignItems="center">
+                        <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                        <Text ml="5px" color="#FB5E04">My Ads</Text>
+                    </Flex>
+                    <Flex alignItems="center">
+                        <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
+                        <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
+                    </Flex>
+                    <Flex alignItems="center">
+                        <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
+                            <Image  src={mobileMore} alt="more icon" />
+                        </Flex>
+                        <Text ml="5px"> More</Text>
+                    </Flex>
                 </Flex>
             </Flex>
             
@@ -242,7 +271,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                             </Flex>
                                         </Td>
 
-                                        <Td pl="0"  fontSize="14px" fontWeight="600">
+                                        <Td pl="0" fontSize="14px" fontWeight="600">
                                             <Flex height="100px"  direction="column">
                                                 <Text mb="11px" textTransform="capitalize">{ad?.ad[0]?.status}</Text>
                                             </Flex>
