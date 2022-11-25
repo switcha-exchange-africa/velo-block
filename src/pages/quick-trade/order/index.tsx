@@ -122,7 +122,6 @@ export const RenderOrderComponent = ({ data }: any) => {
                         </Thead>
                         {data.length !== 0 ? data.map((order: any) => (
                             <>
-                            
                                 <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
                                     <Text fontWeight={'medium'} color={order?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.type === 'buy' ? 'BUY' : 'SELL'}</Text>
                                     <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />

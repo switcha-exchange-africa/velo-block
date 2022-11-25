@@ -9,14 +9,16 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 // import RenderCoinComponent from '../../components/dashboard/wallet/RenderCoinComponent'
 import { checkValidToken } from '../../helpers/functions/checkValidToken'
-// import { useAppSelector } from '../../helpers/hooks/reduxHooks'
+import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
+import { setIsClientSelected } from '../../redux/features/quick-trade/quickTradeSlice'
 // import { useGetP2pOrderForClientsQuery, useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
 import {  useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
 
 
 const AllAds = () => {
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const [orderType, setOrderType] = useState(`Buy/Sell`)
     // const { isClientSelected } = useAppSelector((state) => state.quickTrade)
     const [coinType, setCoinType] = useState(`All Assets`)
@@ -24,27 +26,20 @@ const AllAds = () => {
     // const clientOrders = useGetP2pOrderForClientsQuery()
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
-    // console.log("merchant Orders ", merchantOrders?.error?.status)
-
-    // // console.log(merchantOrders?.error?.status)
-    // useEffect(() => {0
-
-    //     if(merchantOrders?.error?.status === 401){
-    //         console.log("young man")
-    //         router.push("/signin")
-    //     }
-
-    // }, [])
+    const handleMerchantOrderRoute = () => {
+        dispatch(setIsClientSelected({isClientSelected: false}))
+        router.push("/quick-trade/order")    
+    }
     
 
+    console.log(merchantOrders?.data)
 
     return (
         <DashboardLayout title='All Ads'>
-            <Flex direction={{ base: "column", md: "row" }} justifyContent="flex-end" gap="63px" pr="250px" display={{base: "none", md: "flex"}} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px"  top="60px" w="100%">
-                    <Text>My Ads</Text>
-                    <Text> Orders</Text>
-                    <Text> More</Text>
-                {/* </Flex> */}
+            <Flex direction={{ base: "column", md: "row" }} fontWeight="700" fontSize={{base: "16px", md: "20px"}} justifyContent="flex-end" gap="63px" pr="250px" display={{base: "none", md: "flex"}} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px"  top="60px" w="100%">
+                <Text color="#FB5E04">My Ads</Text>
+                <Text cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
+                <Text> More</Text>
             </Flex>
             
             {/* for mobile */}
@@ -148,12 +143,6 @@ const AllAds = () => {
 
 export const RenderOrderComponent = ({ data }: any) => {
     
-    // const router = useRouter()
-
-    // const handleClick = (orderId: string) => {
-    //     router.push('/quick-trade/order/'+orderId)
-    // }
-    
     return (
         <Box>
 
@@ -253,9 +242,9 @@ export const RenderOrderComponent = ({ data }: any) => {
                                             </Flex>
                                         </Td>
 
-                                        <Td pl="0" color="#22C36B" fontSize="14px" fontWeight="600">
+                                        <Td pl="0"  fontSize="14px" fontWeight="600">
                                             <Flex height="100px"  direction="column">
-                                                <Text mb="11px">Published</Text>
+                                                <Text mb="11px" textTransform="capitalize">{ad?.ad[0]?.status}</Text>
                                             </Flex>
                                         </Td>
 
