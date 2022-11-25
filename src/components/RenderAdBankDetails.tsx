@@ -1,5 +1,4 @@
 import { Flex, Img, Text } from '@chakra-ui/react'
-import React from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import remoteImages from '../constants/remoteImages'
 import appAlert from '../helpers/appAlert'

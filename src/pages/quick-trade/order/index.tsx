@@ -20,10 +20,11 @@ const Orders = () => {
     const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
     const [statusType, setStatusType] = useState(`All Status`)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
-    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
-    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType)})
-    
+    const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
+    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+
+
     // const [coinType, setCoinType] = useState(`All Coins`)
     // const clientOrders = useGetP2pOrderForClientsQuery()
     // const merchantOrders = useGetP2pOrderForMerchantsQuery()
@@ -134,8 +135,8 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Tr>
                                         <Td >
                                             <Flex alignItems={'center'} p="80px 0 0px" >
-                                                <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                                <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                                                <RenderCoinComponent coin={order?.coin ? order?.coin : ""} />
+                                                <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{(order?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.coin) ? (order?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.coin) : null}</Text>
                                             </Flex>
                                         </Td>
                                         <Td>
@@ -192,9 +193,10 @@ export const RenderOrderComponent = ({ data }: any) => {
                         <Flex flexDirection={'column'}>
                             <Flex fontSize={{ base: 'sm', md: 'md' }}>
                                 <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Asset Type</Text>
+                                
                                 <Flex alignItems={'center'}>
-                                    <RenderCoinComponent coin={order?.ad[0]?.coin} />
-                                    <Text pl={'1.5'} fontSize={{ base: 'sm', md: 'md' }}>{order?.ad[0]?.coin === 'USDT_TRON' ? 'USDT-TRON' : order?.ad[0]?.coin}</Text>
+                                    <RenderCoinComponent coin={order?.coin ? order?.coin : ""} />
+                                    <Text pl={'1.5'} fontSize={{ base: 'sm', lg: 'md' }}>{(order?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.coin) ? (order?.coin == 'USDT_TRON' ? 'USDT-TRON' : order?.coin) : null}</Text>
                                 </Flex>
                             </Flex>
                             <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
