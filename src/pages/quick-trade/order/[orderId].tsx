@@ -27,7 +27,7 @@ const NotifyTraders = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
 
-    console.log("getAddedBank is this ", getAddedBank?.data?.data)
+    // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
     const today = moment().valueOf()
 
@@ -151,6 +151,8 @@ const NotifyTraders = () => {
                                                 </div>
                                             )
                                         })} */}
+
+                                        <Text>Start from here</Text>
                                         {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
                                             return (
                                                 <div key={b}>
