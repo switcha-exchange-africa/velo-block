@@ -88,8 +88,6 @@ const Orders = () => {
     )
 }
 
-
-
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
@@ -100,8 +98,8 @@ export const RenderOrderComponent = ({ data }: any) => {
             {data.length !== 0 ? (
                 <TableContainerComponent data={data} handleClick={handleClick} />
             ) : (
-                <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="50px" py="50px">
-                    <Text fontSize="20px" fontWeight="700">You Don't Have Any Orders Yet</Text>
+                <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="50px" py="100px">
+                    <Text fontSize="20px" fontWeight="700" color={'#64748B'}>You Don't Have Any Orders Yet</Text>
                 </Flex>
             )}
         </Box>
