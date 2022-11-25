@@ -93,6 +93,7 @@ export const RenderOrderComponent = ({ data }: any) => {
     const handleClick = (orderId: string) => {
         router.push('/quick-trade/order/'+orderId)
     }
+    
     return (
         <Box>
             {data.length !== 0 ? (
@@ -106,8 +107,9 @@ export const RenderOrderComponent = ({ data }: any) => {
     )
 }
 
-export const TableContainerComponent = ({ data, handleClick }: any) => {
+export const TableContainerComponent = ({ data, handleClick }: any) => {    
     return (
+
         <>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
                 sm: '100px',

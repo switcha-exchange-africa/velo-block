@@ -1,7 +1,7 @@
-import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Divider, Flex, HStack, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
 import appAlert from '../../../helpers/appAlert'
@@ -14,6 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
 import remoteImages from '../../../constants/remoteImages'
+import { useGetAddedBankPaginationQuery } from '../../../redux/services/bank.service'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -22,10 +23,24 @@ const NotifyTraders = () => {
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
+    
+    const [currentPage, setCurrentPage] = useState(1)
+    const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
+
+    console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
     const today = moment().valueOf()
 
-    console.log(" orderDetail detail about to check the behaviour of the bank fuck! ", orderDetail.data)
+
+
+    const handlePreviousPage = () => {
+        setCurrentPage(currentPage - 1)
+    }
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1)
+    }
+    // console.log(" orderDetail detail about to check the behaviour of the bank! ", orderDetail.data)
 
     // React.useEffect(() => {
     //     if (isModalOpen == true) {
@@ -35,12 +50,10 @@ const NotifyTraders = () => {
 
     // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
 
-
     // React.useEffect(() => {
     //     if (!orderDetail.isFetching) {
     //         alert(`${moment(orderDetail?.data?.data?.createdAt).valueOf()} + ${(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)} > ${today}`)
     //     }
-
     // }, [orderDetail, today])
 
     return (
@@ -131,18 +144,48 @@ const NotifyTraders = () => {
                                             </Flex>
 
                                         </Flex>
-                                        {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks.map((b: any) => {
-                                            return <div key={b}>
-                                                <RenderAdBankDetails bankId={b} />
-                                            </div>
+                                        {/* {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks?.slice(0, 3)?.map((b: any) => {
+                                            return (
+                                                <div key={b}>
+                                                    <RenderAdBankDetails bankId={b} />
+                                                </div>
+                                            )
+                                        })} */}
+                                        {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
+                                            return (
+                                                <div key={b}>
+                                                    <RenderAdBankDetails bankId={b} />
+                                                </div>
+                                            )
                                         })}
+
+                                        <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
+                                            <HStack >
+                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                                                    {getAddedBank?.data?.pagination?.currentPage}
+                                                </Box>
+                                                <Text>of</Text>
+                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                                                    {getAddedBank?.data?.pagination?.lastPage}
+                                                </Box>
+                                            </HStack>
+
+                                            <HStack>
+                                                <Button onClick={handlePreviousPage} disabled={getAddedBank?.data?.pagination?.currentPage === 1}>
+                                                    Prev
+                                                </Button>
+                                                <Button onClick={handleNextPage} disabled={getAddedBank?.data?.pagination?.hasNext === false}>
+                                                    Next
+                                                </Button>    
+                                            </HStack>
+                                        </HStack>
 
                                     </Flex>
                                 </Flex>
                             </Box>
 
                             <Box w={'full'}>
-                                <Flex>
+                                <Flex mt="15px">
                                     <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>

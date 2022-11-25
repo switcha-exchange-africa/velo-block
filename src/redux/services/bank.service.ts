@@ -41,6 +41,12 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    getAddedBankPagination: builder.query<any, any>({
+      query: ({arg}) => `/p2p/bank/?perpage=5&page=${arg}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
 
     // settings page bank addition
     addBank: builder.mutation<any, any>({
@@ -62,11 +68,6 @@ export const bankApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
-
-
-
-    
-
   }),
 });
 
@@ -77,5 +78,6 @@ export const {
   useAddP2pBuyAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
-  useGetUsersBankQuery
+  useGetUsersBankQuery,
+  useGetAddedBankPaginationQuery
 } = bankApi;
