@@ -3,8 +3,6 @@ import React, { useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
-
-
 import { useGetCoinsByTypeQuery, } from '../../redux/services/buy-sell.service';
 import RenderCoinsDropdown from '../../components/select/RenderCoinsDropdown';
 import { useSwapMutation } from '../../redux/services/swap.service';
@@ -145,11 +143,11 @@ const Swap = () => {
                                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} >
                                                         <Flex justifyContent={'space-between'}>
                                                             <FormLabel fontSize={'xs'} color={'textLightColor'}>From</FormLabel>
-                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available:-USDT</FormLabel>
+                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available:-{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
                                                         </Flex>
 
                                                         <InputGroup>
-                                                            <Input autoComplete='off' variant={'outline'} placeholder={'Enter an amount'} {...field} onChange={(e) => {
+                                                            <Input autoComplete='off' variant={'outline'} type="number" placeholder={'Enter an amount'} {...field} onChange={(e) => {
                                                                 setFieldValue('debitCoinValue', e.target.value);
                                                                 setAmount(e.target.value)
                                                                 // alert(amount)
@@ -209,8 +207,8 @@ const Swap = () => {
                                                 </Flex>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>
-                                                </Flex>
-                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin} = {convertFromDebitCoin?.data?.data?.rate} {creditCoin}</Text>}
+                                                </Flex>                                                                                     
+                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin} = {parseFloat(convertFromDebitCoin?.data?.data?.rate).toFixed(8)} {creditCoin}</Text>}
 
 
                                             {!isPreviewConversionClicked ? <MainAppButton isLoading={isSubmitting} color={values.debitCoinValue && values.creditCoinValue ? 'appWhiteColor' : 'textLightColor'} onClick={() => { setIsPreviewConversionClicked(true) }} backgroundColor={values.debitCoinValue && values.creditCoinValue ? 'primaryColor.900' : 'deselectedButtonColor'} >
