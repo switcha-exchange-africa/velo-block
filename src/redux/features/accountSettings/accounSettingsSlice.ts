@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AccountState {
+    walletBalance: [],
     oldPassword: string
     code: string,
     secretKey: string,
@@ -8,7 +9,7 @@ interface AccountState {
     authenticator: string
 }
 const initialState: AccountState = {
-    
+    walletBalance: [],
     oldPassword: "",
     code: "",
     secretKey: "",

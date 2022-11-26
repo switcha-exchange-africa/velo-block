@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   Box,
@@ -118,15 +118,14 @@ function WalletPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false);
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
-  // const [amount, setAmount] = React.useState(1)
-  const [total, setTotal] = React.useState(0)
-  const [btcTotal, setBtcTotal] = React.useState(0)
-  // const [source, setSource] = React.useState('BTC')
-  // const [usdConvertedList, setUsdConvertedList] = React.useState<any>([])
+  // const [amount, setAmount] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [btcTotal, setBtcTotal] = useState(0)
+  // const [source, setSource] = useState('BTC')
+  // const [usdConvertedList, setUsdConvertedList] = useState<any>([])
 
 
   const walletsquery: any = useGetWalletsQuery()
-
   // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
 
   const [convertCoins] = useLazyConvertQuery()
@@ -136,7 +135,7 @@ function WalletPage() {
 
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
 
     const convertCoinsToEquivalentUSD = async () => {
@@ -175,11 +174,10 @@ function WalletPage() {
 
       }
     }
-
     convertCoinsToEquivalentUSD()
   }, [convertCoins, walletsquery])
 
-  React.useEffect(() => {
+  useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
     // setTotal(0)
 
@@ -197,7 +195,7 @@ function WalletPage() {
     onOpen();
   };
 
-  const btnRef = React.useRef(null);
+  const btnRef = useRef(null);
   const router = useRouter()
   const dispatch = useAppDispatch()
   // if (walletsquery?.isFetching) {

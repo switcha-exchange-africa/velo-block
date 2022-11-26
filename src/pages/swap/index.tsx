@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Text, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
@@ -12,13 +12,10 @@ import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
 import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
-import { useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+import { useGetWalletsQuery, useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 import remoteImages from '../../constants/remoteImages';
 import { useSwapConvertQuery, useSwapConvertToGetEstimatedRateQuery } from '../../redux/services/new-conversion.service';
-
-
-
 
 
 const Swap = () => {
@@ -28,7 +25,6 @@ const Swap = () => {
     const [amount, setAmount] = useState('0')
     const [debitCoinConverted, setDebitCoinConverted] = useState()
     const [isPreviewConversionClicked, setIsPreviewConversionClicked] = useState(false)
-
     const coinsByType: any = useGetCoinsByTypeQuery('crypto')
     // const inversePriceRate: any = useConvertToGetEstimatedRateQuery({ amount: amount, source: creditCoin, destination: debitCoin }, { refetchOnMountOrArgChange: true })
 
@@ -43,6 +39,27 @@ const Swap = () => {
     const [swap] = useSwapMutation()
     const [getAllWallets] = useLazyGetWalletsQuery()
     // const [getSingleWallet] = useLazyGetSingleWalletQuery()
+
+
+    const walletsquery: any = useGetWalletsQuery()
+                                    // {wallet.balance.toLocaleString()}
+
+    useEffect(() => {
+        
+        
+    }, [walletsquery])
+
+    // console.log(walletsquery?.data.data?.map(item => item.coin))
+        console.log(walletsquery?.data?.data)
+
+    const renderBalance = (coin: string) => {
+        let obj = walletsquery?.data?.data?.find((coin:any) => coin?.coin === coin)
+        // if (coin = debitCoin) {
+            console.log(obj?.balance.toLocaleString)
+        // }
+    }
+
+    renderBalance(debitCoin)
 
 
     const handleMax = async () => {
@@ -143,7 +160,7 @@ const Swap = () => {
                                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} >
                                                         <Flex justifyContent={'space-between'}>
                                                             <FormLabel fontSize={'xs'} color={'textLightColor'}>From</FormLabel>
-                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available:-{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
+                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available:  -{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
                                                         </Flex>
 
                                                         <InputGroup>
