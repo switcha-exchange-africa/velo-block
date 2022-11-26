@@ -38,7 +38,6 @@ const AllAds = () => {
     }
     
 
-    console.log(merchantOrders?.data)
 
     return (
         <DashboardLayout title='All Ads'>
