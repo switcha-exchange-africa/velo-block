@@ -148,7 +148,7 @@ const Swap = () => {
                                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} >
                                                         <Flex justifyContent={'space-between'}>
                                                             <FormLabel fontSize={'xs'} color={'textLightColor'}>From</FormLabel>
-                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available: {renderBalance(debitCoin)}  -{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
+                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available: {renderBalance(debitCoin)} - {debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
                                                         </Flex>
 
                                                         <InputGroup>
