@@ -16,10 +16,15 @@ import { useGetWalletsQuery, useLazyGetWalletsQuery } from '../../redux/services
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 import remoteImages from '../../constants/remoteImages';
 import { useSwapConvertQuery, useSwapConvertToGetEstimatedRateQuery } from '../../redux/services/new-conversion.service';
+import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
+import { setWalletBalance } from '../../redux/features/accountSettings/accounSettingsSlice';
 
 
 const Swap = () => {
     const router = useRouter();
+    const dispatch = useAppDispatch()
+    const { walletBalance } = useAppSelector((state) => state.accountSettings)
+    
     const [creditCoin, setCreditCoin] = useState(`BTC`)
     const [debitCoin, setDebitCoin] = useState(`ETH`)
     const [amount, setAmount] = useState('0')
@@ -45,21 +50,16 @@ const Swap = () => {
                                     // {wallet.balance.toLocaleString()}
 
     useEffect(() => {
+        dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
         
-        
-    }, [walletsquery])
+    }, [walletsquery, dispatch])
 
-    // console.log(walletsquery?.data.data?.map(item => item.coin))
-        console.log(walletsquery?.data?.data)
-
-    const renderBalance = (coin: string) => {
-        let obj = walletsquery?.data?.data?.find((coin:any) => coin?.coin === coin)
-        // if (coin = debitCoin) {
-            console.log(obj?.balance.toLocaleString)
-        // }
+    const renderBalance:any = (coinName: any) => {
+        const obj = walletBalance.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString()
     }
 
-    renderBalance(debitCoin)
+    
 
 
     const handleMax = async () => {
@@ -160,7 +160,7 @@ const Swap = () => {
                                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} >
                                                         <Flex justifyContent={'space-between'}>
                                                             <FormLabel fontSize={'xs'} color={'textLightColor'}>From</FormLabel>
-                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available:  -{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
+                                                            <FormLabel fontSize={'xs'} color={'textLightColor'}>Available: {renderBalance(debitCoin)}  -{debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin}</FormLabel>
                                                         </Flex>
 
                                                         <InputGroup>
