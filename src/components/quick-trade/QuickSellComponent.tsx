@@ -51,13 +51,9 @@ const QuickSellComponent = () => {
                 validateOnMount
             >
                 {({
-                    // handleChange,
-                    // handleBlur,
                     setFieldValue,
                     handleSubmit,
-                    isSubmitting,
-                    // values
-                    /* and other goodies */
+                    isSubmitting
                 }) => (
                     <Form>
                         <VStack w={{ base: 'xs', lg: 'md' }} align='start'>
@@ -69,10 +65,6 @@ const QuickSellComponent = () => {
                                             <Input autoComplete='off' type="number" variant={'outline'} {...field} onChange={(e) => {
                                                 setFieldValue('debitCoinValue', e.target.value);
                                                 setAmountt(e.target.value)
-                                                // alert(amount)
-                                                // setFieldValue('creditCoinValue', e.target.value) 
-                                                // !(convertFromCreditCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
-
                                                 !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
 
                                             }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} />
