@@ -22,6 +22,10 @@ export const accountSlice = createSlice({
     name: "accountSettings",
     initialState,
     reducers: {
+        setWalletBalance: (state, { payload: { walletBalance } }: PayloadAction<{ oldPassword: any }>) => {
+            state.walletBalance = walletBalance;
+        },
+        
         setOldPassword: (state, { payload: { oldPassword } }: PayloadAction<{ oldPassword: any }>) => {
             state.oldPassword = oldPassword;
         },
@@ -44,6 +48,7 @@ export const accountSlice = createSlice({
 
 
 export const {
+    setWalletBalance,
     setOldPassword,
     setCode,
     setAuthSecurity,
