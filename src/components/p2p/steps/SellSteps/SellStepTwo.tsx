@@ -28,7 +28,7 @@ const SellStepTwo = (props:any) => {
                     <ModalCloseButton />
                     <ModalBody padding={"10px 0"}>
                         <Box px="18px"  overflowY={"scroll"} height={"350px"} >    
-                            <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                            {/* <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                 <HStack w="100%">
                                     <Text flex="1" color="#FB5E04">Bank Transfer</Text>
                                     <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
@@ -85,7 +85,7 @@ const SellStepTwo = (props:any) => {
                                     <Text flex="1" color="#8E9BAE">Bank name</Text>
                                     <Text flex="2" color="#000000">Access Bank</Text>
                                 </HStack>
-                            </VStack>
+                            </VStack> */}
                         </Box>
                         
                         <HStack px="20px" py="12px"  justifyContent={"space-between"}>
