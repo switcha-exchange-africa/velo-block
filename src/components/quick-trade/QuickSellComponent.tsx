@@ -10,10 +10,9 @@ import MainAppButton from '../buttons/MainAppButton';
 import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
 
-
 const QuickSellComponent = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount } = useAppSelector((state) => state.quickTrade)
     const [creditCoin, setCreditCoin] = useState(cash ?? `NGN`)
     const [debitCoin, setDebitCoin] = useState(coin ?? `BTC`)
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
