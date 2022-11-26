@@ -25,6 +25,8 @@ import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import Head from "next/head";
 import remoteImages from "../../constants/remoteImages";
+import { useGetWalletsQuery } from "../../redux/services/wallet.service";
+import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
 
 
 interface DashboardLayoutProps {
@@ -47,8 +49,13 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
     }
   }
 
+  const walletsquery = useGetWalletsQuery()
+      
   useEffect(() => {
     checkForToken()
+
+    dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
+  
   }, [])
 
   // if (getUser?.isFetching) {

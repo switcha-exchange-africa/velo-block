@@ -1,5 +1,5 @@
 import { Box, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Text, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
 import { Field, Form, Formik } from 'formik';
 import MainAppButton from '../../components/buttons/MainAppButton';
@@ -12,19 +12,16 @@ import SuccessModal from '../../components/SuccessModal';
 import LoginPage from '../signin';
 import { GetServerSideProps } from 'next';
 import { checkValidToken } from '../../helpers/functions/checkValidToken';
-import { useGetWalletsQuery, useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
+import { useLazyGetWalletsQuery } from '../../redux/services/wallet.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
 import remoteImages from '../../constants/remoteImages';
 import { useSwapConvertQuery, useSwapConvertToGetEstimatedRateQuery } from '../../redux/services/new-conversion.service';
-import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
-import { setWalletBalance } from '../../redux/features/accountSettings/accounSettingsSlice';
+import { useAppSelector } from '../../helpers/hooks/reduxHooks';
 
 
 const Swap = () => {
     const router = useRouter();
-    const dispatch = useAppDispatch()
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
-    
     const [creditCoin, setCreditCoin] = useState(`BTC`)
     const [debitCoin, setDebitCoin] = useState(`ETH`)
     const [amount, setAmount] = useState('0')
@@ -43,19 +40,10 @@ const Swap = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [swap] = useSwapMutation()
     const [getAllWallets] = useLazyGetWalletsQuery()
-    // const [getSingleWallet] = useLazyGetSingleWalletQuery()
-
-
-    const walletsquery: any = useGetWalletsQuery()
-                                    // {wallet.balance.toLocaleString()}
-
-    useEffect(() => {
-        dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
-        
-    }, [walletsquery, dispatch])
+    
 
     const renderBalance:any = (coinName: any) => {
-        const obj = walletBalance.find((coin:any) => coin?.coin === coinName)
+        const obj:any = walletBalance.find((coin:any) => coin?.coin === coinName)
         return obj?.balance?.toLocaleString()
     }
 
