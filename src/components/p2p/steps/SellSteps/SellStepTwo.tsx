@@ -147,10 +147,9 @@ const SellStepTwo = (props:any) => {
                                             if (response?.data?.status == 200 || response?.data?.status == 201 ) {
                                                 fetchAllUsersBank.refetch()
                                                 setDefaultTab(0)
-                                                appAlert.success(response?.data?.data?.message)
-                                                
+                                                appAlert.success(response?.data?.message)
                                             } else {
-                                                    appAlert.error(response?.error?.data?.message)
+                                                    appAlert.error(response?.error?.data?.message[0])
                                                 } 
                                             }}
                                         validateOnChange
