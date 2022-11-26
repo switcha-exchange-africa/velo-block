@@ -62,6 +62,22 @@ export const p2pApi = baseApi.injectEndpoints({
       },
       providesTags: ["Order"],
     }),
+
+    getP2pOrderFilterForClient: builder.query<any, any>({
+      query: ({type, status, coin}) => `p2p/order/client/?type=${type}&status=${status}&coin=${coin}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+      providesTags: ["Order"],
+    }),
+
+    getP2pOrderFilterForMerchant: builder.query<any, any>({
+      query: ({type, status, coin}) => `p2p/order/merchant/?type=${type}&status=${status}&coin=${coin}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+      providesTags: ["Order"],
+    }),
   }),
 });
 
@@ -73,4 +89,7 @@ export const {
   useConfirmP2pOrderWithoutCodeMutation,
   useGetP2pOrderForClientsQuery,
   useGetP2pOrderForMerchantsQuery,
+  useGetP2pOrderFilterForClientQuery,
+  useGetP2pOrderFilterForMerchantQuery
+
 } = p2pApi;

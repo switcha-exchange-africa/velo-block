@@ -8,13 +8,13 @@ import { useState } from "react";
 import BuyP2p from "../../components/p2p/buy";
 import SellP2p from "../../components/p2p/sell";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
-import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+// import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-import { setIsClientSelected } from "../../redux/features/quick-trade/quickTradeSlice";
+// import { setIsClientSelected } from "../../redux/features/quick-trade/quickTradeSlice";
 
 const P2P = () => {  
   const router = useRouter()
-  const dispatch= useAppDispatch()
+  // const dispatch= useAppDispatch()
   const [selectedId, setSelectedId] = useState("1")
   const [color, setColor] = useState({
       color1: "black",
@@ -22,8 +22,9 @@ const P2P = () => {
   })
 
   const handleOrderRoute = () => {
-    dispatch(setIsClientSelected({isClientSelected: false}))
-    router.push("/quick-trade/order")    
+    // dispatch(setIsClientSelected({isClientSelected: false}))
+    // router.push("/quick-trade/order")    
+    router.push("/p2p/all-ads")
   }
   
     const handleSelect = (id: string) => {
