@@ -66,7 +66,7 @@ const QuickSellComponent = () => {
                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} pt='4'>
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>I want to pay</FormLabel>
                                         <InputGroup>
-                                            <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => {
+                                            <Input autoComplete='off' type="number" variant={'outline'} {...field} onChange={(e) => {
                                                 setFieldValue('debitCoinValue', e.target.value);
                                                 setAmountt(e.target.value)
                                                 // alert(amount)
