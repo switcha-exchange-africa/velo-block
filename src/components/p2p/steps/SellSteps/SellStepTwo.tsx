@@ -1,13 +1,15 @@
-import { AddIcon, CloseIcon, InfoIcon, RepeatIcon } from '@chakra-ui/icons';
+import { AddIcon, CloseIcon, InfoIcon, RepeatIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import {
     Box, Button, Flex,
     FormControl,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
-    Tabs, TabList, TabPanels, TabPanel, Spinner
+    Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage
 } from '@chakra-ui/react';
-import { MouseEventHandler } from 'react';
-import { useGetAddedBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { Field, Form, Formik } from "formik"
+import { MouseEventHandler, useState } from 'react';
+import appAlert from '../../../../helpers/appAlert';
+import { useAddBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
@@ -17,8 +19,43 @@ const SellStepTwo = (props:any) => {
     const getAddedBanks:any = useGetAddedBankQuery()
 
     const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
+    const [defaultTab, setDefaultTab] = useState(0)
+
+    const changeIndexOfTab = () => {
+        setDefaultTab(() => defaultTab + 1)
+    }
 
 
+    const validateAccountName = (value: string, ) => {
+        let error
+        if (!value) {
+            error = 'Account name should not be empty '
+        }
+        return error
+    }
+
+    const validateAccountNumber = (value: string, ) => {
+        let error
+        if (!value) {
+            error = 'Account number should not be empty '
+        }
+
+        return error
+    }
+
+    const validateBankName = (value: string, ) => {
+        let error
+        if (!value) {
+            error = 'Bank not selected '
+        }
+
+        return error
+    }
+    
+    
+    const {data:getBanks} = useGetNigerianBankQuery()
+    const [addBank] = useAddBankMutation()
+    const fetchAllUsersBank = useGetUsersBankQuery()
 
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
@@ -30,62 +67,170 @@ const SellStepTwo = (props:any) => {
                     
                     <ModalCloseButton />
                     <ModalBody padding={"10px 0"}>
-                        <Tabs>
-                            {/* <TabList></TabList> */}
+                        <Tabs defaultIndex={defaultTab}>
                             <TabPanels>
-                            <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
-                                Select Payment Method
-                            </ModalHeader>
-                                <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
-
-                                    {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                        getUsersBank?.data?.map((bank: any) => (  
-                                            <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                                                <HStack w="100%">
-                                                    <Text flex="1" color="#FB5E04">Bank Transfer</Text>
-                                                    <Text flex="1.76" color="#000000">{bank?.accountName}</Text>
-                                                    <Text flex="0.2" color="#FB5E04">Edit</Text>
-                                                </HStack>
-                                                <HStack w="100%">
-                                                    <Text flex="1" color="#8E9BAE">Name</Text>
-                                                    <Text flex="2" color="#000000">{bank?.accountName}</Text>
-                                                </HStack>
-                                                <HStack w="100%">
-                                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                                    <Text  flex="2" color="#000000">{bank?.accountNumber}</Text>
-                                                </HStack>
-                                                <HStack w="100%">
-                                                    <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                                    <Text flex="2" color="#000000">{bank?.name}</Text>
-                                                </HStack>
-                                            </VStack>
+                                <TabPanel>
+                                    <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
+                                        Select Payment Method
+                                    </ModalHeader>
+                                    <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
+                                        {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                            getUsersBank?.data?.map((bank: any) => (  
+                                                <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                                                    <HStack w="100%">
+                                                        <Text flex="1" color="#FB5E04">Bank Transfer</Text>
+                                                        <Text flex="1.76" color="#000000">{bank?.accountName}</Text>
+                                                        <Text flex="0.2" color="#FB5E04">Edit</Text>
+                                                    </HStack>
+                                                    <HStack w="100%">
+                                                        <Text flex="1" color="#8E9BAE">Name</Text>
+                                                        <Text flex="2" color="#000000">{bank?.accountName}</Text>
+                                                    </HStack>
+                                                    <HStack w="100%">
+                                                        <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
+                                                        <Text  flex="2" color="#000000">{bank?.accountNumber}</Text>
+                                                    </HStack>
+                                                    <HStack w="100%">
+                                                        <Text flex="1" color="#8E9BAE">Bank name</Text>
+                                                        <Text flex="2" color="#000000">{bank?.name}</Text>
+                                                    </HStack>
+                                                </VStack>
                                         )))}    
-                                </Box>
-                        
-                                <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                    <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" onClick={onOpen}>
-                                        <AddIcon
-                                            mr="5px"
-                                            color={"#FB5E04"}
-                                            w={"10px"}
-                                            h={"10px"}
-                                        />
-                                        Add new
-                                    </Button>  
-                                    <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
-                                        <RepeatIcon
-                                            mr="5px"
-                                            color={"#FB5E04"}
-                                            w={"10px"}
-                                            h={"10px"}
-                                        />
-                                        Refresh
-                                    </Button>  
-                                </HStack>
-                            <TabPanel>
+                                    </Box>
+                            
+                                    <HStack px="20px" py="12px"  justifyContent={"space-between"}>
+                                        <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" onClick={changeIndexOfTab}>
+                                            <AddIcon
+                                                mr="5px"
+                                                color={"#FB5E04"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />
+                                            Add new
+                                        </Button>  
+                                        <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
+                                            <RepeatIcon
+                                                mr="5px"
+                                                color={"#FB5E04"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />
+                                            Refresh
+                                        </Button>  
+                                    </HStack>
+                                
+                                </TabPanel>
 
-                        
-                        
+                                <TabPanel>
+                                    <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
+                                        Add New bank
+                                    </ModalHeader>
+                                    <Formik
+                                        initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
+
+                                        onSubmit={async (values:any) => {                                
+                                            let res = values.name
+                                            let filteredBank =  getBanks?.filter(function(bank:any) {
+                                                return bank.bankName === res;
+                                            });
+                                            let codeValue = filteredBank.map((code: any) => code?.bankCode)
+
+                                            let newItem = codeValue[0]
+
+
+                                            const data = {
+                                                ...values,
+                                                accountNumber: values.accountNumber.toString(),
+                                                code: newItem
+                                            }
+                                            const response:any = await addBank(data)
+                                            if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                                fetchAllUsersBank.refetch()
+                                                setDefaultTab(0)
+                                                appAlert.success(response?.data?.data?.message)
+                                                
+                                            } else {
+                                                    appAlert.error(response?.error?.data?.message)
+                                                } 
+                                            }}
+                                        validateOnChange
+                                        validateOnBlur
+                                        validateOnMount
+                                    >
+                                        {({
+                                            isSubmitting,
+                                         }) => (
+                                            <Form  >
+                                                <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
+                                    
+                                                <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
+                                                    
+                                                    <Field name="name" id="name" validate={validateBankName}>
+                                                        {({ field , form}: any) => (
+                                                        <FormControl isInvalid={form.errors.name && form.touched.name}>
+                                                            <FormLabel>Bank</FormLabel>
+                                                                <Select
+                                                                {...field}           
+                                                                placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
+                                                            >
+                                                                {getBanks?.map((item: any, index: number) => (
+                                                                    <option key={index} value={item?.bankName}>{item?.bankName}</option>
+                                                                ))}
+                                                            </Select>
+                                                            <FormErrorMessage>{form.errors.name}</FormErrorMessage>    
+                                                        </FormControl>
+                                                        )}
+                                                    </Field>
+                                                    
+                                                    <Field name='accountNumber' validate={validateAccountNumber}>
+                                                        {({ field, form }: any) => (
+                                                            <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
+                                                                <FormLabel>Account Number</FormLabel>
+                                                                <Input {...field} type="number" placeholder="215xxxxx900"/>
+                                                                <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
+                                                            </FormControl>
+                                                        )}
+                                                    </Field>
+
+                                                    <Field name='accountName' validate={validateAccountName}>
+                                                        {({ field, form }: any) => (
+                                                            <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
+                                                                <FormLabel>Account Name</FormLabel>
+                                                                <Input {...field} type="text" placeholder="John Doe"/>
+                                                                <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
+                                                            </FormControl>
+                                                        )}
+                                                    </Field>
+                                                            
+
+
+                                                </VStack>
+                                            </Box>
+                                            <HStack px="20px" py="12px"  justifyContent={"space-between"}>
+                                                <Button isLoading={isSubmitting} type="submit" p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" >
+                                                    <AddIcon
+                                                        mr="5px"
+                                                        color={"#FB5E04"}
+                                                        w={"10px"}
+                                                        h={"10px"}
+                                                    />
+                                                    Add Bank
+                                                </Button>  
+                                                <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
+                                                    <CloseIcon
+                                                        mr="5px"
+                                                        color={"#FB5E04"}
+                                                        w={"10px"}
+                                                        h={"10px"}
+                                                    />
+                                                Cancel
+                                                </Button>  
+                                            </HStack>
+                                        </Form>
+                                        )}
+
+                                    </Formik>
+                            
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>
@@ -222,7 +367,10 @@ const SellStepTwo = (props:any) => {
                                     />
                                 </Flex>
                                 
-                                <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={() => {
+                                    setDefaultTab(0)
+                                    onOpen()
+                                }}>
                                     <AddIcon
                                         mr="5px"
                                         color={"#FB5E04"}

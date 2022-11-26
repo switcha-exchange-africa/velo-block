@@ -132,7 +132,6 @@ const AddBankAccounts = () => {
                                     fetchAllUsersBank.refetch()
                                     Router.back()
                                 } else {
-                                    console.log(response?.error?.data?.message)
                                         appAlert.error(response?.error?.data?.message)
                                     } 
                                 }}
