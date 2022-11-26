@@ -3,10 +3,11 @@ import {
     Box, Button, Flex,
     FormControl,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack
+    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
+    Tabs, TabList, TabPanels, TabPanel, Spinner
 } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
-import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
+import { useGetAddedBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
@@ -15,100 +16,80 @@ const SellStepTwo = (props:any) => {
     
     const getAddedBanks:any = useGetAddedBankQuery()
 
+    const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
+
+
+
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
         return (
-            <Modal isOpen={isOpen} onClose={onClose} size="lg">
+            <Modal isOpen={isOpen} onClose={onClose} size="lg" motionPreset='none'>
                 <ModalOverlay />
                 <ModalContent padding={"10px 0 0"} mx="10px">
-                    <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
-                        Select Payment Method
-                    </ModalHeader>
+                    
                     <ModalCloseButton />
                     <ModalBody padding={"10px 0"}>
-                        <Box px="18px"  overflowY={"scroll"} height={"350px"} >    
-                            {/* <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                                <HStack w="100%">
-                                    <Text flex="1" color="#FB5E04">Bank Transfer</Text>
-                                    <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                    <Text flex="0.2" color="#FB5E04">Edit</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Name</Text>
-                                    <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                    <Text  flex="2" color="#000000">0264748663</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                    <Text flex="2" color="#000000">Access Bank</Text>
-                                </HStack>
-                            </VStack>
-                             <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #fb5e04"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                                <HStack w="100%">
-                                    <Text flex="1"  color="#FB5E04">Bank Transfer</Text>
-                                    <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                    <Text flex="0.2" color="#FB5E04">Edit</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Name</Text>
-                                    <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                    <Text  flex="2" color="#000000">0264748663</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                    <Text flex="2" color="#000000">Access Bank</Text>
-                                </HStack>
-                            </VStack>
+                        <Tabs>
+                            {/* <TabList></TabList> */}
+                            <TabPanels>
+                            <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
+                                Select Payment Method
+                            </ModalHeader>
+                                <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
 
-                             <VStack borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                                <HStack w="100%">
-                                    <Text flex="1" color="#FB5E04">Bank Transfer</Text>
-                                    <Text flex="1.76" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                    <Text flex="0.2" color="#FB5E04">Edit</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Name</Text>
-                                    <Text flex="2" color="#000000">OLUMIDE OYELEYE SOLO</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
-                                    <Text  flex="2" color="#000000">0264748663</Text>
-                                </HStack>
-                                <HStack w="100%">
-                                    <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                    <Text flex="2" color="#000000">Access Bank</Text>
-                                </HStack>
-                            </VStack> */}
-                        </Box>
+                                    {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                        getUsersBank?.data?.map((bank: any) => (  
+                                            <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                                                <HStack w="100%">
+                                                    <Text flex="1" color="#FB5E04">Bank Transfer</Text>
+                                                    <Text flex="1.76" color="#000000">{bank?.accountName}</Text>
+                                                    <Text flex="0.2" color="#FB5E04">Edit</Text>
+                                                </HStack>
+                                                <HStack w="100%">
+                                                    <Text flex="1" color="#8E9BAE">Name</Text>
+                                                    <Text flex="2" color="#000000">{bank?.accountName}</Text>
+                                                </HStack>
+                                                <HStack w="100%">
+                                                    <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
+                                                    <Text  flex="2" color="#000000">{bank?.accountNumber}</Text>
+                                                </HStack>
+                                                <HStack w="100%">
+                                                    <Text flex="1" color="#8E9BAE">Bank name</Text>
+                                                    <Text flex="2" color="#000000">{bank?.name}</Text>
+                                                </HStack>
+                                            </VStack>
+                                        )))}    
+                                </Box>
                         
-                        <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                            <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" onClick={onOpen}>
-                                <AddIcon
-                                    mr="5px"
-                                    color={"#FB5E04"}
-                                    w={"10px"}
-                                    h={"10px"}
-                                />
-                                Add new
-                            </Button>  
-                            <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
-                                <RepeatIcon
-                                    mr="5px"
-                                    color={"#FB5E04"}
-                                    w={"10px"}
-                                    h={"10px"}
-                                />
-                                Refresh
-                            </Button>  
-                        </HStack>
+                                <HStack px="20px" py="12px"  justifyContent={"space-between"}>
+                                    <Button p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" onClick={onOpen}>
+                                        <AddIcon
+                                            mr="5px"
+                                            color={"#FB5E04"}
+                                            w={"10px"}
+                                            h={"10px"}
+                                        />
+                                        Add new
+                                    </Button>  
+                                    <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
+                                        <RepeatIcon
+                                            mr="5px"
+                                            color={"#FB5E04"}
+                                            w={"10px"}
+                                            h={"10px"}
+                                        />
+                                        Refresh
+                                    </Button>  
+                                </HStack>
+                            <TabPanel>
+
                         
+                        
+                                </TabPanel>
+                            </TabPanels>
+                        </Tabs>
+
                     </ModalBody>
                 </ModalContent>
             </Modal>
