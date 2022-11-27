@@ -53,7 +53,7 @@ const QuickBuyComponent = () => {
                     const data = {
                         amount: parseFloat(amountt),
                         // creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount,
-                        creditCoinAmount: calculateConversion(parseFloat(amountt)).toFixed(3),
+                        creditCoinAmount: calculateConversion(parseFloat(amountt)).toFixed(8),
                         fee: calculateQuickBuyFees?.data?.data?.fee,
                         cash: debitCoin,
                         coin: creditCoin,

@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, HStack, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -14,7 +14,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
 import remoteImages from '../../../constants/remoteImages'
-import { useGetAddedBankPaginationQuery } from '../../../redux/services/bank.service'
+// import { useGetAddedBankPaginationQuery } from '../../../redux/services/bank.service'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -24,8 +24,8 @@ const NotifyTraders = () => {
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
-    const [currentPage, setCurrentPage] = useState(1)
-    const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
+    // const [currentPage, setCurrentPage] = useState(1)
+    // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
 
     // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
@@ -33,13 +33,13 @@ const NotifyTraders = () => {
 
 
 
-    const handlePreviousPage = () => {
-        setCurrentPage(currentPage - 1)
-    }
+    // const handlePreviousPage = () => {
+    //     setCurrentPage(currentPage - 1)
+    // }
 
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1)
-    }
+    // const handleNextPage = () => {
+    //     setCurrentPage(currentPage + 1)
+    // }
     // console.log(" orderDetail detail about to check the behaviour of the bank! ", orderDetail.data)
 
     // React.useEffect(() => {
