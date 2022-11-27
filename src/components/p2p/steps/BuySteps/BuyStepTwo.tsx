@@ -170,7 +170,7 @@ const BuyStepTwo = (props:any) => {
                                     ))
                                 )}
 
-                                {getAddedBanks?.data?.data?.length === 5 ? (
+                                {getAddedBanks?.data?.data?.length >= 5 ? (
                                     <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
                                         <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                                             <AddIcon

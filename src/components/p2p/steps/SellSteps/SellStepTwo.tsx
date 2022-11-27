@@ -4,20 +4,18 @@ import {
     FormControl,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
-    Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage
+    Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage, Tooltip
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useAddBankMutation, useAddP2pSellAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { useAddBankMutation, useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, values, setValues } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const getAddedBanks:any = useGetAddedBankQuery()
-
     const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
@@ -25,7 +23,6 @@ const SellStepTwo = (props:any) => {
         setDefaultTab(() => defaultTab + 1)
     }
 
-    console.log("users banks is ", getUsersBank)
 
     const validateAccountName = (value: string, ) => {
         let error
@@ -58,12 +55,11 @@ const SellStepTwo = (props:any) => {
     const [addBank] = useAddBankMutation()
     const fetchAllUsersBank = useGetUsersBankQuery()
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
+    const getAddedBankSellType = useGetAddedBankSellTypeQuery()
 
-    // const []
 
     const handleSelect = async (value: any) => {
-        const findBankCode:any = getUsersBank?.data?.find((item:any) => item?.code === value) 
-        console.log(findBankCode)
+        const findBankCode = getUsersBank?.data?.find((item:any) => item?.code === value) 
         const body = {
             name: findBankCode?.name,
             codes: findBankCode?.code,
@@ -73,13 +69,12 @@ const SellStepTwo = (props:any) => {
         const resp:any = await addP2pSellAdsBank(body)
         if (resp?.data?.status === 200) {
             appAlert.success(resp?.data?.message)
+            getAddedBankSellType.refetch()
+            onClose()
         } else {
             appAlert.error(resp?.error?.data?.message)
         }
     }
-
-
-    console.log("aye " ,getUsersBank?.data)
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -273,7 +268,7 @@ const SellStepTwo = (props:any) => {
 
 
     const getAddedBanksIdValues = () => {
-        const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
+        const ids = getAddedBankSellType?.data?.data?.map((item: any) => item._id)
         for (let i = 0; i < ids.length; i++) {
             banks.push(ids[i])
         }
@@ -283,12 +278,6 @@ const SellStepTwo = (props:any) => {
         e.preventDefault()
         getAddedBanksIdValues()
         handleNextStep()
-
-        // const data = {
-        //     ...values
-        //     // banks: banks
-        // }
-        // console.log("second data", data)
     }
 
     
@@ -368,40 +357,51 @@ const SellStepTwo = (props:any) => {
                             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                             <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
                             
-                            <HStack flexWrap={"wrap"} alignItems="center" mt="12px">
-                                <Flex p={"11px 22px"} justifyContent={"space-between"} alignItems="center"  color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w="130px">
-                                    First bank
-                                    <CloseIcon
-                                        mr="5px"
-                                        color={"#000000"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                </Flex>
+                            <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
+                                {/* rendering the data */}
+                                {getAddedBankSellType.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                    getAddedBankSellType?.data?.data?.map((item:any) => (
+                                        <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                            {item?.name.substring(0, 13)}
+                                            <CloseIcon
+                                                mr="5px"
+                                                color={"#000000"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                                cursor="pointer"
+                                            />
+                                        </Flex>        
+                                    ))
+                                )}
 
-                                <Flex p={"11px 22px"} justifyContent={"space-between"} borderRadius={"5px"} border={"0.88px solid #8e9bae"} alignItems="center" mt="12px" color="#000000" w="150px">
-                                    Access bank
-                                    <CloseIcon
-                                        mr="5px"
-                                        color={"#000000"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                </Flex>
-                                
-                                <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={() => {
-                                    setDefaultTab(0)
-                                    onOpen()
-                                }}>
-                                    <AddIcon
-                                        mr="5px"
-                                        color={"#FB5E04"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                    />
-                                    Add
-                                </Button>
-                            </HStack>
+                                {getAddedBankSellType?.data?.data?.length >= 5 ? (
+                                    <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
+                                        <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                            <AddIcon
+                                                mr="5px"
+                                                color={"#FB5E04"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />
+                                            Add
+                                        </Button>
+                                    </Tooltip>
+                                    
+                                ): (
+                                    <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                        <AddIcon
+                                            mr="5px"
+                                            color={"#FB5E04"}
+                                            w={"10px"}
+                                            h={"10px"}
+                                        />
+                                        Add
+                                    </Button>
+                                )
+                                    
+                                }
+                            
+                            </Flex>
                             
                         </Box>
                         

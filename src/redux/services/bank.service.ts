@@ -59,6 +59,13 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    getAddedBankSellType: builder.query<any, void>({
+      query: () => `p2p/bank/?type=sell`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
     getAddedBankPagination: builder.query<any, any>({
       query: ({arg}) => `/p2p/bank/?perpage=5&page=${arg}`,
       transformResponse: (responseData: any) => {
@@ -97,6 +104,7 @@ export const {
   useAddP2pSellAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
+  useGetAddedBankSellTypeQuery,
   useGetUsersBankQuery,
   useGetAddedBankPaginationQuery
 } = bankApi;
