@@ -144,22 +144,22 @@ const NotifyTraders = () => {
                                             </Flex>
 
                                         </Flex>
-                                        {/* {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks?.slice(0, 3)?.map((b: any) => {
-                                            return (
-                                                <div key={b}>
-                                                    <RenderAdBankDetails bankId={b} />
-                                                </div>
-                                            )
-                                        })} */}
-
-                                        <Text>Start from here</Text>
-                                        {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
+                                        {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks?.slice(0, 5)?.map((b: any) => {
                                             return (
                                                 <div key={b}>
                                                     <RenderAdBankDetails bankId={b} />
                                                 </div>
                                             )
                                         })}
+
+                                        {/* <Text>Start from here</Text>
+                                        {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
+                                            return (
+                                                <div key={b}>
+                                                    <RenderAdBankDetails bankId={b} />
+                                                </div>
+                                            )
+                                        })} */}
 
                                         <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
                                             <HStack >
@@ -274,13 +274,15 @@ const StepNumber = ({ number, deselected = true }: any) => {
 }
 
 const Steps = ({ activeStep }: any) => {
-    return (<Flex w={'full'} alignItems={'center'}>
-        <StepNumber number={1} deselected={activeStep >= 1 ? false : true} />
-        <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
-        <StepNumber number={2} deselected={activeStep >= 2 ? false : true} />
-        <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
-        <StepNumber number={3} deselected={activeStep >= 3 ? false : true} />
-    </Flex>)
+    return (
+        <Flex w={'full'} alignItems={'center'}>
+            <StepNumber number={1} deselected={activeStep >= 1 ? false : true} />
+            <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
+            <StepNumber number={2} deselected={activeStep >= 2 ? false : true} />
+            <Divider orientation='horizontal' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} w={'full'} />
+            <StepNumber number={3} deselected={activeStep >= 3 ? false : true} />
+        </Flex>
+    )
 }
 
 const StepLabels = ({ activeStep }: any) => {

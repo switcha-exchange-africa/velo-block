@@ -128,11 +128,10 @@ const AddBankAccounts = () => {
                                 }
                                 const response:any = await addBank(data)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                    appAlert.success(response?.data?.data?.message)
+                                    appAlert.success(response?.data?.message)
                                     fetchAllUsersBank.refetch()
                                     Router.back()
                                 } else {
-                                    console.log(response?.error?.data?.message)
                                         appAlert.error(response?.error?.data?.message)
                                     } 
                                 }}

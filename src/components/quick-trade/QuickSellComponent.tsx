@@ -10,10 +10,9 @@ import MainAppButton from '../buttons/MainAppButton';
 import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
 
-
 const QuickSellComponent = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount } = useAppSelector((state) => state.quickTrade)
     const [creditCoin, setCreditCoin] = useState(cash ?? `NGN`)
     const [debitCoin, setDebitCoin] = useState(coin ?? `BTC`)
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
@@ -51,13 +50,9 @@ const QuickSellComponent = () => {
                 validateOnMount
             >
                 {({
-                    // handleChange,
-                    // handleBlur,
                     setFieldValue,
                     handleSubmit,
-                    isSubmitting,
-                    // values
-                    /* and other goodies */
+                    isSubmitting
                 }) => (
                     <Form>
                         <VStack w={{ base: 'xs', lg: 'md' }} align='start'>
@@ -66,13 +61,9 @@ const QuickSellComponent = () => {
                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} pt='4'>
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>I want to pay</FormLabel>
                                         <InputGroup>
-                                            <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => {
+                                            <Input autoComplete='off' type="number" variant={'outline'} {...field} onChange={(e) => {
                                                 setFieldValue('debitCoinValue', e.target.value);
                                                 setAmountt(e.target.value)
-                                                // alert(amount)
-                                                // setFieldValue('creditCoinValue', e.target.value) 
-                                                // !(convertFromCreditCoin.isFetching) && convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount && setFieldValue('creditCoinValue', convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
-
                                                 !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
 
                                             }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} />

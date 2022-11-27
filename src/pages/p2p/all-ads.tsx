@@ -38,7 +38,6 @@ const AllAds = () => {
     }
     
 
-    console.log(merchantOrders?.data)
 
     return (
         <DashboardLayout title='All Ads'>
@@ -242,15 +241,15 @@ export const RenderOrderComponent = ({ data }: any) => {
 
                                         <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600" >
                                             <Flex direction="column" height="100px"  justifyContent="flex-start" alignItems="flex-start">
-                                                <Text mb="11px">{ad?.ad[0]?.totalAmount?.toLocaleString()}</Text>
+                                                <Text mb="11px">{ad?.ad[0]?.totalAmount?.toLocaleString()} {ad?.ad[0]?.cash}</Text>
                                                 <Text mb="11px">{ad?.quantity.toLocaleString()}</Text>
-                                                <Text mb="11px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                                                <Text mb="11px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
                                             </Flex>
                                         </Td>
 
                                         <Td pl="0" fontSize="14px" color="#000000" fontWeight="600" pt="0" pb="0">
                                             <Flex  height="100px"  direction="column" >
-                                                <Text mb="11px">{ad?.ad[0]?.price.toLocaleString()}</Text>
+                                                <Text mb="11px">{ad?.ad[0]?.price.toLocaleString()} {ad?.ad[0]?.cash}</Text>
                                                 <Text mb="11px">--</Text>
                                             </Flex>
                                         </Td>
@@ -317,7 +316,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text>Price</Text>
 
                             <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
-                                <Text mb="8px">{ad?.ad[0]?.price.toLocaleString()}</Text>
+                                <Text mb="8px">{ad?.ad[0]?.price.toLocaleString()} {ad?.ad[0]?.cash}</Text>
                                 <Text mb="8px">--</Text>
                             </Flex>
                         </Flex>
@@ -331,9 +330,9 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Limit</Text>
 
                             <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
-                                <Text mb="8x">{ad?.ad[0]?.totalAmount?.toLocaleString()}</Text>
+                                <Text mb="8x">{ad?.ad[0]?.totalAmount?.toLocaleString()} {ad?.ad[0]?.cash}</Text>
                                 <Text mb="8px">{ad?.quantity.toLocaleString()}</Text>
-                                <Text mb="8px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                                <Text mb="8px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
                             </Flex>
                         
                         </Flex>
