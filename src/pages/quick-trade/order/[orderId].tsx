@@ -1,7 +1,7 @@
-import { Box, Button, Divider, Flex, HStack, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
 import appAlert from '../../../helpers/appAlert'
@@ -14,7 +14,6 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
 import remoteImages from '../../../constants/remoteImages'
-import { useGetAddedBankPaginationQuery } from '../../../redux/services/bank.service'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -24,22 +23,22 @@ const NotifyTraders = () => {
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
-    const [currentPage, setCurrentPage] = useState(1)
-    const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
+    // const [currentPage, setCurrentPage] = useState(1)
+    // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
 
     // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
     const today = moment().valueOf()
 
+        // console.log("wetin be this order detail ", orderDetail)
 
+    // const handlePreviousPage = () => {
+    //     setCurrentPage(currentPage - 1)
+    // }
 
-    const handlePreviousPage = () => {
-        setCurrentPage(currentPage - 1)
-    }
-
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1)
-    }
+    // const handleNextPage = () => {
+    //     setCurrentPage(currentPage + 1)
+    // }
     // console.log(" orderDetail detail about to check the behaviour of the bank! ", orderDetail.data)
 
     // React.useEffect(() => {
@@ -161,7 +160,7 @@ const NotifyTraders = () => {
                                             )
                                         })} */}
 
-                                        <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
+                                        {/* <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
                                             <HStack >
                                                 <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
                                                     {getAddedBank?.data?.pagination?.currentPage}
@@ -180,7 +179,7 @@ const NotifyTraders = () => {
                                                     Next
                                                 </Button>    
                                             </HStack>
-                                        </HStack>
+                                        </HStack> */}
 
                                     </Flex>
                                 </Flex>
