@@ -161,7 +161,7 @@ const NotifyTraders = () => {
                                             )
                                         })} */}
 
-                                        <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
+                                        {/* <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
                                             <HStack >
                                                 <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
                                                     {getAddedBank?.data?.pagination?.currentPage}
@@ -180,7 +180,7 @@ const NotifyTraders = () => {
                                                     Next
                                                 </Button>    
                                             </HStack>
-                                        </HStack>
+                                        </HStack> */}
 
                                     </Flex>
                                 </Flex>
