@@ -213,7 +213,7 @@ const Swap = () => {
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>
                                                 </Flex>                                                                                     
-                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin} = {parseFloat(convertFromDebitCoin?.data?.data?.rate).toFixed(8)} {creditCoin}</Text>}
+                                            </Flex> : <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>Estimated 1 {debitCoin==="USDT_TRON" ? "USDT-TRON" : debitCoin} = {parseFloat((convertFromDebitCoin?.data?.data?.rate ? convertFromDebitCoin?.data?.data?.rate : 0 )).toFixed(8)} {creditCoin}</Text>}
 
 
                                             {!isPreviewConversionClicked ? <MainAppButton isLoading={isSubmitting} color={values.debitCoinValue && values.creditCoinValue ? 'appWhiteColor' : 'textLightColor'} onClick={() => { setIsPreviewConversionClicked(true) }} backgroundColor={values.debitCoinValue && values.creditCoinValue ? 'primaryColor.900' : 'deselectedButtonColor'} >
