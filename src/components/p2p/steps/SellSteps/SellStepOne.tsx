@@ -27,8 +27,6 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
     
     const addPrice = () => {
         setPrice((currentPrice: number)=>  currentPrice + 1)            
-        
-
     }
 
     const  minusPrice = () => {
@@ -37,12 +35,6 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // const data = {
-        //     coin,
-        //     withCash,
-        //     priceType,
-        //     price
-        // }
 
         handleNextStep()   
         
