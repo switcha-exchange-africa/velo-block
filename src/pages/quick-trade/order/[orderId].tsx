@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
 import appAlert from '../../../helpers/appAlert'
