@@ -62,15 +62,15 @@ const SellStepTwo = (props:any) => {
     // const []
 
     const handleSelect = async (value: any) => {
-        const findBankCode = getUsersBank?.data?.find((item:any) => item?.code === value) 
+        const findBankCode:any = getUsersBank?.data?.find((item:any) => item?.code === value) 
         console.log(findBankCode)
-        const body {
+        const body = {
             name: findBankCode?.name,
             codes: findBankCode?.code,
             accountName: findBankCode?.accountName,
             accountNumbering: findBankCode?.accountNumber
        }        
-        const resp = await addP2pSellAdsBank(body)
+        const resp:any = await addP2pSellAdsBank(body)
         if (resp?.data?.status === 200) {
             appAlert.success(resp?.data?.message)
         } else {
