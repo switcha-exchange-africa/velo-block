@@ -221,8 +221,8 @@ export const TableContainerComponent = ({ data, handleClick }: any) => {
 }
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    return checkValidToken(context)
-}
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     return checkValidToken(context)
+// }
 
 export default P2pOrders

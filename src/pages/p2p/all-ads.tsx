@@ -22,7 +22,7 @@ import P2pOrders from '../../components/p2p/allAds/P2pOrders'
 
 const AllAds = () => {
     const router = useRouter()
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
     const [orderType, setOrderType] = useState(`Buy/Sell`)
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
@@ -32,24 +32,30 @@ const AllAds = () => {
         // dispatch(setIsClientSelected({isClientSelected: false}))
         // router.push("/quick-trade/order")    
     }
+
+    // const [tabIndex, setTabIndex] = useState(0)
+
+    // const handleTabIndex = (index) => {
+    //     setTabIndex(0)
+    // }
     
     return (
         <DashboardLayout title='All Ads'>
-            <Tabs >
+            <Tabs  >
                 <TabList  justifyContent="flex-end" gap="63px" pr="250px" display={{ base: "none", md: "flex" }} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px" top="60px" w="100%">
-                    <Tab _selected={{color: "#FB5E04"}} fontWeight="700" fontSize={{ base: "16px", md: "20px" }}  p="0">
+                    <Tab _selected={{color: "#FB5E04"}}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }}  p="0">
                         <Flex alignItems="center">
                             <Image height="20px" width="20px" src={Ads} alt="ads icon" />
                             <Text ml="5px">My Ads</Text>
                         </Flex>
                     </Tab>
-                    <Tab _selected={{color: "#FB5E04"}} onClick={handleMerchantOrderRoute} fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
+                    <Tab _selected={{color: "#FB5E04"}}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center">
                             <Image height="20px" width="20px" src={Orders} alt="orders icon" />
                             <Text ml="5px" cursor="pointer" > Orders</Text>
                         </Flex>
                     </Tab>
-                    <Tab _selected={{color: "#FB5E04"}} fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
+                    <Tab _selected={{color: "#FB5E04"}} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center">
                             <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
                                 <Image  src={More} alt="more icon" />
@@ -67,22 +73,29 @@ const AllAds = () => {
                         <Text> Express</Text>
                     </Flex>
 
-                    {/* <Flex justifyContent="flex-end" mt="5px" gap="40px" fontWeight="700"> */}
+                    <Tab _selected={{color: "#FB5E04"}} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center" mt="30px">
                             <Image height="20px" width="20px" src={Ads} alt="ads icon" />
-                            <Text ml="5px" color="#FB5E04">My Ads</Text>
+                            <Text ml="5px" >My Ads</Text>
                         </Flex>
+                        
+                    </Tab>
+                    <Tab _selected={{color: "#FB5E04"}} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center" mt="30px">
                             <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
                             <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
                         </Flex>
+                    </Tab>
+                    <Tab _selected={{color: "#FB5E04"}}  color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center" mt="30px">
                             <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
                                 <Image  src={mobileMore} alt="more icon" />
                             </Flex>
                             <Text ml="5px"> More</Text>
                         </Flex>
-                    {/* </Flex> */}
+                    </Tab>
+                    
+                        
                 </TabList>
 
 
