@@ -14,7 +14,6 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
 import remoteImages from '../../../constants/remoteImages'
-// import { useGetAddedBankPaginationQuery } from '../../../redux/services/bank.service'
 
 const NotifyTraders = () => {
     const router = useRouter()

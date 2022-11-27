@@ -16,13 +16,13 @@ import { useGetP2pOrderFilterForClientQuery, useGetP2pOrderFilterForMerchantQuer
 
 
 const Orders = () => {
-    const [orderType, setOrderType] = useState(`Buy/Sell`)
+    const [orderType, setOrderType] = useState(`buy/sell`)
     const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
     const [statusType, setStatusType] = useState(`All Status`)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
-    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
-    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="Buy/Sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
 
     // const [coinType, setCoinType] = useState(`All Coins`)
@@ -91,9 +91,16 @@ const Orders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
+        console.log(orderId)
+
+        const obj = data.find((obj:any) => obj?.orderId === orderId)
+        console.log(obj)
+        // dispatch(setIsClientSelected({isClientSelected: true}))
         router.push('/quick-trade/order/'+orderId)
     }
     
+    console.log("aye ", data)
+
     return (
         <Box>
             {data.length !== 0 ? (
