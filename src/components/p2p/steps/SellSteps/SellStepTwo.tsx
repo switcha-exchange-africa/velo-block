@@ -9,7 +9,7 @@ import {
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useAddBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { useAddBankMutation, useAddP2pSellAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
@@ -25,6 +25,7 @@ const SellStepTwo = (props:any) => {
         setDefaultTab(() => defaultTab + 1)
     }
 
+    console.log("users banks is ", getUsersBank)
 
     const validateAccountName = (value: string, ) => {
         let error
@@ -56,7 +57,30 @@ const SellStepTwo = (props:any) => {
     const {data:getBanks} = useGetNigerianBankQuery()
     const [addBank] = useAddBankMutation()
     const fetchAllUsersBank = useGetUsersBankQuery()
+    const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
 
+    // const []
+
+    const handleSelect = async (value: any) => {
+        const findBankCode = getUsersBank?.data?.find((item:any) => item?.code === value) 
+        console.log(findBankCode)
+        const data = {
+            name: findBankCode?.name,
+            codes: findBankCode?.code,
+            accountName: findBankCode?.accountName,
+            accountNumbering: findBankCode?.accountNumber
+
+        }        
+        const resp = await addP2pSellAdsBank(data)
+        if (resp?.data?.status === 200) {
+            appAlert.success(resp?.data?.message)
+        } else {
+            appAlert.error(resp?.error?.data?.message)
+        }
+    }
+
+
+    console.log("aye " ,getUsersBank?.data)
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -76,7 +100,7 @@ const SellStepTwo = (props:any) => {
                                     <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
                                         {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                             getUsersBank?.data?.map((bank: any) => (  
-                                                <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                                                <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} cursor="pointer" onClick={() => handleSelect(bank?.code)} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                                     <HStack w="100%">
                                                         <Text flex="1" color="#FB5E04">Bank Transfer</Text>
                                                         <Text flex="1.76" color="#000000">{bank?.accountName}</Text>

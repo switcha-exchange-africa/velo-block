@@ -34,6 +34,24 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    addP2pSellAdsBank: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `p2p/bank`,
+          method: "POST",
+          body: {
+            ...body,
+            isActive: true,
+            type: "sell",
+            isWillingToPayTo: true
+          }
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
     getAddedBank: builder.query<any, void>({
       query: () => `p2p/bank`,
       transformResponse: (responseData: any) => {
@@ -76,6 +94,7 @@ export const {
   useGetBankByIdQuery,
   useLazyGetBankByIdQuery,
   useAddP2pBuyAdsBankMutation,
+  useAddP2pSellAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
   useGetUsersBankQuery,
