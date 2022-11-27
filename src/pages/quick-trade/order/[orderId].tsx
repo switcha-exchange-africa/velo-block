@@ -30,7 +30,7 @@ const NotifyTraders = () => {
 
     const today = moment().valueOf()
 
-
+        console.log("wetin be this order detail ", orderDetail)
 
     // const handlePreviousPage = () => {
     //     setCurrentPage(currentPage - 1)
