@@ -90,7 +90,7 @@ const AllAds = () => {
                     <Flex h="25px">
                         <Text onClick={() => router.back()}>P2P</Text>
                         <Divider orientation="vertical" mx="12px" border="1px solid #8E9BAE" />
-                        {/* <Text> Express</Text> */}
+                        <Text> Express</Text>
                     </Flex>
 
                     <Flex w="100%" justifyContent="space-between">
@@ -120,7 +120,7 @@ const AllAds = () => {
 
 
                 {/* <TabPanels> */}
-                    {tabIndex=== 0 && (
+                    {tabIndex=== 0 ? (
                         <>
                             <Button
                                 onClick={() => router.back()}
@@ -192,9 +192,7 @@ const AllAds = () => {
 
                             </Flex>
                         </>
-                    )}
-                    
-                    {tabIndex === 1 && (
+                    ) : (
                         //Orders
                         <>
                             <Button
@@ -218,8 +216,7 @@ const AllAds = () => {
 
                     )}
                     
-
-
+                    
 
                 {/* </TabPanels> */}
 

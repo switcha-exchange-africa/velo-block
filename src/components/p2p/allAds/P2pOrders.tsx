@@ -22,7 +22,6 @@ const P2pOrders = () => {
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
-    
     return (
         <>
              <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
@@ -31,8 +30,7 @@ const P2pOrders = () => {
                         <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
                         <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
                             {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
-                        </Flex>
-                        
+                        </Flex>                        
                     </Flex>
 
                     <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
@@ -62,7 +60,8 @@ const P2pOrders = () => {
                 </Flex>
                 
                 {filterMerchantOrderByTypeAndStatus?.data && <RenderOrderComponent data={filterMerchantOrderByTypeAndStatus?.data?.data} />}
-
+                        
+                
             </Flex>            
         </>
     )
