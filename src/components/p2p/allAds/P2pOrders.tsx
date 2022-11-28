@@ -72,13 +72,13 @@ export const RenderOrderComponent = ({ data }: any) => {
     const handleClick = (orderId: string) => {
         console.log(orderId)
 
-        const obj = data.find((obj:any) => obj?.orderId === orderId)
-        console.log(obj)
+        // const obj = data.find((obj:any) => obj?.orderId === orderId)
+        // console.log(obj)
         // dispatch(setIsClientSelected({isClientSelected: true}))
-        router.push('/quick-trade/order/'+orderId)
+        router.push('/p2p/all-ads'+orderId)
     }
     
-    console.log("aye ", data)
+    // console.log("aye ", data)
 
     return (
         <Box>

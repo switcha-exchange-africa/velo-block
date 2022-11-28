@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
+// import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import {  useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 import Ads from "../../../../public/assets/svgs/ads.svg"
@@ -33,10 +33,10 @@ const AllAds = () => {
     const [statusType, setStatusType] = useState(`All Status`)
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
-    const handleMerchantOrderRoute = () => {
-        // dispatch(setIsClientSelected({isClientSelected: false}))
-        // router.push("/quick-trade/order")    
-    }
+    // const handleMerchantOrderRoute = (orderId: string) => {
+    //     // dispatch(setIsClientSelected({isClientSelected: false}))
+    //     router.push('/p2p/all-ads'+orderId) 
+    // }
 
     const [tabIndex, setTabIndex] = useState(0)
 
@@ -115,7 +115,7 @@ const AllAds = () => {
                                     <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
                                 )}
                                 
-                                <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
+                                <Text ml="5px" cursor="pointer" > Orders</Text>
                             </Flex>
                         </Tab>
                         <Tab ml="5px" isDisabled _selected={{color: "#FB5E04", bg: "transparent"}}  color="black" fontWeight="700" onClick={() => handleTabIndex(2)} fontSize={{ base: "16px", md: "20px" }} p="0">
