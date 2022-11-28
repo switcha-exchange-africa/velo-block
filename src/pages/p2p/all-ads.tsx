@@ -1,6 +1,6 @@
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input, Tabs, TabList, TabPanels, Tab, TabPanel} from "@chakra-ui/react"
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input, Tabs, TabList, Tab} from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
@@ -20,6 +20,7 @@ import SelectedOrders from "../../../public/assets/svgs/selectedOrders.svg"
 import SelectedMore from "../../../public/assets/svgs/selectedMenu.svg"
 
 import mobileOrders from "../../../public/assets/svgs/mobileOrders.svg"
+import unselectedMobileOrders from "../../../public/assets/svgs/unselectedmobileads.svg"
 import mobileMore from "../../../public/assets/svgs/mobileMore.svg"
 import P2pOrders from '../../components/p2p/allAds/P2pOrders'
 
@@ -43,7 +44,6 @@ const AllAds = () => {
         setTabIndex(index)
     }
     
-    const color = tabIndex && "#FB5E04"
 
     return (
         <DashboardLayout title='All Ads'>
@@ -57,7 +57,6 @@ const AllAds = () => {
                              : (
                                 <Image height="20px" width="20px" src={UnselectedAds} alt="ads icon" />
                             )}
-                            
                             <Text ml="5px">My Ads</Text>
                         </Flex>
                     </Tab>
@@ -96,13 +95,26 @@ const AllAds = () => {
                     <Flex w="100%" justifyContent="space-between">
                         <Tab _selected={{color: "#FB5E04", bg: "transparent"}} onClick={() => handleTabIndex(0)} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                             <Flex alignItems="center" mt="30px">
-                                <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                                {tabIndex === 0 ? (
+                                    <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                                )
+                                : (
+                                    <Image height="20px" width="20px" src={unselectedMobileOrders} alt="ads icon" />
+                                )}
+                                
                                 <Text ml="5px" >My Ads</Text>
                             </Flex>
                         </Tab>
                         <Tab ml="5px" _selected={{color: "#FB5E04", bg: "transparent"}} color="black" onClick={() => handleTabIndex(1)} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                             <Flex alignItems="center" mt="30px">
-                                <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
+                                {tabIndex === 1 ? (
+                                    <Image height="20px" width="20px" src={SelectedOrders} alt="orders icon" />
+                                
+                                )
+                                : (
+                                    <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
+                                )}
+                                
                                 <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
                             </Flex>
                         </Tab>
