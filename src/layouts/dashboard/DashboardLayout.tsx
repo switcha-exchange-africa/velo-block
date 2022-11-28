@@ -53,11 +53,14 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
       
   useEffect(() => {
     checkForToken()
-
-    dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
+    // dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
   
   }, [])
 
+  useEffect(() => {
+    dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
+  
+  }, [])
   // if (getUser?.isFetching) {
   //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
   // }

@@ -24,6 +24,7 @@ const P2P = () => {
   const handleOrderRoute = () => {
     // dispatch(setIsClientSelected({isClientSelected: false}))
     // router.push("/quick-trade/order")    
+    // router.push("/p2p/order")
     router.push("/p2p/all-ads")
   }
   

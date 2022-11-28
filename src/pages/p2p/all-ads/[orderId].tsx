@@ -1,36 +1,41 @@
 import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
-import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
-import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
-import appAlert from '../../../helpers/appAlert'
-import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-import { useGetOrderDetailQuery, } from '../../../redux/services/p2p.service'
+import React from "react"
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
+import RenderAdBankDetails from '../../../components/RenderAdBankDetails';
+import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
+import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
+import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
+import appAlert from '../../../helpers/appAlert';
+import { checkValidToken } from '../../../helpers/functions/checkValidToken';
+import { useGetOrderDetailQuery } from '../../../redux/services/p2p.service';
+import remoteImages from '../../../constants/remoteImages';
 
-import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
-import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
-import remoteImages from '../../../constants/remoteImages'
 
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
-    // console.log(orderId)
+
+
     // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
     // console.log(orderDetail)
+
     // const [currentPage, setCurrentPage] = useState(1)
     // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
 
     // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
     const today = moment().valueOf()
+
+        // console.log("wetin be this order detail ", orderDetail)
+
     // const handlePreviousPage = () => {
     //     setCurrentPage(currentPage - 1)
     // }
