@@ -15,6 +15,10 @@ import {  useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.servi
 import Ads from "../../../public/assets/svgs/ads.svg"
 import Orders from "../../../public/assets/svgs/orders.svg"
 import More from "../../../public/assets/svgs/more.svg"
+import UnselectedAds from "../../../public/assets/svgs/unselectedAds.svg"
+import SelectedOrders from "../../../public/assets/svgs/selectedOrders.svg"
+import SelectedMore from "../../../public/assets/svgs/selectedMenu.svg"
+
 import mobileOrders from "../../../public/assets/svgs/mobileOrders.svg"
 import mobileMore from "../../../public/assets/svgs/mobileMore.svg"
 import P2pOrders from '../../components/p2p/allAds/P2pOrders'
@@ -33,32 +37,48 @@ const AllAds = () => {
         // router.push("/quick-trade/order")    
     }
 
-    // const [tabIndex, setTabIndex] = useState(0)
+    const [tabIndex, setTabIndex] = useState(0)
 
-    // const handleTabIndex = (index) => {
-    //     setTabIndex(0)
-    // }
+    const handleTabIndex = (index: number) => {
+        setTabIndex(index)
+    }
     
+    const color = tabIndex && "#FB5E04"
+
     return (
         <DashboardLayout title='All Ads'>
-            <Tabs  >
+            <Tabs defaultIndex={tabIndex} variant="unstyled" >
                 <TabList  justifyContent="flex-end" gap="63px" pr="250px" display={{ base: "none", md: "flex" }} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px" top="60px" w="100%">
-                    <Tab _selected={{color: "#FB5E04"}}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }}  p="0">
-                        <Flex alignItems="center">
-                            <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                    <Tab _selected={{color: "#FB5E04",  bg: "transparent"}} onClick={() => handleTabIndex(0)} fontWeight="700" fontSize={{ base: "16px", md: "20px" }}  p="0">
+                        <Flex alignItems="center" >
+                            {tabIndex === 0 ? (
+                                <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                            )
+                             : (
+                                <Image height="20px" width="20px" src={UnselectedAds} alt="ads icon" />
+                            )}
+                            
                             <Text ml="5px">My Ads</Text>
                         </Flex>
                     </Tab>
-                    <Tab _selected={{color: "#FB5E04"}}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
+                    <Tab _selected={{color: "#FB5E04", bg: "transparent"}} onClick={() => handleTabIndex(1)}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center">
-                            <Image height="20px" width="20px" src={Orders} alt="orders icon" />
+                            {tabIndex === 1 ? (
+                                <Image height="20px" width="20px" src={SelectedOrders} alt="orders icon" />
+                            
+                            )
+                            : (
+                                <Image height="20px" width="20px" src={Orders} alt="orders icon" />
+                            )}
+                        
                             <Text ml="5px" cursor="pointer" > Orders</Text>
                         </Flex>
                     </Tab>
-                    <Tab _selected={{color: "#FB5E04"}} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
+                    <Tab isDisabled _selected={{color: "#FB5E04", bg: "transparent"}} fontWeight="700" onClick={() => handleTabIndex(2)} fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center">
                             <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
-                                <Image  src={More} alt="more icon" />
+                                <Image src={More} alt="more icon" />
+                                <Image  src={SelectedMore} alt="more icon" />
                             </Flex>
                             <Text ml="5px"> More</Text>
                         </Flex>
@@ -70,131 +90,138 @@ const AllAds = () => {
                     <Flex h="25px">
                         <Text onClick={() => router.back()}>P2P</Text>
                         <Divider orientation="vertical" mx="12px" border="1px solid #8E9BAE" />
-                        <Text> Express</Text>
+                        {/* <Text> Express</Text> */}
                     </Flex>
 
-                    <Tab _selected={{color: "#FB5E04"}} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
-                        <Flex alignItems="center" mt="30px">
-                            <Image height="20px" width="20px" src={Ads} alt="ads icon" />
-                            <Text ml="5px" >My Ads</Text>
-                        </Flex>
-                        
-                    </Tab>
-                    <Tab _selected={{color: "#FB5E04"}} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
-                        <Flex alignItems="center" mt="30px">
-                            <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
-                            <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
-                        </Flex>
-                    </Tab>
-                    <Tab _selected={{color: "#FB5E04"}}  color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
-                        <Flex alignItems="center" mt="30px">
-                            <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
-                                <Image  src={mobileMore} alt="more icon" />
+                    <Flex w="100%" justifyContent="space-between">
+                        <Tab _selected={{color: "#FB5E04", bg: "transparent"}} onClick={() => handleTabIndex(0)} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
+                            <Flex alignItems="center" mt="30px">
+                                <Image height="20px" width="20px" src={Ads} alt="ads icon" />
+                                <Text ml="5px" >My Ads</Text>
                             </Flex>
-                            <Text ml="5px"> More</Text>
-                        </Flex>
-                    </Tab>
-                    
-                        
+                        </Tab>
+                        <Tab ml="5px" _selected={{color: "#FB5E04", bg: "transparent"}} color="black" onClick={() => handleTabIndex(1)} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
+                            <Flex alignItems="center" mt="30px">
+                                <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
+                                <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
+                            </Flex>
+                        </Tab>
+                        <Tab ml="5px" isDisabled _selected={{color: "#FB5E04", bg: "transparent"}}  color="black" fontWeight="700" onClick={() => handleTabIndex(2)} fontSize={{ base: "16px", md: "20px" }} p="0">
+                            <Flex alignItems="center" mt="30px">
+                                <Flex justifyContent="center" alignItems="center" height="18px" width="18px" >
+                                    <Image  src={mobileMore} alt="more icon" />
+                                </Flex>
+                                <Text ml="5px"> More</Text>
+                            </Flex>
+                        </Tab>
+                    </Flex>
+                               
                 </TabList>
 
 
-                <TabPanels>
-                    <TabPanel>
-                        <Button
-                            onClick={() => router.back()}
-                            leftIcon={<ArrowBackIcon />}
-                            colorScheme="transparent"
-                            variant="solid"
-                            pl={0}
-                            ml="35px"
-                            mt="20px"
-                            py={"3rem"}
-                            color={'black'}
-                            display={{ base: 'none', md: 'block' }}
-                        >
-                            Back
-                        </Button>
-                        <Flex  flexDirection={'column'} mt={{base: "100px", md: "30px"}} p={{ base: '0px', md: '' }}>
-                            <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{base: 'column', md: 'row'}} cursor="pointer" alignItems="center" mb={{base: "20px", md: "0"}} >
-                                <Flex gap="24px">
-                                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} color={'#64748B'}>Asset/Type</Text>
-                                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
-                                            setCoinType(e.target.value);
-                                        }}>
-                                            <option value={'buy'}>All Assets</option>
-                                        </Select>
+                {/* <TabPanels> */}
+                    {tabIndex=== 0 && (
+                        <>
+                            <Button
+                                onClick={() => router.back()}
+                                leftIcon={<ArrowBackIcon />}
+                                colorScheme="transparent"
+                                variant="solid"
+                                pl={0}
+                                ml="35px"
+                                mt="20px"
+                                py={"3rem"}
+                                color={'black'}
+                                display={{ base: 'none', md: 'block' }}
+                            >
+                                Back
+                            </Button>
+                            <Flex  flexDirection={'column'} mt={{base: "100px", md: "30px"}} p={{ base: '0px', md: '' }}>
+                                <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{base: 'column', md: 'row'}} cursor="pointer" alignItems="center" mb={{base: "20px", md: "0"}} >
+                                    <Flex gap="24px">
+                                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                                            <Text fontWeight={'medium'} color={'#64748B'}>Asset/Type</Text>
+                                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
+                                                setCoinType(e.target.value);
+                                            }}>
+                                                <option value={'buy'}>All Assets</option>
+                                            </Select>
 
-                                    </Flex>
+                                        </Flex>
 
-                                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
+                                            <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
+                                            
+                                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
+                                                setOrderType(e.target.value);
+                                            }}>
+                                                <option value={'buy/sell'}>Buy/Sell</option>
+                                                <option value={'buy'}>Buy</option>
+                                                <option value={'sell'}>Sell</option>
+                                            </Select>
+                                        </Flex>
                                         
-                                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} onChange={(e) => {
-                                            setOrderType(e.target.value);
-                                        }}>
-                                            <option value={'buy/sell'}>Buy/Sell</option>
-                                            <option value={'buy'}>Buy</option>
-                                            <option value={'sell'}>Sell</option>
-                                        </Select>
-                                    </Flex>
-                                    
-                                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                                            setStatusType(e.target.value);
-                                        }}>
-                                            <option value={'buy'}>All Status</option>
-                                        </Select>
-                                    </Flex>
-                                </Flex>
-                                
-                                <form style={{padding: "0"}}>
-                                    <Flex  ml={{ base: '-20px', md: '0' }}  flexDirection={'column'} fontSize={{ base: 'sm', md: '14px' }}>
-                                        <Text fontWeight={'medium'} color={'#64748B'}>Created Time</Text>
-                                        
-                                        <Flex mt={'3'} alignItems="center">
-                                            <Input  fontSize={{ base: '12px', md: 'md' }} type="date" />
-                                            <Button mx="25px" color="#FB5e04" bg="transparent" _hover={{ bg: "transparent"}} border="1px solid #FB5E04">Filter</Button>
-                                            <Button bg="transparent" _hover={{ bg: "transparent"}}>Reset</Button >
+                                        <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                                            <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
+                                            <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
+                                                setStatusType(e.target.value);
+                                            }}>
+                                                <option value={'buy'}>All Status</option>
+                                            </Select>
                                         </Flex>
                                     </Flex>
-                                </form>
+                                    
+                                    <form style={{padding: "0"}}>
+                                        <Flex  ml={{ base: '-20px', md: '0' }}  flexDirection={'column'} fontSize={{ base: 'sm', md: '14px' }}>
+                                            <Text fontWeight={'medium'} color={'#64748B'}>Created Time</Text>
+                                            
+                                            <Flex mt={'3'} alignItems="center">
+                                                <Input  fontSize={{ base: '12px', md: 'md' }} type="date" />
+                                                <Button mx="25px" color="#FB5e04" bg="transparent" _hover={{ bg: "transparent"}} border="1px solid #FB5E04">Filter</Button>
+                                                <Button bg="transparent" _hover={{ bg: "transparent"}}>Reset</Button >
+                                            </Flex>
+                                        </Flex>
+                                    </form>
 
 
-                                <Text  mt={{ base: '0px', md: '25px' }} flex="1" textAlign={{ base: 'left', md: 'right' }} w="100%" color="#FB5E04" fontWeight="600" fontSize="14px">Ad History</Text>
-                
+                                    <Text  mt={{ base: '0px', md: '25px' }} flex="1" textAlign={{ base: 'left', md: 'right' }} w="100%" color="#FB5E04" fontWeight="600" fontSize="14px">Ad History</Text>
+                    
+                                </Flex>
+                                
+                                {merchantOrders?.data && <RenderOrderComponent data={merchantOrders?.data?.data} />}
+
                             </Flex>
+                        </>
+                    )}
+                    
+                    {tabIndex === 1 && (
+                        //Orders
+                        <>
+                            <Button
+                                onClick={() => router.back()}
+                                leftIcon={<ArrowBackIcon />}
+                                colorScheme="transparent"
+                                variant="solid"
+                                pl={0}
+                                ml="35px"
+                                mt="20px"
+                                py={"3rem"}
+                                color={'black'}
+                                display={{ base: 'none', md: 'block' }}
+                                mb={{base: "100px", md: "30px"}}
+                            >
+                                Back
+                            </Button>
                             
-                            {merchantOrders?.data && <RenderOrderComponent data={merchantOrders?.data?.data} />}
+                            <P2pOrders/>
+                        </>
 
-                        </Flex>
-                    </TabPanel>
-
-
-                    {/* Orders */}
-                    <TabPanel>
-                        <Button
-                            onClick={() => router.back()}
-                            leftIcon={<ArrowBackIcon />}
-                            colorScheme="transparent"
-                            variant="solid"
-                            pl={0}
-                            ml="35px"
-                            mt="20px"
-                            py={"3rem"}
-                            color={'black'}
-                            display={{ base: 'none', md: 'block' }}
-                        >
-                            Back
-                        </Button>
-                        
-                        <P2pOrders/>
+                    )}
+                    
 
 
-                    </TabPanel>
-                </TabPanels>
+
+                {/* </TabPanels> */}
 
 
 
