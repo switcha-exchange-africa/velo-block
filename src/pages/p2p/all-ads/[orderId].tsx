@@ -18,11 +18,15 @@ import remoteImages from '../../../constants/remoteImages';
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
+
+
     // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
+    // console.log(orderDetail)
+
     // const [currentPage, setCurrentPage] = useState(1)
     // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
 

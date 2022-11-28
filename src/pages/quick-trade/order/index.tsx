@@ -91,16 +91,14 @@ const Orders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        // console.log(orderId)
+        // // console.log(orderId)
 
-        const obj = data.find((obj:any) => obj?.orderId === orderId)
-        console.log(obj)
+        // const obj = data.find((obj:any) => obj?.orderId === orderId)
+        // console.log(obj)
         // dispatch(setIsClientSelected({isClientSelected: true}))
         router.push('/quick-trade/order/'+orderId)
     }
     
-    console.log("aye ", data)
-
     return (
         <Box>
             {data.length !== 0 ? (

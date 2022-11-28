@@ -9,6 +9,7 @@ export const p2pApi = baseApi.injectEndpoints({
       },
       providesTags: ["Order"],
     }),
+
     notifyMerchant: builder.mutation<any, any>({
       query: (orderId) => {
         return {
@@ -21,6 +22,7 @@ export const p2pApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["Order"],
     }),
+    
     confirmP2pOrderWithoutCode: builder.mutation<any, any>({
       query: (orderId) => {
         return {

@@ -33,11 +33,6 @@ const AllAds = () => {
     const [statusType, setStatusType] = useState(`All Status`)
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
 
-    // const handleMerchantOrderRoute = (orderId: string) => {
-    //     // dispatch(setIsClientSelected({isClientSelected: false}))
-    //     router.push('/p2p/all-ads'+orderId) 
-    // }
-
     const [tabIndex, setTabIndex] = useState(0)
 
     const handleTabIndex = (index: number) => {
