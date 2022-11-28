@@ -8,21 +8,21 @@ import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { checkValidToken } from '../../helpers/functions/checkValidToken'
-import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
-import DashboardLayout from '../../layouts/dashboard/DashboardLayout'
-import {  useGetP2pOrderForMerchantsQuery } from '../../redux/services/p2p.service'
-import Ads from "../../../public/assets/svgs/ads.svg"
-import Orders from "../../../public/assets/svgs/orders.svg"
-import More from "../../../public/assets/svgs/more.svg"
-import UnselectedAds from "../../../public/assets/svgs/unselectedAds.svg"
-import SelectedOrders from "../../../public/assets/svgs/selectedOrders.svg"
-import SelectedMore from "../../../public/assets/svgs/selectedMenu.svg"
+import { checkValidToken } from '../../../helpers/functions/checkValidToken'
+import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+import {  useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
+import Ads from "../../../../public/assets/svgs/ads.svg"
+import Orders from "../../../../public/assets/svgs/orders.svg"
+import More from "../../../../public/assets/svgs/more.svg"
+import UnselectedAds from "../../../../public/assets/svgs/unselectedAds.svg"
+import SelectedOrders from "../../../../public/assets/svgs/selectedOrders.svg"
+import SelectedMore from "../../../../public/assets/svgs/selectedMenu.svg"
 
-import mobileOrders from "../../../public/assets/svgs/mobileOrders.svg"
-import unselectedMobileOrders from "../../../public/assets/svgs/unselectedmobileads.svg"
-import mobileMore from "../../../public/assets/svgs/mobileMore.svg"
-import P2pOrders from '../../components/p2p/allAds/P2pOrders'
+import mobileOrders from "../../../../public/assets/svgs/mobileOrders.svg"
+import unselectedMobileOrders from "../../../../public/assets/svgs/unselectedmobileads.svg"
+import mobileMore from "../../../../public/assets/svgs/mobileMore.svg"
+import P2pOrders from '../../../components/p2p/allAds/P2pOrders'
 
 
 const AllAds = () => {
