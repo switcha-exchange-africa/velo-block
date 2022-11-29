@@ -212,7 +212,7 @@ const NotifyTraders = () => {
                                     onClick={() => onReleaseOpen()}
                                 >Comfirm Release</Text>
 
-                                <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} />
+                                <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
                             </Flex>}
