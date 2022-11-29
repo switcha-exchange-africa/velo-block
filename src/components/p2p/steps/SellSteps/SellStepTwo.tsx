@@ -9,14 +9,14 @@ import {
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useAddBankMutation, useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
-    const { handlePreviousStep, handleNextStep, coin, banks, values, setValues } = props
+    const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
+    const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
     const changeIndexOfTab = () => {
@@ -52,32 +52,34 @@ const SellStepTwo = (props:any) => {
     
     
     const {data:getBanks} = useGetNigerianBankQuery()
-    const [addBank] = useAddBankMutation()
-    const fetchAllUsersBank = useGetUsersBankQuery()
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
-
-
+    
+    
     const handleSelect = async (value: any) => {
-        const findBankCode = getUsersBank?.data?.find((item:any) => item?.code === value) 
+        const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
         const body = {
             name: findBankCode?.name,
             codes: findBankCode?.code,
             accountName: findBankCode?.accountName,
-            accountNumbering: findBankCode?.accountNumber
-       }        
-        const resp:any = await addP2pSellAdsBank(body)
-        if (resp?.data?.status === 200) {
-            appAlert.success(resp?.data?.message)
-            getAddedBankSellType.refetch()
-            onClose()
-        } else {
-            appAlert.error(resp?.error?.data?.message)
-        }
+            accountNumbering: findBankCode?.accountNumber,
+            id: findBankCode?._id
+        }       
+        setBanks((selectedBank:any) => [...selectedBank, body])
+        appAlert.success("Bank Selected")
+        onClose()
     }
+    
+    function filteredBanks(arr: any, comp: any) {
+        const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
+        return unique
+    }
+
+    
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
+
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg" motionPreset='none'>
                 <ModalOverlay />
@@ -93,8 +95,8 @@ const SellStepTwo = (props:any) => {
                                     </ModalHeader>
                                     <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
                                         {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                            getUsersBank?.data?.map((bank: any) => (  
-                                                <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} cursor="pointer" onClick={() => handleSelect(bank?.code)} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
+                                            getAddedBankSellType?.data?.data?.map((bank: any) => (  
+                                                <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} cursor="pointer" onClick={() => handleSelect(bank?._id)} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                                     <HStack w="100%">
                                                         <Text flex="1" color="#FB5E04">Bank Transfer</Text>
                                                         <Text flex="1.76" color="#000000">{bank?.accountName}</Text>
@@ -161,9 +163,9 @@ const SellStepTwo = (props:any) => {
                                                 accountNumber: values.accountNumber.toString(),
                                                 code: newItem
                                             }
-                                            const response:any = await addBank(data)
+                                            const response:any = await addP2pSellAdsBank(data)
                                             if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                                fetchAllUsersBank.refetch()
+                                                getAddedBankSellType.refetch()
                                                 setDefaultTab(0)
                                                 appAlert.success(response?.data?.message)
                                             } else {
@@ -267,16 +269,15 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    const getAddedBanksIdValues = () => {
-        const ids = getAddedBankSellType?.data?.data?.map((item: any) => item._id)
-        for (let i = 0; i < ids.length; i++) {
-            banks.push(ids[i])
-        }
-    }
+    // const getAddedBanksIdValues = () => {
+    //     const ids = banks.map((item: any) => item._id)
+    //     for (let i = 0; i < ids.length; i++) {
+    //         banks.push(ids[i])
+    //     }
+    // }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        getAddedBanksIdValues()
         handleNextStep()
     }
 
@@ -359,22 +360,38 @@ const SellStepTwo = (props:any) => {
                             
                             <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
                                 {/* rendering the data */}
-                                {getAddedBankSellType.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBankSellType?.data?.data?.map((item:any) => (
-                                        <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                            {item?.name.substring(0, 13)}
-                                            <CloseIcon
-                                                mr="5px"
-                                                color={"#000000"}
-                                                w={"10px"}
-                                                h={"10px"}
-                                                cursor="pointer"
-                                            />
-                                        </Flex>        
-                                    ))
-                                )}
+                                {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
+                                    banks?.map((item: any) => {
+                                        return (
+                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item.name.substring(0, 13)}
+                                                <CloseIcon
+                                                    mr="5px"
+                                                    color={"#000000"}
+                                                    w={"10px"}
+                                                    h={"10px"}
+                                                    cursor="pointer"
+                                                />
+                                            </Flex>        
+                                        ) 
+                                        
+                                    } 
+                                    )) : (filteredBanks(banks, "id")).map((item:any) => (
+                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item.name.substring(0, 13)}
+                                                <CloseIcon
+                                                    mr="5px"
+                                                    color={"#000000"}
+                                                    w={"10px"}
+                                                    h={"10px"}
+                                                    cursor="pointer"
+                                                />
+                                            </Flex> 
+                                        ))
+                                }
+                                
 
-                                {getAddedBankSellType?.data?.data?.length >= 5 ? (
+                                {banks?.length >= 5 ? (
                                     <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
                                         <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                                             <AddIcon
@@ -436,7 +453,7 @@ const SellStepTwo = (props:any) => {
                                 <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
                                     Previous
                                 </Button>
-                                <Button borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={handleNextStep}>
+                                <Button type="submit" borderRadius={"5px"}  bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
                                     Next
                                 </Button>
                             </Flex>
@@ -461,7 +478,7 @@ const SellStepTwo = (props:any) => {
                     <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
                         Previous
                     </Button>
-                    <Button borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} onClick={handleNextStep}>
+                    <Button borderRadius={"5px"} type="submit" ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
                         Next
                     </Button>
                 </Flex>

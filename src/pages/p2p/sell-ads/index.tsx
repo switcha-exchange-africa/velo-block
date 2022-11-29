@@ -27,7 +27,7 @@ const SellAds = () => {
     }
 
     const [values, setValues] = useState(initialValues)
-    const [banks] = useState<any>([])
+    const [banks, setBanks] = useState<any>([])
 
     
     const handleNextStep = () => {
@@ -62,6 +62,7 @@ const SellAds = () => {
                         values={values}
                         setValues={setValues}
                         banks={banks}
+                        setBanks={setBanks}
                     />
                 )
             }

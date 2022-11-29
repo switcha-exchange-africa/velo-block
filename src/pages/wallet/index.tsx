@@ -230,9 +230,9 @@ function WalletPage() {
                       gap="4"
                       color={"#FB5E04"}
                     >
-                      <Text fontSize={{ md: "md", base: 'sm' }}> {btcTotal.toLocaleString()} BTC</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}> {btcTotal.toFixed(8).toLocaleString()} BTC</Text>
                       <Text fontSize={{ md: "md", base: 'sm' }}>=</Text>
-                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {total.toLocaleString()}</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {total.toFixed(8).toLocaleString()}</Text>
                     </Box>
                   </Box>
                 </WrapItem>
@@ -324,7 +324,7 @@ function WalletPage() {
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {wallet.balance.toLocaleString()}
+                                {wallet.balance.toFixed(8).toLocaleString()}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
