@@ -9,14 +9,14 @@ import {
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useAddBankMutation, useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
+    const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
     const changeIndexOfTab = () => {
@@ -52,120 +52,34 @@ const SellStepTwo = (props:any) => {
     
     
     const {data:getBanks} = useGetNigerianBankQuery()
-    // const [addBank] = useAddBankMutation()
-    const fetchAllUsersBank = useGetUsersBankQuery()
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
-
-    // console.log("first", fetchAllUsersBank.data)
-    // console.log("second", getAddedBankSellType.data)
-    // console.log(" thus is  ", banks)
-
-    // const [addedBank, setAddedBank] = useState<any>([])
-    // const dataBank:any = []
+    
+    
     const handleSelect = async (value: any) => {
         const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
-        // console.log("bank added", findBankCode)
-
         const body = {
             name: findBankCode?.name,
             codes: findBankCode?.code,
             accountName: findBankCode?.accountName,
             accountNumbering: findBankCode?.accountNumber,
             id: findBankCode?._id
-        }        
-
-        
-
-        // setBanks([...new Map(bank.map(v => [v.id, ]))])
-        // const uniqueIds = []
-        
+        }       
         setBanks((selectedBank:any) => [...selectedBank, body])
-        // const unique = banks.filter((element: any) => {
-        //     const isDuplicate = dataBank.includes(element.id)
-
-        //     if (!isDuplicate) {
-        //         dataBank.push(element.id)
-
-        //         return true
-        //     }
-
-        //     return false
-        // })
-
-        // setAddedBank(unique)
-
-        // const ids = addedBank.map((o: any) => o.id)
-        // const filtered = addedBank.filter(({id}:any, index:any) => !ids.includes(id, index + 1))
-        // console.log("this is fily=ed ", filtered)
-        // setBanks(filtered)
-        // console.log("added banks", banks)
-        // console.log("new o", addedBank)
-        // const myNextAddedBank = [...banks];
-        // const addedBank = myNextAddedBank.find(
-        //     a => a.id === value
-        // )
-
-        // console.log("this is added bank", addedBank)
-        // artwork.seen = nextSeen;
-        // setMyList(myNextList);
-
-        // setBanks(banks.map((bank:any) => {
-        //     if (value === findBankCode?._id) {
-        //         return {
-        //             ...bank,
-        //             body
-        //         }
-        //     } else {
-        //         return bank
-        //     }
-        // }))
-
-        // console.log("yeah ", banks)
-   
-        
-    //     const resp:any = await addP2pSellAdsBank(body)
-    //     if (resp?.data?.status === 200) {
-    //         appAlert.success(resp?.data?.message)
-    //         getAddedBankSellType.refetch()
-    //         onClose()
-    //     } else {
-    //         appAlert.error(resp?.error?.data?.message)
-    //     }
+        appAlert.success("Bank Selected")
+        onClose()
     }
-
-    // const filteredBanks = (arr: any) => {
-    //     // arr.filter((el:any) => {
-    //     //     const duplicate = seen.has(el.id)
-    //     //     seen.add(el.id)
-    //     //     return !duplicate
-    //     // })
-
-    //     // const output = new Set(arr)
-    //     // console.log(output)
-    //     const result = arr.reduce((finalArray, current) => {
-    //         let obj = finalArray.find((item) => item.id === current.id)
-
-    //         if (obj) {
-    //             return finalArray
-    //         }
-
-    //         return finalArray.concat([current])
-    //     }, [])
-        
-    //     return result
     
-    // }
-
-    function filteredBanks(arr:any, comp:any) {
+    function filteredBanks(arr: any, comp: any) {
         const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
         return unique
-  }
+    }
 
     
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
+
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg" motionPreset='none'>
                 <ModalOverlay />
@@ -355,17 +269,15 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    const getAddedBanksIdValues = () => {
-        const ids = getAddedBankSellType?.data?.data?.map((item: any) => item._id)
-        for (let i = 0; i < ids.length; i++) {
-            banks.push(ids[i])
-        }
-    }
+    // const getAddedBanksIdValues = () => {
+    //     const ids = banks.map((item: any) => item._id)
+    //     for (let i = 0; i < ids.length; i++) {
+    //         banks.push(ids[i])
+    //     }
+    // }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        getAddedBanksIdValues()
-        console.log("values", values)
         handleNextStep()
     }
 
@@ -448,8 +360,8 @@ const SellStepTwo = (props:any) => {
                             
                             <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
                                 {/* rendering the data */}
-                                {banks.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
-                                    banks.map((item: any) => {
+                                {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
+                                    banks?.map((item: any) => {
                                         return (
                                             <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
                                                 {item.name.substring(0, 13)}
@@ -479,18 +391,7 @@ const SellStepTwo = (props:any) => {
                                 }
                                 
 
-                                {/* <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                    {item?.name.substring(0, 13)}
-                                    <CloseIcon
-                                        mr="5px"
-                                        color={"#000000"}
-                                        w={"10px"}
-                                        h={"10px"}
-                                        cursor="pointer"
-                                    />
-                                </Flex> */}
-
-                                {getAddedBankSellType?.data?.data?.length >= 5 ? (
+                                {banks?.length >= 5 ? (
                                     <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
                                         <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                                             <AddIcon

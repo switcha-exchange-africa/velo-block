@@ -1,9 +1,9 @@
-    import {  QuestionOutlineIcon } from '@chakra-ui/icons';
-    import {
-        Box, Button, Flex,
-        HStack, Modal, ModalBody, ModalCloseButton,
-        ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl, Spinner
-    } from '@chakra-ui/react';
+import {  QuestionOutlineIcon } from '@chakra-ui/icons';
+import {
+    Box, Button, Flex,
+    HStack, Modal, ModalBody, ModalCloseButton,
+    ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl, Spinner
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
@@ -54,12 +54,14 @@ const SellStepThree = (props: any) => {
             minLimit: parseInt(values.minLimit),
             maxLimit: parseInt(values.maxLimit),
             highestPriceOrder: parseInt("1000"),
-            banks: banks,
+            banks: banks.map((item:any) => item.id),
             kyc: kyc,
             moreThanDot1Btc: moreThanDot1Btc,
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
+        console.log(data)
+
         const response: any = await postP2pBuyAds(data)
         console.log("this is the main ", response)
         if (response?.data?.status == 201) {
@@ -155,9 +157,9 @@ const SellStepThree = (props: any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBanks?.data?.data?.map((item:any) => (
+                                    banks.map((item:any) => (
                                         <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name}, &nbsp; </Text>
                                         </Flex>        
                                     ))
                                 )}
