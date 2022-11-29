@@ -23,6 +23,14 @@ export const s3Client = new S3Client({
     }
 });
 
+export const s3Config = {
 
+  bucketName:  `switcha-production`,
+  // dirName: 'directory-name',      /* Optional */
+  region: "fra1",
+  accessKeyId:`${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
+  secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
+  // s3Url: 'https:/your-aws-s3-bucket-url/'     /* Optional */
+}
 
 
