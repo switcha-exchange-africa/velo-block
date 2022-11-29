@@ -41,7 +41,7 @@ const Level3Verification = () => {
 
     const uploadObject = async () => {
         const params = {
-            Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
+            Bucket: `switcha-production/kyc/${process.env.NEXT_PUBLIC_NODE_ENV}`, // The path to the directory you want to upload the object to, starting with your Space name.
             Key: uuid(), // Object key, referenced whenever you want to access this file later.
             Body: idImage, // The object's contents. This variable is an object, not a string.
             ACL: "public-read", // Defines ACL permissions, such as private or public.
@@ -56,7 +56,7 @@ const Level3Verification = () => {
             const data:any = await s3Client.send(new PutObjectCommand(params))
             
             if (data) {
-                const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
+                const imageUrl = `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}`
                 const kycResponse:any = await addLevelThreeKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
