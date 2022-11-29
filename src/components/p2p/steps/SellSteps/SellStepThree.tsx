@@ -49,11 +49,11 @@ const SellStepThree = (props: any) => {
             remark: remark,
             paymentTimeLimit: values.paymentTimeLimit,
             priceType: priceType,
-            price: parseInt(price),
-            totalAmount: parseInt(values.totalAmount),
-            minLimit: parseInt(values.minLimit),
-            maxLimit: parseInt(values.maxLimit),
-            highestPriceOrder: parseInt("1000"),
+            price: parseFloat(price),
+            totalAmount: parseFloat(values.totalAmount),
+            minLimit: parseFloat(values.minLimit),
+            maxLimit: parseFloat(values.maxLimit),
+            highestPriceOrder: parseFloat("1000"),
             banks: banks.map((item:any) => item.id),
             kyc: kyc,
             moreThanDot1Btc: moreThanDot1Btc,
@@ -122,7 +122,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseInt(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -131,11 +131,11 @@ const SellStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseInt(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseInt(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseFloat(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseFloat(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseInt(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseFloat(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
 
