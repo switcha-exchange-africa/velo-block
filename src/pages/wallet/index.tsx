@@ -324,7 +324,7 @@ function WalletPage() {
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {wallet.balance.toLocaleString()}
+                                {wallet.balance.toFixed(8).toLocaleString()}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
