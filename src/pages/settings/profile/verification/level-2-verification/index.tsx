@@ -77,7 +77,7 @@ const Level2Verification = () => {
             //     params.Key
             // )
             if (data) {
-                const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
+                const imageUrl =`${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}` 
                 const kycResponse:any = await addLevelTwoKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
