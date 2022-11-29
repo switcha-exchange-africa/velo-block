@@ -30,6 +30,7 @@
     "next": "12.2.5",
     "qrcode": "^1.5.1",
     "react": "18.2.0",
+    "react-aws-s3-typescript": "^1.1.4",
     "react-copy-to-clipboard": "^5.1.0",
     "react-countdown": "^2.3.2",
     "react-currency-formatter": "^1.1.0",
