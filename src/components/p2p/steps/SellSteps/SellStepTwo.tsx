@@ -61,7 +61,8 @@ const SellStepTwo = (props:any) => {
     // console.log("second", getAddedBankSellType.data)
     // console.log(" thus is  ", banks)
 
-    const [addedBank, setAddedBank] = useState<any>([])
+    // const [addedBank, setAddedBank] = useState<any>([])
+    // const dataBank:any = []
     const handleSelect = async (value: any) => {
         const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
         // console.log("bank added", findBankCode)
@@ -74,15 +75,32 @@ const SellStepTwo = (props:any) => {
             id: findBankCode?._id
         }        
 
-
-        setAddedBank((selectedBank:any) => [...selectedBank, body])
         
-        const ids = addedBank.map((o: any) => o.id)
-        const filtered = addedBank.filter(({id}:any, index:any) => !ids.includes(id, index + 1))
 
-        setBanks(filtered)
-        console.log("added banks", banks)
-        console.log("new o", addedBank)
+        // setBanks([...new Map(bank.map(v => [v.id, ]))])
+        // const uniqueIds = []
+        
+        setBanks((selectedBank:any) => [...selectedBank, body])
+        // const unique = banks.filter((element: any) => {
+        //     const isDuplicate = dataBank.includes(element.id)
+
+        //     if (!isDuplicate) {
+        //         dataBank.push(element.id)
+
+        //         return true
+        //     }
+
+        //     return false
+        // })
+
+        // setAddedBank(unique)
+
+        // const ids = addedBank.map((o: any) => o.id)
+        // const filtered = addedBank.filter(({id}:any, index:any) => !ids.includes(id, index + 1))
+        // console.log("this is fily=ed ", filtered)
+        // setBanks(filtered)
+        // console.log("added banks", banks)
+        // console.log("new o", addedBank)
         // const myNextAddedBank = [...banks];
         // const addedBank = myNextAddedBank.find(
         //     a => a.id === value
@@ -103,7 +121,7 @@ const SellStepTwo = (props:any) => {
         //     }
         // }))
 
-        console.log("yeah ", banks)
+        // console.log("yeah ", banks)
    
         
     //     const resp:any = await addP2pSellAdsBank(body)
@@ -115,6 +133,36 @@ const SellStepTwo = (props:any) => {
     //         appAlert.error(resp?.error?.data?.message)
     //     }
     }
+
+    // const filteredBanks = (arr: any) => {
+    //     // arr.filter((el:any) => {
+    //     //     const duplicate = seen.has(el.id)
+    //     //     seen.add(el.id)
+    //     //     return !duplicate
+    //     // })
+
+    //     // const output = new Set(arr)
+    //     // console.log(output)
+    //     const result = arr.reduce((finalArray, current) => {
+    //         let obj = finalArray.find((item) => item.id === current.id)
+
+    //         if (obj) {
+    //             return finalArray
+    //         }
+
+    //         return finalArray.concat([current])
+    //     }, [])
+        
+    //     return result
+    
+    // }
+
+    function filteredBanks(arr:any, comp:any) {
+        const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
+        return unique
+  }
+
+    
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -400,21 +448,36 @@ const SellStepTwo = (props:any) => {
                             
                             <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
                                 {/* rendering the data */}
-                                {/* {getAddedBankSellType.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBankSellType?.data?.data?.map((item:any) => (
-                                        <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                            {item?.name.substring(0, 13)}
-                                            <CloseIcon
-                                                mr="5px"
-                                                color={"#000000"}
-                                                w={"10px"}
-                                                h={"10px"}
-                                                cursor="pointer"
-                                            />
-                                        </Flex>        
-                                    ))
-                                )} */}
-
+                                {banks.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
+                                    banks.map((item: any) => {
+                                        return (
+                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item.name.substring(0, 13)}
+                                                <CloseIcon
+                                                    mr="5px"
+                                                    color={"#000000"}
+                                                    w={"10px"}
+                                                    h={"10px"}
+                                                    cursor="pointer"
+                                                />
+                                            </Flex>        
+                                        ) 
+                                        
+                                    } 
+                                    )) : (filteredBanks(banks, "id")).map((item:any) => (
+                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item.name.substring(0, 13)}
+                                                <CloseIcon
+                                                    mr="5px"
+                                                    color={"#000000"}
+                                                    w={"10px"}
+                                                    h={"10px"}
+                                                    cursor="pointer"
+                                                />
+                                            </Flex> 
+                                        ))
+                                }
+                                
 
                                 {/* <Flex key={item._id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
                                     {item?.name.substring(0, 13)}
