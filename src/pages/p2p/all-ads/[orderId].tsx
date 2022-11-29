@@ -28,9 +28,9 @@ const NotifyTraders = () => {
     // console.log("how are you? ")
     // console.log("isRelease open ", isReleaseOpen)
 
-    console.log("what is this result ", orderDetail?.data)
+    // console.log("what is this result ", orderDetail?.data)
 
-    console.log(orderDetail)
+    // console.log(orderDetail)
 
     // const [currentPage, setCurrentPage] = useState(1)
     // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
