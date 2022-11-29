@@ -200,7 +200,7 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'sell' ? <Flex>
+                            {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy' ? <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                     onNotifyOpen()}>Transfered and Notify Seller </Text>
 
@@ -217,7 +217,7 @@ const NotifyTraders = () => {
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
                             </Flex>}
 
-                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type != 'sell' &&
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type != 'buy' &&
                                 <Flex flexDirection={'column'} pt={'6'}>
                                     <Flex alignItems={'center'}>
                                         <Text fontSize={'sm'} pr={'1'}>To be released</Text>
