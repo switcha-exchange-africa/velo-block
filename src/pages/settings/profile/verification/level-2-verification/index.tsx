@@ -44,7 +44,7 @@ const Level2Verification = () => {
     const uploadObject = async () => {
         const params = {
             Bucket: `switcha-production`, // The path to the directory you want to upload the object to, starting with your Space name.
-            Key: uuid(), // Object key, referenced whenever you want to access this file later.
+            Key: `${uuid()}.png`, // Object key, referenced whenever you want to access this file later.
             Body: idImage, // The object's contents. This variable is an object, not a string.
             ACL: "public-read", // Defines ACL permissions, such as private or public.
             ContentType: "image/png",
