@@ -43,7 +43,7 @@ const Level2Verification = () => {
     // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
         const params = {
-            Bucket: `switcha-production/kyc/${process.env.NEXT_PUBLIC_NODE_ENV}`, // The path to the directory you want to upload the object to, starting with your Space name.
+            Bucket: `switcha-production`, // The path to the directory you want to upload the object to, starting with your Space name.
             Key: uuid(), // Object key, referenced whenever you want to access this file later.
             Body: idImage, // The object's contents. This variable is an object, not a string.
             ACL: "public-read", // Defines ACL permissions, such as private or public.
@@ -77,7 +77,7 @@ const Level2Verification = () => {
             //     params.Key
             // )
             if (data) {
-                const imageUrl = `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}`
+                const imageUrl = `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/kyc/level-two/${process.env.NEXT_PUBLIC_NODE_ENV}/${params.Key}`
                 const kycResponse: any = await addLevelTwoKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
