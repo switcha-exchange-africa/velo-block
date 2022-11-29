@@ -200,14 +200,14 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy' ? <Flex>
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type === 'buy' ? <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                     onNotifyOpen()}>Transfered and Notify Seller </Text>
 
                                 <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
                                 <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                            </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && <Flex>
+                            </Flex> : orderDetail?.data?.data?.status.toLowerCase() == 'processing' && <Flex>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                     onClick={() => onReleaseOpen()}
                                 >Comfirm Release</Text>
