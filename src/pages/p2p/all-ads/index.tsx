@@ -234,48 +234,6 @@ const AllAds = () => {
             </Tabs>
             
             
-            {/* <Flex direction={{ base: "column", md: "row" }} fontWeight="700" fontSize={{ base: "16px", md: "20px" }} justifyContent="flex-end" gap="63px" pr="250px" display={{ base: "none", md: "flex" }} alignItems="center" position="fixed" bg="black" color="white" zIndex="40" left="200px" py="15px" top="60px" w="100%">
-                <Flex alignItems="center">
-                    <Image height="20px" width="20px" src={Ads} alt="ads icon" />
-                    <Text ml="5px" color="#FB5E04">My Ads</Text>
-                </Flex>
-                <Flex alignItems="center">
-                    <Image height="20px" width="20px" src={Orders} alt="orders icon" />
-                    <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
-                </Flex>
-                <Flex alignItems="center">
-                    <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
-                        <Image  src={More} alt="more icon" />
-                    </Flex>
-                    <Text ml="5px"> More</Text>
-                </Flex>
-            </Flex> */}
-            
-            {/* for mobile */}
-            {/* <Flex direction={{ base: "column", md: "row" }} display={{base: "flex", md: "none"}}  position="fixed" bg="white" zIndex="40" left="0" px="20px" pb="5px" top="60px" w="100%">
-                <Flex h="25px">
-                    <Text onClick={() => router.back()}>P2P</Text>
-                    <Divider orientation="vertical" mx="12px" border="1px solid #8E9BAE" />
-                    <Text> Express</Text>
-                </Flex>
-
-                <Flex justifyContent="flex-end" mt="5px" gap="40px" fontWeight="700">
-                   <Flex alignItems="center">
-                        <Image height="20px" width="20px" src={Ads} alt="ads icon" />
-                        <Text ml="5px" color="#FB5E04">My Ads</Text>
-                    </Flex>
-                    <Flex alignItems="center">
-                        <Image height="20px" width="20px" src={mobileOrders} alt="orders icon" />
-                        <Text ml="5px" cursor="pointer" onClick={handleMerchantOrderRoute}> Orders</Text>
-                    </Flex>
-                    <Flex alignItems="center">
-                        <Flex justifyContent="center" alignItems="center" height="18px" width="18px">
-                            <Image  src={mobileMore} alt="more icon" />
-                        </Flex>
-                        <Text ml="5px"> More</Text>
-                    </Flex>
-                </Flex>
-            </Flex> */}
             
             
             
