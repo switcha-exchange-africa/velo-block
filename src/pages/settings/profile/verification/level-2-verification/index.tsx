@@ -11,13 +11,9 @@ import MainAppButton from '../../../../../components/buttons/MainAppButton'
 import remoteImages from "../../../../../constants/remoteImages"
 import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
 import { useAddLevelTwoKycMutation, useGetVerificationStatusQuery } from "../../../../../redux/services/kyc.service"
-import { s3Client, s3Config } from "../../../../api/config"
+import { s3Client } from "../../../../api/config"
 import uuid from 'react-uuid';
 import appAlert from "../../../../../helpers/appAlert"
-
-import ReactS3Client from 'react-aws-s3-typescript';
-// import { s3Config } from './s3Config.ts';
-
 
 const Level2Verification = () => {
     const Router = useRouter()
@@ -44,70 +40,6 @@ const Level2Verification = () => {
     
 
 
-    const uploadFile = async () => {
-        /* Import s3 config object and call the constrcutor */
-        const s3 = new ReactS3Client(s3Config);
-
-        /* You can use the default directory defined in s3Config object
-        * Or you can a define custom directory to upload when calling the
-        * constructor using js/ts object destructuring.
-        * 
-        * const s3 = new ReactS3Client({
-        *      ...s3Config,
-        *      dirName: 'custom-directory'
-        * });
-        * 
-        */
-
-        const filename = 'filename-to-be-uploaded';     /* Optional */
-
-        /* If you do not specify a file name, file will be uploaded using uuid generated 
-        * by short-UUID (https://www.npmjs.com/package/short-uuid)
-        */
-
-        try {
-            // const res = await s3.uploadFile(file, filename);
-
-            console.log(res);
-            /*
-            * {
-            *   Response: {
-            *     bucket: "bucket-name",
-            *     key: "directory-name/filename-to-be-uploaded",
-            *     location: "https:/your-aws-s3-bucket-url/directory-name/filename-to-be-uploaded"
-            *   }
-            * }
-            */
-
-            // const imageUrl = `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/kyc/level-two/${process.env.NEXT_PUBLIC_NODE_ENV}/${params.Key}`
-            //     const kycResponse: any = await addLevelTwoKyc(imageUrl)
-            //     if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
-            //         appAlert.success(kycResponse?.data?.message)
-            //         setLoading(false)
-            //         levelTwoVerificationStatus.refetch()
-            //         Router.back()
-            //     } else {
-            //         setLoading(false)
-            //         appAlert.error(kycResponse?.data?.message)
-            //     }
-        } catch (exception) {
-            console.log(exception);
-            /* handle the exception */
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
         const params = {
@@ -125,25 +57,7 @@ const Level2Verification = () => {
                     
         
         try {
-            // console.log("S3 consfig")
-        //     console.log({
-        //     endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
-        //     forcePathStyle: false,
-        //     region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
-        //     credentials: {
-        //         accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-        //         secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
-        //     }
-        // })
-        // console.log(s3Client)
             const data:any = await s3Client.send(new PutObjectCommand(params))
-            // console.log("DATA", data, params)
-            // console.log(
-            // "Successfully uploaded object: " +process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+
-            //     params.Bucket +
-            //     "/" +
-            //     params.Key
-            // )
             if (data) {
                 const imageUrl =`${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}` 
                 const kycResponse:any = await addLevelTwoKyc(imageUrl)
