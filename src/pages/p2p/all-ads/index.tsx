@@ -304,7 +304,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Th pl="0" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
                                 <Flex direction="column"  height="50px">
                                     <Text>Available Amount</Text>
-                                    <Text>Completed Trade QTY</Text>
+                                    {/* <Text>Completed Trade QTY</Text> */}
                                     <Text>Limit</Text>
                                 </Flex>
                             </Th>
@@ -442,7 +442,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                     <Flex justifyContent="space-between" mt="10px">
                         <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
                             <Text>Available Amount</Text>
-                            <Text>Completed Trade QTY</Text>
+                            {/* <Text>Completed Trade QTY</Text> */}
                             <Text mb="11px">Limit</Text>
 
                             <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
