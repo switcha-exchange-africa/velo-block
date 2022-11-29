@@ -23,7 +23,7 @@ const Level3Verification = () => {
     const levelThreeVerificationStatus = useGetVerificationStatusQuery("three")
     const [loading, setLoading] = useState(false)
 
-    const fileInputRef = useRef<any>()
+    const fileInputRef = useRef<any>()    
     const [idImage, setIdImage] = useState<any>(null)
     const [previewIdImage, setPreviewIdImage] = useState<any>("")
     useEffect(() => {
@@ -41,8 +41,8 @@ const Level3Verification = () => {
 
     const uploadObject = async () => {
         const params = {
-            Bucket: `switcha-production`, // The path to the directory you want to upload the object to, starting with your Space name.
-            Key: `${uuid()}.png`, // Object key, referenced whenever you want to access this file later.
+            Bucket: "switcha-production", // The path to the directory you want to upload the object to, starting with your Space name.
+            Key: uuid(), // Object key, referenced whenever you want to access this file later.
             Body: idImage, // The object's contents. This variable is an object, not a string.
             ACL: "public-read", // Defines ACL permissions, such as private or public.
             ContentType: "image/png",
@@ -53,11 +53,11 @@ const Level3Verification = () => {
         setLoading(true)
 
         try {
-            const data: any = await s3Client.send(new PutObjectCommand(params))
-
+            const data:any = await s3Client.send(new PutObjectCommand(params))
+            
             if (data) {
-                const imageUrl = `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/kyc/level-three/${process.env.NEXT_PUBLIC_NODE_ENV}/${params.Key}`
-                const kycResponse: any = await addLevelThreeKyc(imageUrl)
+                const imageUrl =`${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}` 
+                const kycResponse:any = await addLevelThreeKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)
                     setLoading(false)
@@ -68,7 +68,7 @@ const Level3Verification = () => {
                     appAlert.error(kycResponse?.data?.message)
                 }
             }
-        } catch (err: any) {
+        } catch (err:any) {
             setLoading(false)
             appAlert.error(err?.message)
         }
@@ -147,9 +147,9 @@ const Level3Verification = () => {
                         {!idImage ? (
                             <Img src='/assets/svgs/scanIcon.svg' alt='' />
                         ) : (
-                            <Img src={previewIdImage} alt='image from gallery' />
-                        )}
-
+                            <Img src={previewIdImage} alt='image from gallery' />    
+                       )}
+                        
                     </Flex>
                     <Flex w={"100%"} flexDirection={'column'} alignItems={"start"}>
                         <UnorderedList mt={'2rem'} >
@@ -176,35 +176,35 @@ const Level3Verification = () => {
                                         <Button
                                             onClick={(e) => {
                                                 e.preventDefault()
-                                                fileInputRef?.current?.click()
+                                                fileInputRef?.current?.click()        
                                             }}
                                             mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px">Import from gallery
                                             <Img src={remoteImages.folderIcon} alt='' pl={'1rem'} />
                                         </Button>
 
                                         {idImage && (
-                                            <Button ml="20px" mt={'4'} bg={'transparent'} px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
+                                            <Button ml="20px" mt={'4'} bg={'transparent'}  px="5px" color={'primaryColor.900'} border='1px' borderColor='primaryColor.900' fontSize="14px" onClick={handleUpload}>
                                                 Upload
                                             </Button>
                                         )}
                                     </Flex>
                                 )}
-
-
+                                
+                        
                                 <input
-                                    style={{ display: "none" }}
+                                    style={{display: "none"}}
                                     type="file"
                                     ref={fileInputRef}
                                     accept="image/*"
-                                    onChange={(e: any) => {
-                                        const file = e?.target?.files[0]
-                                        if (file && file?.type?.substr(0, 5) === "image") {
-                                            setIdImage(file)
-                                        }
-                                        else {
+                                    onChange={(e:any) => {
+                                        const file = e?.target?.files[0] 
+                                            if (file && file?.type?.substr(0, 5) === "image") {
+                                                setIdImage(file)
+                                            } 
+                                            else {
                                             setIdImage(null)
                                         }
-                                    }}
+                                        }}    
                                     required
                                 />
 
