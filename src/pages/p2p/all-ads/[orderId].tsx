@@ -18,17 +18,17 @@ import remoteImages from '../../../constants/remoteImages';
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
-    console.log(orderId)
+    // console.log(orderId)
 
     // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
-    console.log("how are you? ")
-    console.log("isRelease open ", isReleaseOpen)
+    // console.log("how are you? ")
+    // console.log("isRelease open ", isReleaseOpen)
 
-    console.log("what is this result ", orderDetail?.data)
+    // console.log("what is this result ", orderDetail?.data)
 
     // console.log(orderDetail)
 
