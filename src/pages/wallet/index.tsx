@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import {Round} from "react-lodash"
+// import { Round } from "react-lodash";
+// import round from 'lodash/round'
+import _ from "lodash"
+
+
 import {
   Box,
   Heading,
@@ -11,16 +15,13 @@ import {
   WrapItem,
   Flex,
   Spinner,
-} from "@chakra-ui/react";
-import {
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableContainer,
-
+  TableContainer
 } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
@@ -134,8 +135,9 @@ function WalletPage() {
   // const dispatch = useAppDispatch()
 
   const to8Dp = (number: any) => {
-    const data = <Round number={number} precision={8} />
-    return data.props.number.toLocaleString()
+    const datas = _.round(number, 8)
+    const values = datas.toLocaleString()
+    return values
   }
 
 

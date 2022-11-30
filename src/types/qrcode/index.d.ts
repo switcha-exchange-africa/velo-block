@@ -1,2 +1,1 @@
-declare module 'qrcode'
-declare module "react-lodash"
+declare module 'qrcode';

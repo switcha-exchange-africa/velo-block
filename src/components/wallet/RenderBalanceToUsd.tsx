@@ -1,5 +1,5 @@
 import React from 'react'
-import {Round} from "react-lodash"
+import _ from "lodash"
 
 
 import { Text } from '@chakra-ui/react'
@@ -9,9 +9,11 @@ const RenderBalanceToUsd = ({ balance, coin }: any) => {
     const [convertCoins] = useLazyConvertQuery()
     const [convertedValue, setConvertedValue] = React.useState(0)
 
+    
     const to8Dp = (number: any) => {
-        const data = <Round number={number} precision={8} />
-        return data.props.number.toLocaleString()
+        const datas = _.round(number, 8)
+        const values = datas.toLocaleString()
+        return values
     }
 
     
