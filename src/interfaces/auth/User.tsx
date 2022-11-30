@@ -7,5 +7,6 @@ export interface User {
     fullName?: string;
     authStatus?: string;
     lock?: string;
-    emailVerified?: boolean
+    emailVerified?: boolean;
+    _id?: any
 }

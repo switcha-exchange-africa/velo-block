@@ -39,9 +39,9 @@ const AllAds = () => {
     console.log("user id is ", user?._id)
 
     console.log(merchantOrders.data)
-    const [pageNumber, setPageNumber] = useState(1)
+    const [pageNumber, setPageNumber] = useState("1")
 
-    const getAllAds = useGetP2pAllAdsQuery("63504ec4925f7b152ff97101", pageNumber)
+    const getAllAds = useGetP2pAllAdsQuery({userId: user?.id, pageNumber: pageNumber})
 
     console.log("get ads ", getAllAds.data)
 
