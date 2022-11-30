@@ -1,6 +1,6 @@
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input, Tabs, TabList, Tab} from "@chakra-ui/react"
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Input, Tabs, TabList, Tab, HStack} from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 // import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-import {  useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
+// import {  useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 import Ads from "../../../../public/assets/svgs/ads.svg"
 import Orders from "../../../../public/assets/svgs/orders.svg"
 import More from "../../../../public/assets/svgs/more.svg"
@@ -33,15 +33,22 @@ const AllAds = () => {
     const [orderType, setOrderType] = useState(`Buy/Sell`)
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
-    const merchantOrders = useGetP2pOrderForMerchantsQuery()
+    // const merchantOrders = useGetP2pOrderForMerchantsQuery()
     const { user } = useAppSelector((state) => state.auth)
-
-    const [pageNumber, setPageNumber] = useState("1")
-
+    const [pageNumber, setPageNumber] = useState(1)
+    
+    
     const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
 
-    console.log("get ads ", getAllAds.data)
+    // console.log("get ads ", getAllAds.data)
+    
+    const handlePreviousPage = () => {
+        setPageNumber(pageNumber - 1)
+    }
 
+    const handleNextPage = () => {
+        setPageNumber(pageNumber + 1)
+    }
 
 
 
@@ -214,6 +221,28 @@ const AllAds = () => {
                                 </Flex>
                             )}
 
+                            <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+                                <HStack >
+                                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                                        {getAllAds?.data?.pagination?.currentPage}
+                                    </Box>
+                                    <Text>of</Text>
+                                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                                        {getAllAds?.data?.pagination?.lastPage}
+                                    </Box>
+                                </HStack>
+
+                                <HStack>
+                                    <Button onClick={handlePreviousPage} disabled={getAllAds?.data?.pagination?.currentPage === 1}>
+                                        Prev
+                                    </Button>
+                                    <Button onClick={handleNextPage} disabled={getAllAds?.data?.pagination?.hasNext === false}>
+                                        Next
+                                    </Button>    
+                                </HStack>
+                            </HStack>
+
+
                             </Flex>
                         </>
                     ) : (
@@ -318,7 +347,7 @@ export const RenderOrderComponent = ({ data }: any) => {
 
                     
                     <Tbody bg="white" mt="20px" >
-                        {data.map((ad: any) => (
+                        {data?.map((ad: any) => (
                             <>
                                 <Tr w="100%" height="24px" key={ad?._id}></Tr>
                                     <Tr>
@@ -386,7 +415,7 @@ export const RenderOrderComponent = ({ data }: any) => {
 
         
             {/* mobile */}
-            {data.map((ad: any) => (
+            {data?.map((ad: any) => (
                 <Flex key={ad?._id} direction="column"  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
                     <Flex justifyContent="space-between">
                         <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
