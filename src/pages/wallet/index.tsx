@@ -135,7 +135,7 @@ function WalletPage() {
 
   const to8Dp = (number: any) => {
     const data = <Round number={number} precision={8} />
-    return data
+    return data.props.number.toLocaleString()
   }
 
 
@@ -330,7 +330,7 @@ function WalletPage() {
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {wallet.balance.toLocaleString()}
+                                {to8Dp(wallet.balance)}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
