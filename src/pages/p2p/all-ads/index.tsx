@@ -211,7 +211,11 @@ const AllAds = () => {
                     
                                 </Flex>
                                 
-                                {getAllAds?.data && <RenderOrderComponent data={getAllAds?.data?.data} />}
+                            {getAllAds?.data?.data.length !== 0 ? <RenderOrderComponent data={getAllAds?.data?.data} /> : (
+                                <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                                    <Text fontSize="20px" fontWeight="700" color={'#64748B'}>You Don't Have Any Ads Yet</Text>
+                                </Flex>
+                            )}
 
                             </Flex>
                         </>
@@ -385,8 +389,7 @@ export const RenderOrderComponent = ({ data }: any) => {
 
         
             {/* mobile */}
-            {data.length !== 0 ? data.map((ad: any) => (
-            // <Show below='sm' key="">
+            {data.map((ad: any) => (
                 <Flex key={ad?._id} direction="column"  display={{base: "flex", md: "none"}} justifyContent={'space-between'} my={'25px'} p={'3'} bg={'white'} boxShadow={'md'} borderRadius={'sm'}>
                     <Flex justifyContent="space-between">
                         <Flex direction="column" textAlign={"left"} fontWeight={'medium'} color="#8E9BAE" fontSize="14px">
@@ -461,8 +464,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                     </Flex>
 
                 </Flex>
-            // </Show> 
-            )) : "You Don't Have Any Order Yet"}
+            ))}
  
         </Box>
     )
