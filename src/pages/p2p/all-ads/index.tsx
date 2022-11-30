@@ -378,7 +378,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                             <Flex direction="column" height="100px" >
                                                 <Text mb="11px">Bank Transfer</Text>
                                                 {/* <Text >{ad?.bank[0]}</Text> */}
-                                            {ad?.bank?.filter((item, index)=> index < 2).map(filterItem => {
+                                            {ad?.bank?.filter((item:any, index:any)=> index < 2).map((filterItem:any )=> {
 
                                                 return <Text key={filterItem?._id}>{filterItem?.name}</Text>
                                             })}
