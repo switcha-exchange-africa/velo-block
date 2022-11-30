@@ -35,10 +35,7 @@ const AllAds = () => {
     const [statusType, setStatusType] = useState(`All Status`)
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
     const { user } = useAppSelector((state) => state.auth)
-    
-    console.log("user id is ", user?._id)
 
-    console.log(merchantOrders.data)
     const [pageNumber, setPageNumber] = useState("1")
 
     const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
