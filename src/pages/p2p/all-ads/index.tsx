@@ -40,7 +40,7 @@ const AllAds = () => {
     
     const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
 
-    console.log(getAllAds.data)
+    // console.log(getAllAds.data)
     
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
@@ -378,7 +378,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                                             <Flex direction="column" height="100px" >
                                                 <Text mb="11px">Bank Transfer</Text>
                                                 {/* <Text >{ad?.bank[0]}</Text> */}
-                                            {ad?.bank?.filter((item:any, index:any)=> index < 2).map((filterItem:any )=> {
+                                            {ad?.bank?.filter((index:any)=> index < 2).map((filterItem:any )=> {
 
                                                 return <Text key={filterItem?._id}>{filterItem?.name}</Text>
                                             })}
