@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs} from '@chakra-ui/react'
+import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Text} from '@chakra-ui/react'
 import TableComponent from '../../table/TableContainer'
 import {useGetSellAdsQuery} from "../../../redux/services/p2p-ads.service";
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
@@ -34,7 +34,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
-                    ) : "NO SELL ADS YET"}
+                    ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                 </TabPanel>
                 {/* Tab panel 2 */}
                 <TabPanel px={["0", "0px", "28px", "28px"]}>
@@ -46,7 +48,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
-                    ) : "NO SELL ADS YET"}
+                    ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                 </TabPanel>
                 {/* Tab panel 3 */}
                 <TabPanel px={["0", "0px", "28px", "28px"]}>
@@ -58,7 +62,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
-                    ) : "NO SELL ADS YET"}            
+                    ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}            
                 </TabPanel>
                 {/* Tab panel 4 */}
                 <TabPanel px={["0", "0px", "28px", "28px"]}>
@@ -70,7 +76,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
-                    ) : "NO SELL ADS YET"}
+                    ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                               
                 </TabPanel>
 
@@ -84,7 +92,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             handlePreviousPage = { handlePreviousPage }
                             handleNextPage={handleNextPage}
                         />      
-                    ) : "NO SELL ADS YET"}
+                    ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                               
                 </TabPanel>
             </TabPanels>

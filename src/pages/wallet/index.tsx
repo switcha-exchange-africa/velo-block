@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+// import { Round } from "react-lodash";
+// import round from 'lodash/round'
+import _ from "lodash"
+
 
 import {
   Box,
@@ -11,16 +15,13 @@ import {
   WrapItem,
   Flex,
   Spinner,
-} from "@chakra-ui/react";
-import {
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableContainer,
-
+  TableContainer
 } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
@@ -133,6 +134,12 @@ function WalletPage() {
 
   // const dispatch = useAppDispatch()
 
+  const to8Dp = (number: any) => {
+    const datas = _.round(number, 8)
+    const values = datas.toLocaleString()
+    return values
+  }
+
 
 
   useEffect(() => {
@@ -210,6 +217,7 @@ function WalletPage() {
   return (
     <DashboardLayout title="
     Wallet">
+
       <Box w={'full'} p={{ md: '8', base: '' }}>
         <Box>
           <Box
@@ -230,9 +238,9 @@ function WalletPage() {
                       gap="4"
                       color={"#FB5E04"}
                     >
-                      <Text fontSize={{ md: "md", base: 'sm' }}> {btcTotal.toFixed(8).toLocaleString()} BTC</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}> {to8Dp(btcTotal)} BTC</Text>
                       <Text fontSize={{ md: "md", base: 'sm' }}>=</Text>
-                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {total.toFixed(8).toLocaleString()}</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {to8Dp(total)}</Text>
                     </Box>
                   </Box>
                 </WrapItem>
@@ -324,7 +332,7 @@ function WalletPage() {
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {wallet.balance.toFixed(8).toLocaleString()}
+                                {to8Dp(wallet.balance)}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
