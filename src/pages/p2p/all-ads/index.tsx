@@ -23,6 +23,8 @@ import mobileOrders from "../../../../public/assets/svgs/mobileOrders.svg"
 import unselectedMobileOrders from "../../../../public/assets/svgs/unselectedmobileads.svg"
 import mobileMore from "../../../../public/assets/svgs/mobileMore.svg"
 import P2pOrders from '../../../components/p2p/allAds/P2pOrders'
+import { useGetP2pAllAdsQuery } from '../../../redux/services/p2p-ads.service'
+import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 
 
 const AllAds = () => {
@@ -32,6 +34,20 @@ const AllAds = () => {
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
     const merchantOrders = useGetP2pOrderForMerchantsQuery()
+    const { user } = useAppSelector((state) => state.auth)
+    
+    console.log("user id is ", user?._id)
+
+    console.log(merchantOrders.data)
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const getAllAds = useGetP2pAllAdsQuery("63504ec4925f7b152ff97101", pageNumber)
+
+    console.log("get ads ", getAllAds.data)
+
+
+
+
 
     const [tabIndex, setTabIndex] = useState(0)
 
@@ -195,7 +211,7 @@ const AllAds = () => {
                     
                                 </Flex>
                                 
-                                {merchantOrders?.data && <RenderOrderComponent data={merchantOrders?.data?.data} />}
+                                {getAllAds?.data && <RenderOrderComponent data={getAllAds?.data?.data} />}
 
                             </Flex>
                         </>
@@ -307,23 +323,23 @@ export const RenderOrderComponent = ({ data }: any) => {
                                     <Tr>
                                         <Td fontSize="14px" color="#000000" fontWeight="600" >
                                             <Flex direction="column" h="100px">
-                                                <Text mb="11px">{ad?.adId}</Text>
-                                                <Text mb="11px" textTransform="uppercase" color={ad?.ad[0]?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.ad[0]?.type}</Text>
-                                                <Text mb="11px">{ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin} / {ad?.ad[0]?.cash}</Text>
+                                                <Text mb="11px">{ad?._id}</Text>
+                                                <Text mb="11px" textTransform="uppercase" color={ad?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.type}</Text>
+                                                <Text mb="11px">{ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin} / {ad?.cash}</Text>
                                             </Flex>
                                         </Td>
 
                                         <Td pl="0" fontSize="14px" color="#000000" pt="0" pb="0" fontWeight="600" >
                                             <Flex direction="column" height="100px"  justifyContent="flex-start" alignItems="flex-start">
-                                                <Text mb="11px">{ad?.totalAmount?.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
-                                                {/* <Text mb="11px">{ad?.quantity.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text> */}
-                                                <Text mb="11px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
+                                                <Text mb="11px">{ad?.totalAmount?.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text>
+                                                {/* <Text mb="11px">{ad?.quantity.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text> */}
+                                                <Text mb="11px">{ad?.minLimit.toLocaleString()} - {ad?.maxLimit.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text>
                                             </Flex>
                                         </Td>
 
                                         <Td pl="0" fontSize="14px" color="#000000" fontWeight="600" pt="0" pb="0">
                                             <Flex  height="100px"  direction="column" >
-                                                <Text mb="11px">{ad?.ad[0]?.price.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                                                <Text mb="11px">{ad?.price.toLocaleString()} {ad?.cash}</Text>
                                                 <Text mb="11px">--</Text>
                                             </Flex>
                                         </Td>
@@ -331,22 +347,22 @@ export const RenderOrderComponent = ({ data }: any) => {
                                         <Td pl="0" fontSize="12px">
                                             <Flex direction="column" height="100px" >
                                                 <Text mb="11px">Bank Transfer</Text>
-                                                <Text >{ad?.ad[0]?.bank[0]?.name}</Text>
-                                                <Text>{ad?.ad[0]?.bank[1]?.name}</Text>
+                                                {/* <Text >{ad?.bank[0]}</Text> */}
+                                                {/* <Text>{ad?.bank[1]}</Text> */}
                                             </Flex>
                                             
                                         </Td>
 
                                         <Td pl="0" fontSize="12px" >
                                             <Flex height="100px"  direction="column">
-                                                <Text mb="11px">{moment(ad?.ad[0]?.bank[1]?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
-                                                <Text mb="11px">{moment(ad?.ad[0]?.bank[1]?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                                <Text mb="11px">{moment(ad?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                                <Text mb="11px">{moment(ad?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
                                             </Flex>
                                         </Td>
 
                                         <Td pl="0" fontSize="14px" fontWeight="600">
                                             <Flex height="100px"  direction="column">
-                                                <Text mb="11px" textTransform="capitalize">{ad?.ad[0]?.status}</Text>
+                                                <Text mb="11px" textTransform="capitalize">{ad?.status}</Text>
                                             </Flex>
                                         </Td>
 
@@ -379,9 +395,9 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Asset/Fiat</Text>
 
                             <Flex direction="column" h="100px" fontSize="14px" color="#000000" fontWeight="600">
-                                <Text  mb="8px">{ad?.adId}</Text>
-                                <Text mb="8px" textTransform="uppercase" color={ad?.ad[0]?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.ad[0]?.type}</Text>
-                                <Text mb="8px">{ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin} / {ad?.ad[0]?.cash}</Text>
+                                <Text  mb="8px">{ad?._id}</Text>
+                                <Text mb="8px" textTransform="uppercase" color={ad?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'}>{ad?.type}</Text>
+                                <Text mb="8px">{ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin} / {ad?.cash}</Text>
                             </Flex>
                         
                         </Flex>
@@ -390,7 +406,7 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text>Price</Text>
 
                             <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
-                                <Text mb="8px">{ad?.ad[0]?.price.toLocaleString()} {ad?.ad[0]?.cash}</Text>
+                                <Text mb="8px">{ad?.price.toLocaleString()} {ad?.cash}</Text>
                                 <Text mb="8px">--</Text>
                             </Flex>
                         </Flex>
@@ -404,9 +420,9 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Limit</Text>
 
                             <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
-                                <Text mb="8x">{ad?.totalAmount?.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
-                                {/* <Text mb="8px">{ad?.quantity.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text> */}
-                                <Text mb="8px">{ad?.ad[0]?.minLimit.toLocaleString()} - {ad?.ad[0]?.maxLimit.toLocaleString()} {ad?.ad[0]?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.ad[0]?.coin}</Text>
+                                <Text mb="8x">{ad?.totalAmount?.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text>
+                                {/* <Text mb="8px">{ad?.quantity.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text> */}
+                                <Text mb="8px">{ad?.minLimit.toLocaleString()} - {ad?.maxLimit.toLocaleString()} {ad?.coin == 'USDT_TRON' ? 'USDT-TRON' : ad?.coin}</Text>
                             </Flex>
                         
                         </Flex>
@@ -415,8 +431,8 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Payment Method</Text>
                             <Flex direction="column" mt="20px" w="80%" height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
                                 <Text mb="8px">Bank Transfer</Text>
-                                <Text >{ad?.ad[0]?.bank[0]?.name}</Text>
-                                <Text >{ad?.ad[0]?.bank[1]?.name}</Text>
+                                {/* <Text >{ad?.bank[0]}</Text> */}
+                                {/* <Text >{ad?.bank[1]}</Text> */}
                             </Flex>
                         </Flex>
                     </Flex>
@@ -429,8 +445,8 @@ export const RenderOrderComponent = ({ data }: any) => {
                             <Text mb="11px">Create Time</Text>
 
                             <Flex direction="column"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-start">
-                                <Text mb="8px">{moment(ad?.ad[0]?.bank[1]?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
-                                <Text mb="8px">{moment(ad?.ad[0]?.bank[1]?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                <Text mb="8px">{moment(ad?.updatedAt).format('YYYY-MM-DD HH:mm')}</Text>
+                                <Text mb="8px">{moment(ad?.createdAt).format('YYYY-MM-DD HH:mm')}</Text>
                             </Flex>
                         </Flex>
 
