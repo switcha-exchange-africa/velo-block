@@ -40,7 +40,6 @@ const AllAds = () => {
     
     const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
 
-    // console.log("get ads ", getAllAds.data)
     
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
