@@ -59,7 +59,7 @@ const NotifyTraders = () => {
             {orderDetail?.isFetching ? <Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex> : <Flex flexDirection={'column'} w={'full'} alignItems={'center'} p={'4'}>
                 <Flex justifyContent={'space-between'} flexDirection={{ base: 'column', lg: 'row' }} w={'full'} bg={'#ffffff'} p={{ base: '2', md: '4' }}>
                     <Flex flexDirection={'column'} w={'full'} alignItems={'start'}>
-                        <Text fontWeight={'bold'} fontSize={'lg'}>{orderDetail?.data?.data?.ad[0]?.type == 'buy' ? 'Sell' : 'Buy'} {(orderDetail?.data?.data?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : orderDetail?.data?.data?.ad[0]?.coin)} {orderDetail?.data?.data?.ad[0]?.type == 'buy' ? 'to' : 'from'} {orderDetail?.data?.data?.merchant[0]?.firstName}</Text>
+                        <Text fontWeight={'bold'} fontSize={'lg'}>{orderDetail?.data?.data?.ad[0]?.type == 'buy' ? 'Sell' : 'Buy'} {(orderDetail?.data?.data?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : orderDetail?.data?.data?.ad[0]?.coin)} {orderDetail?.data?.data?.ad[0]?.type == 'buy' ? 'to' : 'from'} {orderDetail?.data?.data?.merchant[0]?.userName}</Text>
                         <Flex alignItems={'center'} pt={{ base: '2', md: '4' }}>
                             <Text fontSize={'sm'} color={'#64748B'}>The order is created, please wait for system confirmation.</Text>
                             <Text fontWeight={'medium'} fontSize={'sm'} color={'#ffffff'} ml={'2'} borderRadius={'md'} px={'2'} bg={orderDetail?.data?.data?.status.toLowerCase() != 'expired' ? 'primaryColor.900' : orderDetail?.data?.data?.status.toLowerCase() == 'completed' ? 'green' : 'gray.400'}>{orderDetail?.data?.data?.status.toLowerCase() == 'expired' ? 'Expired' : orderDetail?.data?.data?.status.toLowerCase() == 'completed' ? 'Completed' :
@@ -220,7 +220,6 @@ const NotifyTraders = () => {
                                         <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
                                     </Flex>
                                 </Flex>
-
                             }
 
                         </Box>}
@@ -232,8 +231,8 @@ const NotifyTraders = () => {
                                     <Flex alignItems={'center'} justifyContent={'center'} fontWeight={'medium'} fontSize={'md'} color={'#ffffff'} rounded={'full'} borderRadius={'full'} bg={'primaryColor.900'} w={'8'} h={'8'}>{orderDetail?.data?.data?.merchant[0]?.username[0]}</Flex>
                                     <Flex flexDirection={'column'} pl={'2'} w={'full'}>
                                         {/* the merchant firstName is used instead of their userName */}
-                                        <Text fontSize={'xs'} color={'primaryColor.900'}>{orderDetail?.data?.data?.merchant[0]?.firstName}</Text>
-                                        {/* {orderDetail?.data?.data?.merchant[0]?.firstName} */}
+                                        <Text fontSize={'xs'} color={'primaryColor.900'}>{orderDetail?.data?.data?.merchant[0]?.userName}</Text>
+                                        {/* {orderDetail?.data?.data?.merchant[0]?.userName} */}
                                         <Text fontSize={'xs'} >Verified Merchant</Text>
 
                                         <Flex justifyContent={'space-between'} pt={'2'} w={'full'}>
