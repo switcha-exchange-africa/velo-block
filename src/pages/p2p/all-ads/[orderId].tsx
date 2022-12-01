@@ -21,8 +21,7 @@ const NotifyTraders = () => {
     // console.log(orderId)
 
     // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
-    const { isOpen: isNotifyOpen, onOpen: onNotifyOp
-        en, onClose: onNotifyClose } = useDisclosure();
+    const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
@@ -172,7 +171,7 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {(orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy') ? (
+                            {(orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy') || (orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') ? (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                         onNotifyOpen()}>Transfered and Notify Seller </Text>
@@ -194,7 +193,7 @@ const NotifyTraders = () => {
                             )}
 
                             {/* I added this line of code to check for sell cases to notify seller */}
-                            {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type === 'buy') && (
+                            {/* {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') && (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                         onNotifyOpen()}>
@@ -205,7 +204,7 @@ const NotifyTraders = () => {
 
                                     <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                                 </Flex>
-                            )}
+                            )} */}
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type != 'buy' &&
                                 <Flex flexDirection={'column'} pt={'6'}>
