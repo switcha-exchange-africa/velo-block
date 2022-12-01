@@ -1,7 +1,5 @@
 import jwt_decode from "jwt-decode";
 export const checkValidToken = async (context: any) => {
-  //   console.log(context.req.cookies.SwitchaJWT);
-  // context.req.cookies
   const jwt = context.req.cookies.SwitchaJWT;
 
   if (!jwt) {

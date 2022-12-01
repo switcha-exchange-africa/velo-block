@@ -15,17 +15,23 @@ import RenderCoinsDropdown from '../select/RenderCoinsDropdown';
 
 const QuickBuyComponent = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade)
     const [creditCoin, setCreditCoin] = useState(coin ?? `BTC`)
     const [debitCoin, setDebitCoin] = useState(cash ?? `NGN`)
     const [amountt, setAmountt] = useState(amount ? `${amount}` : '0')
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
+
+    // const sum = isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0
+    // console.log(" naim be this o ", sum )
     // const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })
     // const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
-    const convertFromDebitCoin: any = useQuickTradeConvertQuery({ base: debitCoin.toLowerCase(), sub: creditCoin.toLowerCase() == 'btc' ? 'bitcoin' : creditCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
+    const convertFromDebitCoin: any = useQuickTradeConvertQuery({
+        base: debitCoin.toLowerCase(),
+        sub: creditCoin.toLowerCase() == 'btc' ? 'bitcoin' : creditCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether'
+    }, { refetchOnMountOrArgChange: true })
 
     const calculateQuickBuyFees: any = useCalculateTradeFeesQuery({ amount: amountt, operation: 'buy' }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
@@ -35,14 +41,25 @@ const QuickBuyComponent = () => {
 
     // const [quickTrade] = useQuickTradeMutation()
     const dispatch = useAppDispatch()
+
+    // console.log(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+
     return (
         <Flex flexDirection={'column'} p={'8'}>
             <Formik
                 initialValues={{ debitCoinValue: amount ?? '', creditCoinValue: creditCoinAmount ?? '' }}
-
-                onSubmit={async (values, { }) => {
-                    console.log(values)
-                    dispatch(setQuickBuyPayload({ amount: parseFloat(amountt), creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount, fee: calculateQuickBuyFees?.data?.data?.fee, cash: debitCoin, coin: creditCoin, rate: 'no rate for now' }))
+                
+                onSubmit={async () => {
+                    const data = {
+                        amount: parseFloat(amountt),
+                        // creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount,
+                        creditCoinAmount: calculateConversion(parseFloat(amountt)).toFixed(8),
+                        fee: calculateQuickBuyFees?.data?.data?.fee,
+                        cash: debitCoin,
+                        coin: creditCoin,
+                        rate: 'no rate for now'
+                    }
+                    dispatch(setQuickBuyPayload(data))
                     router.push('/quick-trade/confirm-purchase')
                 }}
                 validateOnChange
@@ -65,7 +82,7 @@ const QuickBuyComponent = () => {
                                     <FormControl isInvalid={form.errors.debitCoinValue && form.touched.debitCoinValue} pt='4'>
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>I want to pay</FormLabel>
                                         <InputGroup>
-                                            <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => {
+                                            <Input autoComplete='off' type="number" variant={'outline'} {...field} onChange={(e) => {
                                                 setFieldValue('debitCoinValue', e.target.value);
                                                 setAmountt(e.target.value)
                                                 // alert(amount)
@@ -79,10 +96,6 @@ const QuickBuyComponent = () => {
                                                 <Flex w={'full'} justifyContent={'flex-end'}>
                                                     {coinsByTypeFiat?.data?.data && <RenderCoinsDropdown items={coinsByTypeFiat?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
                                                 </Flex>
-
-
-
-
                                             </InputRightElement>
                                         </InputGroup>
                                         <FormErrorMessage>{form.errors.debitCoinValue}</FormErrorMessage>

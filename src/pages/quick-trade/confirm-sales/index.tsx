@@ -64,7 +64,7 @@ const ConfirmSales = () => {
                             <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'sell' } }) }} />
                             <Text fontSize='lg' as='p' fontWeight={'light'} py={'2'} w={'full'} align={'center'} >Confirm Sales</Text>
                         </Flex>
-                        <Text fontSize='2xl' as='b' w={'full'} align={'center'} >{amount} {coin}</Text>
+                        <Text fontSize='2xl' as='b' w={'full'} align={'center'} >{amount} {coin=== "USDT_TRON" ? "USDT-TRON" : coin}</Text>
                         <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive <Currency
                             quantity={creditCoinAmount}
                             currency={cash}

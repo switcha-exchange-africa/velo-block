@@ -1,106 +1,89 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Tabs, TabPanels,  TabPanel , Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
 import moment from 'moment'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
-import RenderCoinsDropdown from '../../../components/select/RenderCoinsDropdown'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
-import { useGetP2pOrderFilterForClientQuery, useGetP2pOrderFilterForMerchantQuery } from '../../../redux/services/p2p.service'
+import {  useGetP2pOrderFilterForMerchantQuery } from '../../../redux/services/p2p.service'
+import RenderCoinComponent from '../../dashboard/wallet/RenderCoinComponent'
+import RenderCoinsDropdown from '../../select/RenderCoinsDropdown'
 
 
-const Orders = () => {
+const P2pOrders = () => {
     const [orderType, setOrderType] = useState(`buy/sell`)
-    const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
+    const {  coin } = useAppSelector((state) => state.quickTrade)
     const [statusType, setStatusType] = useState(`All Status`)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
-    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
-    // console
-
-
-    // const [coinType, setCoinType] = useState(`All Coins`)
-    // const clientOrders = useGetP2pOrderForClientsQuery()
-    // const merchantOrders = useGetP2pOrderForMerchantsQuery()
-    // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
-    // // useGetFilterForMerchantQuery
-    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus.data)
-
+    // console.log("what is this situation right now", filterMerchantOrderByTypeAndStatus)
+    
 
     return (
-        <DashboardLayout title='Orders'>
-             <Tabs variant='unstyled'>
-                <TabPanels>
-                    {/* Tab one */}
-                    <TabPanel p="0"> 
-                        <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
-                            <Flex gap="24px" cursor="pointer">
-                                <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
-                                    <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                                    <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
-                                        {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
-                                    </Flex>
-                                    
-                                </Flex>
+        <>
+             <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
+                <Flex gap="24px" cursor="pointer">
+                    <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
+                        <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
+                        <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
+                            {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
+                        </Flex>                        
+                    </Flex>
 
-                                <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                                    <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
-                                    
-                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
-                                        setOrderType(e.target.value);
-                                    }}>
-                                        <option value={'buy/sell'}>Buy/Sell</option>
-                                        <option value={'buy'}>Buy</option>
-                                        <option value={'sell'}>Sell</option>
-                                    </Select>
-                                </Flex>
-                                
-                                <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                                    <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                                    <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                                        setStatusType(e.target.value);
-                                    }}>
-                                        <option value={'All Status'}>All Status</option>
-                                        <option value={'pending'}>Pending</option>
-                                        <option value={'processing'}>Processing</option>
-                                        <option value={'completed'}>Completed</option>
-                                        <option value={'expired'}>Expired</option>
-                                    </Select>
-                                </Flex>
-                            </Flex>
-                            
-                            {filterClientOrderByTypeAndStatus?.data && filterMerchantOrderByTypeAndStatus?.data && <RenderOrderComponent data={isClientSelected ? filterClientOrderByTypeAndStatus?.data?.data : filterMerchantOrderByTypeAndStatus?.data?.data} />}
-
-                        </Flex>
+                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
+                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
                         
-                    </TabPanel>
-                </TabPanels>
-            </Tabs>
-
-            
-        </DashboardLayout>
+                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
+                            setOrderType(e.target.value);
+                        }}>
+                            <option value={'buy/sell'}>Buy/Sell</option>
+                            <option value={'buy'}>Buy</option>
+                            <option value={'sell'}>Sell</option>
+                        </Select>
+                    </Flex>
+                    
+                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
+                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
+                            setStatusType(e.target.value);
+                        }}>
+                            <option value={'All Status'}>All Status</option>
+                            <option value={'pending'}>Pending</option>
+                            <option value={'processing'}>Processing</option>
+                            <option value={'completed'}>Completed</option>
+                            <option value={'expired'}>Expired</option>
+                        </Select>
+                    </Flex>
+                </Flex>
+                
+                {filterMerchantOrderByTypeAndStatus?.data && <RenderOrderComponent data={filterMerchantOrderByTypeAndStatus?.data?.data} />}
+                        
+                
+            </Flex>            
+        </>
     )
 }
 
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        // // console.log(orderId)
+        // console.log(orderId)
 
         // const obj = data.find((obj:any) => obj?.orderId === orderId)
         // console.log(obj)
         // dispatch(setIsClientSelected({isClientSelected: true}))
-        router.push('/quick-trade/order/'+orderId)
+        // router.push('/p2p/order/' + orderId)
+        router.push('/p2p/all-ads/'+orderId)
     }
     
+    // console.log("aye ", data)
+
     return (
         <Box>
             {data.length !== 0 ? (
@@ -245,4 +228,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return checkValidToken(context)
 }
 
-export default Orders
+export default P2pOrders

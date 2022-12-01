@@ -24,9 +24,10 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
             // onOpen()
 
             const response: any = await notifyMerchant(id)
+            // console.log("this s  ", response)
             if (response?.data?.status == 200) {
                 // onOpen()
-
+                onClose()
                 // dispatch(setIsModalOpen({ isOpen: true }))
                 dispatch(resetQuickTradePayload())
             } else if (response?.data?.status == 401) {

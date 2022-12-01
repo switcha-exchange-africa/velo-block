@@ -31,7 +31,7 @@ const VerificationCode = () => {
     
 
     return (
-        <DashboardLayout title="Add bank account">
+        <DashboardLayout title="Verify password">
             <Box
                 background={"#F8FAFC"} height={"full"}
                 color="black" px={{ lg: "10%", base: '0' }} >

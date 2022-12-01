@@ -27,8 +27,6 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
     
     const addPrice = () => {
         setPrice((currentPrice: number)=>  currentPrice + 1)            
-        
-
     }
 
     const  minusPrice = () => {
@@ -37,12 +35,6 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // const data = {
-        //     coin,
-        //     withCash,
-        //     priceType,
-        //     price
-        // }
 
         handleNextStep()   
         
@@ -92,7 +84,7 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType
                                                     h={"10px"}
                                                 />    
                                             </Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦1,000</Text>
+                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
                                         </VStack>
                                     </HStack>
 

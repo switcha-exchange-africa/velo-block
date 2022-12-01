@@ -15,10 +15,8 @@ import { s3Client } from "../../../../api/config"
 import uuid from 'react-uuid';
 import appAlert from "../../../../../helpers/appAlert"
 
-
 const Level2Verification = () => {
     const Router = useRouter()
-
     const [addLevelTwoKyc] = useAddLevelTwoKycMutation()
     const levelTwoVerificationStatus = useGetVerificationStatusQuery("two")
     const [loading, setLoading] = useState(false)
@@ -39,6 +37,8 @@ const Level2Verification = () => {
         }
     }, [idImage])
 
+    
+
 
     // Step 4: Define a function that uploads your object using SDK's PutObjectCommand object and catches any errors.
     const uploadObject = async () => {
@@ -57,27 +57,9 @@ const Level2Verification = () => {
                     
         
         try {
-            // console.log("S3 consfig")
-        //     console.log({
-        //     endpoint: `${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}`, // Find your endpoint in the control panel, under Settings. Prepend "https://".
-        //     forcePathStyle: false,
-        //     region: "fra1", // Must be "us-east-1" when creating new Spaces. Otherwise, use the region in your endpoint (e.g. nyc3).
-        //     credentials: {
-        //         accessKeyId: `${process.env.NEXT_PUBLIC_DO_SPACES_ID}`,
-        //         secretAccessKey: `${process.env.NEXT_PUBLIC_SPACES_SECRET}`,
-        //     }
-        // })
-        // console.log(s3Client)
             const data:any = await s3Client.send(new PutObjectCommand(params))
-            // console.log("DATA", data, params)
-            // console.log(
-            // "Successfully uploaded object: " +process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+
-            //     params.Bucket +
-            //     "/" +
-            //     params.Key
-            // )
             if (data) {
-                const imageUrl = process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT+params.Bucket+"/"+params.Key
+                const imageUrl =`${process.env.NEXT_PUBLIC_DO_SPACES_ENDPOINT}/${params.Bucket}/${params.Key}` 
                 const kycResponse:any = await addLevelTwoKyc(imageUrl)
                 if (kycResponse?.data?.status === 202 || kycResponse?.data?.status === 200 || kycResponse?.data?.status === 201) {
                     appAlert.success(kycResponse?.data?.message)

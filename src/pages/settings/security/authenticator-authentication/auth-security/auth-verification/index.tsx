@@ -21,7 +21,6 @@ import { useGetUserQuery } from "../../../../../../redux/services/auth.service";
 
 const AuthVerification = () => {
     const { secretKey, url } = useAppSelector((state) => state.accountSettings)
-    // const [value, copy] = useCopyToClipboard()
     const [value, copy] = useCopyToClipboard()
     const router = useRouter();
     const [verify2fa] = useValid2faMutation()
@@ -33,21 +32,7 @@ const AuthVerification = () => {
             setQrSrc(data)
         })
     }, [])
-    
-    // const [show, setShow] = useState(true)
-
-    // useEffect(() => {
-    //     const timeId = setTimeout(() => {
-    //         setShow(false)
-    //     }, 2000)
-    //     return () => {
-    //         clearTimeout(timeId)
-    //     }
-    // }, [])
-
-    // console.log(value)
-    
-
+  
     const validateCode = (value: string, ) => {
         let error
         if (!value) {

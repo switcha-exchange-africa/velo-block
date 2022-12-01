@@ -1,9 +1,9 @@
-    import {  QuestionOutlineIcon } from '@chakra-ui/icons';
-    import {
-        Box, Button, Flex,
-        HStack, Modal, ModalBody, ModalCloseButton,
-        ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl, Spinner
-    } from '@chakra-ui/react';
+import {  QuestionOutlineIcon } from '@chakra-ui/icons';
+import {
+    Box, Button, Flex,
+    HStack, Modal, ModalBody, ModalCloseButton,
+    ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure,  Textarea, Checkbox, VStack, FormControl, Spinner
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
@@ -49,19 +49,21 @@ const SellStepThree = (props: any) => {
             remark: remark,
             paymentTimeLimit: values.paymentTimeLimit,
             priceType: priceType,
-            price: parseInt(price),
-            totalAmount: parseInt(values.totalAmount),
-            minLimit: parseInt(values.minLimit),
-            maxLimit: parseInt(values.maxLimit),
-            highestPriceOrder: parseInt("1000"),
-            banks: banks,
+            price: parseFloat(price),
+            totalAmount: parseFloat(values.totalAmount),
+            minLimit: parseFloat(values.minLimit),
+            maxLimit: parseFloat(values.maxLimit),
+            highestPriceOrder: parseFloat("1000"),
+            banks: banks.map((item:any) => item.id),
             kyc: kyc,
             moreThanDot1Btc: moreThanDot1Btc,
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
+        // console.log(data)
+
         const response: any = await postP2pBuyAds(data)
-        console.log("this is the main ", response)
+        // console.log("this is the main ", response)
         if (response?.data?.status == 201) {
             onClose()
             router.push("/p2p")
@@ -120,7 +122,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseInt(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
                             </VStack>
 
                         </HStack>
@@ -129,11 +131,11 @@ const SellStepThree = (props: any) => {
                         <HStack justifyContent="space-between" borderTop="1px solid #8E9BAE" borderBottom="1px solid #8E9BAE" mx="10px" py="12px">
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Order Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseInt(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseInt(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values ?  parseFloat(values?.minLimit)?.toLocaleString() : values?.minLimit}&nbsp;{coin} - {values?.maxLimit ? parseFloat(values.maxLimit).toLocaleString() : values?.maxLimit}&nbsp;{coin}</Text>
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Total Trading Amount</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseInt(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{values?.totalAmount ? parseFloat(values.totalAmount)?.toLocaleString() : values?.totalAmount}&nbsp;{coin}</Text>
                             </VStack>
                         </HStack>
 
@@ -155,9 +157,9 @@ const SellStepThree = (props: any) => {
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Method</Text>
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                                    getAddedBanks?.data?.data?.map((item:any) => (
+                                    banks.map((item:any) => (
                                         <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name},&nbsp;&nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name}, &nbsp; </Text>
                                         </Flex>        
                                     ))
                                 )}

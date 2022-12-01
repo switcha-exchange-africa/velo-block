@@ -1,7 +1,7 @@
 import { User } from "./User";
 
 export interface AuthState {
-    user: User | null;
+    user: User | null ;
     token: null | string;
     fptoken: null | string;
     fpemail: null | string;

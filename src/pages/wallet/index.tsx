@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+// import { Round } from "react-lodash";
+// import round from 'lodash/round'
+import _ from "lodash"
+
 
 import {
   Box,
@@ -11,16 +15,13 @@ import {
   WrapItem,
   Flex,
   Spinner,
-} from "@chakra-ui/react";
-import {
   Table,
   Thead,
   Tbody,
   Tr,
   Th,
   Td,
-  TableContainer,
-
+  TableContainer
 } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
@@ -118,15 +119,14 @@ function WalletPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false);
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
-  // const [amount, setAmount] = React.useState(1)
-  const [total, setTotal] = React.useState(0)
-  const [btcTotal, setBtcTotal] = React.useState(0)
-  // const [source, setSource] = React.useState('BTC')
-  // const [usdConvertedList, setUsdConvertedList] = React.useState<any>([])
+  // const [amount, setAmount] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [btcTotal, setBtcTotal] = useState(0)
+  // const [source, setSource] = useState('BTC')
+  // const [usdConvertedList, setUsdConvertedList] = useState<any>([])
 
 
   const walletsquery: any = useGetWalletsQuery()
-
   // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
 
   const [convertCoins] = useLazyConvertQuery()
@@ -134,9 +134,15 @@ function WalletPage() {
 
   // const dispatch = useAppDispatch()
 
+  const to8Dp = (number: any) => {
+    const datas = _.round(number, 8)
+    const values = datas.toLocaleString()
+    return values
+  }
 
 
-  React.useEffect(() => {
+
+  useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
 
     const convertCoinsToEquivalentUSD = async () => {
@@ -175,11 +181,10 @@ function WalletPage() {
 
       }
     }
-
     convertCoinsToEquivalentUSD()
   }, [convertCoins, walletsquery])
 
-  React.useEffect(() => {
+  useEffect(() => {
     // alert(JSON.stringify(walletsquery?.error?.data?.status))
     // setTotal(0)
 
@@ -197,7 +202,7 @@ function WalletPage() {
     onOpen();
   };
 
-  const btnRef = React.useRef(null);
+  const btnRef = useRef(null);
   const router = useRouter()
   const dispatch = useAppDispatch()
   // if (walletsquery?.isFetching) {
@@ -212,6 +217,7 @@ function WalletPage() {
   return (
     <DashboardLayout title="
     Wallet">
+
       <Box w={'full'} p={{ md: '8', base: '' }}>
         <Box>
           <Box
@@ -232,9 +238,9 @@ function WalletPage() {
                       gap="4"
                       color={"#FB5E04"}
                     >
-                      <Text fontSize={{ md: "md", base: 'sm' }}> {btcTotal.toLocaleString()} BTC</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}> {to8Dp(btcTotal)} BTC</Text>
                       <Text fontSize={{ md: "md", base: 'sm' }}>=</Text>
-                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {total.toLocaleString()}</Text>
+                      <Text fontSize={{ md: "md", base: 'sm' }}>$ {to8Dp(total)}</Text>
                     </Box>
                   </Box>
                 </WrapItem>
@@ -326,7 +332,7 @@ function WalletPage() {
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {wallet.balance.toLocaleString()}
+                                {to8Dp(wallet.balance)}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}

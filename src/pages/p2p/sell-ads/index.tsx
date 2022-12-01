@@ -27,7 +27,7 @@ const SellAds = () => {
     }
 
     const [values, setValues] = useState(initialValues)
-    const [banks] = useState<any>([])
+    const [banks, setBanks] = useState<any>([])
 
     
     const handleNextStep = () => {
@@ -62,6 +62,7 @@ const SellAds = () => {
                         values={values}
                         setValues={setValues}
                         banks={banks}
+                        setBanks={setBanks}
                     />
                 )
             }
@@ -84,7 +85,7 @@ const SellAds = () => {
 
     return (
         <DashboardLayout title="P2P Buy Ads">
-            <Box left={["0%", "0", "15%"]} py={["15px", "15px", "24px"]} top={"50px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
+            <Box left={["0%", "0", "200px"]} py={["15px", "15px", "24px"]} top={"60px"} bg={"white"} w={["100%", "100%", "84%"]} position={"fixed"} pl={["15px", "15px", "90px"]} zIndex="10">
                 <Text fontSize={["32px", "24px", "30px"]} fontWeight={"600"}>Post Normal Ads</Text>
             </Box>
             {/* shows the steper  */}

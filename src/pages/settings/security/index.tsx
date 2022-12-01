@@ -15,7 +15,7 @@ const Security = () => {
   const {data: getUser} = useGetUserQuery()
   
   return (
-    <DashboardLayout title="Security">
+    <DashboardLayout title="Settings">
       <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
         <Show above="md">
           <Button

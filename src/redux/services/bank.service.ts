@@ -34,6 +34,24 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    addP2pSellAdsBank: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `p2p/bank`,
+          method: "POST",
+          body: {
+            ...body,
+            isActive: true,
+            type: "sell",
+            isWillingToPayTo: true
+          }
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
     getAddedBank: builder.query<any, void>({
       query: () => `p2p/bank`,
       transformResponse: (responseData: any) => {
@@ -41,6 +59,19 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    getAddedBankSellType: builder.query<any, void>({
+      query: () => `p2p/bank/?type=sell`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    getAddedBankPagination: builder.query<any, any>({
+      query: ({arg}) => `/p2p/bank/?perpage=5&page=${arg}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
 
     // settings page bank addition
     addBank: builder.mutation<any, any>({
@@ -62,11 +93,6 @@ export const bankApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
-
-
-
-    
-
   }),
 });
 
@@ -75,7 +101,10 @@ export const {
   useGetBankByIdQuery,
   useLazyGetBankByIdQuery,
   useAddP2pBuyAdsBankMutation,
+  useAddP2pSellAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
-  useGetUsersBankQuery
+  useGetAddedBankSellTypeQuery,
+  useGetUsersBankQuery,
+  useGetAddedBankPaginationQuery
 } = bankApi;
