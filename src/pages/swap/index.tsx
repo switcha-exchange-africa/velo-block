@@ -43,8 +43,8 @@ const Swap = () => {
     
 
     const renderBalance:any = (coinName: any) => {
-        const obj:any = walletBalance.find((coin:any) => coin?.coin === coinName)
-        return obj?.balance?.toLocaleString()
+        const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString() || 0
     }
 
     
