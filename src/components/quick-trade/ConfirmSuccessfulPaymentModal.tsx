@@ -24,7 +24,7 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
             // onOpen()
 
             const response: any = await notifyMerchant(id)
-            console.log("this s  ", response)
+            // console.log("this s  ", response)
             if (response?.data?.status == 200) {
                 // onOpen()
                 onClose()

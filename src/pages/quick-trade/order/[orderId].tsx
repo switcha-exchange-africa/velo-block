@@ -30,7 +30,7 @@ const NotifyTraders = () => {
 
     // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
-    console.log("ths is the order details ", orderDetail.data)
+    // console.log("ths is the order details ", orderDetail.data)
 
     const today = moment().valueOf()
     // const handlePreviousPage = () => {

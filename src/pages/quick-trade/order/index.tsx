@@ -32,7 +32,7 @@ const Orders = () => {
     // const merchantOrders = useGetP2pOrderForMerchantsQuery()
     // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
     // // useGetFilterForMerchantQuery
-    console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus.data)
+    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus.data)
 
 
     return (

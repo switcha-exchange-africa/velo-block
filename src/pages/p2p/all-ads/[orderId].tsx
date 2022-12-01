@@ -28,7 +28,7 @@ const NotifyTraders = () => {
     // console.log("how are you? ")
     // console.log("isRelease open ", isReleaseOpen)
 
-    console.log("what is this result ", orderDetail?.data)
+    // console.log("what is this result ", orderDetail?.data)
 
     // console.log(orderDetail)
 
