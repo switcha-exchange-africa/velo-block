@@ -24,13 +24,15 @@ const Orders = () => {
     const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
+    // console
+
 
     // const [coinType, setCoinType] = useState(`All Coins`)
     // const clientOrders = useGetP2pOrderForClientsQuery()
     // const merchantOrders = useGetP2pOrderForMerchantsQuery()
     // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
     // // useGetFilterForMerchantQuery
-    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus)
+    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus.data)
 
 
     return (

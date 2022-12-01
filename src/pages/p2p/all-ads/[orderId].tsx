@@ -171,7 +171,7 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {(orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy') || (orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') ? (
+                            {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy')  ? (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                         onNotifyOpen()}>Transfered and Notify Seller </Text>
@@ -180,7 +180,7 @@ const NotifyTraders = () => {
 
                                     <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                                 </Flex>
-                            ) : orderDetail?.data?.data?.status.toLowerCase() == 'processing' && (
+                            ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
@@ -221,7 +221,7 @@ const NotifyTraders = () => {
                                 </Flex>
                             }
 
-                            {/* I added this also to remove it in step two
+                            {/* I added this also to remove it in step two */}
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing'  && orderDetail?.data?.data?.ad[0]?.type == 'buy' &&
                                 <Flex flexDirection={'column'} pt={'6'}>
                                     <Flex alignItems={'center'}>
@@ -235,7 +235,20 @@ const NotifyTraders = () => {
                                         <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
                                     </Flex>
                                 </Flex>
-                            } */}
+                            }
+
+                            {/* another condition */}
+                            {(orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'sell') && (
+                                <Flex>
+                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
+                                        onClick={() => onReleaseOpen()}
+                                    >
+                                        Comfirm Release</Text>
+                                        <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
+                                        <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
+                                    </Flex>
+                                )
+                            }
 
                         </Box>}
                     </Flex>
