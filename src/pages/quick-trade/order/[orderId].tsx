@@ -150,35 +150,6 @@ const NotifyTraders = () => {
                                             )
                                         })}
 
-                                        {/* <Text>Start from here</Text>
-                                        {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
-                                            return (
-                                                <div key={b}>
-                                                    <RenderAdBankDetails bankId={b} />
-                                                </div>
-                                            )
-                                        })} */}
-
-                                        {/* <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
-                                            <HStack >
-                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                                                    {getAddedBank?.data?.pagination?.currentPage}
-                                                </Box>
-                                                <Text>of</Text>
-                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                                                    {getAddedBank?.data?.pagination?.lastPage}
-                                                </Box>
-                                            </HStack>
-
-                                            <HStack>
-                                                <Button onClick={handlePreviousPage} disabled={getAddedBank?.data?.pagination?.currentPage === 1}>
-                                                    Prev
-                                                </Button>
-                                                <Button onClick={handleNextPage} disabled={getAddedBank?.data?.pagination?.hasNext === false}>
-                                                    Next
-                                                </Button>    
-                                            </HStack>
-                                        </HStack> */}
 
                                     </Flex>
                                 </Flex>
@@ -220,7 +191,6 @@ const NotifyTraders = () => {
                                         <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
                                     </Flex>
                                 </Flex>
-
                             }
 
                         </Box>}

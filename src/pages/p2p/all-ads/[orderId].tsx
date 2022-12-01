@@ -160,35 +160,6 @@ const NotifyTraders = () => {
                                             )
                                         })}
 
-                                        {/* <Text>Start from here</Text>
-                                        {getAddedBank?.data?.data && getAddedBank?.data?.data?.map((b: any) => {
-                                            return (
-                                                <div key={b}>
-                                                    <RenderAdBankDetails bankId={b} />
-                                                </div>
-                                            )
-                                        })} */}
-
-                                        {/* <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="10px" mt="35px" justifyContent="space-between" mb="10px">
-                                            <HStack >
-                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                                                    {getAddedBank?.data?.pagination?.currentPage}
-                                                </Box>
-                                                <Text>of</Text>
-                                                <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                                                    {getAddedBank?.data?.pagination?.lastPage}
-                                                </Box>
-                                            </HStack>
-
-                                            <HStack>
-                                                <Button onClick={handlePreviousPage} disabled={getAddedBank?.data?.pagination?.currentPage === 1}>
-                                                    Prev
-                                                </Button>
-                                                <Button onClick={handleNextPage} disabled={getAddedBank?.data?.pagination?.hasNext === false}>
-                                                    Next
-                                                </Button>    
-                                            </HStack>
-                                        </HStack> */}
 
                                     </Flex>
                                 </Flex>
@@ -200,22 +171,40 @@ const NotifyTraders = () => {
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
                             </Box>
-                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type === 'buy' ? <Flex>
-                                <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                    onNotifyOpen()}>Transfered and Notify Seller </Text>
+                            {(orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy') || (orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') ? (
+                                <Flex>
+                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
+                                        onNotifyOpen()}>Transfered and Notify Seller </Text>
 
-                                <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
+                                    <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
-                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                            </Flex> : orderDetail?.data?.data?.status.toLowerCase() == 'processing' && <Flex>
-                                <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
-                                    onClick={() => onReleaseOpen()}
-                                >Comfirm Release</Text>
+                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
+                                </Flex>
+                            ) : orderDetail?.data?.data?.status.toLowerCase() == 'processing' && (
+                                <Flex>
+                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
+                                        onClick={() => onReleaseOpen()}
+                                    >Comfirm Release</Text>
 
-                                <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
+                                    <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
-                                <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
-                            </Flex>}
+                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
+                                </Flex>
+                            )}
+
+                            {/* I added this line of code to check for sell cases to notify seller */}
+                            {/* {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') && (
+                                <Flex>
+                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
+                                        onNotifyOpen()}>
+                                        Transfered and Notify Seller
+                                    </Text>
+
+                                    <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
+
+                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
+                                </Flex>
+                            )} */}
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type != 'buy' &&
                                 <Flex flexDirection={'column'} pt={'6'}>
@@ -230,8 +219,23 @@ const NotifyTraders = () => {
                                         <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
                                     </Flex>
                                 </Flex>
-
                             }
+
+                            {/* I added this also to remove it in step two
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'processing'  && orderDetail?.data?.data?.ad[0]?.type == 'buy' &&
+                                <Flex flexDirection={'column'} pt={'6'}>
+                                    <Flex alignItems={'center'}>
+                                        <Text fontSize={'sm'} pr={'1'}>To be released</Text>
+                                        <Text fontSize={'sm'} color={'primaryColor.900'}>{(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) > today ? <RenderTimer timeRemaining={(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) - today} /> : '00:00'}</Text>
+                                    </Flex>
+                                    <Text py={'2'} fontSize={'xs'}>Expected to receive assets in {moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')} minutes</Text>
+                                    <Flex >
+                                        <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Appeal</Text>
+                                        <Text px={'2'} cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>|</Text>
+                                        <Text cursor={'pointer'} fontSize={'xs'} color={'primaryColor.900'}>Cancel Order</Text>
+                                    </Flex>
+                                </Flex>
+                            } */}
 
                         </Box>}
                     </Flex>
