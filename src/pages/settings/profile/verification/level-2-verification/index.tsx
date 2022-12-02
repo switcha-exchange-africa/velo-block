@@ -203,7 +203,6 @@ const Level2Verification = () => {
                                     accept="image/*"
                                     onChange={(e:any) => {
                                         const file = e?.target?.files[0] 
-                                        
                                         if (file && file?.type?.substr(0, 5) === "image" && file?.size < 2500000) {
                                             setIdImage(file)
                                         } else if (file?.size > 2500000) {
