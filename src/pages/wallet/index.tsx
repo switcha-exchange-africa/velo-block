@@ -136,7 +136,7 @@ function WalletPage() {
 
   const to8Dp = (number: any) => {
     const datas = _.round(number, 8)
-    const values = datas.toLocaleString()
+    const values = datas?.toLocaleString()
     return values
   }
 
@@ -151,16 +151,16 @@ function WalletPage() {
       if (walletsquery?.data?.data) {
         for (let i = 0; i < walletsquery?.data?.data?.length; i++) {
           const wallet = walletsquery?.data?.data[i]
-          // alert(JSON.stringify(wallet.coin))
-          // setSource(wallet.coin)
-          if (wallet.balance == 0) {
-            convToUsd.push({ coin: wallet.coin, usdValue: 0 })
+          // alert(JSON.stringify(wallet?.coin))
+          // setSource(wallet?.coin)
+          if (wallet?.balance == 0) {
+            convToUsd.push({ coin: wallet?.coin, usdValue: 0 })
           } else {
-            const convert = await convertCoins({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }).unwrap()
-            // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, }))
+            const convert = await convertCoins({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }).unwrap()
+            // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }, { forceRefetch: true, }))
             // alert(JSON.stringify(convertCoinsToEquivalentUSD))
-            // setAmount(wallet.balance)
-            // setSource(wallet.coin)
+            // setAmount(wallet?.balance)
+            // setSource(wallet?.coin)
             const usdValue = convert?.data?.destinationAmount?.destinationAmount
             // alert(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
             // appAlert.warning(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
@@ -296,16 +296,16 @@ function WalletPage() {
                   </Thead>
                   <Tbody background={"#fff"}>
                     {walletsquery.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : walletsquery?.data?.data?.map((wallet: any) => {
-                      // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet.balance, source: wallet.coin, destination: 'USDC' }, { forceRefetch: true, subscribe: false }))
-                      // // // setAmount(wallet.balance)
-                      // // // setSource(wallet.coin)
+                      // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }, { forceRefetch: true, subscribe: false }))
+                      // // // setAmount(wallet?.balance)
+                      // // // setSource(wallet?.coin)
                       // const usdValue = convertCoinsToUSD?.data?.data?.destinationAmount?.destinationAmount
 
                       // alert(JSON.stringify(convert))
 
 
                       return (
-                        <Tr key={wallet._id} >
+                        <Tr key={wallet?._id} >
                           <Td>
                             <Box
                               display={"flex"}
@@ -317,27 +317,27 @@ function WalletPage() {
                                 src={wallet.logo}
                                 size={{ md: "sm", base: 'xs' }}
                               /> */}
-                              <RenderCoinComponent coin={wallet.coin} />
+                              <RenderCoinComponent coin={wallet?.coin} />
                               <Box>
                                 <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                  {wallet.coin == 'USDT_TRON' ? 'USDT-TRON' : wallet.coin}
+                                  {wallet?.coin == 'USDT_TRON' ? 'USDT-TRON' : wallet?.coin}
                                 </Text>
                                 {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                   {wallet.label}
                                 </Text> */}
-                                <RenderLabelComponent coin={wallet.coin} />
+                                <RenderLabelComponent coin={wallet?.coin} />
                               </Box>
                             </Box>
                           </Td>
                           <Td>
                             <Box>
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
-                                {to8Dp(wallet.balance)}
+                                {to8Dp(wallet?.balance)}
                               </Text>
                               {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
                                 = {wallet.usdBalance}
                               </Text> */}
-                              <RenderBalanceToUsd coin={wallet.coin} balance={wallet.balance} />
+                              <RenderBalanceToUsd coin={wallet?.coin} balance={wallet?.balance} />
                             </Box>
                           </Td>
                           <Td>
@@ -348,7 +348,7 @@ function WalletPage() {
                                   fontSize={{ md: "sm", base: 'xs' }}
                                   fontWeight="500"
                                   color={"#FB5E04"}
-                                  onClick={() => { dispatch(setCoinOrCash({ fromWallet: wallet.coin })); router.push('/quick-trade') }}
+                                  onClick={() => { dispatch(setCoinOrCash({ fromWallet: wallet?.coin })); router.push('/quick-trade') }}
                                 >
                                   Trade
                                 </Text>
@@ -362,10 +362,10 @@ function WalletPage() {
                                   ref={btnRef}
                                   onClick={() => {
                                     handleClick(
-                                      wallet.address,
-                                      wallet.coin,
+                                      wallet?.address,
+                                      wallet?.coin,
                                       // supposed to be wallet.label
-                                      wallet.coin
+                                      wallet?.coin
                                     );
                                     setIsDepositDrawerOpen(true);
                                   }}
@@ -398,10 +398,10 @@ function WalletPage() {
                                   ref={btnRef}
                                   onClick={() => {
                                     handleClick(
-                                      wallet.address,
-                                      wallet.coin,
+                                      wallet?.address,
+                                      wallet?.coin,
                                       // supposed to be wallet.label
-                                      wallet.coin
+                                      wallet?.coin
                                     );
                                     setIsWithdrawalDrawerOpen(true);
                                   }}
@@ -471,12 +471,12 @@ function RecentTransaction() {
     <Box>
       {recentActivity.map((transaction) => {
         return (
-          <div key={transaction.id}>
+          <div key={transaction?.id}>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
               padding="12px 12px"
-              key={transaction.id}
+              key={transaction?.id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                 <Avatar
@@ -486,19 +486,19 @@ function RecentTransaction() {
                 />
                 <Box>
                   <Text fontSize="xs" fontWeight={"700"}>
-                    {transaction.label}
+                    {transaction?.label}
                   </Text>
                   <Text color={"#64748B"} fontSize="sm">
-                    {transaction.type}
+                    {transaction?.type}
                   </Text>
                 </Box>
               </Box>
               <Box>
                 <Text textAlign={"right"} color={"#6FD97A"} fontSize="xs">
-                  {transaction.amount}
+                  {transaction?.amount}
                 </Text>
                 <Text fontSize={"xs"} color={"#64748B"}>
-                  {transaction.date}
+                  {transaction?.date}
                 </Text>
               </Box>
             </Box>
