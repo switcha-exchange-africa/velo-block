@@ -9,9 +9,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-// import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-// import {  useGetP2pOrderForMerchantsQuery } from '../../../redux/services/p2p.service'
 import Ads from "../../../../public/assets/svgs/ads.svg"
 import Orders from "../../../../public/assets/svgs/orders.svg"
 import More from "../../../../public/assets/svgs/more.svg"
@@ -22,7 +20,6 @@ import SelectedMore from "../../../../public/assets/svgs/selectedMenu.svg"
 import mobileOrders from "../../../../public/assets/svgs/mobileOrders.svg"
 import unselectedMobileOrders from "../../../../public/assets/svgs/unselectedmobileads.svg"
 import mobileMore from "../../../../public/assets/svgs/mobileMore.svg"
-import P2pOrders from '../../../components/p2p/allAds/P2pOrders'
 import { useGetP2pAllAdsQuery } from '../../../redux/services/p2p-ads.service'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 
@@ -50,13 +47,14 @@ const AllAds = () => {
         setPageNumber(pageNumber + 1)
     }
 
-
-
-
     const [tabIndex, setTabIndex] = useState(0)
 
     const handleTabIndex = (index: number) => {
         setTabIndex(index)
+    }
+
+    const handleOrderRoute = () => {
+        router.push("/p2p/order")
     }
     
 
@@ -75,7 +73,7 @@ const AllAds = () => {
                             <Text ml="5px">My Ads</Text>
                         </Flex>
                     </Tab>
-                    <Tab _selected={{color: "#FB5E04", bg: "transparent"}} onClick={() => handleTabIndex(1)}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
+                    <Tab _selected={{color: "#FB5E04", bg: "transparent"}} onClick={handleOrderRoute}  fontWeight="700" fontSize={{ base: "16px", md: "20px" }} p="0">
                         <Flex alignItems="center">
                             {tabIndex === 1 ? (
                                 <Image height="20px" width="20px" src={SelectedOrders} alt="orders icon" />
@@ -120,7 +118,7 @@ const AllAds = () => {
                                 <Text ml="5px" >My Ads</Text>
                             </Flex>
                         </Tab>
-                        <Tab ml="5px" _selected={{color: "#FB5E04", bg: "transparent"}} color="black" onClick={() => handleTabIndex(1)} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
+                        <Tab ml="5px" _selected={{color: "#FB5E04", bg: "transparent"}} color="black" onClick={handleOrderRoute} fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                             <Flex alignItems="center" mt="30px">
                                 {tabIndex === 1 ? (
                                     <Image height="20px" width="20px" src={SelectedOrders} alt="orders icon" />
@@ -245,43 +243,9 @@ const AllAds = () => {
 
                             </Flex>
                         </>
-                    ) : (
-                        //Orders
-                        <>
-                            <Button
-                                onClick={() => router.back()}
-                                leftIcon={<ArrowBackIcon />}
-                                colorScheme="transparent"
-                                variant="solid"
-                                pl={0}
-                                ml="35px"
-                                mt="20px"
-                                py={"3rem"}
-                                color={'black'}
-                                display={{ base: 'none', md: 'block' }}
-                                mb={{base: "100px", md: "30px"}}
-                            >
-                                Back
-                            </Button>
-                            <Box  mt={{base: "100px", md: "30px"}}>
-                                <P2pOrders/>
-                            </Box>    
-                            
-                        </>
-
-                    )}
+                    ) : ""}
                     
-                    
-
-                {/* </TabPanels> */}
-
-
-
             </Tabs>
-            
-            
-            
-            
             
         </DashboardLayout>
     )

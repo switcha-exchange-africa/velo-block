@@ -22,9 +22,6 @@ const P2pOrders = () => {
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
-    // console.log("what is this situation right now", filterMerchantOrderByTypeAndStatus)
-    
-
     return (
         <>
              <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
@@ -73,17 +70,9 @@ const P2pOrders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        // console.log(orderId)
-
-        // const obj = data.find((obj:any) => obj?.orderId === orderId)
-        // console.log(obj)
-        // dispatch(setIsClientSelected({isClientSelected: true}))
-        // router.push('/p2p/order/' + orderId)
-        router.push('/p2p/all-ads/'+orderId)
+        router.push('/p2p/order/'+orderId)
     }
     
-    // console.log("aye ", data)
-
     return (
         <Box>
             {data.length !== 0 ? (
