@@ -143,7 +143,7 @@ const NotifyTraders = () => {
 
                                     <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                                 </Flex>
-                            ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && (
+                            ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'expired' && (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}

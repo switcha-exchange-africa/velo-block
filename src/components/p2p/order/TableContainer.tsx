@@ -3,9 +3,15 @@ import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react
 import { Button} from '@chakra-ui/react'
 import moment from 'moment'
 import RenderCoinComponent from '../../dashboard/wallet/RenderCoinComponent'
+import { useRouter } from 'next/router'
 
 
-export const TableContainerComponent = ({ data, handleClick }: any) => {    
+export const TableContainerComponent = ({ data}: any) => { 
+    const router = useRouter()
+    const handleClick = (orderId: string) => {
+        router.push('/p2p/order/'+orderId)
+    }
+    
     return (
         <>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
@@ -28,7 +34,8 @@ export const TableContainerComponent = ({ data, handleClick }: any) => {
                     </Thead>
                     {data.map((order: any) => (
                         <>
-                            <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
+                            
+                            <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px' position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
                                 <Text fontWeight={'medium'} color={order?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.type === 'buy' ? 'BUY' : 'SELL'}</Text>
                                 <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
                                 <Text fontSize={{ base: 'sm', md: 'md' }}>{order?.orderId}</Text>

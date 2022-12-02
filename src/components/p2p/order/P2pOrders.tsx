@@ -17,6 +17,8 @@ const P2pOrders = () => {
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+    
+
 
     return (
         <>
