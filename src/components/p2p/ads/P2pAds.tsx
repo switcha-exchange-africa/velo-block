@@ -2,8 +2,6 @@ import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
 import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
 import moment from 'moment'
 
-
-
 export const P2pAds = ({ data }: any) => {    
     return (
         <Box>
