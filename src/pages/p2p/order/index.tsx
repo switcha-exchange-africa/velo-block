@@ -12,6 +12,7 @@ import More from "../../../../public/assets/svgs/more.svg"
 import UnselectedAds from "../../../../public/assets/svgs/unselectedAds.svg"
 import SelectedOrders from "../../../../public/assets/svgs/selectedOrders.svg"
 import SelectedMore from "../../../../public/assets/svgs/selectedMenu.svg"
+import unselectedMobileOrders from "../../../../public/assets/svgs/unselectedmobileads.svg"
 import mobileMore from "../../../../public/assets/svgs/mobileMore.svg"
 import P2pOrders from '../../../components/p2p/order/P2pOrders'
 
@@ -66,7 +67,7 @@ const Order = () => {
                     <Flex w="100%" justifyContent="space-between">
                         <Tab  onClick={handleAdsRoute} color="black" fontWeight="700"  fontSize={{ base: "16px", md: "20px" }} p="0">
                             <Flex alignItems="center" mt="30px">
-                                <Image height="20px" width="20px" src={UnselectedAds} alt="ads icon" />
+                                <Image height="20px" width="20px" src={unselectedMobileOrders} alt="ads icon" />
                                 <Text ml="5px">My Ads</Text>
                             </Flex>
                         </Tab>
@@ -107,14 +108,7 @@ const Order = () => {
                 <Box  mt={{base: "100px", md: "30px"}}>
                     <P2pOrders/>
                 </Box>    
-                
-
             </Tabs>
-            
-            
-            
-            
-            
         </DashboardLayout>
     )
 }
