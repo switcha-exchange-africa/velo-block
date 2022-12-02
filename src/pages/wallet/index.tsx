@@ -113,13 +113,11 @@ const recentActivity = [
 ];
 
 function WalletPage() {
-
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isDepositDrawerOpen, setIsDepositDrawerOpen] = useState(false);
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
-  // const [amount, setAmount] = useState(1)
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
   // const [source, setSource] = useState('BTC')
@@ -127,10 +125,12 @@ function WalletPage() {
 
 
   const walletsquery: any = useGetWalletsQuery()
+  // console.log("walletsquery is this ", walletsquery)
+  
   // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
 
   const [convertCoins] = useLazyConvertQuery()
-  const [address, setAddress] = useState(walletsquery?.data?.data[0].address);
+  const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
   // const dispatch = useAppDispatch()
 
@@ -164,7 +164,7 @@ function WalletPage() {
             const usdValue = convert?.data?.destinationAmount?.destinationAmount
             // alert(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
             // appAlert.warning(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
-            convToUsd.push({ coin: wallet.coin, usdValue })
+            convToUsd.push({ coin: wallet?.coin, usdValue })
             if (usdValue) {
               localFuncTotal = localFuncTotal + usdValue
 
