@@ -52,7 +52,7 @@ const VerificationPage = () => {
             // await dispatch(sendOtp()).unwrap()
         }
         if (countDown < 0 && runTimer) {
-            console.log("expired");
+            // console.log("expired");
             // setRunTimer(false);
             // setCountDown(0);
             setCountDown(60 * 10);

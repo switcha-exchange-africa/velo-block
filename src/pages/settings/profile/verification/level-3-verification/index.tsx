@@ -199,15 +199,22 @@ const Level3Verification = () => {
                                     accept="image/*"
                                     onChange={(e:any) => {
                                         const file = e?.target?.files[0] 
-                                            if (file && file?.type?.substr(0, 5) === "image") {
-                                                setIdImage(file)
-                                            } 
-                                            else {
+                                        
+                                        if (file && file?.type?.substr(0, 5) === "image" && file?.size < 2500000) {
+                                            setIdImage(file)
+                                        } else if (file?.size > 2500000) {
+                                            e.target.value=""
+                                            appAlert.error("Select a file less than 2.5mb")
+                                            setIdImage(null)
+                                        } else {
+                                            e.target.value = ""
                                             setIdImage(null)
                                         }
-                                        }}    
+                                    }}    
                                     required
                                 />
+
+
 
 
                             </Flex>
