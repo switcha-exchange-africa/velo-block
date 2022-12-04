@@ -1,103 +1,17 @@
-import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
+import { Divider, Flex, Text } from '@chakra-ui/layout'
 import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
-import { Select } from '@chakra-ui/select'
 import moment from 'moment'
-import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
-import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
-import {  useGetP2pOrderFilterForMerchantQuery } from '../../../redux/services/p2p.service'
 import RenderCoinComponent from '../../dashboard/wallet/RenderCoinComponent'
-import RenderCoinsDropdown from '../../select/RenderCoinsDropdown'
+import { useRouter } from 'next/router'
 
 
-const P2pOrders = () => {
-    const [orderType, setOrderType] = useState(`buy/sell`)
-    const {  coin } = useAppSelector((state) => state.quickTrade)
-    const [statusType, setStatusType] = useState(`All Status`)
-    const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
-    const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
-
-    // console.log("what is this situation right now", filterMerchantOrderByTypeAndStatus)
-    
-
-    return (
-        <>
-             <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
-                <Flex gap="24px" cursor="pointer">
-                    <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                        <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
-                            {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
-                        </Flex>                        
-                    </Flex>
-
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
-                        
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
-                            setOrderType(e.target.value);
-                        }}>
-                            <option value={'buy/sell'}>Buy/Sell</option>
-                            <option value={'buy'}>Buy</option>
-                            <option value={'sell'}>Sell</option>
-                        </Select>
-                    </Flex>
-                    
-                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                            setStatusType(e.target.value);
-                        }}>
-                            <option value={'All Status'}>All Status</option>
-                            <option value={'pending'}>Pending</option>
-                            <option value={'processing'}>Processing</option>
-                            <option value={'completed'}>Completed</option>
-                            <option value={'expired'}>Expired</option>
-                        </Select>
-                    </Flex>
-                </Flex>
-                
-                {filterMerchantOrderByTypeAndStatus?.data && <RenderOrderComponent data={filterMerchantOrderByTypeAndStatus?.data?.data} />}
-                        
-                
-            </Flex>            
-        </>
-    )
-}
-
-export const RenderOrderComponent = ({ data }: any) => {
+export const TableContainerComponent = ({ data}: any) => { 
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        // console.log(orderId)
-
-        // const obj = data.find((obj:any) => obj?.orderId === orderId)
-        // console.log(obj)
-        // dispatch(setIsClientSelected({isClientSelected: true}))
-        // router.push('/p2p/order/' + orderId)
-        router.push('/p2p/all-ads/'+orderId)
+        router.push('/p2p/order/'+orderId)
     }
     
-    // console.log("aye ", data)
-
-    return (
-        <Box>
-            {data.length !== 0 ? (
-                <TableContainerComponent data={data} handleClick={handleClick} />
-            ) : (
-                <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="50px" py="100px">
-                    <Text fontSize="20px" fontWeight="700" color={'#64748B'}>You Don't Have Any Orders Yet</Text>
-                </Flex>
-            )}
-        </Box>
-    )
-}
-
-export const TableContainerComponent = ({ data, handleClick }: any) => {    
     return (
         <>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
@@ -120,7 +34,8 @@ export const TableContainerComponent = ({ data, handleClick }: any) => {
                     </Thead>
                     {data.map((order: any) => (
                         <>
-                            <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px'  position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
+                            
+                            <Flex key={order?._id} bg="#F8FAFC" w="100%" py='10px' position="absolute" alignItems={'center'} px={{ md: '4', base: '1' }} my="14px">
                                 <Text fontWeight={'medium'} color={order?.type === 'buy' ? 'rgba(34, 195, 107, 1)' : 'red'} fontSize={{ base: 'sm', md: 'md' }}>{order?.type === 'buy' ? 'BUY' : 'SELL'}</Text>
                                 <Divider orientation='vertical' mx={'2'} h={'4'} color={'#8E9BAE'} borderWidth={'thin'} />
                                 <Text fontSize={{ base: 'sm', md: 'md' }}>{order?.orderId}</Text>
@@ -222,10 +137,3 @@ export const TableContainerComponent = ({ data, handleClick }: any) => {
         
     )
 }
-
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    return checkValidToken(context)
-}
-
-export default P2pOrders
