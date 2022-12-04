@@ -18,51 +18,14 @@ import remoteImages from '../../../constants/remoteImages';
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
-    // console.log(orderId)
 
-    // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
-    // console.log("how are you? ")
-    // console.log("isRelease open ", isReleaseOpen)
-
-    // console.log("what is this result ", orderDetail?.data)
-
-    // console.log(orderDetail)
-
-    // const [currentPage, setCurrentPage] = useState(1)
-    // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
-
-    // console.log("getAddedBank is this ", getAddedBank?.data?.data)
 
     const today = moment().valueOf()
 
-        // console.log("wetin be this order detail ", orderDetail)
-
-    // const handlePreviousPage = () => {
-    //     setCurrentPage(currentPage - 1)
-    // }
-
-    // const handleNextPage = () => {
-    //     setCurrentPage(currentPage + 1)
-    // }
-    // console.log(" orderDetail detail about to check the behaviour of the bank! ", orderDetail.data)
-
-    // React.useEffect(() => {
-    //     if (isModalOpen == true) {
-    //         onOpen()
-    //     }
-    // }, [isModalOpen, onOpen])
-
-    // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
-
-    // React.useEffect(() => {
-    //     if (!orderDetail.isFetching) {
-    //         alert(`${moment(orderDetail?.data?.data?.createdAt).valueOf()} + ${(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)} > ${today}`)
-    //     }
-    // }, [orderDetail, today])
 
     return (
         <DashboardLayout title='Quick Trade'>
@@ -180,7 +143,7 @@ const NotifyTraders = () => {
 
                                     <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
                                 </Flex>
-                            ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && (
+                            ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'expired' && (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
@@ -192,19 +155,6 @@ const NotifyTraders = () => {
                                 </Flex>
                             )}
 
-                            {/* I added this line of code to check for sell cases to notify seller */}
-                            {/* {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy') && (
-                                <Flex>
-                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                        onNotifyOpen()}>
-                                        Transfered and Notify Seller
-                                    </Text>
-
-                                    <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
-
-                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                                </Flex>
-                            )} */}
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.ad[0]?.type != 'buy' &&
                                 <Flex flexDirection={'column'} pt={'6'}>
@@ -344,24 +294,6 @@ const RenderTimer = ({ timeRemaining }: any) => {
     }, []);
     return (<Text> {remainTime.minutes}:{remainTime.seconds}</Text>)
 }
-
-// export const RenderBankName = ({ bankId }: any) => {
-//     const [getSingleBank] = useLazyGetBankByIdQuery()
-//     const [bankName, setBankName] = React.useState('')
-//     alert(bankId)
-//     React.useEffect(() => {
-//         const getBank = async () => {
-//             const bank = await getSingleBank(bankId).unwrap()
-//             setBankName(bank?.data?.name)
-//         }
-
-//         getBank()
-
-
-//     }, [bankId, getSingleBank])
-//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-// }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
