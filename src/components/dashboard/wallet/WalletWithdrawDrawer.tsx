@@ -91,7 +91,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                 }
 
                                 const response = await withdrawCrypto(data) 
-                                console.log(response)
+                                // console.log(response)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
                                     handleClose()
                                     appAlert.success(response?.data?.message)
