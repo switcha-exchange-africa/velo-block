@@ -74,10 +74,8 @@ const WalletWithdrawDrawer = (props: any) => {
                                 Confirm your address and amount of  {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label} to withdraw
                             </Text>
                         )}
+                
                         
-                        
-
-
                         {/* <Flex justifyContent={'center'} my={'16'}>
                             <QRCode value="hey" />
                         </Flex> */}
@@ -129,7 +127,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     )}
                                                 </Field>
                                                 
-                                                <Text fontWeight={'semibold'} mt="30px" bg="red" ml="10px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
+                                                <Text fontWeight={'semibold'} mt="30px"  ml="10px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
                                             </Flex>
                                             <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
                                             <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
