@@ -4,6 +4,7 @@ import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks';
+import { useWithdrawCryptoMutation } from '../../../redux/services/wallet.service';
 import MainAppButton from '../../buttons/MainAppButton';
 
 const WalletWithdrawDrawer = (props: any) => {
@@ -17,8 +18,8 @@ const WalletWithdrawDrawer = (props: any) => {
 
     console.log("wallet balance ", walletBalance)
     
-
-    console.log("result is ", props?.coin, props?.label)
+    const [withdrawCrypto] = useWithdrawCryptoMutation()
+    console.log("withdrawCrypto", withdrawCrypto)
 
     return (
         <>
@@ -34,13 +35,20 @@ const WalletWithdrawDrawer = (props: any) => {
                 <DrawerContent p={'4'}>
                     <DrawerCloseButton /><br/>
                     <DrawerHeader mt='4'>
-                        <Text>Withdraw {props.label}</Text>
+                        <Text>Withdraw {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}</Text>
                     </DrawerHeader>
 
                     <DrawerBody mt={'-4'}>
-                        <Text fontSize={"sm"}>
-                            Paste address or scan QR code to withdraw bitcoin {props.label}
-                        </Text>
+                        {!isNextClicked ? (
+                            <Text fontSize={"sm"}>
+                                Paste address or scan QR code to withdraw {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}
+                            </Text>
+                        ): (
+                            <Text fontSize={"sm"}>
+                                Confirm your address and amount of  {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label} to withdraw
+                            </Text>
+                        )}
+                        
 
                         {!isNextClicked ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
                             <Flex flexDirection={'column'} alignItems={'center'}>
@@ -74,6 +82,14 @@ const WalletWithdrawDrawer = (props: any) => {
                             onSubmit={async (values, { setSubmitting }) => {
                                 console.log(values)
                                 console.log(setSubmitting)
+                                const data = {
+                                    destination: values?.address,
+                                    coin: props?.coin,
+                                    amount: ""
+                                }
+
+                                console.log(data)
+                                // const resp = await withdrawCrypto(data) 
 
                             }}
                             validateOnChange
