@@ -3,6 +3,7 @@ import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
+import appAlert from '../../../helpers/appAlert';
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks';
 import { useWithdrawCryptoMutation } from '../../../redux/services/wallet.service';
 import MainAppButton from '../../buttons/MainAppButton';
@@ -17,17 +18,21 @@ const WalletWithdrawDrawer = (props: any) => {
         return obj?.balance?.toLocaleString() || 0
     }
 
-    console.log("wallet balance ", walletBalance)
     
     const [withdrawCrypto] = useWithdrawCryptoMutation()
-    console.log("withdrawCrypto", withdrawCrypto)
+
+    const handleClose = () => {
+        props.onClose;
+        props.setIsWithdrawalDrawerOpen(false);
+        setIsNextClicked(false)
+    }
 
     return (
         <>
             <Drawer
                 isOpen={props.isOpen && props.iswithdrawalOpen}
                 placement="right"
-                onClose={() => { props.onClose; props.setIsWithdrawalDrawerOpen(false); setIsNextClicked(false) }}
+                onClose={handleClose}
                 finalFocusRef={props.btnRef}
                 size={"sm"}
             >
@@ -68,7 +73,16 @@ const WalletWithdrawDrawer = (props: any) => {
                                 }
 
                                 console.log(data)
-                                // const resp = await withdrawCrypto(data) 
+                                const response = await withdrawCrypto(data) 
+                                console.log(response)
+                                if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                    appAlert.success(response?.data?.message)
+                                    handleClose()
+                                } else {
+                                    console.log("errro", response?.error?.data?.message)
+                                    appAlert.error(response?.error?.data?.message)
+                                    handleClose()
+                                }
 
                             }}
                             validateOnChange
@@ -93,7 +107,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                         <FormControl isInvalid={form.errors.amount && form.touched.amount} >
                                                             
                                                             <InputGroup  >
-                                                                <Input type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
+                                                                <Input isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
                                                                     onChange={(e) => {
                                                                         setAmountState(e.target.value)
                                                                         setFieldValue('amount', e.target.value); setFieldValue('amount', e.target.value)
@@ -139,7 +153,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                                 setAddressState(e.target.value)
                                                                 setFieldValue('address', e.target.value);
                                                                 setFieldValue('creditCoinValue', e.target.value)
-                                                            }} />
+                                                            }} isRequired/>
                                                         <InputRightElement width={'16'} zIndex={'docked'}>
                                                             <Img src={remoteImages.barcodeSVG} alt='' boxSize={'4'} />
 
