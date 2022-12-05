@@ -3,10 +3,22 @@ import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
+import { useAppSelector } from '../../../helpers/hooks/reduxHooks';
 import MainAppButton from '../../buttons/MainAppButton';
 
 const WalletWithdrawDrawer = (props: any) => {
     const [isNextClicked, setIsNextClicked] = useState(false)
+    const { walletBalance } = useAppSelector((state) => state.accountSettings)
+    
+    const renderBalance:any = (coinName: any) => {
+        const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString() || 0
+    }
+
+    console.log("wallet balance ", walletBalance)
+    
+
+    console.log("result is ", props?.coin, props?.label)
 
     return (
         <>
@@ -16,12 +28,11 @@ const WalletWithdrawDrawer = (props: any) => {
                 onClose={() => { props.onClose; props.setIsWithdrawalDrawerOpen(false); setIsNextClicked(false) }}
                 finalFocusRef={props.btnRef}
                 size={"sm"}
-
             >
                 <DrawerOverlay bg="transparent"
                     backdropFilter="blur(3px) " />
                 <DrawerContent p={'4'}>
-                    <DrawerCloseButton /><br />
+                    <DrawerCloseButton /><br/>
                     <DrawerHeader mt='4'>
                         <Text>Withdraw {props.label}</Text>
                     </DrawerHeader>
@@ -35,17 +46,16 @@ const WalletWithdrawDrawer = (props: any) => {
                             <Flex flexDirection={'column'} alignItems={'center'}>
                                 <Flex alignItems={'end'}>
                                     <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>0</Text>
-                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin}</Text>
+                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
                                 </Flex>
                                 <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
-                                <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All (0.0000256 )</Text>
+                                <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} - {props.coin==="USDT_TRON" ? "USDT-TRON" : debitCoin})</Text>
                             </Flex>
                             <Flex>
                                 <ArrowDownIcon w={6} h={6} />
                                 <ArrowUpIcon w={6} h={6} />
                             </Flex>
                         </Flex> :
-
                             <Flex flexDirection={'column'} alignItems={'center'}>
                                 <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
                                     <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>0.000086</Text>
@@ -53,7 +63,6 @@ const WalletWithdrawDrawer = (props: any) => {
                                 </Flex>
                                 <Text fontWeight={'semibold'} fontSize={'sm'} py={'2'}>will be sent to</Text>
                             </Flex>
-
                         }
 
 
@@ -62,7 +71,6 @@ const WalletWithdrawDrawer = (props: any) => {
                         </Flex> */}
                         <Formik
                             initialValues={{ address: '', }}
-
                             onSubmit={async (values, { setSubmitting }) => {
                                 console.log(values)
                                 console.log(setSubmitting)
@@ -86,9 +94,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                         {!isNextClicked && <Field name='debitCoinValue' >
                                             {({ field, form }: any) => (
                                                 <FormControl isInvalid={form.errors.address && form.touched.address} >
-
                                                     <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-
 
                                                     <InputGroup>
                                                         <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => { setFieldValue('address', e.target.value); setFieldValue('creditCoinValue', e.target.value) }} />
@@ -97,6 +103,7 @@ const WalletWithdrawDrawer = (props: any) => {
 
                                                         </InputRightElement>
                                                     </InputGroup>
+
                                                     <FormErrorMessage>{form.errors.address}</FormErrorMessage>
                                                 </FormControl>
                                             )}
@@ -121,19 +128,10 @@ const WalletWithdrawDrawer = (props: any) => {
                                         </MainAppButton> : <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
                                             Confirm
                                         </MainAppButton>}
-
-
-
                                     </VStack>
                                 </Form>
-
-
                             )}
                         </Formik>
-
-
-
-
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
