@@ -10,8 +10,9 @@ import MainAppButton from '../../buttons/MainAppButton';
 const WalletWithdrawDrawer = (props: any) => {
     const [isNextClicked, setIsNextClicked] = useState(false)
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
-    
-    const renderBalance:any = (coinName: any) => {
+    const [amountState, setAmountState] = useState("")
+    const [addressState, setAddressState] = useState("")
+    const renderBalance: any = (coinName: any) => {
         const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
         return obj?.balance?.toLocaleString() || 0
     }
@@ -49,43 +50,21 @@ const WalletWithdrawDrawer = (props: any) => {
                             </Text>
                         )}
                         
-
-                        {!isNextClicked ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
-                            <Flex flexDirection={'column'} alignItems={'center'}>
-                                <Flex alignItems={'end'}>
-                                    <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>0</Text>
-                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
-                                </Flex>
-                                <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
-                                <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
-                            </Flex>
-                            <Flex>
-                                <ArrowDownIcon w={6} h={6} />
-                                <ArrowUpIcon w={6} h={6} />
-                            </Flex>
-                        </Flex> :
-                            <Flex flexDirection={'column'} alignItems={'center'}>
-                                <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
-                                    <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>0.000086</Text>
-                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin==="USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
-                                </Flex>
-                                <Text fontWeight={'semibold'} fontSize={'sm'} py={'2'}>will be sent to</Text>
-                            </Flex>
-                        }
+                        
 
 
                         {/* <Flex justifyContent={'center'} my={'16'}>
                             <QRCode value="hey" />
                         </Flex> */}
                         <Formik
-                            initialValues={{ address: '', }}
+                            initialValues={{ address: '', amount: "" }}
                             onSubmit={async (values, { setSubmitting }) => {
                                 console.log(values)
                                 console.log(setSubmitting)
                                 const data = {
                                     destination: values?.address,
                                     coin: props?.coin,
-                                    amount: ""
+                                    amount: values?.amount
                                 }
 
                                 console.log(data)
@@ -106,6 +85,48 @@ const WalletWithdrawDrawer = (props: any) => {
                                 /* and other goodies */
                             }) => (
                                 <Form>
+                                    {!isNextClicked ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
+                                        <Flex flexDirection={'column'} alignItems={'center'} justifyContent="center"  >
+                                            <Flex  justifyContent="center" w="75%" >
+                                                <Field name='debitCoinValue' >
+                                                    {({ field, form }: any) => (
+                                                        <FormControl isInvalid={form.errors.amount && form.touched.amount} >
+                                                            
+                                                            <InputGroup  >
+                                                                <Input type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
+                                                                    onChange={(e) => {
+                                                                        setAmountState(e.target.value)
+                                                                        setFieldValue('amount', e.target.value); setFieldValue('amount', e.target.value)
+                                                                    }}
+                                                                />
+                                                
+                                                            </InputGroup>
+
+                                                            <FormErrorMessage>{form.errors.amount}</FormErrorMessage>
+                                                        </FormControl>
+                                                    )}
+                                                </Field>
+                                                
+                                                <Text fontWeight={'semibold'} mt="30px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
+                                            </Flex>
+                                            <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
+                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <ArrowDownIcon w={6} h={6} />
+                                            <ArrowUpIcon w={6} h={6} />
+                                        </Flex>
+                                    </Flex> :
+                                        <Flex flexDirection={'column'} alignItems={'center'}>
+                                            <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
+                                                <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>{amountState?.toLocaleString()}</Text>
+                                                <Text fontWeight={'semibold'} pl={'2'}>{props.coin==="USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
+                                            </Flex>
+                                            <Text fontWeight={'semibold'} fontSize={'sm'} py={'2'}>will be sent to</Text>
+                                        </Flex>
+                                    }
+
+
                                     <VStack w={{ base: 'xs', md: 'sm' }} align='start' my={!isNextClicked ? { md: '16', base: '8' } : {}}>
                                         {!isNextClicked && <Field name='debitCoinValue' >
                                             {({ field, form }: any) => (
@@ -113,7 +134,12 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
 
                                                     <InputGroup>
-                                                        <Input autoComplete='off' variant={'outline'} {...field} onChange={(e) => { setFieldValue('address', e.target.value); setFieldValue('creditCoinValue', e.target.value) }} />
+                                                        <Input autoComplete='off' variant={'outline'} {...field}
+                                                            onChange={(e) => {
+                                                                setAddressState(e.target.value)
+                                                                setFieldValue('address', e.target.value);
+                                                                setFieldValue('creditCoinValue', e.target.value)
+                                                            }} />
                                                         <InputRightElement width={'16'} zIndex={'docked'}>
                                                             <Img src={remoteImages.barcodeSVG} alt='' boxSize={'4'} />
 
@@ -125,7 +151,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                             )}
                                         </Field>}
 
-                                        {isNextClicked && <Text fontWeight="600">{props.address}</Text>}
+                                        {isNextClicked && <Text fontWeight="600"  w="100%" textAlign="center">{addressState}</Text>}
 
                                         {props.coin === "USDT" && (
                                             <Box marginBottom={"10px"} w={'full'} mt={'4'}>
