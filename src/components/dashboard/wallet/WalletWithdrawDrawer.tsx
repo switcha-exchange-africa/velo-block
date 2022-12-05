@@ -49,7 +49,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                     <Text fontWeight={'semibold'} pl={'2'}>{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
                                 </Flex>
                                 <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
-                                <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} - {props.coin==="USDT_TRON" ? "USDT-TRON" : props.coin})</Text>
+                                <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
                             </Flex>
                             <Flex>
                                 <ArrowDownIcon w={6} h={6} />
@@ -59,7 +59,7 @@ const WalletWithdrawDrawer = (props: any) => {
                             <Flex flexDirection={'column'} alignItems={'center'}>
                                 <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
                                     <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>0.000086</Text>
-                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin}</Text>
+                                    <Text fontWeight={'semibold'} pl={'2'}>{props.coin==="USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
                                 </Flex>
                                 <Text fontWeight={'semibold'} fontSize={'sm'} py={'2'}>will be sent to</Text>
                             </Flex>
