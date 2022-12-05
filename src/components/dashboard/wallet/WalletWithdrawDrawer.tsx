@@ -93,17 +93,12 @@ const WalletWithdrawDrawer = (props: any) => {
                                 const response = await withdrawCrypto(data) 
                                 console.log(response)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                    console.log(response?.data?.messag)
                                     handleClose()
                                     appAlert.success(response?.data?.message)
-                                
                                 } else {
-                                    console.log("errror", response?.error?.data?.message)
                                     handleClose()
                                     appAlert.error(response?.error?.data?.message)
-                                    
                                 }
-
                             }}
                             validateOnChange
                             validateOnBlur
@@ -134,7 +129,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     )}
                                                 </Field>
                                                 
-                                                <Text fontWeight={'semibold'} mt="30px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
+                                                <Text fontWeight={'semibold'} mt="30px" bg="red" ml="10px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
                                             </Flex>
                                             <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
                                             <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
