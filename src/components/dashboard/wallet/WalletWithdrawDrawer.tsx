@@ -5,6 +5,7 @@ import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
 import appAlert from '../../../helpers/appAlert';
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks';
+// import { setOrderPayload } from '../../../redux/features/quick-trade/quickTradeSlice';
 import { useWithdrawCryptoMutation } from '../../../redux/services/wallet.service';
 import MainAppButton from '../../buttons/MainAppButton';
 
@@ -19,12 +20,31 @@ const WalletWithdrawDrawer = (props: any) => {
     }
 
     
-    const [withdrawCrypto] = useWithdrawCryptoMutation()
+    const [withdrawCrypto]:any = useWithdrawCryptoMutation()
 
     const handleClose = () => {
         props.onClose;
         props.setIsWithdrawalDrawerOpen(false);
         setIsNextClicked(false)
+    }
+
+    const validateAmount = (value: string, ) => {
+        setAmountState(value)
+        let error
+        if (!value) {
+            error = 'Amount should not be empty '
+        }
+        return error
+    }
+
+    const validateAddress = (value: string, ) => {
+        setAddressState(value)
+        let error
+        if (!value) {
+            error = 'Destination should not be empty '
+        }
+
+        return error
     }
 
     return (
@@ -33,7 +53,7 @@ const WalletWithdrawDrawer = (props: any) => {
                 isOpen={props.isOpen && props.iswithdrawalOpen}
                 placement="right"
                 onClose={handleClose}
-                finalFocusRef={props.btnRef}
+                initialFocusRef={props.btnRef}
                 size={"sm"}
             >
                 <DrawerOverlay bg="transparent"
@@ -63,25 +83,25 @@ const WalletWithdrawDrawer = (props: any) => {
                         </Flex> */}
                         <Formik
                             initialValues={{ address: '', amount: "" }}
-                            onSubmit={async (values, { setSubmitting }) => {
-                                console.log(values)
-                                console.log(setSubmitting)
+                            onSubmit={async (values) => {
                                 const data = {
                                     destination: values?.address,
                                     coin: props?.coin,
-                                    amount: values?.amount
+                                    amount: parseFloat(values?.amount)
                                 }
 
-                                console.log(data)
                                 const response = await withdrawCrypto(data) 
                                 console.log(response)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                    console.log(response?.data?.messag)
+                                    handleClose()
                                     appAlert.success(response?.data?.message)
-                                    handleClose()
+                                
                                 } else {
-                                    console.log("errro", response?.error?.data?.message)
-                                    appAlert.error(response?.error?.data?.message)
+                                    console.log("errror", response?.error?.data?.message)
                                     handleClose()
+                                    appAlert.error(response?.error?.data?.message)
+                                    
                                 }
 
                             }}
@@ -95,25 +115,18 @@ const WalletWithdrawDrawer = (props: any) => {
                                 handleSubmit,
                                 isSubmitting,
                                 // values,
-                                setFieldValue
+                                // setFieldValue
                                 /* and other goodies */
                             }) => (
                                 <Form>
-                                    {!isNextClicked ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
+                                    {!isNextClicked  ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
                                         <Flex flexDirection={'column'} alignItems={'center'} justifyContent="center"  >
                                             <Flex  justifyContent="center" w="75%" >
-                                                <Field name='debitCoinValue' >
+                                                <Field name='amount' validate={validateAmount}>
                                                     {({ field, form }: any) => (
-                                                        <FormControl isInvalid={form.errors.amount && form.touched.amount} >
-                                                            
+                                                        <FormControl isInvalid={form.errors.amount && form.touched.amount} >                                                            
                                                             <InputGroup  >
-                                                                <Input isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
-                                                                    onChange={(e) => {
-                                                                        setAmountState(e.target.value)
-                                                                        setFieldValue('amount', e.target.value); setFieldValue('amount', e.target.value)
-                                                                    }}
-                                                                />
-                                                
+                                                                <Input  ref={props.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
                                                             </InputGroup>
 
                                                             <FormErrorMessage>{form.errors.amount}</FormErrorMessage>
@@ -142,18 +155,14 @@ const WalletWithdrawDrawer = (props: any) => {
 
 
                                     <VStack w={{ base: 'xs', md: 'sm' }} align='start' my={!isNextClicked ? { md: '16', base: '8' } : {}}>
-                                        {!isNextClicked && <Field name='debitCoinValue' >
+                                        {!isNextClicked  && <Field name='address' validate={validateAddress}>
                                             {({ field, form }: any) => (
                                                 <FormControl isInvalid={form.errors.address && form.touched.address} >
                                                     <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
 
                                                     <InputGroup>
                                                         <Input autoComplete='off' variant={'outline'} {...field}
-                                                            onChange={(e) => {
-                                                                setAddressState(e.target.value)
-                                                                setFieldValue('address', e.target.value);
-                                                                setFieldValue('creditCoinValue', e.target.value)
-                                                            }} isRequired/>
+                                                            />
                                                         <InputRightElement width={'16'} zIndex={'docked'}>
                                                             <Img src={remoteImages.barcodeSVG} alt='' boxSize={'4'} />
 
@@ -179,7 +188,17 @@ const WalletWithdrawDrawer = (props: any) => {
 
                                         <Box h={'8'}></Box>
 
-                                        {!isNextClicked ? <MainAppButton isLoading={isSubmitting} onClick={() => { setIsNextClicked(true) }} >
+                                        {!isNextClicked ? <MainAppButton isLoading={isSubmitting} onClick={() => {
+                                            if (!amountState && !addressState) {
+                                                appAlert.error("Please enter amount and destination")
+                                            } else if (!addressState) {
+                                                appAlert.error("Please enter destination")
+                                            } else if (!addressState) {
+                                                appAlert.error("Please enter Address")
+                                            } else {
+                                                setIsNextClicked(true)
+                                            }
+                                        }} >
                                             Next
                                         </MainAppButton> : <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
                                             Confirm
