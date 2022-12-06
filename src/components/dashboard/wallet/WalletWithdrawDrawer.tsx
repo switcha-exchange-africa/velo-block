@@ -19,6 +19,8 @@ const WalletWithdrawDrawer = (props: any) => {
         return obj?.balance?.toLocaleString() || 0
     }
 
+    // const [value, setValue] = useState(0)
+
     
     const [withdrawCrypto]:any = useWithdrawCryptoMutation()
 
@@ -46,6 +48,14 @@ const WalletWithdrawDrawer = (props: any) => {
 
         return error
     }
+
+    // const handleIncrease = () => {
+    //     setAmountState(amountState + 1)
+    // }
+
+    // const handleDecrease = () => {
+    //     setAmountState(amountState - 1)
+    // }
 
     return (
         <>
@@ -95,7 +105,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                     appAlert.success(response?.data?.message)
                                 } else {
                                     handleClose()
-                                    appAlert.error(response?.error?.data?.message)
+                                    appAlert.error(response?.data?.message)
                                 }
                             }}
                             validateOnChange
@@ -133,7 +143,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                             <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
                                         </Flex>
                                         <Flex>
-                                            <ArrowDownIcon w={6} h={6} />
+                                            <ArrowDownIcon  w={6} h={6} />
                                             <ArrowUpIcon w={6} h={6} />
                                         </Flex>
                                     </Flex> :
