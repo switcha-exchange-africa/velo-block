@@ -512,7 +512,7 @@ function RecentTransaction() {
                 {transaction?.coin === "USDT_TRON" && (
                   <Avatar
                     name="USDT_TRON"
-                    src={remoteImages.tronLogo}
+                    src={remoteImages.tronlogo}
                     size="sm"
                   />
                 )}
