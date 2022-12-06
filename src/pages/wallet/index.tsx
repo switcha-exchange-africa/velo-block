@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { Round } from "react-lodash";
-// import round from 'lodash/round'
 import _ from "lodash"
-
-
 import {
   Box,
   Heading,
@@ -21,7 +17,8 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer
+  TableContainer,
+  HStack
 } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
@@ -42,75 +39,10 @@ import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
 import remoteImages from "../../constants/remoteImages";
-
+import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
+import moment from "moment"
 // import appAlert from "../../helpers/appAlert";
 
-
-
-// const wallets = [
-//   {
-//     id: 1,
-//     coin: "BTC",
-//     label: "Bitcoin",
-//     balance: "0.0000256",
-//     usdBalance: "$200.23",
-//     address: "bc1q6ct9nuzjjqke47cztxrw0xwhrjej2nuhy963f0",
-//     logo: remoteImages.bitcoinLogo,
-//   },
-//   {
-//     id: 2,
-//     coin: "ETH",
-//     label: "Ethereum",
-//     balance: "0.04256",
-//     usdBalance: "$137",
-//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-//     logo: remoteImages.ethLogo,
-//   },
-//   {
-//     id: 3,
-//     coin: "USDT",
-//     label: "TetherUS",
-//     balance: "0.0000256",
-//     usdBalance: "$200.23",
-//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-//     logo: remoteImages.usdtLogo,
-//   },
-//   {
-//     id: 4,
-//     coin: "USDC",
-//     label: "USD Coin",
-//     balance: "0.0000256",
-//     usdBalance: "$0.00",
-//     address: "0x5e606f8c7f8104046010d6755ba8eff5cc5661cb",
-//     logo: remoteImages.usdcLogo,
-//   },
-// ];
-const recentActivity = [
-  {
-    id: 1,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "buy",
-  },
-  {
-    id: 2,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "recieve",
-  },
-  {
-    id: 3,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "sell",
-  },
-];
 
 function WalletPage() {
   const [label, setLabel] = useState("Bitcoin");
@@ -213,6 +145,23 @@ function WalletPage() {
   //   return <LoginPage />
 
   // }
+
+
+
+  const [pageNumber, setPageNumber] = useState(1)
+    
+  const recentActivity = useGetActivitiesQuery(pageNumber)
+  const handlePreviousPage = () => {
+        setPageNumber(pageNumber - 1)
+  }
+
+  const handleNextPage = () => {
+      setPageNumber(pageNumber + 1)
+  }
+
+
+
+
   return (
     <DashboardLayout title="
     Wallet">
@@ -278,10 +227,10 @@ function WalletPage() {
               </Wrap>
             </Box>
           </Box>
-          <Wrap spacing={"20px"} marginTop={"40px"}>
-            <WrapItem>
+          <Wrap spacing={"20px"}  marginTop={"40px"}>
+            <WrapItem >
               <TableContainer
-                width={{ md: "3xl", base: 'sm' }}
+                width={{ md: "3xl", base: '100%' }}
                 borderRadius={"10px"}
                 border={"1px solid #E2E8F0"}
               >
@@ -349,6 +298,7 @@ function WalletPage() {
                                   Trade
                                 </Text>
                               </WrapItem>
+                      
                               <WrapItem>
                                 <Text
                                   cursor={"pointer"}
@@ -444,6 +394,8 @@ function WalletPage() {
                 </Table>
               </TableContainer>
             </WrapItem>
+
+
             <WrapItem>
               <Box
                 width={{ md: "xs", base: "xs" }}
@@ -453,10 +405,50 @@ function WalletPage() {
                 <Box borderBottom={"1px solid #E2E8F0"} padding={"20px"}>
                   <Text fontWeight={600}>Recent Activity</Text>
                 </Box>
-                <RecentTransaction />
+                
 
+                {recentActivity?.data?.data.length !==0 ? (
+                  <RecentTransaction data={recentActivity?.data?.data} />
+                ) : (
+                    <Box
+                      display={"flex"}
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      padding="12px 12px"
+                      height="250px"
+                    >
+                      Activities will appear here    
+                    </Box>
+                ) }
+
+                {recentActivity?.data?.pagination?.hasNext === true ? (
+                  <HStack px={["0", "0px", "0px", "12px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+                    <HStack >
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {recentActivity?.data?.pagination?.currentPage}
+                        </Box>
+                        <Text>of</Text>
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {recentActivity?.data?.pagination?.lastPage}
+                        </Box>
+                    </HStack>
+
+                    <HStack>
+                        <Button onClick={handlePreviousPage} disabled={recentActivity?.data?.pagination?.currentPage === 1}>
+                            Prev
+                        </Button>
+                        <Button onClick={handleNextPage} disabled={recentActivity?.data?.pagination?.hasNext === false}>
+                            Next
+                        </Button>    
+                    </HStack>
+                  </HStack>
+                ) : null}
               </Box>
+
+              
             </WrapItem>
+            
+
           </Wrap>
         </Box>
       </Box>
@@ -466,43 +458,78 @@ function WalletPage() {
 }
 
 
-function RecentTransaction() {
+function RecentTransaction(props:any) {
+  const { data } = props
+  
   return (
     <Box>
-      {recentActivity.map((transaction) => {
+      {data?.map((transaction: any) => {
         return (
-          <div key={transaction?.id}>
+          <div key={transaction?._id}>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
+              alignItems={"flex-start"}
               padding="12px 12px"
-              key={transaction?.id}
+              key={transaction?._id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                <Avatar
-                  name="Bitcoin"
-                  src={remoteImages.bitcoinLogo}
-                  size="sm"
-                />
+                {transaction?.coin === "BTC" && (
+                  <Avatar
+                    name="Bitcoin"
+                    src={remoteImages.bitcoinLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "ETH" && (
+                  <Avatar
+                    name="Ethereum"
+                    src={remoteImages.ethLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "USDT" && (
+                  <Avatar
+                    name="USDT"
+                    src={remoteImages.usdtLogo}
+                    size="sm"
+                  />
+                )}
+
+                {transaction?.coin === "USDC" && (
+                  <Avatar
+                    name="USDC"
+                    src={remoteImages.usdcLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "USDT_TRON" && (
+                  <Avatar
+                    name="USDT_TRON"
+                    src={remoteImages.tronlogo}
+                    size="sm"
+                  />
+                )}
                 <Box>
                   <Text fontSize="xs" fontWeight={"700"}>
-                    {transaction?.label}
+                    {transaction?.coin === "USDT_TRON" ? "USDT-TRON" : transaction?.coin}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm">
-                    {transaction?.type}
+                  <Text color={"#64748B"} fontSize="sm"  w="80%">
+                    {transaction?.description}
                   </Text>
                 </Box>
               </Box>
-              <Box>
-                <Text textAlign={"right"} color={"#6FD97A"} fontSize="xs">
-                  {transaction?.amount}
+              <Box >
+                <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
+                  ${transaction?.amount}
                 </Text>
-                <Text fontSize={"xs"} color={"#64748B"}>
-                  {transaction?.date}
+                <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
+                  {moment(transaction?.createdAt).calendar()}
                 </Text>
               </Box>
             </Box>
           </div>
+
         );
       })}
     </Box>
