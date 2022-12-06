@@ -112,7 +112,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                     appAlert.success(response?.data?.message)
                                 } else {
                                     handleClose()
-                                    console.log("this is the response ", response)
+                                    // console.log("this is the response ", response)
                                     appAlert.error(response?.error?.data?.message)
                                 }
                             }}
