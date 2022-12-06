@@ -276,7 +276,7 @@ function WalletPage() {
             </Box>
           </Box>
           <Wrap spacing={"20px"}  marginTop={"40px"}>
-            <WrapItem  w="100%">
+            <WrapItem >
               <TableContainer
                 width={{ md: "3xl", base: '100%' }}
                 borderRadius={"10px"}
@@ -480,11 +480,42 @@ function RecentTransaction() {
               key={transaction?._id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                <Avatar
-                  name="Bitcoin"
-                  src={remoteImages.bitcoinLogo}
-                  size="sm"
-                />
+                {transaction?.coin === "BTC" && (
+                  <Avatar
+                    name="Bitcoin"
+                    src={remoteImages.bitcoinLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "ETH" && (
+                  <Avatar
+                    name="Ethereum"
+                    src={remoteImages.ethLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "USDT" && (
+                  <Avatar
+                    name="USDT"
+                    src={remoteImages.usdtLogo}
+                    size="sm"
+                  />
+                )}
+
+                {transaction?.coin === "USDC" && (
+                  <Avatar
+                    name="USDC"
+                    src={remoteImages.usdcLogo}
+                    size="sm"
+                  />
+                )}
+                {transaction?.coin === "USDT_TRON" && (
+                  <Avatar
+                    name="USDT_TRON"
+                    src={remoteImages.tronLogo}
+                    size="sm"
+                  />
+                )}
                 <Box>
                   <Text fontSize="xs" fontWeight={"700"}>
                     {transaction?.coin}
