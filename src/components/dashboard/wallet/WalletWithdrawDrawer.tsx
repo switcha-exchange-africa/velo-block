@@ -8,6 +8,7 @@ import { useAppSelector } from '../../../helpers/hooks/reduxHooks';
 // import { setOrderPayload } from '../../../redux/features/quick-trade/quickTradeSlice';
 import { useWithdrawCryptoMutation } from '../../../redux/services/wallet.service';
 import MainAppButton from '../../buttons/MainAppButton';
+import RenderBalanceToUsd from '../../wallet/RenderBalanceToUsd';
 
 const WalletWithdrawDrawer = (props: any) => {
     const [isNextClicked, setIsNextClicked] = useState(false)
@@ -19,14 +20,12 @@ const WalletWithdrawDrawer = (props: any) => {
         return obj?.balance?.toLocaleString() || 0
     }
 
-    // const [value, setValue] = useState(0)
-
     
     const [withdrawCrypto]:any = useWithdrawCryptoMutation()
 
     const handleClose = () => {
-        props.onClose;
-        props.setIsWithdrawalDrawerOpen(false);
+        props?.onClose;
+        props?.setIsWithdrawalDrawerOpen(false);
         setIsNextClicked(false)
     }
 
@@ -60,10 +59,10 @@ const WalletWithdrawDrawer = (props: any) => {
     return (
         <>
             <Drawer
-                isOpen={props.isOpen && props.iswithdrawalOpen}
+                isOpen={props?.isOpen && props?.iswithdrawalOpen}
                 placement="right"
                 onClose={handleClose}
-                initialFocusRef={props.btnRef}
+                initialFocusRef={props?.btnRef}
                 size={"sm"}
             >
                 <DrawerOverlay bg="transparent"
@@ -71,17 +70,17 @@ const WalletWithdrawDrawer = (props: any) => {
                 <DrawerContent p={'4'}>
                     <DrawerCloseButton /><br/>
                     <DrawerHeader mt='4'>
-                        <Text>Withdraw {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}</Text>
+                        <Text>Withdraw {props?.label=== "USDT_TRON" ? "USDT-TRON" : props?.label}</Text>
                     </DrawerHeader>
 
                     <DrawerBody mt={'-4'}>
                         {!isNextClicked ? (
                             <Text fontSize={"sm"}>
-                                Paste address or scan QR code to withdraw {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}
+                                Paste address or scan QR code to withdraw {props?.label=== "USDT_TRON" ? "USDT-TRON" : props?.label}
                             </Text>
                         ): (
                             <Text fontSize={"sm"}>
-                                Confirm your address and amount of  {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label} to withdraw
+                                Confirm your address and amount of  {props?.label=== "USDT_TRON" ? "USDT-TRON" : props?.label} to withdraw
                             </Text>
                         )}
                 
@@ -132,7 +131,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     {({ field, form }: any) => (
                                                         <FormControl isInvalid={form.errors.amount && form.touched.amount} >                                                            
                                                             <InputGroup py="5px">
-                                                                <Input width="100%" height="100%" ref={props.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
+                                                                <Input width="100%" height="100%" ref={props?.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
                                                             </InputGroup>
 
                                                             <FormErrorMessage textAlign={"center"}>{form.errors.amount}</FormErrorMessage>
@@ -140,10 +139,14 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     )}
                                                 </Field>
                                                 
-                                                <Text fontWeight={'semibold'} mt="30px"  ml="10px">{props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin}</Text>
+                                                <Text fontWeight={'semibold'} mt="30px"  ml="10px">{props?.coin=== "USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
                                             </Flex>
-                                            <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
-                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
+                                            <Text fontWeight={'semibold'} pt={'4'}>
+                                                <RenderBalanceToUsd coin={props?.coin} balance={amountState} />
+                                            </Text>
+                                            
+                            
+                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props?.coin)} )</Text>
                                         </Flex>
                                         {/* <Flex>
                                             <ArrowDownIcon  w={6} h={6} />
@@ -153,7 +156,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                         <Flex flexDirection={'column'} alignItems={'center'}>
                                             <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
                                                 <Text fontWeight={'bold'} py={'2'} color={'rgba(100, 116, 139, 1)'} fontSize={'5xl'}>{amountState?.toLocaleString()}</Text>
-                                                <Text fontWeight={'semibold'} pl={'2'}>{props.coin==="USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
+                                                <Text fontWeight={'semibold'} pl={'2'}>{props?.coin==="USDT_TRON" ? "USDT-TRON" : props?.coin}</Text>
                                             </Flex>
                                             <Text fontWeight={'semibold'} fontSize={'sm'} py={'2'}>will be sent to</Text>
                                         </Flex>
@@ -182,7 +185,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                         {isNextClicked && <Text fontWeight="600"  w="100%" textAlign="center">{addressState}</Text>}
 
                                         {/* I shall be back for you blood */}
-                                        {/* {props.coin === "USDT" && (
+                                        {/* {props?.coin === "USDT" && (
                                             <Box marginBottom={"10px"} w={'full'} mt={'4'}>
                                                 <FormLabel fontSize={'sm'} htmlFor="owner">Network</FormLabel>
                                                 <Select id="owner" defaultValue="segun" placeholder="Please choose network first">
