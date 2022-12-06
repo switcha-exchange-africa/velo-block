@@ -333,9 +333,6 @@ function WalletPage() {
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
                                 {to8Dp(wallet?.balance)}
                               </Text>
-                              {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-                                = {wallet.usdBalance}
-                              </Text> */}
                               <RenderBalanceToUsd coin={wallet?.coin} balance={wallet?.balance} />
                             </Box>
                           </Td>
