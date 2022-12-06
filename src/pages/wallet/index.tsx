@@ -123,7 +123,7 @@ function WalletPage() {
   // const [source, setSource] = useState('BTC')
   // const [usdConvertedList, setUsdConvertedList] = useState<any>([])
 
-
+  
   const walletsquery: any = useGetWalletsQuery()
   // console.log("walletsquery is this ", walletsquery)
   
@@ -132,10 +132,10 @@ function WalletPage() {
   const [convertCoins] = useLazyConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
-  // const dispatch = useAppDispatch()
+
 
   const to8Dp = (number: any) => {
-    const datas = _.round(number, 8)
+    const datas = _.floor(number, 8)
     const values = datas?.toLocaleString()
     return values
   }
@@ -198,7 +198,6 @@ function WalletPage() {
     setAddress(newAddress);
     setLabel(newLabel);
     setCoin(newCoin);
-
     onOpen();
   };
 
@@ -334,9 +333,6 @@ function WalletPage() {
                               <Text fontSize={{ md: "sm", base: 'xs' }} fontWeight={"600"}>
                                 {to8Dp(wallet?.balance)}
                               </Text>
-                              {/* <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-                                = {wallet.usdBalance}
-                              </Text> */}
                               <RenderBalanceToUsd coin={wallet?.coin} balance={wallet?.balance} />
                             </Box>
                           </Td>
@@ -389,38 +385,42 @@ function WalletPage() {
                                 coin={coin}
                                 address={address}
                               />
-                              <WrapItem>
-                                <Text
-                                  cursor={"pointer"}
-                                  fontSize={{ md: "sm", base: 'xs' }}
-                                  fontWeight="500"
-                                  color={"#FB5E04"}
-                                  ref={btnRef}
-                                  onClick={() => {
-                                    handleClick(
-                                      wallet?.address,
-                                      wallet?.coin,
-                                      // supposed to be wallet.label
-                                      wallet?.coin
-                                    );
-                                    setIsWithdrawalDrawerOpen(true);
-                                  }}
-                                >
+
+
+                            {/* Wallet Withdraw Component */}
+                            <WrapItem>
+                              <Text
+                                cursor={"pointer"}
+                                fontSize={{ md: "sm", base: 'xs' }}
+                                fontWeight="500"
+                                color={"#FB5E04"}
+                                ref={btnRef}
+                                onClick={() => {
+                                  handleClick(
+                                    wallet?.address,
+                                    wallet?.coin,
+                                    // supposed to be wallet.label
+                                    wallet?.coin
+                                  );
+                                  setIsWithdrawalDrawerOpen(true);
+                                }}
+                              >
                                   Withdraw
                                 </Text>
                               </WrapItem>
+                              
                               <WalletWithdrawDrawer
                                 isOpen={isOpen}
                                 iswithdrawalOpen={isWithdrawalDrawerOpen}
-                                setIsWithdrawalDrawerOpen={
-                                  setIsWithdrawalDrawerOpen
-                                }
+                                setIsWithdrawalDrawerOpen={setIsWithdrawalDrawerOpen}
                                 onClose={onClose}
                                 btnRef={btnRef}
                                 label={label}
                                 coin={coin}
                                 address={address}
                               />
+
+
                               <WrapItem>
                                 <Text
                                   cursor={"pointer"}
