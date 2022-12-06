@@ -98,6 +98,8 @@ const WalletWithdrawDrawer = (props: any) => {
                                     amount: parseFloat(values?.amount)
                                 }
 
+                                // console.log("this is the data ", data)
+
                                 const response = await withdrawCrypto(data) 
                                 // console.log(response)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
@@ -105,7 +107,8 @@ const WalletWithdrawDrawer = (props: any) => {
                                     appAlert.success(response?.data?.message)
                                 } else {
                                     handleClose()
-                                    appAlert.error(response?.data?.message)
+                                    console.log("this is the response ", response)
+                                    appAlert.error(response?.error?.data?.message)
                                 }
                             }}
                             validateOnChange
@@ -179,7 +182,8 @@ const WalletWithdrawDrawer = (props: any) => {
 
                                         {isNextClicked && <Text fontWeight="600"  w="100%" textAlign="center">{addressState}</Text>}
 
-                                        {props.coin === "USDT" && (
+                                        {/* I shall be back for you blood */}
+                                        {/* {props.coin === "USDT" && (
                                             <Box marginBottom={"10px"} w={'full'} mt={'4'}>
                                                 <FormLabel fontSize={'sm'} htmlFor="owner">Network</FormLabel>
                                                 <Select id="owner" defaultValue="segun" placeholder="Please choose network first">
@@ -187,7 +191,7 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     <option value="ERC20">Ethereum (ERC20)</option>
                                                 </Select>
                                             </Box>
-                                        )}
+                                        )} */}
 
                                         <Box h={'8'}></Box>
 
