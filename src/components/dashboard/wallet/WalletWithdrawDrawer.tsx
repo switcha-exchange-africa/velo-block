@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
+// import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement,  Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
@@ -145,10 +145,10 @@ const WalletWithdrawDrawer = (props: any) => {
                                             <Text fontWeight={'semibold'} pt={'4'}>$0</Text>
                                             <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props.coin)} )</Text>
                                         </Flex>
-                                        <Flex>
+                                        {/* <Flex>
                                             <ArrowDownIcon  w={6} h={6} />
                                             <ArrowUpIcon w={6} h={6} />
-                                        </Flex>
+                                        </Flex> */}
                                     </Flex> :
                                         <Flex flexDirection={'column'} alignItems={'center'}>
                                             <Flex alignItems={'end'} justifyContent={'center'} pt={{ md: '24', base: '16' }}>
@@ -165,7 +165,6 @@ const WalletWithdrawDrawer = (props: any) => {
                                             {({ field, form }: any) => (
                                                 <FormControl isInvalid={form.errors.address && form.touched.address} >
                                                     <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
-
                                                     <InputGroup>
                                                         <Input autoComplete='off' variant={'outline'} {...field}
                                                             />
