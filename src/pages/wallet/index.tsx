@@ -476,6 +476,7 @@ function RecentTransaction() {
             <Box
               display={"flex"}
               justifyContent={"space-between"}
+              alignItems={"flex-start"}
               padding="12px 12px"
               key={transaction?._id}
             >
@@ -520,7 +521,7 @@ function RecentTransaction() {
                   <Text fontSize="xs" fontWeight={"700"}>
                     {transaction?.coin}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm"  w="70%">
+                  <Text color={"#64748B"} fontSize="sm"  w="80%">
                     {transaction?.description}
                   </Text>
                 </Box>
