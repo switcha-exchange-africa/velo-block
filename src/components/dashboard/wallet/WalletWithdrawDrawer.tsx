@@ -56,6 +56,12 @@ const WalletWithdrawDrawer = (props: any) => {
     //     setAmountState(amountState - 1)
     // }
 
+    // const handleSendAll = (value: any) => {
+    //     // const renderBalance = renderBalance(value)
+    //     console.log("this is the value ", renderBalance)
+
+    // }
+
     return (
         <>
             <Drawer
