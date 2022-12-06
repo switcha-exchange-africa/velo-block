@@ -38,7 +38,8 @@ import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
 import remoteImages from "../../constants/remoteImages";
-
+import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
+import moment from "moment"
 // import appAlert from "../../helpers/appAlert";
 
 
@@ -81,32 +82,32 @@ import remoteImages from "../../constants/remoteImages";
 //     logo: remoteImages.usdcLogo,
 //   },
 // ];
-const recentActivity = [
-  {
-    id: 1,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "buy",
-  },
-  {
-    id: 2,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "recieve",
-  },
-  {
-    id: 3,
-    coin: "BTC",
-    amount: "$1324",
-    label: "Bitcoin",
-    date: "Today, 15:00 PM",
-    type: "sell",
-  },
-];
+// const recentActivity = [
+//   {
+//     id: 1,
+//     coin: "BTC",
+//     amount: "$1324",
+//     label: "Bitcoin",
+//     date: "Today, 15:00 PM",
+//     type: "buy",
+//   },
+//   {
+//     id: 2,
+//     coin: "BTC",
+//     amount: "$1324",
+//     label: "Bitcoin",
+//     date: "Today, 15:00 PM",
+//     type: "recieve",
+//   },
+//   {
+//     id: 3,
+//     coin: "BTC",
+//     amount: "$1324",
+//     label: "Bitcoin",
+//     date: "Today, 15:00 PM",
+//     type: "sell",
+//   },
+// ];
 
 function WalletPage() {
   const [label, setLabel] = useState("Bitcoin");
@@ -274,10 +275,10 @@ function WalletPage() {
               </Wrap>
             </Box>
           </Box>
-          <Wrap spacing={"20px"} marginTop={"40px"}>
-            <WrapItem>
+          <Wrap spacing={"20px"}  marginTop={"40px"}>
+            <WrapItem  w="100%">
               <TableContainer
-                width={{ md: "3xl", base: 'sm' }}
+                width={{ md: "3xl", base: '100%' }}
                 borderRadius={"10px"}
                 border={"1px solid #E2E8F0"}
               >
@@ -345,6 +346,7 @@ function WalletPage() {
                                   Trade
                                 </Text>
                               </WrapItem>
+                      
                               <WrapItem>
                                 <Text
                                   cursor={"pointer"}
@@ -463,16 +465,19 @@ function WalletPage() {
 
 
 function RecentTransaction() {
+  const recentActivity = useGetActivitiesQuery()
+  console.log("this is the recent activity ", recentActivity)
+
   return (
     <Box>
-      {recentActivity.map((transaction) => {
+      {recentActivity?.data?.data?.map((transaction: any) => {
         return (
-          <div key={transaction?.id}>
+          <div key={transaction?._id}>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
               padding="12px 12px"
-              key={transaction?.id}
+              key={transaction?._id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
                 <Avatar
@@ -482,19 +487,19 @@ function RecentTransaction() {
                 />
                 <Box>
                   <Text fontSize="xs" fontWeight={"700"}>
-                    {transaction?.label}
+                    {transaction?.coin}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm">
-                    {transaction?.type}
+                  <Text color={"#64748B"} fontSize="sm"  w="70%">
+                    {transaction?.description}
                   </Text>
                 </Box>
               </Box>
-              <Box>
-                <Text textAlign={"right"} color={"#6FD97A"} fontSize="xs">
-                  {transaction?.amount}
+              <Box >
+                <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
+                  ${transaction?.amount}
                 </Text>
-                <Text fontSize={"xs"} color={"#64748B"}>
-                  {transaction?.date}
+                <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
+                  {moment(transaction?.createdAt).calendar()}
                 </Text>
               </Box>
             </Box>
