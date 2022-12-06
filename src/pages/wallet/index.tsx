@@ -17,7 +17,8 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer
+  TableContainer,
+  HStack
 } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
@@ -465,77 +466,112 @@ function WalletPage() {
 
 
 function RecentTransaction() {
-  const recentActivity = useGetActivitiesQuery()
+  const [pageNumber, setPageNumber] = useState(1)
+    
+  const recentActivity = useGetActivitiesQuery({pageNumber: pageNumber})
   console.log("this is the recent activity ", recentActivity)
+  const handlePreviousPage = () => {
+        setPageNumber(pageNumber - 1)
+  }
+
+  const handleNextPage = () => {
+      setPageNumber(pageNumber + 1)
+  }
 
   return (
     <Box>
       {recentActivity?.data?.data?.map((transaction: any) => {
         return (
-          <div key={transaction?._id}>
-            <Box
-              display={"flex"}
-              justifyContent={"space-between"}
-              alignItems={"flex-start"}
-              padding="12px 12px"
-              key={transaction?._id}
-            >
-              <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                {transaction?.coin === "BTC" && (
-                  <Avatar
-                    name="Bitcoin"
-                    src={remoteImages.bitcoinLogo}
-                    size="sm"
-                  />
-                )}
-                {transaction?.coin === "ETH" && (
-                  <Avatar
-                    name="Ethereum"
-                    src={remoteImages.ethLogo}
-                    size="sm"
-                  />
-                )}
-                {transaction?.coin === "USDT" && (
-                  <Avatar
-                    name="USDT"
-                    src={remoteImages.usdtLogo}
-                    size="sm"
-                  />
-                )}
+          <>
+            <div key={transaction?._id}>
+              <Box
+                display={"flex"}
+                justifyContent={"space-between"}
+                alignItems={"flex-start"}
+                padding="12px 12px"
+                key={transaction?._id}
+              >
+                <Box display={"flex"} alignItems={"center"} gap={"10px"}>
+                  {transaction?.coin === "BTC" && (
+                    <Avatar
+                      name="Bitcoin"
+                      src={remoteImages.bitcoinLogo}
+                      size="sm"
+                    />
+                  )}
+                  {transaction?.coin === "ETH" && (
+                    <Avatar
+                      name="Ethereum"
+                      src={remoteImages.ethLogo}
+                      size="sm"
+                    />
+                  )}
+                  {transaction?.coin === "USDT" && (
+                    <Avatar
+                      name="USDT"
+                      src={remoteImages.usdtLogo}
+                      size="sm"
+                    />
+                  )}
 
-                {transaction?.coin === "USDC" && (
-                  <Avatar
-                    name="USDC"
-                    src={remoteImages.usdcLogo}
-                    size="sm"
-                  />
-                )}
-                {transaction?.coin === "USDT_TRON" && (
-                  <Avatar
-                    name="USDT_TRON"
-                    src={remoteImages.tronlogo}
-                    size="sm"
-                  />
-                )}
-                <Box>
-                  <Text fontSize="xs" fontWeight={"700"}>
-                    {transaction?.coin}
+                  {transaction?.coin === "USDC" && (
+                    <Avatar
+                      name="USDC"
+                      src={remoteImages.usdcLogo}
+                      size="sm"
+                    />
+                  )}
+                  {transaction?.coin === "USDT_TRON" && (
+                    <Avatar
+                      name="USDT_TRON"
+                      src={remoteImages.tronlogo}
+                      size="sm"
+                    />
+                  )}
+                  <Box>
+                    <Text fontSize="xs" fontWeight={"700"}>
+                      {transaction?.coin}
+                    </Text>
+                    <Text color={"#64748B"} fontSize="sm"  w="80%">
+                      {transaction?.description}
+                    </Text>
+                  </Box>
+                </Box>
+                <Box >
+                  <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
+                    ${transaction?.amount}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm"  w="80%">
-                    {transaction?.description}
+                  <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
+                    {moment(transaction?.createdAt).calendar()}
                   </Text>
                 </Box>
               </Box>
-              <Box >
-                <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
-                  ${transaction?.amount}
-                </Text>
-                <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
-                  {moment(transaction?.createdAt).calendar()}
-                </Text>
-              </Box>
-            </Box>
-          </div>
+            </div>
+
+            {recentActivity?.data?.pagination?.hasNext === true ? (
+                <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+                    <HStack >
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {recentActivity?.data?.pagination?.currentPage}
+                        </Box>
+                        <Text>of</Text>
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {recentActivity?.data?.pagination?.lastPage}
+                        </Box>
+                    </HStack>
+
+                    <HStack>
+                        <Button onClick={handlePreviousPage} disabled={getAllAds?.data?.pagination?.currentPage === 1}>
+                            Prev
+                        </Button>
+                        <Button onClick={handleNextPage} disabled={getAllAds?.data?.pagination?.hasNext === false}>
+                            Next
+                        </Button>    
+                    </HStack>
+                </HStack>
+            ) : null}
+          </>
+          
         );
       })}
     </Box>
