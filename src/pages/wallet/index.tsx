@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { Round } from "react-lodash";
-// import round from 'lodash/round'
 import _ from "lodash"
-
-
 import {
   Box,
   Heading,
