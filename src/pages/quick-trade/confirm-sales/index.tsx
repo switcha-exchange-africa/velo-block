@@ -68,7 +68,9 @@ const ConfirmSales = () => {
                         <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive <Currency
                             quantity={creditCoinAmount}
                             currency={cash}
-                        /></Text>
+                        />
+                            {/* {coin=== "USDT_TRON" ? "USDT-TRON" : coin} */}
+                        </Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
                         <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} />
                         <Box py={'2'}></Box>
