@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
-import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement, Select, Text, VStack } from '@chakra-ui/react';
+import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement,  Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import remoteImages from '../../../constants/remoteImages';
@@ -131,11 +131,11 @@ const WalletWithdrawDrawer = (props: any) => {
                                                 <Field name='amount' validate={validateAmount}>
                                                     {({ field, form }: any) => (
                                                         <FormControl isInvalid={form.errors.amount && form.touched.amount} >                                                            
-                                                            <InputGroup  >
-                                                                <Input  ref={props.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
+                                                            <InputGroup py="5px">
+                                                                <Input width="100%" height="100%" ref={props.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
                                                             </InputGroup>
 
-                                                            <FormErrorMessage>{form.errors.amount}</FormErrorMessage>
+                                                            <FormErrorMessage textAlign={"center"}>{form.errors.amount}</FormErrorMessage>
                                                         </FormControl>
                                                     )}
                                                 </Field>
