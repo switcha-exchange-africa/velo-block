@@ -422,7 +422,7 @@ function WalletPage() {
                 ) }
 
                 {recentActivity?.data?.pagination?.hasNext === true ? (
-                  <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+                  <HStack px={["0", "0px", "0px", "12px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
                     <HStack >
                         <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
                             {recentActivity?.data?.pagination?.currentPage}
