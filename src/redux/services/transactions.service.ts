@@ -8,6 +8,14 @@ export const transactionsApi = baseApi.injectEndpoints({
       transformResponse: (responseData: any) => {
         return responseData;
       },
+      providesTags: ["Activities"],
+    }),
+
+    getAllTransactions: builder.query<any, any>({
+      query: ({userId, pageNumber}) => `${endpoints.GET_ALL_TRANSACTIONS}/?userId=${userId}&perpage=5&page=${pageNumber}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
       providesTags: ["Transactions"],
     }),
 
@@ -15,6 +23,6 @@ export const transactionsApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetActivitiesQuery,
-
+    useGetActivitiesQuery,
+    useGetAllTransactionsQuery
 } = transactionsApi;

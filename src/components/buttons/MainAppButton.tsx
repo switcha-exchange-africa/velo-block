@@ -2,7 +2,7 @@ import { Button, ResponsiveValue } from "@chakra-ui/react";
 
 interface MainAppButtonProps {
     size?: ResponsiveValue<(string & {}) | "sm" | "md" | "lg" | "xs"> | undefined
-    isLoading: boolean
+    isLoading?: boolean
     backgroundColor?: "primaryColor.900" | "primaryColor.600" | "secondaryColor.900" | "secondaryColor.600" | any
     color?: "primaryColor.900" | "primaryColor.600" | "secondaryColor.900" | "secondaryColor.600" | any
     width?: "sm" | "md" | "lg" | "xl" | "2xl" | (string & {}) | "xs" | "px" | "-moz-initial" | "inherit" | "initial" | "revert" | "revert-layer" | "unset" | "-moz-fit-content" | "container.xl" | any | undefined
