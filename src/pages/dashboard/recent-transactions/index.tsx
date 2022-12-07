@@ -49,8 +49,6 @@ const RecentTransaction = () => {
                 leftIcon={<ArrowBackIcon />}
                 colorScheme="transparent"
                 variant="solid"
-                pl={0}
-                ml="35px"
                 color={'#F24E1E'}
                 display={{ base: 'none', md: 'block' }}
             >
@@ -121,7 +119,7 @@ const RecentTransaction = () => {
                                         
                                         <Td fontSize="14px" textTransform="capitalize">{api?.description}</Td>
                                         {/* <Td >{api?.reference?.slice(0, 30)}</Td> */}
-                                        <Td >{api?.reference}</Td>
+                                        <Td >{api?.reference?.slice(0, 35)}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.status}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
                                     </Tr>
