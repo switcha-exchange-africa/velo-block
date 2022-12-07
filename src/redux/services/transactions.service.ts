@@ -8,7 +8,7 @@ export const transactionsApi = baseApi.injectEndpoints({
       transformResponse: (responseData: any) => {
         return responseData;
       },
-      providesTags: ["Transactions"],
+      providesTags: ["Activities"],
     }),
 
     getAllTransactions: builder.query<any, any>({
@@ -24,5 +24,5 @@ export const transactionsApi = baseApi.injectEndpoints({
 
 export const {
     useGetActivitiesQuery,
-    useGetAllTransactions
+    useGetAllTransactionsQuery
 } = transactionsApi;
