@@ -50,14 +50,14 @@ const RecentTransaction = () => {
                 colorScheme="transparent"
                 variant="solid"
                 color={'#F24E1E'}
-                display={{ base: 'none', md: 'block' }}
+                display={{ base: 'block', md: 'block' }}
             >
                 Home
             </Button>
-            <Flex  flexDirection={'row'} justifyContent="space-between" mt={{base: "100px", md: "30px"}} p={{ base: '0px', md: '' }}>
+            <Flex  flexDirection={{base: "column", md: "row"}} justifyContent="space-between" mt={{base: "20px", md: "30px"}} p={{ base: '0px', md: '' }}>
                 <Text fontSize="24px" color="#10192D" fontWeight="800" lineHeight="39px">Recent Transactions</Text>
                 
-                <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{ base: 'column', md: 'row' }} cursor="pointer" alignItems="center" mb={{ base: "20px", md: "0" }} >
+                <Flex gap="24px" ml={{ base: '0px', md: '35px' }} direction={{ base: 'row', md: 'row' }} mt={{ base: '20px', md: '0' }} cursor="pointer" alignItems="center" mb={{ base: "20px", md: "0" }} >
                     
                     <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
                         <Text fontWeight={'medium'} color={'#64748B'}>Sort By Date</Text>
@@ -86,7 +86,7 @@ const RecentTransaction = () => {
             {/* for desktop view */}
             {apiData?.length !== 0 ? (
                 <>
-                    <TableContainer display={["none", "none", "block"]}  paddingLeft="0" mt="45px" borderTop={"0.88px solid #E2E8F0"}>
+                    <TableContainer display={["block", "block", "block"]}  paddingLeft="0" mt="45px" borderTop={"0.88px solid #E2E8F0"}>
                         <Table variant='simple'>
                             <Thead>
                                 <Tr >
