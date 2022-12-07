@@ -1,6 +1,6 @@
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-import { ArrowBackIcon, CheckCircleIcon } from '@chakra-ui/icons'
-import { Box, Divider, Flex, Text, HStack } from '@chakra-ui/layout'
+import { ArrowBackIcon } from '@chakra-ui/icons'
+import { Box, Flex, Text, HStack } from '@chakra-ui/layout'
 import { Table,
   Thead,
   Tbody,
