@@ -36,7 +36,7 @@ const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps)
     return (
         <>
             {variant == true ? (
-                <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
+                <Text  fontSize={{ md: "sm", base: 'xs' }}>
                     {balance == 0 ? '$0.00' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ?  to8Dp(balance) : to8Dp(convertedValue)}
                 </Text>
             ) : (

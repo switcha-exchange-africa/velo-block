@@ -88,43 +88,31 @@ const RecentTransaction = () => {
                                 <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Amount</Th>
                                 <Th fontSize="14px" color="#8E9BAE" fontWeight="500">USDT equivalent</Th>
                                 <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Date</Th>
-                                <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Time</Th>
+                                <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Description</Th>
+                                <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Reference</Th>
+                                <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Status</Th>
+                                <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Action</Th>
                             </Tr>
                         </Thead>
 
                         {apiData?.data?.map((api:any) => (
                             <Tbody key={api?.id}>
                                 <Tr>
-                                    <Td paddingLeft="0">
-                                        <HStack>
-                                            <Box bg="#FB5E04"  padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px" color="#8E9BAE">M</Box>
-                                            <HStack flexDirection="column"  alignItems="flex-start" >
-                                                <HStack>
-                                                    <Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.reference}</Text>
-                                                    <Flex>
-
-                                                        <CheckCircleIcon
-                                                            color={"#22C36B"}
-                                                            w={"10px"}
-                                                            h={"10px"}
-                                                        />
-                                                    </Flex>
-                                                </HStack>
-                                                
-                                            </HStack>
-                                            
-                                        </HStack>
-                                    </Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">
+                                    <Td paddingLeft="0"><Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.senderAddress ? api?.senderAddress : "-"}</Text></Td>
+                                    <Td fontSize="14px"  fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
+                                    <Td fontSize="14px"  fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
+                                    <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
+                                    <Td fontSize="14px" fontWeight="500">
                                         <Flex>
                                             <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>
                                         </Flex>
                                     </Td>
-                                    <Td>{moment(api?.createdAt ).subtract(10, 'days').calendar()}</Td>
-                                    <Td>{moment(api?.createdAt ).format('LT')}</Td>
+                                    <Td fontSize="14px">{moment(api?.createdAt ).subtract(10, 'days').format('YYYY-MM-DD HH:mm')}</Td>
+                                    
+                                    <Td fontSize="14px" textTransform="capitalize">{api?.description}</Td>
+                                    <Td >{api?.reference?.slice(0, 30)}</Td>
+                                    <Td fontSize="14px" textTransform="capitalize">{api?.status}</Td>
+                                    <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
                                 </Tr>
                             </Tbody>    
                         ))}
