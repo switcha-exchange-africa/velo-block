@@ -29,9 +29,9 @@ const RecentTransaction = () => {
     const getTransactions = useGetAllTransactionsQuery({userId: user?._id, pageNumber: pageNumber})
 
     const apiData = getTransactions?.data
-    console.log(user?._id)
+    // console.log(user?._id)
 
-    console.log(getTransactions)
+    // console.log(getTransactions)
 
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
