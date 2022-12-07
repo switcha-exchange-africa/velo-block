@@ -7,7 +7,8 @@ import { Table,
   Tr,
   Th,
   Td,
-  TableContainer,
+    TableContainer,
+  
 } from "@chakra-ui/react"
 import { Button} from '@chakra-ui/react'
 import { Select } from '@chakra-ui/select'
@@ -16,6 +17,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import { useGetAllTransactionsQuery } from '../../../redux/services/transactions.service'
+import RenderBalanceToUsd from '../../../components/wallet/RenderBalanceToUsd'
 
 const RecentTransaction = () => {
     const router = useRouter()
@@ -74,7 +76,7 @@ const RecentTransaction = () => {
             
             {/* Table container here */}
             {/* for desktop view */}
-            {apiData.data.length !== 0 ? (
+            {apiData?.data?.length !== 0 ? (
                 <TableContainer display={["none", "none", "block"]}  paddingLeft="0" mt="45px" borderTop={"0.88px solid #E2E8F0"}>
                     <Table variant='simple'>
                         <Thead>
@@ -94,7 +96,7 @@ const RecentTransaction = () => {
                                 <Tr>
                                     <Td paddingLeft="0">
                                         <HStack>
-                                            <Box bg="#FB5E04"  padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px" color="#8E9BAE" fontWeight="500">M</Box>
+                                            <Box bg="#FB5E04"  padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px" color="#8E9BAE">M</Box>
                                             <HStack flexDirection="column"  alignItems="flex-start" >
                                                 <HStack>
                                                     <Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.user?.map((data:any) => data?.username)}</Text>
@@ -108,40 +110,26 @@ const RecentTransaction = () => {
                                                 </HStack>
                                                 <HStack color="#8E9BAE" fontSize="12px">
                                                     <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>
-                                                    <Box>
-                                                        {/* <Image src={Line} alt="line division" /> */}
-                                                    </Box>
+                                                    {/* <Box>
+                                                        </Box>
                                                     <Text>
-                                                        {/* {percentageCompletion(parseInt(api?.user?.map((data: any) => data?.noOfP2pOrderCompleted)), parseInt(api?.user?.map((data: any) => data?.noOfP2pAdsCreated)))} */}
                                                         %&nbsp;completion
-                                                    </Text>
+                                                    </Text> */}
                                                 </HStack>{ api?.user?.map((data:any) => data?.noOfP2pAdsCreated)}
                                             </HStack>
                                             
                                         </HStack>
                                     </Td>
-                                    <Td>
-                                        <Text fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.price ? api?.price?.toLocaleString() : api?.price}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
-                                    </Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.totalAmount ?  api?.totalAmount?.toLocaleString() : api?.totalAmount}</Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.minLimit ? api?.minLimit?.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit?.toLocaleString() : api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
+                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500" textTransform="capitalize">{api?.type}</Td>
+                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
+                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                     <Td fontSize="14px" color="#8E9BAE" fontWeight="500">
-                                        <Text
-                                            fontSize={"12px"}
-                                            textAlign={"center"}
-                                            background={"#FFF7F2"}
-                                            color={"#FB5E04"}
-                                            fontWeight="200"
-                                            borderRadius={"3px"}
-                                        >
-                                            Bank Transfer
-                                        </Text>
+                                        <Flex>
+                                            <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>
+                                        </Flex>
                                     </Td>
                                     <Td>
-                                        {/* <Button onClick={onClick} color="white" disabled fontWeight="bold" bg={backgroundColor} fontSize="14px" color="#8E9BAE" fontWeight="500">
-                                            {buttonTitle}
-                                        </Button> */}
-                
+                                 
                                     </Td>
                                 </Tr>
                             </Tbody>    
