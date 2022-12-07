@@ -151,7 +151,6 @@ function WalletPage() {
   const [pageNumber, setPageNumber] = useState(1)
     
   const recentActivity = useGetActivitiesQuery(pageNumber)
-  console.log("re" ,recentActivity)
   const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
   }

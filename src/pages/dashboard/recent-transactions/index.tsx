@@ -120,7 +120,8 @@ const RecentTransaction = () => {
                                         <Td fontSize="14px">{moment(api?.createdAt ).subtract(10, 'days').format('YYYY-MM-DD HH:mm')}</Td>
                                         
                                         <Td fontSize="14px" textTransform="capitalize">{api?.description}</Td>
-                                        <Td >{api?.reference?.slice(0, 30)}</Td>
+                                        {/* <Td >{api?.reference?.slice(0, 30)}</Td> */}
+                                        <Td >{api?.reference}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.status}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
                                     </Tr>
