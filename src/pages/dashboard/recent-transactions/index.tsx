@@ -23,9 +23,10 @@ const RecentTransaction = () => {
     const [coinType, setCoinType] = useState(`All Assets`)
     const [pageNumber, setPageNumber] = useState(1)
     const { user } = useAppSelector((state) => state.auth)
-    const getTransactions = useGetAllTransactionsQuery({accountId: "635690cb04b9dd6fca335772", pageNumber: pageNumber})
+    const getTransactions = useGetAllTransactionsQuery({userId: user?._id, pageNumber: pageNumber})
 
     const apiData = getTransactions?.data
+    console.log(user?._id)
 
     console.log(getTransactions)
 
