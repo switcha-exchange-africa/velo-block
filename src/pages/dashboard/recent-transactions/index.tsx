@@ -18,6 +18,7 @@ import { useState } from 'react'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import { useGetAllTransactionsQuery } from '../../../redux/services/transactions.service'
 import RenderBalanceToUsd from '../../../components/wallet/RenderBalanceToUsd'
+import moment from "moment"
 
 const RecentTransaction = () => {
     const router = useRouter()
@@ -99,8 +100,9 @@ const RecentTransaction = () => {
                                             <Box bg="#FB5E04"  padding="9px 13px" fontWeight="bold" borderRadius="50%" fontSize="14px" color="#8E9BAE">M</Box>
                                             <HStack flexDirection="column"  alignItems="flex-start" >
                                                 <HStack>
-                                                    <Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.user?.map((data:any) => data?.username)}</Text>
+                                                    <Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.reference}</Text>
                                                     <Flex>
+
                                                         <CheckCircleIcon
                                                             color={"#22C36B"}
                                                             w={"10px"}
@@ -108,19 +110,12 @@ const RecentTransaction = () => {
                                                         />
                                                     </Flex>
                                                 </HStack>
-                                                <HStack color="#8E9BAE" fontSize="12px">
-                                                    <Text ml="-8px" >{ api?.user?.map((data:any) => data?.noOfP2pOrderCompleted)}&nbsp;orders</Text>
-                                                    {/* <Box>
-                                                        </Box>
-                                                    <Text>
-                                                        %&nbsp;completion
-                                                    </Text> */}
-                                                </HStack>{ api?.user?.map((data:any) => data?.noOfP2pAdsCreated)}
+                                                
                                             </HStack>
                                             
                                         </HStack>
                                     </Td>
-                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500" textTransform="capitalize">{api?.type}</Td>
+                                    <Td fontSize="14px" color="#8E9BAE" fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
                                     <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                     <Td fontSize="14px" color="#8E9BAE" fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                     <Td fontSize="14px" color="#8E9BAE" fontWeight="500">
@@ -128,9 +123,8 @@ const RecentTransaction = () => {
                                             <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>
                                         </Flex>
                                     </Td>
-                                    <Td>
-                                 
-                                    </Td>
+                                    <Td>{moment(api?.createdAt ).subtract(10, 'days').calendar()}</Td>
+                                    <Td>{moment(api?.createdAt ).format('LT')}</Td>
                                 </Tr>
                             </Tbody>    
                         ))}
