@@ -1,15 +1,31 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
 import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
+// import { skipToken } from '@reduxjs/toolkit/dist/query'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
+import { setSingleAds } from '../../../redux/features/accountSettings/accounSettingsSlice'
+import { useGetP2pSingleAdsQuery } from '../../../redux/services/p2p-ads.service'
 
 export const P2pAds = ({ data }: any) => {   
     const router = useRouter()
-    const handleEdit = (adId: string) => {
-        router.push('/p2p/edit-ads/'+adId)
+    const [adId, setAdId] = useState("")
+    const dispatch= useAppDispatch()
+    // const datas = undefined ?  {skip: true} : adId
+    // const getSingleAds = useGetP2pSingleAdsQuery(adId, {skip: adId === ""})
+    // console.log("ad is is ", adId)
+
+    const handleEdit = async (adIds: any) => {
+        const singleAds = data?.find((ads:any) => ads._id === adIds);        
+        dispatch(setSingleAds({singleAds: singleAds}))
+        router.push('/p2p/edit-ads/' + adId)
+        
+       
     }
 
-    console.log(data)
+
+    
 
     return (
         <Box>

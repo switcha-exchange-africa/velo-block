@@ -2,14 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AccountState {
     walletBalance: [],
-    oldPassword: string
+    oldPassword: string,
+    singleAds: {},
     code: string,
     secretKey: string,
     url: string,
     authenticator: string
 }
+
 const initialState: AccountState = {
     walletBalance: [],
+    singleAds: {},
     oldPassword: "",
     code: "",
     secretKey: "",
@@ -24,6 +27,10 @@ export const accountSlice = createSlice({
     reducers: {
         setWalletBalance: (state, { payload: { walletBalance } }: PayloadAction<{ walletBalance: any }>) => {
             state.walletBalance = walletBalance;
+        },
+
+        setSingleAds: (state, { payload: { singleAds } }: PayloadAction<{ singleAds: any }>) => {
+            state.singleAds = singleAds;
         },
         
         setOldPassword: (state, { payload: { oldPassword } }: PayloadAction<{ oldPassword: any }>) => {
@@ -49,6 +56,7 @@ export const accountSlice = createSlice({
 
 export const {
     setWalletBalance,
+    setSingleAds,
     setOldPassword,
     setCode,
     setAuthSecurity,
