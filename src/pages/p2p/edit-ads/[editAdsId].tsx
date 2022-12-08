@@ -33,6 +33,7 @@ interface InitialValuesProps {
 const EditAds = (props:any) => {
   const router = useRouter()
   const { singleAds } = useAppSelector((state) => state.accountSettings)
+  console.log("sell ", singleAds)
   
   // console.log("this is the singleAds ", singleAds)
 
@@ -62,7 +63,8 @@ const EditAds = (props:any) => {
 
 
   const [values, setValues] = useState(initialValues)
-  const [banks, setBanks] = useState<any>([])
+  const [banks] = useState<any>([])
+  // const [sellBanks, SetSell]
 
   const handleCancelStep = () => {
       router.back()
@@ -125,41 +127,7 @@ const EditAds = (props:any) => {
   }
 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    getAddedBanksIdValues()
-
-    const data = {
-      banks,
-      type: singleAds?.type,
-      cash: singleAds?.cash,
-      coin: singleAds?.coin,
-      paymentTimeLimit: values.paymentTimeLimit,
-      priceType: priceType,
-      price: parseFloat(price),
-      totalAmount: parseFloat(values.totalAmount),
-      minLimit: parseFloat(values.minLimit),
-      maxLimit: parseFloat(values.maxLimit),
-      highestPriceOrder: parseFloat(price),
-      kyc: true,
-      moreThanDot1Btc: true,
-      registeredZeroDaysAgo: true,
-      isPublished:true,
-    }
-
-    console.log(data)
-    const resp:any = await editAds({body:data, id: singleAds?._id})
-    // handleNextStep()
-    if(resp?.data?.status === 200) {
-      appAlert.success(resp?.data?.message)
-      getAllAds.refetch()
-      router.push("/p2p/all-ads")
-    } else {
-      appAlert.success(resp?.error?.data?.message)
-    }
-    
-  }
-
+  
 
 
 
@@ -201,17 +169,29 @@ const EditAds = (props:any) => {
   const {data:getBanks} = useGetNigerianBankQuery()
   const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
   const getAddedBankSellType = useGetAddedBankSellTypeQuery()
-  
+  const [sellBanks, setSellBanks] = useState<any>([])
+
+  console.log("this is it ", sellBanks)
+  const sellBank:any = []
+
+  const getAddedBanksSellIdValues = () => {
+      const ids = sellBanks?.map((item: any) => item.id)
+      for (let i = 0; i < ids.length; i++) {
+          sellBank.push(ids[i])
+      }
+  }
+
+
   const handleSelect = async (value: any) => {
         const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
         const body = {
             name: findBankCode?.name,
             codes: findBankCode?.code,
             accountName: findBankCode?.accountName,
-            accountNumbering: findBankCode?.accountNumber,
+            accountNumber: findBankCode?.accountNumber,
             id: findBankCode?._id
         }       
-        setBanks((selectedBank:any) => [...selectedBank, body])
+        setSellBanks((selectedBank:any) => [...selectedBank, body])
         appAlert.success("Bank Selected")
         onClose()
     }
@@ -221,6 +201,40 @@ const EditAds = (props:any) => {
         return unique
     }
 
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    getAddedBanksIdValues()
+    getAddedBanksSellIdValues()
+
+    const data = {
+      banks: singleAds?.type=== "sell" ? sellBank : banks,
+      type: singleAds?.type,
+      cash: singleAds?.cash,
+      coin: singleAds?.coin,
+      paymentTimeLimit: values.paymentTimeLimit,
+      priceType: priceType,
+      price: parseFloat(price),
+      totalAmount: parseFloat(values.totalAmount),
+      minLimit: parseFloat(values.minLimit),
+      maxLimit: parseFloat(values.maxLimit),
+      highestPriceOrder: parseFloat(price),
+      kyc: true,
+      moreThanDot1Btc: true,
+      registeredZeroDaysAgo: true,
+      isPublished:true,
+    }
+    console.log(data)
+    const resp:any = await editAds({body:data, id: singleAds?._id})
+    if(resp?.data?.status === 200) {
+      appAlert.success(resp?.data?.message)
+      getAllAds.refetch()
+      router.push("/p2p/all-ads")
+    } else {
+      appAlert.success(resp?.error?.data?.message)
+    }
+    
+  }
   const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
 
@@ -567,15 +581,15 @@ const EditAds = (props:any) => {
               </HStack>
 
 
-            {singleAds?.coin === "sell" ? (
+            {singleAds?.type === "sell" ? (
               <Box mt="48px" fontSize={"14px"}>
                   <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                   <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
                   
                   <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
                       {/* rendering the data */}
-                      {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
-                          banks?.map((item: any) => {
+                      {sellBanks?.length === 0 ? null : (sellBanks.length > 0 && sellBanks.length === 1) ? (
+                          sellBanks?.map((item: any) => {
                               return (
                                   <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
                                       {item.name.substring(0, 13)}
@@ -590,9 +604,9 @@ const EditAds = (props:any) => {
                               ) 
                               
                           } 
-                          )) : (filteredBanks(banks, "id")).map((item:any) => (
-                                  <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                      {item.name.substring(0, 13)}
+                          )) : (filteredBanks(sellBanks, "id")).map((item:any) => (
+                                  <Flex key={item?.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                      {item?.name?.substring(0, 13)}
                                       <CloseIcon
                                           mr="5px"
                                           color={"#000000"}
