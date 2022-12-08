@@ -219,26 +219,6 @@ const TableComponent = ({
                 </Table>
             </TableContainer>
 
-            {/* <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
-                <HStack >
-                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                        {apiData?.pagination?.currentPage}
-                    </Box>
-                    <Text>of</Text>
-                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                        {apiData?.pagination?.lastPage}
-                    </Box>
-                </HStack>
-
-                <HStack>
-                    <Button onClick={handlePreviousPage} disabled={apiData?.pagination?.currentPage === 1}>
-                        Prev
-                    </Button>
-                    <Button onClick={handleNextPage} disabled={apiData?.pagination?.hasNext === false}>
-                        Next
-                    </Button>    
-                </HStack>
-            </HStack> */}
 
             {apiData?.pagination?.lastPage > 1 ? (
                 <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
