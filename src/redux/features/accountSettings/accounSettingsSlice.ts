@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface AccountState {
     walletBalance: [],
     oldPassword: string,
-    singleAds: {},
+    singleAds: any,
     code: string,
     secretKey: string,
     url: string,

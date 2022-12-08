@@ -19,9 +19,8 @@ export const P2pAds = ({ data }: any) => {
     const handleEdit = async (adIds: any) => {
         const singleAds = data?.find((ads:any) => ads._id === adIds);        
         dispatch(setSingleAds({singleAds: singleAds}))
-        router.push('/p2p/edit-ads/' + adId)
-        
-       
+        router.push('/p2p/edit-ads/' + adIds)
+    
     }
 
 

@@ -68,7 +68,7 @@ const EditAds = (props:any) => {
   }
 
   const getAddedBanksIdValues = () => {
-      const ids = getAddedBanks?.map((item: any) => item._id)
+      const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
       for (let i = 0; i < ids.length; i++) {
           banks.push(ids[i])
       }
@@ -197,7 +197,7 @@ const EditAds = (props:any) => {
                 <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
                   {/* rendering the data */}
                   {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-                    getAddedBanks?.map((item: any) => (
+                    getAddedBanks?.data?.data?.map((item: any) => (
                       <Flex key={item._id} p={"11px 10px"} justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
                         {item?.name.substring(0, 13)}
                         <CloseIcon
@@ -211,7 +211,7 @@ const EditAds = (props:any) => {
                     ))
                   )}
 
-                  {getAddedBanks?.length >= 5 ? (
+                  {getAddedBanks?.data?.data?.length >= 5 ? (
                     <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
                       <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                         <AddIcon
