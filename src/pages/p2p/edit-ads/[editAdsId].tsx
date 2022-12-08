@@ -121,11 +121,8 @@ const EditAds = (props:any) => {
   return (
     <DashboardLayout title='Edit Ads'>
 
-      <h1>{singleAds?.totalAmount}</h1>
       <EditAdsModal action={props.action} />
       
-      {getSingleAds.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
-
         <form onSubmit={handleSubmit}>
           <FormControl>
             <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
@@ -305,7 +302,7 @@ const EditAds = (props:any) => {
               </Flex>
             </Flex>
           </FormControl>
-        </form>)}
+        </form>
     </DashboardLayout>
   )
 }
