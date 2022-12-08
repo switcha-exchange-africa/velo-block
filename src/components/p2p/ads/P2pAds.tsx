@@ -1,8 +1,14 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
 import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
-export const P2pAds = ({ data }: any) => {    
+export const P2pAds = ({ data }: any) => {   
+    const router = useRouter()
+    const handleEdit = (adId: string) => {
+        router.push('/p2p/editAds/'+adId)
+    }
+
     return (
         <Box>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w="100%">
@@ -113,7 +119,7 @@ export const P2pAds = ({ data }: any) => {
                                     <Td pl="0" fontSize="14px" color="#000000" fontWeight="600">
                                         <Flex height="100px"  direction="column">
                                             <Text mb="11px" cursor="pointer">Download</Text>
-                                            <Text mb="11px" cursor="pointer">Edit</Text>
+                                            <Text mb="11px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Text>
                                             <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
                                         </Flex>
                                             
