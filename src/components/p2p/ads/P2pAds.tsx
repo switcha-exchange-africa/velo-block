@@ -2,7 +2,6 @@ import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
 import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Button} from "@chakra-ui/react"
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import { setSingleAds } from '../../../redux/features/accountSettings/accounSettingsSlice'
 
@@ -12,8 +11,7 @@ export const P2pAds = ({ data }: any) => {
     const handleEdit = async (adIds: any) => {
         const singleAds = data?.find((ads:any) => ads._id === adIds);        
         dispatch(setSingleAds({singleAds: singleAds}))
-        router.push('/p2p/edit-ads/' + adIds)
-    
+        router.push('/p2p/edit-ads/' + adIds)    
     }
 
 
