@@ -45,11 +45,11 @@ export const adsOrdersApi = baseApi.injectEndpoints({
         }),
 
         editAds: builder.mutation<any, any>({
-            query: (body, id) => {
+            query: ({body, id}) => {
                 return {
                     // /p2p/ads/:id
                     url: `${endpoints.P2P_ADS}/${id}`,
-                    method: "POST",
+                    method: "PUT",
                     body: { ...body },
                 };
             },

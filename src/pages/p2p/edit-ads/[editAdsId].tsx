@@ -38,7 +38,7 @@ const EditAds = (props:any) => {
   const { editAdsId } = router.query
   // console.log("this is the edit id", editAdsId)
 
-  // const editAds = useEditAdsMutation()
+  const [editAds] = useEditAdsMutation()
 
   const getAddedBanks:any = useGetAddedBankQuery()
   
@@ -58,10 +58,6 @@ const EditAds = (props:any) => {
   const [values, setValues] = useState(initialValues)
   const [banks] = useState<any>([])
 
-  const handleNextStep = () => {
-      setCurrentStep(prevStep => prevStep + 1)
-  }
- 
   const handleCancelStep = () => {
       router.back()
   }
@@ -123,21 +119,32 @@ const EditAds = (props:any) => {
   }
 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getAddedBanksIdValues()
 
     const data = {
       banks,
-      price,
-      totalAmount: values.totalAmount,
-      minLimit: values.minLimit,
-      maxLimit: values.maxLimit,
-      paymentTimeLimit: "15"
+      type: singleAds?.type,
+      cash: singleAds?.cash,
+      coin: singleAds?.coin,
+      paymentTimeLimit: values.paymentTimeLimit,
+      priceType: priceType,
+      price: parseFloat(price),
+      totalAmount: parseFloat(values.totalAmount),
+      minLimit: parseFloat(values.minLimit),
+      maxLimit: parseFloat(values.maxLimit),
+      highestPriceOrder: parseFloat(price),
+      kyc: true,
+      moreThanDot1Btc: true,
+      registeredZeroDaysAgo: true,
+      isPublished:true,
     }
 
-    console.log( data)
+    console.log(data)
+    const resp = await editAds({body:data, id: singleAds?._id})
     // handleNextStep()
+    console.log(resp)
   }
 
   return (
@@ -192,7 +199,7 @@ const EditAds = (props:any) => {
               <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}}>
                 <VStack alignItems="flex-start">
                   <Text color={"#8E9BAE"} textTransform="capitalize">{singleAds?.type}</Text>
-                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">{singleAds?.coin}/{singleAds?.cash}</Heading>
+                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}/{singleAds?.cash}</Heading>
                 </VStack>  
 
               <VStack alignItems="flex-start">
@@ -247,7 +254,7 @@ const EditAds = (props:any) => {
                     onChange={handleInputChange}
                   />
                   <InputRightElement width={{ md: '120px', base: '100px' }} textAlign={"right"}>
-                    <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
+                    <Text fontSize={"14px"} fontWeight={"400"}>{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}</Text>
                   </InputRightElement>
                 </InputGroup>
                 <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
@@ -267,7 +274,7 @@ const EditAds = (props:any) => {
                       onChange={handleInputChange}
                     />
                     <InputRightElement width={{ md: '100px', base: '100px' }}>
-                      <Text fontSize={"12px"} fontWeight={"400"}>{coin}</Text>
+                      <Text fontSize={"12px"} fontWeight={"400"}>{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}</Text>
                     </InputRightElement>
                   </InputGroup>
                       
@@ -292,7 +299,7 @@ const EditAds = (props:any) => {
                       onChange={handleInputChange}
                     />
                     <InputRightElement width={{ md: '100px', base: '100px' }}>
-                      <Text fontSize={"12px"} fontWeight={"400"}>{coin}</Text>
+                      <Text fontSize={"12px"} fontWeight={"400"}>{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}</Text>
                     </InputRightElement>
                   </InputGroup>
                 </Box>
