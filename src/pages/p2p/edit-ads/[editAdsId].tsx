@@ -74,7 +74,7 @@ const EditAds = () => {
       }
   }
 
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
       console.log(props)
@@ -110,12 +110,16 @@ const EditAds = () => {
       )
   }
 
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    getAddedBanksIdValues()
+    handleNextStep()
+  }
+
   return (
     <DashboardLayout title='Edit Ads'>
 
-      const { isOpen, onOpen, onClose } = useDisclosure()
-    
-    
 
       <form onSubmit={handleSubmit}>
           <FormControl>
