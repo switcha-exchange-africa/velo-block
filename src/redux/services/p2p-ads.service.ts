@@ -25,7 +25,7 @@ export const adsOrdersApi = baseApi.injectEndpoints({
         }),
 
         getP2pSingleAds: builder.query<any, any>({
-            query: ({adId, userId, pageNumber}) => `p2p/ads/${adId}/?userId=${userId}`,
+            query: ({adId, userId}) => `p2p/ads/${adId}/?userId=${userId}`,
             transformResponse: (responseData: any) => {
                 return responseData;
             },
