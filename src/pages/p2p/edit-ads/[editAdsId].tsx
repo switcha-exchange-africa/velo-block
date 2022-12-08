@@ -12,6 +12,8 @@ import {
 import { useGetP2pSingleAdsQuery } from "../../../redux/services/p2p-ads.service"
 import { useGetAddedBankQuery } from "../../../redux/services/bank.service"
 import { useState } from "react"
+import { MouseEventHandler} from 'react'
+import SearchInput from "../../../components/p2p/steps/SellSteps/BuyStepTwoSearchFilter"
 
 
 interface InitialValuesProps {
@@ -74,10 +76,47 @@ const EditAds = () => {
 
 
 
-  
+  const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
+      console.log(props)
+      return (
+          <Modal isOpen={isOpen} onClose={onClose} size="lg" >
+              <ModalOverlay />
+              <ModalContent padding={"10px 0 0"} mx="10px">
+                  <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
+                      Select Payment Method
+                  </ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody padding={"10px 0"}>
+                      <Text
+                          fontSize={"sm"}
+                          padding="20px 20px 12px"
+                          borderTop={"1px solid #8E9BAE"}
+                      >
+                          Recommended
+                      </Text>
+                      <Text
+                          fontSize={"sm"}
+                          fontWeight={"bold"}
+                          padding="0px 20px 20px"
+                          borderBottom={"1px solid #8E9BAE"}
+                      >
+                          Bank Transfer
+                      </Text>
+                      
+                      <SearchInput onClose={ onClose}  />
+                  </ModalBody>
+              </ModalContent>
+          </Modal>
+      )
+  }
 
   return (
     <DashboardLayout title='Edit Ads'>
+
+      const { isOpen, onOpen, onClose } = useDisclosure()
+    
+    
+
       <form onSubmit={handleSubmit}>
           <FormControl>
               <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
@@ -182,10 +221,10 @@ const EditAds = () => {
                           ): (
                               <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
                                   <AddIcon
-                                      mr="5px"
-                                      color={"#FB5E04"}
-                                      w={"10px"}
-                                      h={"10px"}
+                                    mr="5px"
+                                    color={"#FB5E04"}
+                                    w={"10px"}
+                                    h={"10px"}
                                   />
                                   Add
                               </Button>
