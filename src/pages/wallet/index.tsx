@@ -67,9 +67,14 @@ function WalletPage() {
 
 
   const to8Dp = (number: any) => {
-    const datas = _.floor(number, 8)
-    const values = datas?.toLocaleString()
-    return values
+    if (number > 1) {
+      const datas = _.floor(number, 8)
+      const values = datas?.toLocaleString()
+      return values  
+    } else {
+      return number
+    }
+    
   }
 
 
@@ -460,7 +465,7 @@ function WalletPage() {
 
 function RecentTransaction(props:any) {
   const { data } = props
-  
+
   return (
     <Box>
       {data?.map((transaction: any) => {
@@ -470,7 +475,7 @@ function RecentTransaction(props:any) {
               display={"flex"}
               justifyContent={"space-between"}
               alignItems={"flex-start"}
-              padding="12px 12px"
+              padding="12px 5px"
               key={transaction?._id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
@@ -510,19 +515,16 @@ function RecentTransaction(props:any) {
                     size="sm"
                   />
                 )}
-                <Box>
+                <Box w="100%">
                   <Text fontSize="xs" fontWeight={"700"}>
                     {transaction?.coin === "USDT_TRON" ? "USDT-TRON" : transaction?.coin}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm"  w="80%">
+                  <Text color={"#64748B"} fontSize="sm"  >
                     {transaction?.description}
                   </Text>
                 </Box>
               </Box>
               <Box >
-                <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
-                  ${transaction?.amount}
-                </Text>
                 <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
                   {moment(transaction?.createdAt).calendar()}
                 </Text>
