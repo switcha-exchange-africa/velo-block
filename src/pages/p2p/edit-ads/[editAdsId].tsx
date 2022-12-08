@@ -14,11 +14,12 @@ import {
 import {
     AddIcon, ArrowBackIcon, CloseIcon, InfoIcon
 } from '@chakra-ui/icons'
-import { useEditAdsMutation, useGetP2pSingleAdsQuery } from "../../../redux/services/p2p-ads.service"
+import { useEditAdsMutation } from "../../../redux/services/p2p-ads.service"
 import { useGetAddedBankQuery } from "../../../redux/services/bank.service"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { MouseEventHandler} from 'react'
 import SearchInput from "../../../components/p2p/steps/SellSteps/BuyStepTwoSearchFilter"
+import appAlert from "../../../helpers/appAlert"
 
 
 interface InitialValuesProps {
@@ -30,21 +31,20 @@ interface InitialValuesProps {
 
 const EditAds = (props:any) => {
   const router = useRouter()
-  const { user } = useAppSelector((state) => state.auth)
   const { singleAds } = useAppSelector((state) => state.accountSettings)
   
-  console.log("this is the singleAds ", singleAds)
+  // console.log("this is the singleAds ", singleAds)
 
-  const { editAdsId } = router.query
+  // const { editAdsId } = router.query
   // console.log("this is the edit id", editAdsId)
 
   const [editAds] = useEditAdsMutation()
 
   const getAddedBanks:any = useGetAddedBankQuery()
   
-  const [currentStep, setCurrentStep] = useState(1)
-  const [coin, setCoin] = useState('BTC')
-  const [priceType, setPriceType] = useState('fixed')
+  // const [currentStep, setCurrentStep] = useState(1)
+  // const [coin, setCoin] = useState('BTC')
+  const [priceType] = useState('fixed')
   const [price, setPrice] = useState<any>(singleAds?.price)
   
   const initialValues:InitialValuesProps = {
@@ -142,8 +142,13 @@ const EditAds = (props:any) => {
     }
 
     console.log(data)
-    const resp = await editAds({body:data, id: singleAds?._id})
+    const resp:any = await editAds({body:data, id: singleAds?._id})
     // handleNextStep()
+    if(resp?.data?.status === 200) {
+      appAlert.success(resp?.data?.message)
+    } else {
+      appAlert.success(resp?.error?.data?.message)
+    }
     console.log(resp)
   }
 
