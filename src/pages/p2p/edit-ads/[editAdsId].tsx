@@ -1,4 +1,4 @@
-import { useRouter } from "next/router"
+import { useRouter } from "Post/router"
 import { useAppSelector } from "../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout"
 import {
@@ -10,6 +10,16 @@ import {
     AddIcon, CloseIcon, InfoIcon
 } from '@chakra-ui/icons'
 import { useGetP2pSingleAdsQuery } from "../../../redux/services/p2p-ads.service"
+import { useGetAddedBankQuery } from "../../../redux/services/bank.service"
+import { useState } from "react"
+
+
+interface InitialValuesProps {
+    totalAmount: string
+    minLimit: string
+    maxLimit: string
+    paymentTimeLimit: string
+}
 
 const EditAds = () => {
   const router = useRouter()
@@ -17,25 +27,50 @@ const EditAds = () => {
   const { editAdsId } = router.query
   console.log("this is the edit id", editAdsId)
 
+  const getAddedBanks:any = useGetAddedBankQuery()
   const getSingleAds = useGetP2pSingleAdsQuery({adId: editAdsId, userId: user?._id})
 
   
   console.log(getSingleAds)
 
-  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
-        setValues({
-            ...values,
-            [name]: value,
-        })
-    }
+  const [currentStep, setCurrentStep] = useState(1)
+  const [coin, setCoin] = useState('BTC')
+  const [priceType, setPriceType] = useState('fixed')
+  const [price, setPrice] = useState<any>(0)
+  
+  const initialValues:InitialValuesProps = {
+      totalAmount: "",
+      minLimit: "",
+      maxLimit: "",
+      paymentTimeLimit: "15"
+  }
 
-    const getAddedBanksIdValues = () => {
-        const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
-        for (let i = 0; i < ids.length; i++) {
-            banks.push(ids[i])
-        }
-    }
+  const [values, setValues] = useState(initialValues)
+  const [banks] = useState<any>([])
+
+  
+  const handleNextStep = () => {
+      setCurrentStep(prevStep => prevStep + 1)
+  }
+
+  const handleCancelStep = () => {
+      router.back()
+  }
+
+  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setValues({
+        ...values,
+        [name]: value,
+    })
+  }
+
+  const getAddedBanksIdValues = () => {
+      const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
+      for (let i = 0; i < ids.length; i++) {
+          banks.push(ids[i])
+      }
+  }
 
 
 
@@ -43,7 +78,6 @@ const EditAds = () => {
 
   return (
     <DashboardLayout title='Edit Ads'>
-      
       <form onSubmit={handleSubmit}>
           <FormControl>
               <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
@@ -189,11 +223,11 @@ const EditAds = () => {
                       </Flex>
                       
                       <Flex justifyContent={"space-between"}>
-                          <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
-                              Previous
+                          <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handleCancelStep}>
+                              Cancel
                           </Button>
                           <Button borderRadius={"5px"} type="submit" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
-                              Next
+                              Post
                           </Button>
                       </Flex>
                   </Flex>
@@ -214,11 +248,11 @@ const EditAds = () => {
                   </Flex>
                   
                   <Flex>
-                      <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handlePreviousStep}>
-                          Previous
+                      <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handleCancelStep}>
+                          Cancel
                       </Button>
                       <Button type="submit" borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
-                          Next
+                          Post
                       </Button>
                   </Flex>
               </Flex>
