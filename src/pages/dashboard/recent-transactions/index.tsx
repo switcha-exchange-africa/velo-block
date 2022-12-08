@@ -108,8 +108,8 @@ const RecentTransaction = () => {
                                 <Tbody key={api?.id}>
                                     <Tr>
                                         <Td paddingLeft="0"><Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.senderAddress ? api?.senderAddress : "-"}</Text></Td>
-                                        <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
-                                        <Td fontSize="14px" fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
+                                        <Td fontSize="14px" textTransform="capitalize">{api?.customTransactionType}</Td>
+                                        <Td fontSize="14px" fontWeight="500" textTransform="capitalize">{api?.type}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px" fontWeight="500">

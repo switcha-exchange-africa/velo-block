@@ -514,15 +514,12 @@ function RecentTransaction(props:any) {
                   <Text fontSize="xs" fontWeight={"700"}>
                     {transaction?.coin === "USDT_TRON" ? "USDT-TRON" : transaction?.coin}
                   </Text>
-                  <Text color={"#64748B"} fontSize="sm"  w="80%">
+                  <Text color={"#64748B"} fontSize="sm"  >
                     {transaction?.description}
                   </Text>
                 </Box>
               </Box>
               <Box >
-                <Text textAlign={"right"} fontWeight={"700"} color={"#6FD97A"} fontSize="14px">
-                  ${transaction?.amount}
-                </Text>
                 <Text fontSize={"10px"} textAlign={"right"} color={"#64748B"}>
                   {moment(transaction?.createdAt).calendar()}
                 </Text>
