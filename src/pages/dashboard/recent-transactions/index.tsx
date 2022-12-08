@@ -96,10 +96,11 @@ const RecentTransaction = () => {
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Currency</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Amount</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">USDT equivalent</Th>
-                                    <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Date</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Description</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Reference</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Status</Th>
+                                    <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Date</Th>
+                                    
                                 </Tr>
                             </Thead>
 
@@ -116,12 +117,13 @@ const RecentTransaction = () => {
                                                 <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>
                                             </Flex>
                                         </Td>
-                                        <Td fontSize="14px">{moment(api?.createdAt ).subtract(10, 'days').format('YYYY-MM-DD HH:mm')}</Td>
                                         
                                         <Td fontSize="14px" textTransform="capitalize">{api?.description}</Td>
                                         {/* <Td >{api?.reference?.slice(0, 30)}</Td> */}
                                         <Td >{api?.reference?.slice(0, 35)}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.status}</Td>
+                                        <Td fontSize="14px">{moment(api?.createdAt ).subtract(10, 'days').format('YYYY-MM-DD HH:mm')}</Td>
+                                        
                                     </Tr>
                                 </Tbody>    
                             ))}
