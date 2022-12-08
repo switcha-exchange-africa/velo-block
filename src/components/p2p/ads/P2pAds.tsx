@@ -9,6 +9,8 @@ export const P2pAds = ({ data }: any) => {
         router.push('/p2p/edit-ads/'+adId)
     }
 
+    console.log(data)
+
     return (
         <Box>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w="100%">
@@ -94,11 +96,13 @@ export const P2pAds = ({ data }: any) => {
                                         <Td pl="0" fontSize="12px">
                                             <Flex direction="column" height="100px" >
                                                 <Text mb="11px">Bank Transfer</Text>
-                                                {/* <Text >{ad?.bank[0]}</Text> */}
-                                            {ad?.bank?.filter((index:any)=> index < 2).map((filterItem:any )=> {
+                                                {/* {ad?.bank?.filter((index:any)=> index < 2).map((filterItem:any )=> {
 
-                                                return <Text key={filterItem?._id}>{filterItem?.name}</Text>
-                                            })}
+                                                    return <Text key={filterItem?._id}>{filterItem?.name}</Text>
+                                                })} */}
+
+                                                <Text >{ad?.bank[0]?.name}</Text>
+                                                <Text >{ad?.bank[1]?.name}</Text>
                                             </Flex>
                                             
                                         </Td>
@@ -180,8 +184,8 @@ export const P2pAds = ({ data }: any) => {
                             <Text mb="11px">Payment Method</Text>
                             <Flex direction="column" mt="20px" w="80%" height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
                                 <Text mb="8px">Bank Transfer</Text>
-                                {/* <Text >{ad?.bank[0]}</Text> */}
-                                {/* <Text >{ad?.bank[1]}</Text> */}
+                                <Text >{ad?.bank[0]?.name}</Text>
+                                <Text >{ad?.bank[1]?.name}</Text>
                             </Flex>
                         </Flex>
                     </Flex>
@@ -203,7 +207,7 @@ export const P2pAds = ({ data }: any) => {
                             <Text mb="11px">Actions</Text>
                             <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end">
                                 <Text mb="8px" cursor="pointer">Download</Text>
-                                <Text mb="8px" cursor="pointer">Edit</Text>
+                                <Text mb="8px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Text>
                                 <Text mb="8px" cursor="pointer" color="#FF1F00">Delete</Text>
                             </Flex>
                         </Flex>
