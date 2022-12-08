@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 export const P2pAds = ({ data }: any) => {   
     const router = useRouter()
     const handleEdit = (adId: string) => {
-        router.push('/p2p/editAds/'+adId)
+        router.push('/p2p/edit-ads/'+adId)
     }
 
     return (
