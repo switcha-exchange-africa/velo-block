@@ -126,7 +126,18 @@ const EditAds = (props:any) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getAddedBanksIdValues()
-    handleNextStep()
+
+    const data = {
+      banks,
+      price,
+      totalAmount: values.totalAmount,
+      minLimit: values.minLimit,
+      maxLimit: values.maxLimit,
+      paymentTimeLimit: "15"
+    }
+
+    console.log( data)
+    // handleNextStep()
   }
 
   return (
