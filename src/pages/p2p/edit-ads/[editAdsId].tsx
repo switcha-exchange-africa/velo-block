@@ -14,7 +14,7 @@ import {
 import {
     AddIcon, ArrowBackIcon, CloseIcon, InfoIcon
 } from '@chakra-ui/icons'
-import { useEditAdsMutation } from "../../../redux/services/p2p-ads.service"
+import { useEditAdsMutation, useGetP2pAllAdsQuery } from "../../../redux/services/p2p-ads.service"
 import { useGetAddedBankQuery } from "../../../redux/services/bank.service"
 import { useState } from "react"
 import { MouseEventHandler} from 'react'
@@ -42,6 +42,11 @@ const EditAds = (props:any) => {
 
   const getAddedBanks:any = useGetAddedBankQuery()
   
+  const { user } = useAppSelector((state) => state.auth)
+  const [pageNumber] = useState(1)
+  
+  
+  const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
   // const [currentStep, setCurrentStep] = useState(1)
   // const [coin, setCoin] = useState('BTC')
   const [priceType] = useState('fixed')
@@ -146,10 +151,12 @@ const EditAds = (props:any) => {
     // handleNextStep()
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
+      getAllAds.refetch()
+      router.push("/p2p/all-ads")
     } else {
       appAlert.success(resp?.error?.data?.message)
     }
-    console.log(resp)
+    
   }
 
   return (

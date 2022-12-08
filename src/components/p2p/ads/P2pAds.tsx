@@ -1,21 +1,14 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
-// import { skipToken } from '@reduxjs/toolkit/dist/query'
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Button} from "@chakra-ui/react"
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
 import { setSingleAds } from '../../../redux/features/accountSettings/accounSettingsSlice'
-import { useGetP2pSingleAdsQuery } from '../../../redux/services/p2p-ads.service'
 
 export const P2pAds = ({ data }: any) => {   
     const router = useRouter()
-    const [adId, setAdId] = useState("")
     const dispatch= useAppDispatch()
-    // const datas = undefined ?  {skip: true} : adId
-    // const getSingleAds = useGetP2pSingleAdsQuery(adId, {skip: adId === ""})
-    // console.log("ad is is ", adId)
-
     const handleEdit = async (adIds: any) => {
         const singleAds = data?.find((ads:any) => ads._id === adIds);        
         dispatch(setSingleAds({singleAds: singleAds}))
@@ -23,8 +16,6 @@ export const P2pAds = ({ data }: any) => {
     
     }
 
-
-    
 
     return (
         <Box>
@@ -137,9 +128,9 @@ export const P2pAds = ({ data }: any) => {
 
                                     <Td pl="0" fontSize="14px" color="#000000" fontWeight="600">
                                         <Flex height="100px"  direction="column">
-                                            <Text mb="11px" cursor="pointer">Download</Text>
-                                            <Text mb="11px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Text>
-                                            <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
+                                            <Button px="0" isDisabled mb="11px" cursor="pointer">Download</Button>
+                                            <Button px="0" bg="transparent" mb="11px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Button>
+                                            <Button px="0" isDisabled mb="11px" cursor="pointer" color="#FF1F00">Delete</Button>
                                         </Flex>
                                             
                                     </Td>
