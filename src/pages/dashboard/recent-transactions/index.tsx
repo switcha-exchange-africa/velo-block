@@ -91,6 +91,7 @@ const RecentTransaction = () => {
                             <Thead>
                                 <Tr >
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500" paddingLeft="0">Sender/recepient</Th>
+                                    <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Action</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Type</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Currency</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Amount</Th>
@@ -99,7 +100,6 @@ const RecentTransaction = () => {
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Description</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Reference</Th>
                                     <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Status</Th>
-                                    <Th fontSize="14px" color="#8E9BAE" fontWeight="500">Action</Th>
                                 </Tr>
                             </Thead>
 
@@ -107,7 +107,8 @@ const RecentTransaction = () => {
                                 <Tbody key={api?.id}>
                                     <Tr>
                                         <Td paddingLeft="0"><Text fontSize="14px" fontWeight="400" color="#FB5E04">{ api?.senderAddress ? api?.senderAddress : "-"}</Text></Td>
-                                        <Td fontSize="14px"  fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
+                                        <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
+                                        <Td fontSize="14px" fontWeight="500" textTransform="capitalize">{api?.customTransactionType}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px" fontWeight="500">
@@ -121,7 +122,6 @@ const RecentTransaction = () => {
                                         {/* <Td >{api?.reference?.slice(0, 30)}</Td> */}
                                         <Td >{api?.reference?.slice(0, 35)}</Td>
                                         <Td fontSize="14px" textTransform="capitalize">{api?.status}</Td>
-                                        <Td fontSize="14px" textTransform="capitalize">{api?.type}</Td>
                                     </Tr>
                                 </Tbody>    
                             ))}
