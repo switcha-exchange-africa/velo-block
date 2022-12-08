@@ -171,7 +171,7 @@ const EditAds = (props:any) => {
   const getAddedBankSellType = useGetAddedBankSellTypeQuery()
   const [sellBanks, setSellBanks] = useState<any>([])
 
-  console.log("this is it ", sellBanks)
+  // console.log("this is it ", sellBanks)
   const sellBank:any = []
 
   const getAddedBanksSellIdValues = () => {
@@ -224,7 +224,7 @@ const EditAds = (props:any) => {
       registeredZeroDaysAgo: true,
       isPublished:true,
     }
-    console.log(data)
+    // console.log(data)
     const resp:any = await editAds({body:data, id: singleAds?._id})
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
