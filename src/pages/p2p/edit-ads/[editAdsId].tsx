@@ -45,7 +45,7 @@ const EditAds = (props:any) => {
   const [currentStep, setCurrentStep] = useState(1)
   const [coin, setCoin] = useState('BTC')
   const [priceType, setPriceType] = useState('fixed')
-  const [price, setPrice] = useState<any>(0)
+  const [price, setPrice] = useState<any>(singleAds?.price)
   
   const initialValues:InitialValuesProps = {
       totalAmount: singleAds?.totalAmount,
@@ -178,21 +178,21 @@ const EditAds = (props:any) => {
           
 
             <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
-              <Flex alignItems="center" mb="30px" justifyContent="space-between" w="50%">
+              <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}}>
                 <VStack alignItems="flex-start">
-                  <Text color={"#8E9BAE"}>Buy</Text>
-                  <Heading fontSize="24px" fontWeight="400">USDT/NGN</Heading>
+                  <Text color={"#8E9BAE"} textTransform="capitalize">{singleAds?.type}</Text>
+                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">{singleAds?.coin}/{singleAds?.cash}</Heading>
                 </VStack>  
 
               <VStack alignItems="flex-start">
                   <Text color={"#8E9BAE"}>Highest Order Price</Text>
-                  <Heading fontSize="24px" fontWeight="400">#550.47</Heading>
+                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">₦{price?.toLocaleString()}</Heading>
                 </VStack>  
 
 
               <VStack alignItems="flex-start">
                   <Text color={"#8E9BAE"}>Price</Text>
-                  <Heading fontSize="24px" fontWeight="400">#484.47</Heading>
+                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">₦{price?.toLocaleString()}</Heading>
                 </VStack>  
             </Flex>
             <VStack alignItems={"flex-start"} mb="35px">
