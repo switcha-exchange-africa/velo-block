@@ -16,7 +16,7 @@ import {
     AddIcon, ArrowBackIcon, CloseIcon, InfoIcon, RepeatIcon, TriangleDownIcon
 } from '@chakra-ui/icons'
 import { useEditAdsMutation, useGetP2pAllAdsQuery } from "../../../redux/services/p2p-ads.service"
-import { useAddP2pSellAdsBankMutation, useGetAddedBankQuery, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from "../../../redux/services/bank.service"
+import { useAddP2pSellAdsBankMutation, useGetAddedBankQuery, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from "../../../redux/services/bank.service"
 import { useState } from "react"
 import { MouseEventHandler} from 'react'
 import SearchInput from "../../../components/p2p/steps/SellSteps/BuyStepTwoSearchFilter"
@@ -62,7 +62,7 @@ const EditAds = (props:any) => {
 
 
   const [values, setValues] = useState(initialValues)
-  const [banks] = useState<any>([])
+  const [banks, setBanks] = useState<any>([])
 
   const handleCancelStep = () => {
       router.back()
@@ -163,45 +163,63 @@ const EditAds = (props:any) => {
 
 
 
-    const { isLoading} = useGetUsersBankQuery()
-    const [defaultTab, setDefaultTab] = useState(0)
+  const { isLoading} = useGetUsersBankQuery()
+  const [defaultTab, setDefaultTab] = useState(0)
 
-    const changeIndexOfTab = () => {
-        setDefaultTab(() => defaultTab + 1)
-    }
+  const changeIndexOfTab = () => {
+      setDefaultTab(() => defaultTab + 1)
+  }
 
 
-    const validateAccountName = (value: string, ) => {
-        let error
-        if (!value) {
-            error = 'Account name should not be empty '
-        }
-        return error
-    }
-
-    const validateAccountNumber = (value: string, ) => {
-        let error
-        if (!value) {
-            error = 'Account number should not be empty '
-        }
-
-        return error
-    }
-
-    const validateBankName = (value: string, ) => {
+  const validateAccountName = (value: string, ) => {
       let error
       if (!value) {
-          error = 'Bank not selected '
+          error = 'Account name should not be empty '
+      }
+      return error
+  }
+
+  const validateAccountNumber = (value: string, ) => {
+      let error
+      if (!value) {
+          error = 'Account number should not be empty '
       }
 
       return error
+  }
+
+  const validateBankName = (value: string, ) => {
+    let error
+    if (!value) {
+        error = 'Bank not selected '
     }
 
+    return error
+  }
 
-    const {data:getBanks} = useGetNigerianBankQuery()
-    const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
-    const getAddedBankSellType = useGetAddedBankSellTypeQuery()
+
+  const {data:getBanks} = useGetNigerianBankQuery()
+  const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
+  const getAddedBankSellType = useGetAddedBankSellTypeQuery()
+  
+  const handleSelect = async (value: any) => {
+        const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
+        const body = {
+            name: findBankCode?.name,
+            codes: findBankCode?.code,
+            accountName: findBankCode?.accountName,
+            accountNumbering: findBankCode?.accountNumber,
+            id: findBankCode?._id
+        }       
+        setBanks((selectedBank:any) => [...selectedBank, body])
+        appAlert.success("Bank Selected")
+        onClose()
+    }
     
+    function filteredBanks(arr: any, comp: any) {
+        const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
+        return unique
+    }
 
   const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -548,7 +566,76 @@ const EditAds = (props:any) => {
                 </Box>
               </HStack>
 
+
+            {singleAds?.coin === "sell" ? (
+              <Box mt="48px" fontSize={"14px"}>
+                  <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
+                  <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
                   
+                  <Flex flexWrap="wrap" gap="30px" alignItems="center" mt="12px">
+                      {/* rendering the data */}
+                      {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
+                          banks?.map((item: any) => {
+                              return (
+                                  <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                      {item.name.substring(0, 13)}
+                                      <CloseIcon
+                                          mr="5px"
+                                          color={"#000000"}
+                                          w={"10px"}
+                                          h={"10px"}
+                                          cursor="pointer"
+                                      />
+                                  </Flex>        
+                              ) 
+                              
+                          } 
+                          )) : (filteredBanks(banks, "id")).map((item:any) => (
+                                  <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                      {item.name.substring(0, 13)}
+                                      <CloseIcon
+                                          mr="5px"
+                                          color={"#000000"}
+                                          w={"10px"}
+                                          h={"10px"}
+                                          cursor="pointer"
+                                      />
+                                  </Flex> 
+                              ))
+                      }
+                      
+
+                      {banks?.length >= 5 ? (
+                          <Tooltip label='You cannot add more than 5 banks' placement='top-end'>
+                              <Button disabled p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                                  <AddIcon
+                                      mr="5px"
+                                      color={"#FB5E04"}
+                                      w={"10px"}
+                                      h={"10px"}
+                                  />
+                                  Add
+                              </Button>
+                          </Tooltip>
+                          
+                      ): (
+                          <Button p={"11px 22px"} color="#FB5E04" bg="transparent" border={"0.88px solid #FB5e04"} onClick={onOpen}>
+                              <AddIcon
+                                  mr="5px"
+                                  color={"#FB5E04"}
+                                  w={"10px"}
+                                  h={"10px"}
+                              />
+                              Add
+                          </Button>
+                      )
+                          
+                      }
+                  
+                  </Flex>
+                  
+              </Box>
+            ): (
               <Box mt="48px" fontSize={"14px"}>
                 <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"}>Payment Methods</Text>
                 <Text fontWeight={"400"} mt="12px">Select up to 5 methods</Text>
@@ -600,6 +687,8 @@ const EditAds = (props:any) => {
                 </Flex>
                       
               </Box>
+              
+              )}
                   
               <Text mt="24px" color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Time Limit</Text>
               <Select
