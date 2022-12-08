@@ -76,7 +76,7 @@ const EditAds = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
+  const EditAdsModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
       console.log(props)
       return (
           <Modal isOpen={isOpen} onClose={onClose} size="lg" >
@@ -121,6 +121,7 @@ const EditAds = () => {
     <DashboardLayout title='Edit Ads'>
 
 
+      <EditAdsModal action={props.action}  />
       <form onSubmit={handleSubmit}>
           <FormControl>
               <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
