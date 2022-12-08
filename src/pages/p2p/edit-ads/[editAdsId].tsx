@@ -323,7 +323,7 @@ const EditAds = (props:any) => {
                                             }
                                             const response:any = await addP2pSellAdsBank(data)
                                             if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                                useGetAddedBankSellTypeQuery.refetch()
+                                                getAddedBankSellType.refetch()
                                                 setDefaultTab(0)
                                                 appAlert.success(response?.data?.message)
                                             } else {
