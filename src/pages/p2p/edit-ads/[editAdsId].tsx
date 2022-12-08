@@ -6,8 +6,9 @@ import {
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip,
      Heading,
-  Show
-  VStack
+  Show,
+  VStack,
+  InputLeftElement
 
 } from '@chakra-ui/react'
 import {
@@ -73,6 +74,10 @@ const EditAds = (props:any) => {
     })
   }
 
+   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPrice(event.target.value)
+   }
+  
   const getAddedBanksIdValues = () => {
       const ids = getAddedBanks?.data?.data?.map((item: any) => item._id)
       for (let i = 0; i < ids.length; i++) {
@@ -129,24 +134,23 @@ const EditAds = (props:any) => {
 
       <EditAdsModal action={props.action} />
       <Show above='md'>
-          <Button
+        <Button
             onClick={() => router.back()}
             leftIcon={<ArrowBackIcon />}
             colorScheme="transparent"
             variant="solid"
             pl={0}
-            py={"3rem"}
             color={'black'}
             ml={'1rem'}
           >
             Back
           </Button>
-          <VStack alignItems={"start"} gap={"1rem"}>
+          <VStack alignItems={"start"}>
 
-            <Heading size="md"
+          <Heading size="md"
+              bg="white"
               py={'2rem'}
               ml={'1rem'}>Edit Ad</Heading>
-
           </VStack>
         </Show>
 
@@ -158,7 +162,6 @@ const EditAds = (props:any) => {
               colorScheme="transparent"
               variant="solid"
               pl={0}
-              py={"2rem"}
               color={'black'}
               ml={'2'}
             >
@@ -170,9 +173,58 @@ const EditAds = (props:any) => {
         </Show>
       
         <form onSubmit={handleSubmit}>
+
           <FormControl>
+          
+
             <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
-              <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
+              <Flex alignItems="center" mb="30px" justifyContent="space-between" w="50%">
+                <VStack alignItems="flex-start">
+                  <Text color={"#8E9BAE"}>Buy</Text>
+                  <Heading fontSize="24px" fontWeight="400">USDT/NGN</Heading>
+                </VStack>  
+
+              <VStack alignItems="flex-start">
+                  <Text color={"#8E9BAE"}>Highest Order Price</Text>
+                  <Heading fontSize="24px" fontWeight="400">#550.47</Heading>
+                </VStack>  
+
+
+              <VStack alignItems="flex-start">
+                  <Text color={"#8E9BAE"}>Price</Text>
+                  <Heading fontSize="24px" fontWeight="400">#484.47</Heading>
+                </VStack>  
+            </Flex>
+            <VStack alignItems={"flex-start"}>
+            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Floating Price Margin</Text>
+            
+            <HStack>
+                <InputGroup size='sm' border="1px solid #8E9BAE" p="9px" borderRadius="5px">
+                    <InputLeftElement  mx="5px">
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold" >
+                            -
+                        </Button>
+                    </InputLeftElement>
+                    <Input
+                        value={price}
+                        onChange={handleChange}
+                        placeholder='₦550.47'
+                        type="number"
+                        border="none"
+                        variant="unstyled"
+                        textAlign="center"
+                    />
+                    <InputRightElement mx="5px">
+                        <Button size='sm' mt="5px" border="1px solid #8E9BAE" bg="none" fontWeight="bold" >
+                            +
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
+            </HStack>
+            
+        </VStack>
+              
+            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Total Amount</Text>
               <Flex w={["100%", "100%", "50%"]} direction={"column"} alignItems={"flex-end"}>
                 <InputGroup>
                   <Input
