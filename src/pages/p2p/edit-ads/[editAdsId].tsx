@@ -4,12 +4,16 @@ import DashboardLayout from "../../../layouts/dashboard/DashboardLayout"
 import {
     Box, Button, Flex,
     HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
-    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
+    ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip,
+     Heading,
+  Show
+  VStack
+
 } from '@chakra-ui/react'
 import {
-    AddIcon, CloseIcon, InfoIcon
+    AddIcon, ArrowBackIcon, CloseIcon, InfoIcon
 } from '@chakra-ui/icons'
-import { useGetP2pSingleAdsQuery } from "../../../redux/services/p2p-ads.service"
+import { useEditAdsMutation, useGetP2pSingleAdsQuery } from "../../../redux/services/p2p-ads.service"
 import { useGetAddedBankQuery } from "../../../redux/services/bank.service"
 import { useEffect, useState } from "react"
 import { MouseEventHandler} from 'react'
@@ -33,6 +37,8 @@ const EditAds = (props:any) => {
   const { editAdsId } = router.query
   // console.log("this is the edit id", editAdsId)
 
+  // const editAds = useEditAdsMutation()
+
   const getAddedBanks:any = useGetAddedBankQuery()
   
   const [currentStep, setCurrentStep] = useState(1)
@@ -54,7 +60,7 @@ const EditAds = (props:any) => {
   const handleNextStep = () => {
       setCurrentStep(prevStep => prevStep + 1)
   }
-
+ 
   const handleCancelStep = () => {
       router.back()
   }
@@ -122,6 +128,46 @@ const EditAds = (props:any) => {
     <DashboardLayout title='Edit Ads'>
 
       <EditAdsModal action={props.action} />
+      <Show above='md'>
+          <Button
+            onClick={() => router.back()}
+            leftIcon={<ArrowBackIcon />}
+            colorScheme="transparent"
+            variant="solid"
+            pl={0}
+            py={"3rem"}
+            color={'black'}
+            ml={'1rem'}
+          >
+            Back
+          </Button>
+          <VStack alignItems={"start"} gap={"1rem"}>
+
+            <Heading size="md"
+              py={'2rem'}
+              ml={'1rem'}>Edit Ad</Heading>
+
+          </VStack>
+        </Show>
+
+        <Show below='sm'>
+          <Flex justifyContent={'start'} bg={'white'}>
+            <Button
+              onClick={() => router.back()}
+              leftIcon={<ArrowBackIcon />}
+              colorScheme="transparent"
+              variant="solid"
+              pl={0}
+              py={"2rem"}
+              color={'black'}
+              ml={'2'}
+            >
+              Back
+              <Heading size="md"
+                ml={'1rem'}>Edit Ad</Heading>
+            </Button>
+          </Flex>
+        </Show>
       
         <form onSubmit={handleSubmit}>
           <FormControl>
