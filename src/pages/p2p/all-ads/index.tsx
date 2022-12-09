@@ -34,6 +34,7 @@ const AllAds = () => {
         setPageNumber(pageNumber - 1)
     }
 
+    // console.log(getAllAds)
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1)
     }

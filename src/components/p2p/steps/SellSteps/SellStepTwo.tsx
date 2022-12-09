@@ -62,7 +62,7 @@ const SellStepTwo = (props:any) => {
             name: findBankCode?.name,
             codes: findBankCode?.code,
             accountName: findBankCode?.accountName,
-            accountNumbering: findBankCode?.accountNumber,
+            accountNumber: findBankCode?.accountNumber,
             id: findBankCode?._id
         }       
         setBanks((selectedBank:any) => [...selectedBank, body])

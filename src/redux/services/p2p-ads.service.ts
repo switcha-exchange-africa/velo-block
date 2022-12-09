@@ -24,6 +24,12 @@ export const adsOrdersApi = baseApi.injectEndpoints({
             },
         }),
 
+        getP2pSingleAds: builder.query<any, any>({
+            query: (adId) => `p2p/ads/${adId}`,
+            transformResponse: (responseData: any) => {
+                return responseData;
+            },
+        }),
 
         createBuyAds: builder.mutation<any, any>({
             query: (body) => {
@@ -37,13 +43,29 @@ export const adsOrdersApi = baseApi.injectEndpoints({
                 return responseData;
             },
         }),
+
+        editAds: builder.mutation<any, any>({
+            query: ({body, id}) => {
+                return {
+                    // /p2p/ads/:id
+                    url: `${endpoints.P2P_ADS}/${id}`,
+                    method: "PUT",
+                    body: { ...body },
+                };
+            },
+            transformResponse: (responseData: any) => {
+                return responseData;
+            },
+        }),
     })
 })
 
 
 export const {
+    useGetP2pSingleAdsQuery,
     useGetBuyAdsQuery,
     useGetP2pAllAdsQuery,
     useGetSellAdsQuery,
-    useCreateBuyAdsMutation
+    useCreateBuyAdsMutation,
+    useEditAdsMutation
 } = adsOrdersApi
