@@ -9,6 +9,7 @@ import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useRouter } from "next/router";
+import MainAppButton from "../../components/buttons/MainAppButton";
 
 
 
@@ -130,8 +131,14 @@ const DashboardPage = () => {
           <Box h="16px" w="2px" bg="#8B8CA7"></Box>
           <Text cursor="pointer" fontWeight="bold" color={color.color2} onClick={() => handleSelect("2")}>Sell</Text>
         </HStack>
+
+        {/* <Button>Recent Transactions</Button> */}
+        <MainAppButton width="180px" onClick={() => router.push("dashboard/recent-transactions")}>
+          Recent Transactions
+        </MainAppButton>
       </HStack>
 
+      
       {/* to render the buy and sell component here */}
       {selectedId === "1" ? (
         <BuyCoin
@@ -147,6 +154,9 @@ const DashboardPage = () => {
           pageNumber={pageNumber}
           handlePageReset={handlePageReset} 
         />
+
+
+          
       )}
 
     </DashboardLayout>

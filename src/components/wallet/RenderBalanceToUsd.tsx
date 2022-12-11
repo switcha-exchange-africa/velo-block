@@ -3,16 +3,26 @@ import _ from "lodash"
 import { Text } from '@chakra-ui/react'
 import { useLazyConvertQuery } from '../../redux/services/buy-sell.service'
 
-const RenderBalanceToUsd = ({ balance, coin }: any) => {
+interface RenderBalanceToUsdProps {
+    balance? : any,
+    coin?: any,
+    variant?: boolean
+}
+
+const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps) => {
     const [convertCoins] = useLazyConvertQuery()
     const [convertedValue, setConvertedValue] = React.useState(0)
 
     
     const to8Dp = (number: any) => {
-        const datas = _.round(number, 8)
-        const values = datas.toLocaleString()
-        return values
-    }
+        if (number > 1) {
+        const datas = _.floor(number, 8)
+        const values = datas?.toLocaleString()
+        return values  
+        } else {
+        return number
+        }
+  }
 
     
 
@@ -28,10 +38,20 @@ const RenderBalanceToUsd = ({ balance, coin }: any) => {
     }, [balance, coin, convertCoins])
     
     return (
-        <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
-            = {balance == 0 ? '$0.00' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ? '$' + to8Dp(balance) : '$' + to8Dp(convertedValue)}
-            {/* $200.33 */}
-        </Text>
+        <>
+            {variant == true ? (
+                <Text  fontSize={{ md: "sm", base: 'xs' }}>
+                    {balance == 0 ? '$0.00' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ?  to8Dp(balance) : to8Dp(convertedValue)}
+                </Text>
+            ) : (
+
+                <Text color={"#64748B"} fontSize={{ md: "sm", base: 'xs' }}>
+                    = {balance == 0 ? '$0.00' : coin == 'USDC' || coin == 'USDT' || coin == 'USDT_TRON' || coin == 'USDT-TRON' ? '$' + to8Dp(balance) : '$' + to8Dp(convertedValue)}
+                    {/* $200.33 */}
+                </Text>
+
+            )}
+        </>        
     )
 }
 

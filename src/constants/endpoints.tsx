@@ -24,6 +24,8 @@ const P2P_BUY_ADS_URL = "p2p/ads?type=sell&coin"
 const P2P_SELL_ADS_URL = "p2p/ads?type=buy&coin"
 const GET_NIGERIAN_BANKS = "bank/default/nigerian-banks"
 const ADD_BANK = "bank"
+const GET_ACTIVITIES = "activities"
+const GET_ALL_TRANSACTIONS = "transactions"
 
 const endpoints = {
   BASE_URL,
@@ -48,7 +50,9 @@ const endpoints = {
   P2P_BUY_ADS_URL,
   P2P_SELL_ADS_URL,
   GET_NIGERIAN_BANKS,
-  ADD_BANK
+  ADD_BANK,
+  GET_ACTIVITIES,
+  GET_ALL_TRANSACTIONS
 };
 
 export default endpoints;

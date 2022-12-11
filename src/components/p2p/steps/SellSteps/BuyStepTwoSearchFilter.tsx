@@ -41,12 +41,12 @@ const SearchInput = ({onClose}: SearchInput) => {
 
     const handleSelect = async (bankName: any) => {
         const res:any = await addP2pBuyAdsBank(bankName)
-        if (res.data.status == 200) {
+        if (res?.data?.status == 200) {
             appAlert.success(`${res?.data?.message}`)
             getAddedBanks.refetch()
             onClose()    
-        } if (res.data.status != 200) {
-            appAlert.error(`${res?.data?.message}`)
+        } if (res?.data?.status != 200) {
+            appAlert.error(`${res?.error?.data?.message}`)
         } 
     }
 

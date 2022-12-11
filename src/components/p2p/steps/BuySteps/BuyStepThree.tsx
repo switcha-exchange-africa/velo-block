@@ -53,7 +53,7 @@ const BuyStepThree = (props: any) => {
             totalAmount: parseFloat(values.totalAmount),
             minLimit: parseFloat(values.minLimit),
             maxLimit: parseFloat(values.maxLimit),
-            highestPriceOrder: parseFloat("1000"),
+            highestPriceOrder: parseFloat(price),
             banks: banks,
             kyc: kyc,
             moreThanDot1Btc: moreThanDot1Btc,
