@@ -39,7 +39,6 @@ const BuyP2p = ({
     const handleOpen = (id: string, apiData: any) => {
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
-
         if (item) {
             console.log("this is the modal Data, trying again ", modalData)
             onOpen()
@@ -154,82 +153,82 @@ const BuyP2p = ({
                             </Box>
                             </Box>
                             <Box flex={1} borderLeft={["0", "0", "1px solid  #E2E8F0"]}>
-                            <Box w={["full", "full", "300px"]} margin={"0px auto"}>
-                                <Box mb={"10px"}>
-                                <Text fontSize={"xs"}>I want to buy </Text>
-                                <InputGroup size="sm">
-                                    <Input
-                                        borderTopLeftRadius={"5px"}
-                                        borderBottomLeftRadius={"5px"}
-                                        placeholder="Enter amount NGN"
-                                        borderRight={"none"}
-                                    />
-                                    <InputRightAddon background={"none"} borderLeft="0px">
-                                    <Flex gap={"20px"}>
-                                        <Text fontSize={"sm"}>All</Text>
-                                        <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
-                                    </Flex>
-                                    </InputRightAddon>
-                                </InputGroup>
-                                </Box>
-                                <Box mb={"10px"}>
-                                <Text fontSize={"xs"}>I will recieve </Text>
-                                <InputGroup size="sm">
-                                    <Input
-                                        borderTopLeftRadius={"5px"}
-                                        borderBottomLeftRadius={"5px"}
-                                        placeholder="0.00"
-                                        borderRight={"none"}
-                                    />
-                                    <InputRightAddon background={"none"} borderLeft="0px">
-                                    <Flex gap={"20px"}>
+                                <Box w={["full", "full", "300px"]} margin={"0px auto"}>
+                                    <Box mb={"10px"}>
+                                    <Text fontSize={"xs"} mb="5px">I want to buy </Text>
+                                    <InputGroup size="sm">
+                                        <Input
+                                            borderTopLeftRadius={"5px"}
+                                            borderBottomLeftRadius={"5px"}
+                                            placeholder="Enter amount NGN"
+                                            borderRight={"none"}
+                                        />
+                                        <InputRightAddon background={"none"} borderLeft="0px">
+                                        <Flex gap={"20px"}>
+                                            <Text fontSize={"sm"}>All</Text>
+                                            <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
+                                        </Flex>
+                                        </InputRightAddon>
+                                    </InputGroup>
+                                    </Box>
+                                    <Box mb={"15px"}>
+                                        <Text fontSize={"xs"} mb="5px">I will pay </Text>
+                                        <InputGroup size="sm">
+                                            <Input
+                                                borderTopLeftRadius={"5px"}
+                                                borderBottomLeftRadius={"5px"}
+                                                placeholder="0.00"
+                                                borderRight={"none"}
+                                            />
+                                            <InputRightAddon background={"none"} borderLeft="0px">
+                                            <Flex gap={"20px"}>
+                                                <Text fontSize={"sm"}>NGN</Text>
+                                            </Flex>
+                                            </InputRightAddon>
+                                        </InputGroup>
+                                    </Box>
+                                    {/* <Box>
+                                    <Text fontSize={"xs"}>Payment Method </Text>
+                                    <Flex
+                                        alignItems={"center"}
+                                        justifyContent="space-between"
+                                        border={"1px solid #E2E8F0"}
+                                        padding="5px 10px"
+                                        borderRadius={"5px"}
+                                        mb={"10px"}
+                                    >
+                                        <Box display={"flex"} gap="10px" alignItems={"center"}>
+                                        <Text
+                                            fontSize={"10px"}
+                                            textAlign={"center"}
+                                            background={"#FFF7F2"}
+                                            color={"#FB5E04"}
+                                            borderRadius={"3px"}
+                                        >
+                                            Bank Transfer
+                                        </Text>
+                                        <Text fontSize={"xs"}>1522574741</Text>
+                                        </Box>
+                                        <Box>
                                         <Text fontSize={"sm"}>NGN</Text>
+                                        </Box>
                                     </Flex>
-                                    </InputRightAddon>
-                                </InputGroup>
-                                </Box>
-                                <Box>
-                                <Text fontSize={"xs"}>Payment Method </Text>
-                                <Flex
-                                    alignItems={"center"}
-                                    justifyContent="space-between"
-                                    border={"1px solid #E2E8F0"}
-                                    padding="5px 10px"
-                                    borderRadius={"5px"}
-                                    mb={"10px"}
-                                >
-                                    <Box display={"flex"} gap="10px" alignItems={"center"}>
-                                    <Text
-                                        fontSize={"10px"}
-                                        textAlign={"center"}
-                                        background={"#FFF7F2"}
-                                        color={"#FB5E04"}
-                                        borderRadius={"3px"}
-                                    >
-                                        Bank Transfer
-                                    </Text>
-                                    <Text fontSize={"xs"}>1522574741</Text>
-                                    </Box>
+                                    </Box> */}
                                     <Box>
-                                    <Text fontSize={"sm"}>NGN</Text>
+                                    <Flex gap={"10px"} justifyContent="center" mt="25px">
+                                        <Button onClick={onClose}>Cancel</Button>
+                                        <Button
+                                            onClick={() => {
+                                                router.push("/p2p/buy");
+                                            }}
+                                            color={"#fff"}
+                                            background={"#22C36B"}
+                                        >
+                                            Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
+                                        </Button>
+                                    </Flex>
                                     </Box>
-                                </Flex>
                                 </Box>
-                                <Box>
-                                <Flex gap={"10px"} justifyContent="center">
-                                    <Button onClick={onClose}>Cancel</Button>
-                                    <Button
-                                        onClick={() => {
-                                            router.push("/p2p/buy");
-                                        }}
-                                        color={"#fff"}
-                                        background={"#22C36B"}
-                                    >
-                                        Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                    </Button>
-                                </Flex>
-                                </Box>
-                            </Box>
                             </Box>
                         </Flex>
                     </ModalBody>
