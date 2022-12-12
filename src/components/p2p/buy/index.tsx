@@ -73,8 +73,8 @@ const BuyP2p = ({
     }
 
 
-    console.log("this is the amount ", amountt)
-    console.log("this is it ", convertFromCreditCoin)
+    // console.log("this is the amount ", amountt)
+    // console.log("this is it ", convertFromCreditCoin)
 
     return (
         <Box  position="relative">
@@ -195,7 +195,20 @@ const BuyP2p = ({
                                         //     cash: creditCoin,
                                         //     coin: debitCoin,
                                         //     rate: 'no rate for now'
+
+
                                         // }))
+
+                                        const data = {
+                                            amount: parseFloat(amountt),
+                                            creditCoinAmount: calculateConversion(parseFloat(amountt)),
+                                            fee: '0.5%',
+                                            cash: creditCoin,
+                                            coin: debitCoin,
+                                            rate: 'no rate for now'
+                                        }
+
+                                        console.log("this is the data for the buy coin selected ", data)
                                         router.push('/quick-trade/confirm-sales')
                                     }}
                                     validateOnChange
