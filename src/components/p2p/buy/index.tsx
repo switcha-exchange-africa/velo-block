@@ -74,7 +74,7 @@ const BuyP2p = ({
 
 
     console.log("this is the amount ", amountt)
-console.log("this is it ", convertFromCreditCoin)
+    console.log("this is it ", convertFromCreditCoin)
 
     return (
         <Box  position="relative">
@@ -281,20 +281,19 @@ console.log("this is it ", convertFromCreditCoin)
                                                     </Box>
                                                 </Flex>
                                                 </Box> */}
-                                                <Box>
-                                                <Flex gap={"10px"} justifyContent="center" mt="25px">
-                                                    <Button onClick={onClose}>Cancel</Button>
-                                                    <Button
-                                                        onClick={() => {
-                                                            router.push("/p2p/buy");
-                                                        }}
-                                                        color={"#fff"}
-                                                        background={"#22C36B"}
-                                                    >
-                                                        Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                    </Button>
-                                                </Flex>
-                                                </Box>
+                                                    <Flex gap={"10px"} justifyContent="center" mt="25px">
+                                                        <Button onClick={onClose}>Cancel</Button>
+                                                        <Button
+                                                            // onClick={() => {
+                                                            //     router.push("/p2p/buy");
+                                                            // }}
+                                                            type="submit"
+                                                            color={"#fff"}
+                                                            background={"#22C36B"}
+                                                        >
+                                                            Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
+                                                        </Button>
+                                                    </Flex>
                                             </Box>            
                                         </Form>
                                     )}
