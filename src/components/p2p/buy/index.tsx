@@ -28,20 +28,17 @@ const BuyP2p = ({
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
 
-    const [modalData, setModalData] = useState<any>("")
+    const [modalData, setModalData] = useState<any>()
 
 
-    const handleOpen = (id: string, coin: string, apiData: any) => {
+    const handleOpen = (id: string, apiData: any) => {
         // console.log("this is the id for the ad selected", id, " and the coin ", coin, "and the apidData ", apiData?.data)
         // if (coin === "BTC") {
         //     console.log("yeah the coin is ", btc)
         // }
         
         const item = apiData?.data.find((obj: any) => obj._id === id);
-
-        // console.log(" this is the Item selected ", item)
-        
-            setModalData(item)
+        setModalData(item)
 
         if (item) {
             // modalData.push(item)
