@@ -30,29 +30,21 @@ const BuyP2p = ({
 
     const [modalData, setModalData] = useState<any>()
 
+    const percentageCompletion = (completedOrder: number, adsCreated: number) => {
+        const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
+        return percent
+    }
+
 
     const handleOpen = (id: string, apiData: any) => {
-        // console.log("this is the id for the ad selected", id, " and the coin ", coin, "and the apidData ", apiData?.data)
-        // if (coin === "BTC") {
-        //     console.log("yeah the coin is ", btc)
-        // }
-        
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
 
         if (item) {
-            // modalData.push(item)
             console.log("this is the modal Data, trying again ", modalData)
             onOpen()
         
         }
-
-        // 
-
-
-
-
-
     }
 
     return (
@@ -99,7 +91,8 @@ const BuyP2p = ({
                                     fontSize={"xs"}
                                     color="#8E9BAE"
                                 >
-                                    <Text>1534 orders</Text>|<Text>92.19% completion</Text>
+                                    <Text>{modalData?.user[0]?.noOfP2pOrderCompleted} orders</Text>|
+                                    <Text>{percentageCompletion(parseInt(modalData?.user[0]?.noOfP2pOrderCompleted), parseInt(modalData?.user[0]?.noOfP2pAdsCreated))} %&nbsp;completion</Text>
                                 </Box>
                                 </Box>
                             </Box>
@@ -117,7 +110,7 @@ const BuyP2p = ({
                                 >
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Price</Text>
-                                    <Text>580.89NGN</Text>
+                                    <Text>{modalData?.price}</Text>
                                 </Box>
 
                                 <Box display={"flex"} gap="10px">
