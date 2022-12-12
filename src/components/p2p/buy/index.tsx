@@ -42,7 +42,7 @@ const BuyP2p = ({
         // console.log(" this is the Item selected ", item)
 
         if (item) {
-            setModal(item)
+            setModalData(item)
         }
 
         console.log("this is the modal Data ", modalData)
