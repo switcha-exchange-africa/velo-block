@@ -28,7 +28,7 @@ const BuyP2p = ({
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
 
-    const [modalData, setModalData] = useState()
+    const [modalData, setModalData] = useState<any>("")
 
 
     const handleOpen = (id: string, coin: string, apiData: any) => {
@@ -41,15 +41,16 @@ const BuyP2p = ({
 
         // console.log(" this is the Item selected ", item)
         
+            setModalData(item)
 
         if (item) {
-            setModalData(item)
             // modalData.push(item)
             console.log("this is the modal Data, trying again ", modalData)
+            onOpen()
         
         }
 
-        // onOpen()
+        // 
 
 
 
@@ -83,11 +84,11 @@ const BuyP2p = ({
                                 <Avatar
                                     size={"md"}
                                     background={"#FB5E04"}
-                                    name="Maximus"
+                                    name={modalData?.user[0]?.username}
                                 ></Avatar>
                                 <Box display={"flex"} gap="10px">
                                 <Box display={"flex"} alignItems={"center"} gap="3px">
-                                    <Text fontSize={"sm"}>Maximus</Text>
+                                    <Text fontSize={"sm"}>{modalData?.user[0]?.username}</Text>
                                     <CheckCircleIcon
                                         color={"#22C36B"}
                                         w={"10px"}
