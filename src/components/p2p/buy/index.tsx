@@ -178,12 +178,11 @@ const BuyP2p = ({
                                     <Input
                                         borderTopLeftRadius={"5px"}
                                         borderBottomLeftRadius={"5px"}
-                                        placeholder="Enter amount NGN"
+                                        placeholder="0.00"
                                         borderRight={"none"}
                                     />
                                     <InputRightAddon background={"none"} borderLeft="0px">
                                     <Flex gap={"20px"}>
-                                        <Text fontSize={"sm"}>All</Text>
                                         <Text fontSize={"sm"}>NGN</Text>
                                     </Flex>
                                     </InputRightAddon>
