@@ -71,9 +71,6 @@ const QuickSellComponent = () => {
                                                 <Flex w={'full'} justifyContent={'flex-end'}>
                                                     {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
                                                 </Flex>
-
-
-
                                             </InputRightElement>
                                         </InputGroup>
                                         <FormErrorMessage>{form.errors.debitCoinValue}</FormErrorMessage>
