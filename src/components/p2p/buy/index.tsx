@@ -27,7 +27,18 @@ const BuyP2p = ({
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
+    const handleOpen = (id: string, coin: string) => {
+        console.log("this is the id for the ad selected", id, " and the coin ", coin)
+        if (coin === "BTC") {
+            console.log("yeah the coin is ", btc)
+        }
+        // onOpen()
 
+
+
+
+
+    }
 
     return (
         <Box  position="relative">
@@ -201,11 +212,11 @@ const BuyP2p = ({
                                 <Flex gap={"10px"} justifyContent="center">
                                     <Button onClick={onClose}>Cancel</Button>
                                     <Button
-                                    onClick={() => {
-                                        router.push("/p2p/buy");
-                                    }}
-                                    color={"#fff"}
-                                    background={"#22C36B"}
+                                        onClick={() => {
+                                            router.push("/p2p/buy");
+                                        }}
+                                        color={"#fff"}
+                                        background={"#22C36B"}
                                     >
                                         Buy USDT
                                     </Button>
@@ -288,7 +299,7 @@ const BuyP2p = ({
                                 apiData={btc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : "NO BUY ADS YET"}
                     </TabPanel>
@@ -302,7 +313,7 @@ const BuyP2p = ({
                                 apiData={eth}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : "NO BUY ADS YET"}
                     </TabPanel>
@@ -316,7 +327,7 @@ const BuyP2p = ({
                                 apiData={usdt}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : "NO BUY ADS YET"}
                     </TabPanel>
@@ -330,7 +341,7 @@ const BuyP2p = ({
                                 apiData={usdc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : "NO BUY ADS YET"}
                     </TabPanel>
@@ -344,7 +355,7 @@ const BuyP2p = ({
                                 apiData={usdt_tron}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : "NO BUY ADS YET"}
                     </TabPanel>

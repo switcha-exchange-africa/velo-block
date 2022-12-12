@@ -19,7 +19,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons"
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
-    onClick?: () => void,
+    onClick?: (id: string, coin: string) => void,
     buttonTitle?: string,
     apiData: any,
     handlePreviousPage?: () => void,
@@ -39,6 +39,9 @@ const TableComponent = ({
         const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
         return percent
     }
+
+
+    console.log("this is the apiData ", apiData)
 
     return (
         <>
@@ -136,7 +139,7 @@ const TableComponent = ({
                         textAlign={"center"}
                         color="#FFF"
                         borderRadius={"3px"}
-                        onClick={onClick}
+                        onClick={() => onClick(api?._id, api?.coin)}
                     >
                         {buttonTitle}
                     </Button>
@@ -207,7 +210,7 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={onClick} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button onClick={() => onClick(api?._id, api?.coin)} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             
