@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CheckCircleIcon } from "@chakra-ui/icons"
 import {
   Avatar, Box, Button, Flex, Input,
@@ -27,11 +27,25 @@ const BuyP2p = ({
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
     
-    const handleOpen = (id: string, coin: string) => {
-        console.log("this is the id for the ad selected", id, " and the coin ", coin)
-        if (coin === "BTC") {
-            console.log("yeah the coin is ", btc)
+
+    const [modalData, setModalData] = useState([])
+
+
+    const handleOpen = (id: string, coin: string, apiData: any) => {
+        // console.log("this is the id for the ad selected", id, " and the coin ", coin, "and the apidData ", apiData?.data)
+        // if (coin === "BTC") {
+        //     console.log("yeah the coin is ", btc)
+        // }
+        
+        const item = apiData?.data.find((obj: any) => obj._id === id);
+
+        // console.log(" this is the Item selected ", item)
+
+        if (item) {
+            setModal(item)
         }
+
+        console.log("this is the modal Data ", modalData)
         // onOpen()
 
 
