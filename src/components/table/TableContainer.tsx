@@ -137,7 +137,6 @@ const TableComponent = ({
                         color="#FFF"
                         borderRadius={"3px"}
                         onClick={onClick}
-                        disabled
                     >
                         {buttonTitle}
                     </Button>
@@ -208,7 +207,7 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={onClick} color="white" disabled fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button onClick={onClick} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             
