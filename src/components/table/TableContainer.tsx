@@ -19,7 +19,7 @@ import { CheckCircleIcon } from "@chakra-ui/icons"
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
-    onClick?:  any,
+    onClick?: any,
     buttonTitle?: string,
     apiData: any,
     handlePreviousPage?: () => void,
