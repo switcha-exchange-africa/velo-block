@@ -199,7 +199,7 @@ const BuyP2p = ({
                                 </Box>
                                 <Box>
                                 <Flex gap={"10px"} justifyContent="center">
-                                    <Button>Cancel</Button>
+                                    <Button onClick={onClose}>Cancel</Button>
                                     <Button
                                     onClick={() => {
                                         router.push("/p2p/buy");
