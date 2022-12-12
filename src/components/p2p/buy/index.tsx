@@ -115,7 +115,7 @@ const BuyP2p = ({
 
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Available</Text>
-                                    <Text>963.16 USDT</Text>
+                                    <Text>{modalData?.totalAmount} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                 </Box>
                                 </Flex>
                                 <Flex
@@ -167,7 +167,7 @@ const BuyP2p = ({
                                     <InputRightAddon background={"none"} borderLeft="0px">
                                     <Flex gap={"20px"}>
                                         <Text fontSize={"sm"}>All</Text>
-                                        <Text fontSize={"sm"}>USDT</Text>
+                                        <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                     </Flex>
                                     </InputRightAddon>
                                 </InputGroup>
@@ -226,7 +226,7 @@ const BuyP2p = ({
                                         color={"#fff"}
                                         background={"#22C36B"}
                                     >
-                                        Buy USDT
+                                        Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
                                     </Button>
                                 </Flex>
                                 </Box>
