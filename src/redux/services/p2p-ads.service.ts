@@ -3,6 +3,7 @@ import {baseApi} from "./base.service";
 
 export const adsOrdersApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        
         getBuyAds: builder.query<any, any>({
             query: ({arg, pageNumber}) => `${endpoints.P2P_BUY_ADS_URL}=${arg}&perpage=5&page=${pageNumber}`,
             transformResponse: (responseData: any) => {
@@ -18,7 +19,7 @@ export const adsOrdersApi = baseApi.injectEndpoints({
         }),
 
         getP2pAllAds: builder.query<any, any>({
-            query: ({userId, pageNumber}) => `p2p/ads/?userId=${userId}&perpage=5&page=${pageNumber}`,
+            query: ({userId, pageNumber}) => `p2p/ads?userId=${userId}&perpage=5&page=${pageNumber}`,
             transformResponse: (responseData: any) => {
                 return responseData;
             },
@@ -47,7 +48,6 @@ export const adsOrdersApi = baseApi.injectEndpoints({
         editAds: builder.mutation<any, any>({
             query: ({body, id}) => {
                 return {
-                    // /p2p/ads/:id
                     url: `${endpoints.P2P_ADS}/${id}`,
                     method: "PUT",
                     body: { ...body },
