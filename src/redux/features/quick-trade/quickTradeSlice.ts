@@ -55,9 +55,9 @@ export const quickTradeSlice = createSlice({
       state.cash = cash;
       state.coin = coin;
       state.rate = rate;
-      state.clientAccountName: clientAccountName;
-      state.clientAccountNumber: clientAccountNumber;
-      state.clientBankName: clientBankName;
+      state.clientAccountName= clientAccountName;
+      state.clientAccountNumber= clientAccountNumber;
+      state.clientBankName= clientBankName;
     },
 
     setOrderPayload: (
