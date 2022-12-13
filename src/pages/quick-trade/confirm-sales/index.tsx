@@ -3,11 +3,12 @@ import { Box, Flex, Text,
     Menu,
     MenuButton,
     MenuList,
-    MenuItemOption,
-    MenuOptionGroup,
-    Button} from '@chakra-ui/react'
+    MenuItem,
+    MenuGroup,
+    Button,
+    MenuDivider} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
 import PaymentMethodComponent from '../../../components/quick-trade/PaymentMethodComponent'
 import appAlert from '../../../helpers/appAlert'
@@ -20,10 +21,12 @@ import { GetServerSideProps } from 'next'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons'
 import { useGetUsersBankQuery } from '../../../redux/services/bank.service'
+import uuid from "react-uuid"
+
 
 const ConfirmSales = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, fee, rate, clientAccountName, clientAccountNumber, clientBankName } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount, fee, rate } = useAppSelector((state) => state.quickTrade)
     const dispatch = useAppDispatch()
 
     React.useEffect(() => {
@@ -32,7 +35,16 @@ const ConfirmSales = () => {
 
     const [quickTrade, { isLoading }] = useQuickTradeMutation()
 
-    // console.log("this is the amount", amount
+        // console.log("this is the amount", amount
+
+
+    const {data:getUsersBank} = useGetUsersBankQuery()
+
+    const [bank, setBank] = useState("")
+    const [clientAccountName, setClientAccountName] = useState("")
+    const [clientBankName, setBankAccountName] = useState("")
+    const [clientAccountNumber, setClientAccountNumber] = useState("")
+    console.log("this is the data", getUsersBank)
 
     const handleSubmit = async () => {
         try {
@@ -42,9 +54,9 @@ const ConfirmSales = () => {
                 coin: coin,
                 method: "bank",
                 type: "sell",
-                clientAccountName: "",
-                clientAccountNumber: "",
-                clientBankName: ""
+                clientAccountName: clientAccountNumber,
+                clientAccountNumber: clientBankName,
+                clientBankName: clientBankName
             })
             if (response?.data?.status == 200) {
                 appAlert.success('order created successfully')
@@ -64,14 +76,8 @@ const ConfirmSales = () => {
 
 
     const handleValue = (e:string) => {
-        console.log(e)
+        setBank(e)
     }
-
-
-    const {data:getUsersBank} = useGetUsersBankQuery()
-
-
-    console.log("this i s", getUsersBank)
 
     // settings/profile/verification/bank-accounts
     return (
@@ -94,20 +100,38 @@ const ConfirmSales = () => {
                         {/* <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} /> */}
                         
                         <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} w="100%" borderBottom={'1px'} p={'1'} borderRadius={'md'}  mb={'1'} borderColor={'primaryColor.900'}>
-                            <Menu closeOnSelect={false}>
-                                <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon />} textAlign="left">
-                                    <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'} >Bank Transfer</Text>
+                            <Menu closeOnSelect={true}>
+                                <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon color="black" />} textAlign="left">
+                                    <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'}>Bank Transfer</Text>
+
                                 </MenuButton>
-                                <MenuList minWidth='380px' border="none" boxShadow={"none"}>
-                                    <MenuOptionGroup defaultValue='asc' type='radio'>
-                                        <MenuItemOption value='asc' onClick={() => handleValue("hello")}>Ascending</MenuItemOption>
-                                        <MenuItemOption value='desc' onClick={() => handleValue("Billy")}>Descending</MenuItemOption>
-                                    </MenuOptionGroup>
-                                    <Flex p="20px" cursor="pointer" alignItems="center" onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
-                                        <AddIcon color="black" mr="5px" w="15px" height="15px"  />
-                                        Add Payment Method
-                                    </Flex>
+                                
+                                <MenuList minWidth='380px' border="none" boxShadow={"1px 1px 0px red"}>
+                                    <MenuGroup defaultValue='asc'>
+                                        {getUsersBank?.data.length !== 0 ? (
+                                            getUsersBank?.data?.map((item: any) => (
+                                                <MenuItem key={uuid()} onClick={() => handleValue(item?.accountNumber)}>{item?.accountNumber}</MenuItem>
+                                            ))
+                                        ) : (
+                                            <MenuItem p="20px" cursor="pointer" alignItems="center">
+                                                No payment method Added
+                                            </MenuItem>
+                                        )}
+                                    </MenuGroup>
+                                    
+                                    <MenuDivider bg="grey" />
+                                    <MenuGroup>
+                                        <MenuItem p="20px" cursor="pointer" alignItems="center"  onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
+                                            <AddIcon color="black" mr="5px" w="10px" height="10px"  />
+                                            Add Payment Method
+                                        </MenuItem>
+                                    </MenuGroup>
                                 </MenuList>
+                                
+
+                                <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{bank ? bank : ""}</Text>
+                            
+
                             </Menu>
                         </Box>
                         
