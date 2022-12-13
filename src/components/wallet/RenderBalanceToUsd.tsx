@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from "lodash"
 import { Text } from '@chakra-ui/react'
-import { useLazyConvertQuery } from '../../redux/services/buy-sell.service'
+import { useLazySwapConvertQuery } from '../../redux/services/new-conversion.service'
 
 interface RenderBalanceToUsdProps {
     balance? : any,
@@ -10,7 +10,7 @@ interface RenderBalanceToUsdProps {
 }
 
 const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps) => {
-    const [convertCoins] = useLazyConvertQuery()
+    const [convertCoins] = useLazySwapConvertQuery()
     const [convertedValue, setConvertedValue] = React.useState(0)
 
     

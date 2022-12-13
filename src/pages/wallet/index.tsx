@@ -8,10 +8,6 @@ import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import RenderCoinComponent from "../../components/dashboard/wallet/RenderCoinComponent";
 import RenderLabelComponent from "../../components/dashboard/wallet/RenderLabelComponent";
-// import {
-//   // buySellAPi, useConvertQuery,
-//   useLazyConvertQuery
-// } from "../../redux/services/buy-sell.service";
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
