@@ -375,7 +375,7 @@ function WalletPage() {
                 borderRadius={"9px"}
                 border={" 1px solid #E2E8F0"}
               >
-                <Box borderBottom={"1px solid #E2E8F0"} padding={"20px"}>
+                <Box borderBottom={"1px solid #E2E8F0"} padding={"20px 10px"}>
                   <Text fontWeight={600}>Recent Activity</Text>
                 </Box>
                 
@@ -443,7 +443,7 @@ function RecentTransaction(props:any) {
               display={"flex"}
               justifyContent={"space-between"}
               alignItems={"flex-start"}
-              padding="12px 5px"
+              padding="12px 10px"
               key={transaction?._id}
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
