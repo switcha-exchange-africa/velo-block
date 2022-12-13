@@ -24,6 +24,8 @@ const ConfirmSales = () => {
 
     const [quickTrade, { isLoading }] = useQuickTradeMutation()
 
+    // console.log("this is the amount", amount
+
     const handleSubmit = async () => {
         try {
 
@@ -42,12 +44,9 @@ const ConfirmSales = () => {
                 router.push(`/quick-trade/order/${orderId}`)
 
             } else if (response?.data?.status == 401) {
-
                 appAlert.error(`${response?.error?.data?.message}`)
-                // alert(JSON.stringify(res))
                 router.replace('/signin')
             } else {
-
                 appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
             }
         } catch (error) {

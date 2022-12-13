@@ -198,18 +198,23 @@ const BuyP2p = ({
 
 
                                         // }))
+                                        // amount: amount,
+                                        // cash: cash,
+                                        // coin: coin,
+                                        // method: "bank",
+                                        // type: "sell"
 
                                         const data = {
                                             amount: parseFloat(amountt),
                                             creditCoinAmount: calculateConversion(parseFloat(amountt)),
                                             fee: '0.5%',
-                                            cash: creditCoin,
-                                            coin: debitCoin,
+                                            cash: modalData?.cash,
+                                            coin: modalData?.coin,
                                             rate: 'no rate for now'
                                         }
 
                                         console.log("this is the data for the buy coin selected ", data)
-                                        router.push('/quick-trade/confirm-sales')
+                                        // router.push('/quick-trade/confirm-sales')
                                     }}
                                     validateOnChange
                                     validateOnBlur
@@ -390,7 +395,9 @@ const BuyP2p = ({
                                 handleNextPage={handleNextPage}
                                 onClick={handleOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
@@ -404,7 +411,9 @@ const BuyP2p = ({
                                 handleNextPage={handleNextPage}
                                 onClick={handleOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
@@ -418,7 +427,9 @@ const BuyP2p = ({
                                 handleNextPage={handleNextPage}
                                 onClick={handleOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
@@ -432,7 +443,9 @@ const BuyP2p = ({
                                 handleNextPage={handleNextPage}
                                 onClick={handleOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
@@ -446,7 +459,9 @@ const BuyP2p = ({
                                 handleNextPage={handleNextPage}
                                 onClick={handleOpen}
                             />      
-                        ) : "NO BUY ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO SELL ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
                 </TabPanels>
 
