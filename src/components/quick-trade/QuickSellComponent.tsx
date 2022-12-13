@@ -41,9 +41,12 @@ const QuickSellComponent = () => {
                         fee: '0.5%',
                         cash: creditCoin,
                         coin: debitCoin,
-                        rate: 'no rate for now'
+                        rate: 'no rate for now',
+                        clientAccountName: "",
+                        clientAccountNumber: "",
+                        clientBankName: ""
                     }))
-                    
+
                     router.push('/quick-trade/confirm-sales')
                 }}
                 validateOnChange

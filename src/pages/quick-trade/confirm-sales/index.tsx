@@ -1,5 +1,11 @@
 import { ChevronLeftIcon } from '@chakra-ui/icons'
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, Text,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItemOption,
+    MenuOptionGroup,
+    Button} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
@@ -12,6 +18,7 @@ import { useQuickTradeMutation } from '../../../redux/services/quick-trade.servi
 import Currency from 'react-currency-formatter';
 import { GetServerSideProps } from 'next'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
+import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons'
 
 const ConfirmSales = () => {
     const router = useRouter()
@@ -50,10 +57,18 @@ const ConfirmSales = () => {
                 appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
             }
         } catch (error) {
-
             console.log(error)
         }
     }
+
+
+    const handleValue = (e:string) => {
+        console.log(e)
+
+
+    }
+
+    // settings/profile/verification/bank-accounts
     return (
         <DashboardLayout title='Confirm Sales'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
@@ -71,12 +86,35 @@ const ConfirmSales = () => {
                             {/* {coin=== "USDT_TRON" ? "USDT-TRON" : coin} */}
                         </Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
-                        <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} />
+                        {/* <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'} rate={'550.67'} /> */}
+                        
+                        <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} w="100%" borderBottom={'1px'} p={'1'} borderRadius={'md'}  mb={'1'} borderColor={'primaryColor.900'}>
+                            <Menu closeOnSelect={false}>
+                                <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon />} textAlign="left">
+                                    <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'} >Bank Transfer</Text>
+                    
+                                    
+                                </MenuButton>
+                                <MenuList minWidth='380px' border="none" boxShadow={"none"}>
+                                    <MenuOptionGroup defaultValue='asc' type='radio'>
+                                        <MenuItemOption value='asc' onClick={() => handleValue("hello")}>Ascending</MenuItemOption>
+                                        <MenuItemOption value='desc' onClick={() => handleValue("Billy")}>Descending</MenuItemOption>
+                                    </MenuOptionGroup>
+                                    <Flex p="20px" cursor="pointer" alignItems="center" onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
+                                        <AddIcon color="black" mr="5px" w="15px" height="15px"  />
+                                        Add Payment Method
+                                    </Flex>
+                                </MenuList>
+                            </Menu>
+                        </Box>
+                        
+                        
                         <Box py={'2'}></Box>
                         <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} disabled />
                         <Box p={'12'}></Box>
+                       
                         <MainAppButton isLoading={isLoading} onClick={() => handleSubmit()} backgroundColor={'secondary2Color.900'} >
-                            Confirm Purchase
+                            Confirm Sale
                         </MainAppButton>
 
 
