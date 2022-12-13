@@ -225,14 +225,6 @@ function WalletPage() {
                   </Thead>
                   <Tbody background={"#fff"}>
                     {walletsquery.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : walletsquery?.data?.data?.map((wallet: any) => {
-                      // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }, { forceRefetch: true, subscribe: false }))
-                      // // // setAmount(wallet?.balance)
-                      // // // setSource(wallet?.coin)
-                      // const usdValue = convertCoinsToUSD?.data?.data?.destinationAmount?.destinationAmount
-
-                      // alert(JSON.stringify(convert))
-
-
                       return (
                         <Tr key={wallet?._id} >
                           <Td>
