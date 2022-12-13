@@ -100,6 +100,7 @@ const BuyP2p = ({
                                 gap="5px"
                             >
                                 <Avatar
+                                    color="white"
                                     size={"md"}
                                     background={"#FB5E04"}
                                     name={modalData?.user[0]?.username}
