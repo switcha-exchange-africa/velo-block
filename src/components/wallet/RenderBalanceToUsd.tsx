@@ -16,11 +16,13 @@ const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps)
     
     const to8Dp = (number: any) => {
         if (number > 1) {
-        const datas = _.floor(number, 8)
-        const values = datas?.toLocaleString()
-        return values  
+            const datas = _.floor(number, 8)
+            const values = datas?.toLocaleString()
+            return values  
+        
+            console.log("this is the value ", number)
         } else {
-        return number
+            return number
         }
   }
 

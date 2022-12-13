@@ -40,43 +40,60 @@ const ConfirmSales = () => {
 
     const {data:getUsersBank} = useGetUsersBankQuery()
 
-    const [bank, setBank] = useState("")
+    // const [bank, setBank] = useState("")
     const [clientAccountName, setClientAccountName] = useState("")
-    const [clientBankName, setBankAccountName] = useState("")
+    const [clientBankName, setClientBankAccountName] = useState("")
     const [clientAccountNumber, setClientAccountNumber] = useState("")
     console.log("this is the data", getUsersBank)
 
     const handleSubmit = async () => {
-        try {
-            const response: any = await quickTrade({
-                amount: amount,
-                cash: cash,
-                coin: coin,
-                method: "bank",
-                type: "sell",
-                clientAccountName: clientAccountNumber,
-                clientAccountNumber: clientBankName,
-                clientBankName: clientBankName
-            })
-            if (response?.data?.status == 200) {
-                appAlert.success('order created successfully')
-                dispatch(setOrderPayload({ order: response?.data?.data }))
-                const orderId = response?.data?.data?.order?.orderId
-                router.push(`/quick-trade/order/${orderId}`)
-            } else if (response?.data?.status == 401) {
-                appAlert.error(`${response?.error?.data?.message}`)
-                router.replace('/signin')
-            } else {
-                appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-            }
-        } catch (error) {
-            console.log(error)
+        const data = {
+            amount: amount,
+            cash: cash,
+            coin: coin,
+            method: "bank",
+            type: "sell",
+            clientAccountName: clientAccountName,
+            clientAccountNumber: clientAccountNumber,
+            clientBankName: clientBankName
         }
+        
+        if (clientAccountNumber === "") {
+            appAlert.error("Please select Payment method")
+        } else {
+
+            console.log("this is the ", data )
+
+            try {
+                const response: any = await quickTrade(data)
+                if (response?.data?.status == 200) {
+                    appAlert.success('order created successfully')
+                    dispatch(setOrderPayload({ order: response?.data?.data }))
+                    const orderId = response?.data?.data?.order?.orderId
+                    router.push(`/quick-trade/order/${orderId}`)
+                    // console.log("what is this response", response)
+                } else if (response?.data?.status == 401) {
+                    appAlert.error(`${response?.error?.data?.message}`)
+                    router.replace('/signin')
+                } else {
+                    appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+
+
+        
+
     }
 
 
-    const handleValue = (e:string) => {
-        setBank(e)
+    const handleValue = (bName:string, bAccountNumber: string, clientName: string) => {
+        setClientBankAccountName(bName)
+        setClientAccountName(clientName)
+        setClientAccountNumber(bAccountNumber)
     }
 
     // settings/profile/verification/bank-accounts
@@ -110,7 +127,7 @@ const ConfirmSales = () => {
                                     <MenuGroup defaultValue='asc'>
                                         {getUsersBank?.data.length !== 0 ? (
                                             getUsersBank?.data?.map((item: any) => (
-                                                <MenuItem key={uuid()} onClick={() => handleValue(item?.accountNumber)}>{item?.accountNumber}</MenuItem>
+                                                <MenuItem key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>{item?.accountNumber}</MenuItem>
                                             ))
                                         ) : (
                                             <MenuItem p="20px" cursor="pointer" alignItems="center">
@@ -129,7 +146,7 @@ const ConfirmSales = () => {
                                 </MenuList>
                                 
 
-                                <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{bank ? bank : ""}</Text>
+                                <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientAccountNumber ? clientAccountNumber : ""}</Text>
                             
 
                             </Menu>
