@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { CheckCircleIcon } from "@chakra-ui/icons"
+import uuid from 'react-uuid';
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
@@ -48,7 +49,7 @@ const TableComponent = ({
 
             {/* for mobile screen */}
             {apiData?.data?.map((api: any) => (
-                <Box key={api?.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                <Box key={uuid()} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
                     <Flex
                         alignItems="center"
                         w="100%"
@@ -162,7 +163,7 @@ const TableComponent = ({
                     </Thead>
 
                     {apiData?.data?.map((api:any) => (
-                        <Tbody key={api?.id}>
+                        <Tbody key={uuid()}>
                             <Tr>
                                 <Td paddingLeft="0">
                                     <HStack>

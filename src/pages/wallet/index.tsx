@@ -1,38 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash"
-import {
-  Box,
-  Heading,
-  Text,
-  Button,
-  Avatar,
-  useDisclosure,
-  Wrap,
-  WrapItem,
-  Flex,
-  Spinner,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  HStack
-} from "@chakra-ui/react";
+import {Box, Heading, Text, Button, Avatar, useDisclosure, Wrap, WrapItem, Flex, Spinner, Table, Thead, Tbody, Tr, Th, Td, TableContainer, HStack } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 import { useRouter } from "next/router";
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
-// import LoginPage from "../signin";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
-// import appAlert from "../../helpers/appAlert";
 import RenderCoinComponent from "../../components/dashboard/wallet/RenderCoinComponent";
 import RenderLabelComponent from "../../components/dashboard/wallet/RenderLabelComponent";
-import {
-  // buySellAPi, useConvertQuery,
-  useLazyConvertQuery
-} from "../../redux/services/buy-sell.service";
+// import {
+//   // buySellAPi, useConvertQuery,
+//   useLazyConvertQuery
+// } from "../../redux/services/buy-sell.service";
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
@@ -41,6 +20,7 @@ import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice"
 import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
+import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
 // import appAlert from "../../helpers/appAlert";
 
 
@@ -61,7 +41,7 @@ function WalletPage() {
   
   // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
 
-  const [convertCoins] = useLazyConvertQuery()
+  const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
 
