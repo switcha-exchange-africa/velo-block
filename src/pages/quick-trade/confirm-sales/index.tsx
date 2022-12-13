@@ -19,6 +19,7 @@ import Currency from 'react-currency-formatter';
 import { GetServerSideProps } from 'next'
 import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 import { ChevronDownIcon, AddIcon } from '@chakra-ui/icons'
+import { useGetUsersBankQuery } from '../../../redux/services/bank.service'
 
 const ConfirmSales = () => {
     const router = useRouter()
@@ -64,9 +65,13 @@ const ConfirmSales = () => {
 
     const handleValue = (e:string) => {
         console.log(e)
-
-
     }
+
+
+    const {data:getUsersBank} = useGetUsersBankQuery()
+
+
+    console.log("this i s", getUsersBank)
 
     // settings/profile/verification/bank-accounts
     return (
@@ -92,8 +97,6 @@ const ConfirmSales = () => {
                             <Menu closeOnSelect={false}>
                                 <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon />} textAlign="left">
                                     <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'} >Bank Transfer</Text>
-                    
-                                    
                                 </MenuButton>
                                 <MenuList minWidth='380px' border="none" boxShadow={"none"}>
                                     <MenuOptionGroup defaultValue='asc' type='radio'>
