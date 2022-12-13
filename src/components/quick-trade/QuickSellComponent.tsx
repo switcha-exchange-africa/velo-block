@@ -43,6 +43,7 @@ const QuickSellComponent = () => {
                         coin: debitCoin,
                         rate: 'no rate for now'
                     }))
+                    
                     router.push('/quick-trade/confirm-sales')
                 }}
                 validateOnChange

@@ -15,7 +15,7 @@ import { checkValidToken } from '../../../helpers/functions/checkValidToken'
 
 const ConfirmSales = () => {
     const router = useRouter()
-    const { amount, cash, coin, creditCoinAmount, fee, rate } = useAppSelector((state) => state.quickTrade)
+    const { amount, cash, coin, creditCoinAmount, fee, rate, clientAccountName, clientAccountNumber, clientBankName } = useAppSelector((state) => state.quickTrade)
     const dispatch = useAppDispatch()
 
     React.useEffect(() => {
@@ -28,21 +28,21 @@ const ConfirmSales = () => {
 
     const handleSubmit = async () => {
         try {
-
             const response: any = await quickTrade({
                 amount: amount,
                 cash: cash,
                 coin: coin,
                 method: "bank",
-                type: "sell"
+                type: "sell",
+                clientAccountName: "",
+                clientAccountNumber: "",
+                clientBankName: ""
             })
             if (response?.data?.status == 200) {
-                // alert(JSON.stringify(response?.data?.data))
                 appAlert.success('order created successfully')
                 dispatch(setOrderPayload({ order: response?.data?.data }))
                 const orderId = response?.data?.data?.order?.orderId
                 router.push(`/quick-trade/order/${orderId}`)
-
             } else if (response?.data?.status == 401) {
                 appAlert.error(`${response?.error?.data?.message}`)
                 router.replace('/signin')
