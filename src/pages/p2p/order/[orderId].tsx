@@ -23,6 +23,7 @@ const NotifyTraders = () => {
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
+    console.log("orderDetail ", orderDetail)
 
     const today = moment().valueOf()
 

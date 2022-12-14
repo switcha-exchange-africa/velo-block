@@ -223,8 +223,10 @@ const BuyP2p = ({
                                             // appAlert.success('order created successfully')
                                             // dispatch(setOrderPayload({ order: response?.data?.data }))
                                             console.log("this is the response ", response)
+                                            appAlert.success(response?.data?.message)
                                             const orderId = response?.data?.data?.order?.orderId
-                                            // router.push(`/quick-trade/order/${orderId}`)
+                                            router.push(`/p2p/order/${orderId}`)
+                                            console.log("this is the orderId ", orderId)
                                             // console.log("what is this response", response)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
