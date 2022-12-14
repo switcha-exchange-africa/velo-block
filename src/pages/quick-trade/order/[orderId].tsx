@@ -173,12 +173,12 @@ const NotifyTraders = () => {
                             
 
                             {/* I will come back to this later */}
-                            {/* <Box w={'full'}>
+                            <Box w={'full'}>
                                 <Flex mt="15px">
                                     <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
-                            </Box> */}
+                            </Box>
 
 
 
