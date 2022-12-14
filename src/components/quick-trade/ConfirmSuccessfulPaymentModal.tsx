@@ -43,6 +43,9 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
 
         }
     }
+
+
+    console.log('this is the add ', ad)
     return (
         <Modal size={size} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay
@@ -60,29 +63,65 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                         <Divider mt={'2'} mb={'4'} orientation='horizontal' h={'2px'} borderColor={'rgba(142, 155, 174, 1)'} />
                         <Text fontWeight={'medium'} fontSize={'sm'} >Bank Transfer</Text>
                         
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
-                            <div>
-                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountName} <CopyToClipboard text={ad?.clientAccountName}
-                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                            </div>
-                        </Flex>
+                        {ad?.type === "sell" ? (
+                            <>
+                                <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountName} <CopyToClipboard text={ad?.clientAccountName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
 
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
-                            <div>
-                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountNumber} <CopyToClipboard text={ad?.clientAccountNumber}
-                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                            </div>
-                        </Flex>
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountNumber} <CopyToClipboard text={ad?.clientAccountNumber}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
 
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
-                            <div>
-                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientBankName} <CopyToClipboard text={ad?.clientBankName}
-                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                            </div>
-                        </Flex>
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientBankName} <CopyToClipboard text={ad?.clientBankName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+                            
+                            </>
+                        ) : (ad?.ad[0]?.bank?.map((item: any) => (
+                            <>
+                                    <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountName} <CopyToClipboard text={item?.accountName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountNumber} <CopyToClipboard text={item?.accountNumber}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.name} <CopyToClipboard text={item?.name}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>      
+                                
+                                </>
+                        ))
+                                
+                        )}
+
+                        
 
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Account opening branch</Text>

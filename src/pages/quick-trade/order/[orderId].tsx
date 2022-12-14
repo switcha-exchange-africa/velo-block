@@ -118,7 +118,7 @@ const NotifyTraders = () => {
                                             </Flex>
                                             <Flex pt={'4'}>
 
-                                                {/* Rendering bank */}
+                                            {/* Rendering bank for Quick trade */}
                                             {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.order?.type == 'sell'   ? (
                                                 <>
                                                     <Flex flexDirection={'column'} pr={'8'}>
@@ -138,7 +138,7 @@ const NotifyTraders = () => {
                                                             onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
                                                     </Flex>  
                                                 </>
-                                                ) : (orderDetail?.data?.data?.ad[0].bank.map((item: any) => (
+                                                ) : (orderDetail?.data?.data?.ad[0].bank?.map((item: any) => (
                                                         <>
                                                             <Flex flexDirection={'column'} pr={'8'}>
                                                                 <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
