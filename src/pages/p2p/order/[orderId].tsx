@@ -5,7 +5,7 @@ import React from "react"
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
-import RenderAdBankDetails from '../../../components/RenderAdBankDetails';
+// import RenderAdBankDetails from '../../../components/RenderAdBankDetails';
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
