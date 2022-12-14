@@ -173,16 +173,24 @@ const NotifyTraders = () => {
                             
 
                             {/* I will come back to this later */}
-                            <Box w={'full'}>
+                            {/* <Box w={'full'}>
                                 <Flex mt="15px">
                                     <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
                                     <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
                                 </Flex>
-                            </Box>
+                            </Box> */}
 
 
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'sell' ? <Flex>
+                                
+                                {/* I will come back to this later */}
+                                <Box w={'full'}>
+                                    <Flex mt="15px">
+                                        <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
+                                        <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
+                                    </Flex>
+                                </Box>
                                 <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                     onNotifyOpen()}>Transfered and Notify Seller </Text>
 
@@ -192,12 +200,14 @@ const NotifyTraders = () => {
                                 </Flex> : orderDetail?.data?.data?.status.toLowerCase() != 'processing' || (orderDetail?.data?.data?.status.toLowerCase() == 'processing' && orderDetail?.data?.data?.ad[0]?.type == 'buy') && <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
-                                        >Comfirm Release</Text>
+                                    >
+                                        Comfirm Release
+                                    </Text>
 
-                                        <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
+                                    <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
 
-                                        <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
-                                    </Flex>
+                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
+                                </Flex>
                                 }
 
                             {orderDetail?.data?.data?.status.toLowerCase() == 'processing' &&  orderDetail?.data?.data?.ad[0]?.type == 'sell' &&
