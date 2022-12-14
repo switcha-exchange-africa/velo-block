@@ -1,6 +1,7 @@
 import _ from "lodash"
 import { Text } from '@chakra-ui/react'
 import { useLazySwapConvertQuery } from '../../redux/services/new-conversion.service'
+import { useEffect, useState } from "react"
 
 interface RenderBalanceToUsdProps {
     balance? : any,
@@ -27,7 +28,7 @@ const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps)
 
     
 
-    React.useEffect(() => {
+    useEffect(() => {
 
         const convertBalance = async () => {
             const convert = await convertCoins({ amount: balance, source: coin, destination: 'USDC' }).unwrap()
