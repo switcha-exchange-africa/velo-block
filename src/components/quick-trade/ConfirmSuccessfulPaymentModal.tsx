@@ -59,14 +59,37 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                         <Text fontSize={'sm'} color={'#64748B'}>Please confirm that payment has been made to the seller. Malicious clicks WIll lead to account frozen.</Text>
                         <Divider mt={'2'} mb={'4'} orientation='horizontal' h={'2px'} borderColor={'rgba(142, 155, 174, 1)'} />
                         <Text fontWeight={'medium'} fontSize={'sm'} >Bank Transfer</Text>
+                        
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
 
-                            {ad?.banks && ad?.banks.map((b: any) => {
+                            {/* {ad?.banks && ad?.banks.map((b: any) => {
                                 return <div key={b}> <RenderAccountName bankId={b} /></div>
-                            })}
+                            })} */}
+
+                            <div>
+                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountName} <CopyToClipboard text={ad?.clientAccountName}
+                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                            </div>
                         </Flex>
+
                         <Flex flexDirection={'column'} pt={'6'}>
+                            <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
+                            <div>
+                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountNumber} <CopyToClipboard text={ad?.clientAccountNumber}
+                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                            </div>
+                        </Flex>
+
+                        <Flex flexDirection={'column'} pt={'6'}>
+                            <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
+                            <div>
+                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientBankName} <CopyToClipboard text={ad?.clientBankName}
+                                onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                            </div>
+                        </Flex>
+
+                        {/* <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
                             {ad?.banks && ad?.banks.map((b: any) => {
                                 return <div key={b}><RenderAccountNumber bankId={b} /></div>
@@ -77,7 +100,8 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                             {ad?.banks && ad?.banks.map((b: any) => {
                                 return <div key={b}><RenderBankName bankId={b} /></div>
                             })}
-                        </Flex>
+                        </Flex> */}
+
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Account opening branch</Text>
                             <Text fontSize={'sm'} >No crypto related words on payment DESCRIPTION</Text>
