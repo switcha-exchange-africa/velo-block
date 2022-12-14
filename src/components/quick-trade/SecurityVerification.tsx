@@ -1,18 +1,54 @@
 import { Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, VStack } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import appAlert from '../../helpers/appAlert'
 import { useAppSelector } from '../../helpers/hooks/reduxHooks'
-import { useConfirmP2pOrderWithCodeMutation, useLazyGetOrderDetailQuery } from '../../redux/services/p2p.service'
+import { useConfirmP2pOrderWithCodeMutation, useConfirmP2pOrderWithoutCodeMutation, useLazyGetOrderDetailQuery } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 
-const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, onReleaseClose }: any) => {
+const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, onReleaseClose, status }: any) => {
     const router = useRouter()
     const { orderId } = router.query
     const [confirmP2pOrderWithCode, { isLoading }] = useConfirmP2pOrderWithCodeMutation()
     const [getOrderDetail] = useLazyGetOrderDetailQuery()
     const { user } = useAppSelector((state) => state.auth)
+
+    const [confirmP2pOrderWithoutCode] = useConfirmP2pOrderWithoutCodeMutation()
+
+    const[load, setLoading] = useState(false)
+
+
+    const confirmP2pOrderWithoutCodeFunction = async () => {
+        setLoading(true)
+        
+        try {
+            if (status == 'processing') {
+                const response: any = await confirmP2pOrderWithoutCode(id)
+    
+                if (response?.data?.status == 200 || response?.data?.status == 201 || response?.data?.status == 202) {
+                    
+                    appAlert.success(`${response?.data?.message}`)
+                    setLoading(false)
+                } else if (response?.data?.status == 401) {
+
+                    appAlert.error(`${response?.error?.data?.message}`)
+                    setLoading(false)
+                    router.replace('/signin')
+                } else {
+                    setLoading(false)
+                    appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                }
+            } else {
+                setLoading(false)
+                appAlert.error(`Please Confirm that you have been notified of the Buyer's transfer`)
+            }
+
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+
     return (
         <Modal size={size} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay
@@ -34,7 +70,6 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
 
                             onSubmit={async (values, { }) => {
                                 try {
-                                    // onOpen()
 
                                     const response: any = await confirmP2pOrderWithCode({ orderId: id, code: values.code })
                                     if (response?.data?.status == 200 || response?.data?.status == 201 || response?.data?.status == 202) {
@@ -42,7 +77,6 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                                         onClose()
                                         onReleaseClose()
 
-                                        // dispatch(setIsModalOpen({ isOpen: true }))
                                     } else if (response?.data?.status == 401) {
 
                                         appAlert.error(`${response?.error?.data?.message}`)
@@ -53,7 +87,6 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                                         appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
                                     }
 
-
                                 } catch (error) {
 
                                 }
@@ -63,13 +96,7 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                             validateOnMount
                         >
                             {({
-                                // handleChange,
-                                // handleBlur,
-                                // setFieldValue,
                                 handleSubmit,
-                                // isSubmitting,
-                                // // values
-                                // /* and other goodies */
                             }) => (
                                 <Form>
                                     <VStack w={'full'} align='start'>
@@ -79,9 +106,14 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                                                     <FormLabel fontSize={'sm'} color={'textLightColor'}>Phone Number Verification code</FormLabel>
                                                     <InputGroup size={'lg'}>
                                                         <Input autoComplete='off' variant={'outline'} {...field} />
-                                                        <InputRightElement width='48'  >
+                                                        <InputRightElement width="160px"  bg="primaryColor.900" color="white">
 
-                                                            <Text fontSize={'sm'} >Verification Code sent</Text>
+                                                            {/* <Text fontSize={'sm'} onClick={() => confirmP2pOrderWithoutCodeFunction()} cursor="pointer">Get Code</Text> */}
+
+                                                            <MainAppButton onClick={confirmP2pOrderWithoutCodeFunction} isLoading={load} backgroundColor={'primaryColor.900'} >
+                                                                Get Code
+                                                            </MainAppButton>
+                                                        
                                                         </InputRightElement>
                                                     </InputGroup>
                                                     <FormLabel pt={'1'} fontSize={'xs'} color={'textLightColor'}>Enter the 6-digit code code sent to {user?.email}</FormLabel>
