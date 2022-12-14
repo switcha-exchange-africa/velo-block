@@ -7,14 +7,14 @@ import {
   ModalContent, Tab,
   TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
 } from "@chakra-ui/react"
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 import { Field, Form, Formik } from 'formik';
-import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
-import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
+// import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
+// import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
 
 const BuyP2p = ({
@@ -24,7 +24,7 @@ const BuyP2p = ({
     handlePageReset
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const router = useRouter();
+    // const router = useRouter();
     const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
@@ -56,11 +56,11 @@ const BuyP2p = ({
     // const { amount, cash, coin, creditCoinAmount } = useAppSelector((state) => state.quickTrade)
     const amounts = 0
     const creditCoinAmounts = 0
-    const [creditCoin, setCreditCoin] = useState(modalData?.cash ?? `NGN`)
-    const [debitCoin, setDebitCoin] = useState(modalData?.coin)
+    const [creditCoin] = useState(modalData?.cash ?? `NGN`)
+    // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
     const [amountt, setAmountt] = useState(amounts ? `${amounts}` : '0')
-    const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
+    // const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
+    // const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
     // console.log("this is the credit coin ", creditCoin)
     // console.log("this is the debit coin ", debitCoin)
@@ -223,15 +223,15 @@ const BuyP2p = ({
                                 >
                                     {({
                                         setFieldValue,
-                                        handleSubmit,
-                                        isSubmitting
+                                        // handleSubmit,
+                                        // isSubmitting
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
                                                 <Box mb={"10px"}>
                                                     <Text fontSize={"xs"} mb="5px">I want to buy </Text>
                                                     <Field name='debitCoinValue' >
-                                                        {({ field, form }: any) => (
+                                                        {({ field }: any) => (
                                                             <InputGroup size="sm">
                                                                 <Input
                                                                     borderTopLeftRadius={"5px"}
