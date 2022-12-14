@@ -129,7 +129,7 @@ const ConfirmSales = () => {
                                     <MenuOptionGroup defaultValue='asc'>
                                         {getUsersBank?.data.length !== 0 ? (
                                             getUsersBank?.data?.map((item: any) => (
-                                                <MenuItemOption key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>{item?.accountNumber}</MenuItemOption>
+                                                <MenuItemOption key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>{item?.accountNumber}, {item?.accountName }</MenuItemOption>
                                             ))
                                         ) : (
                                             <MenuItem p="20px" cursor="pointer" alignItems="center">
@@ -149,6 +149,7 @@ const ConfirmSales = () => {
                                 
 
                                 <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientAccountNumber ? clientAccountNumber : ""}</Text>
+                                <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientAccountName ? clientAccountName : ""}</Text>
                             
 
                             </Menu>
