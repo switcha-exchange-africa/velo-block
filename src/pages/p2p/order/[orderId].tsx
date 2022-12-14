@@ -98,56 +98,48 @@ const NotifyTraders = () => {
                                 </Flex>
                             </Box>
 
-                            <Box w={'full'}>
-                                <Flex>
-                                    <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                    <Text fontSize={'sm'} >Transfer the funds to the seller’s account provided below</Text>
-                                </Flex>
-                                <Flex>
-                                    <Divider orientation='vertical' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} h={'40'} mx={'1.5'} pr={'2'} />
-
-
-                                    <Flex flexDirection={'column'}>
-                                        <Flex pt={'4'}>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Payment Method</Text>
-                                                <Text textTransform={'capitalize'} fontSize={'sm'} color={'primaryColor.900'}>{orderDetail?.data?.data?.method}</Text>
-                                            </Flex>
-
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy' && 
+                                <Box w={'full'}>        
+                                    <Flex>
+                                        <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
+                                        <Text fontSize={'sm'} >Transfer the funds to the seller’s account provided below</Text>
                                         </Flex>
-                                        {/* {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks?.slice(0, 5)?.map((b: any) => {
-                                            return (
-                                                <div key={b}>
-                                                    <RenderAdBankDetails bankId={b} />
-                                                </div>
-                                            )
-                                        })} */}
+                                        <Flex>
+                                                        <Divider orientation='vertical' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} h={'40'} mx={'1.5'} pr={'2'} />
 
-                                        {/* the bank passed here */}
-                                        {/* this is for passing the bank name */}
-                                        <Flex pt={'4'}>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
-                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountName} <CopyToClipboard text={orderDetail?.data?.data?.clientAccountName}
-                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
-                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountNumber}  <CopyToClipboard text={orderDetail?.data?.data?.clientAccountNumber}
-                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
-                                            </Flex>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
-                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientBankName}
-                                                    <CopyToClipboard text={orderDetail?.data?.data?.clientBankName}
-                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                                            </Flex>
+
+                                                    <Flex flexDirection={'column'}>
+                                            
+                                                    <Flex pt={'4'}>
+                                                        <Flex flexDirection={'column'} pr={'8'}>
+                                                            <Text fontSize={'xs'} color={'#64748B'}>Payment Method</Text>
+                                                            <Text textTransform={'capitalize'} fontSize={'sm'} color={'primaryColor.900'}>{orderDetail?.data?.data?.method}</Text>
+                                                        </Flex>
+                                                    </Flex>
+                                                    <Flex pt={'4'}>
+                                                        <Flex flexDirection={'column'} pr={'8'}>
+                                                            <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
+                                                            <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountName} <CopyToClipboard text={orderDetail?.data?.data?.clientAccountName}
+                                                                onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                        </Flex>
+                                                        <Flex flexDirection={'column'} pr={'8'}>
+                                                            <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
+                                                            <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountNumber}  <CopyToClipboard text={orderDetail?.data?.data?.clientAccountNumber}
+                                                                onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
+                                                        </Flex>
+                                                        <Flex flexDirection={'column'} pr={'8'}>
+                                                            <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
+                                                            <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientBankName}
+                                                                <CopyToClipboard text={orderDetail?.data?.data?.clientBankName}
+                                                                onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                        </Flex>
+                                                    </Flex>
                                         </Flex>
-
                                     </Flex>
-                                </Flex>
-                            </Box>
+                                </Box>
+                            }
 
+                            
                             <Box w={'full'}>
                                 <Flex mt="15px">
                                     <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
