@@ -26,7 +26,7 @@ const BuyP2p = ({
     handlePageReset
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    // const router = useRouter();
+    const router = useRouter();
     const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
@@ -218,8 +218,6 @@ const BuyP2p = ({
 
                                         console.log("this is the data for the buy coin selected ", data)
                                         const response = await p2pBuyOrder(data)
-
-                                        console.log(response)
 
                                         if (response?.data?.status == 200) {
                                             // appAlert.success('order created successfully')
