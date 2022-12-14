@@ -60,7 +60,7 @@ const BuyP2p = ({
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
-    const [amountt, setAmountt] = useState(amounts ? `${amounts}` : '0')
+    const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
     // const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     // const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
@@ -217,23 +217,23 @@ const BuyP2p = ({
                                         }
 
                                         console.log("this is the data for the buy coin selected ", data)
-                                        const response = await p2pBuyOrder(data)
+                                        // const response = await p2pBuyOrder(data)
 
-                                        if (response?.data?.status == 200) {
-                                            // appAlert.success('order created successfully')
-                                            // dispatch(setOrderPayload({ order: response?.data?.data }))
-                                            console.log("this is the response ", response)
-                                            appAlert.success(response?.data?.message)
-                                            const orderId = response?.data?.data?.order?.orderId
-                                            router.push(`/p2p/order/${orderId}`)
-                                            console.log("this is the orderId ", orderId)
-                                            // console.log("what is this response", response)
-                                        } else if (response?.data?.status == 401) {
-                                            appAlert.error(`${response?.error?.data?.message}`)
-                                            router.replace('/signin')
-                                        } else {
-                                            appAlert.error(response?.error?.data?.message)
-                                        }
+                                        // if (response?.data?.status == 200) {
+                                        //     // appAlert.success('order created successfully')
+                                        //     // dispatch(setOrderPayload({ order: response?.data?.data }))
+                                        //     console.log("this is the response ", response)
+                                        //     appAlert.success(response?.data?.message)
+                                        //     const orderId = response?.data?.data?.order?.orderId
+                                        //     router.push(`/p2p/order/${orderId}`)
+                                        //     console.log("this is the orderId ", orderId)
+                                        //     // console.log("what is this response", response)
+                                        // } else if (response?.data?.status == 401) {
+                                        //     appAlert.error(`${response?.error?.data?.message}`)
+                                        //     router.replace('/signin')
+                                        // } else {
+                                        //     appAlert.error(response?.error?.data?.message)
+                                        // }
 
 
                                         // router.push('/quick-trade/confirm-sales')
@@ -285,7 +285,10 @@ const BuyP2p = ({
                                                         <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderTopLeftRadius={"5px"}
                                                             borderBottomLeftRadius={"5px"}
                                                             justifyContent={'space-between'} alignItems={'center'} >
-                                                            <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text> 
+                                                            {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
+                                                            <Text w='full'>{amountt*modalData?.price}</Text> 
+                                                        
+                                                        
                                                         </Flex>
                                                         <InputRightAddon background={"none"} borderLeft="0px">
                                                         <Flex gap={"20px"}>
