@@ -7,7 +7,7 @@ import remoteImages from '../../constants/remoteImages'
 import appAlert from '../../helpers/appAlert'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
-import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
+// import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
 import { useNotifyMerchantMutation } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 
