@@ -23,7 +23,7 @@ const NotifyTraders = () => {
     const today = moment().valueOf()
     
     
-    // console.log("this is the orderDetail ", orderDetail)
+    console.log("this is the orderDetail ", orderDetail)
 
 
     return (
@@ -117,22 +117,48 @@ const NotifyTraders = () => {
                                                 </Flex>
                                             </Flex>
                                             <Flex pt={'4'}>
-                                                <Flex flexDirection={'column'} pr={'8'}>
-                                                    <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
-                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountName} <CopyToClipboard text={orderDetail?.data?.data?.clientAccountName}
-                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                                                </Flex>
-                                                <Flex flexDirection={'column'} pr={'8'}>
-                                                    <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
-                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountNumber}  <CopyToClipboard text={orderDetail?.data?.data?.clientAccountNumber}
-                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
-                                                </Flex>
-                                                <Flex flexDirection={'column'} pr={'8'}>
-                                                    <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
-                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientBankName}
-                                                        <CopyToClipboard text={orderDetail?.data?.data?.clientBankName}
-                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-                                                </Flex>
+
+                                            {/* Rendering bank for Quick trade */}
+                                            {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.order?.type == 'sell'   ? (
+                                                <>
+                                                    <Flex flexDirection={'column'} pr={'8'}>
+                                                        <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
+                                                        <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountName} <CopyToClipboard text={orderDetail?.data?.data?.clientAccountName}
+                                                            onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                    </Flex>
+                                                    <Flex flexDirection={'column'} pr={'8'}>
+                                                        <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
+                                                        <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountNumber}  <CopyToClipboard text={orderDetail?.data?.data?.clientAccountNumber}
+                                                            onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
+                                                    </Flex>
+                                                    <Flex flexDirection={'column'} pr={'8'}>
+                                                        <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
+                                                        <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientBankName}
+                                                            <CopyToClipboard text={orderDetail?.data?.data?.clientBankName}
+                                                            onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                    </Flex>  
+                                                </>
+                                                ) : (orderDetail?.data?.data?.ad[0].bank?.map((item: any) => (
+                                                        <>
+                                                            <Flex flexDirection={'column'} pr={'8'}>
+                                                                <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
+                                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountName} <CopyToClipboard text={item?.accountName}
+                                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                            </Flex>
+                                                            <Flex flexDirection={'column'} pr={'8'}>
+                                                                <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
+                                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountNumber}  <CopyToClipboard text={item?.accountNumber}
+                                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
+                                                            </Flex>
+                                                            <Flex flexDirection={'column'} pr={'8'}>
+                                                                <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
+                                                                <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.name}
+                                                                    <CopyToClipboard text={item?.name}
+                                                                    onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                            </Flex>
+                                                        </>
+                                                    ))
+                                                )}
                                             </Flex>
                                         </Flex>
                                     </Flex>

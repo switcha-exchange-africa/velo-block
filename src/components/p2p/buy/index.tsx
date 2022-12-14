@@ -7,7 +7,7 @@ import {
   ModalContent, Tab,
   TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
 } from "@chakra-ui/react"
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
@@ -16,6 +16,8 @@ import { Field, Form, Formik } from 'formik';
 // import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
 // import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
+import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
+import appAlert from '../../../helpers/appAlert';
 
 const BuyP2p = ({
     pageNumber,
@@ -24,13 +26,13 @@ const BuyP2p = ({
     handlePageReset
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    // const router = useRouter();
+    const router = useRouter();
     const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
-    
+    const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()
 
@@ -58,7 +60,7 @@ const BuyP2p = ({
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
-    const [amountt, setAmountt] = useState(amounts ? `${amounts}` : '0')
+    const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
     // const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     // const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
@@ -204,17 +206,36 @@ const BuyP2p = ({
                                         // coin: coin,
                                         // method: "bank",
                                         // type: "sell"
-
                                         const data = {
-                                            amount: parseFloat(amountt),
-                                            creditCoinAmount: calculateConversion(parseFloat(amountt)),
-                                            fee: '0.5%',
-                                            cash: modalData?.cash,
-                                            coin: modalData?.coin,
-                                            rate: 'no rate for now'
+                                            // creditCoinAmount: calculateConversion(parseFloat(amountt)),
+                                            adId: modalData?._id,
+                                            bankId: modalData?.bank[0]?._id,
+                                            quantity: parseFloat(amountt),
+                                            // cash: modalData?.cash,
+                                            // coin: modalData?.coin,
+                                            type: "buy"
                                         }
 
-                                        console.log("this is the data for the buy coin selected ", data)
+                                        // console.log("this is the data for the buy coin selected ", data)
+                                        const response = await p2pBuyOrder(data)
+
+                                        if (response?.data?.status == 200) {
+                                            // appAlert.success('order created successfully')
+                                            // dispatch(setOrderPayload({ order: response?.data?.data }))
+                                            // console.log("this is the response ", response)
+                                            appAlert.success(response?.data?.message)
+                                            const orderId = response?.data?.data?.order?.orderId
+                                            router.push(`/quick-trade/order/${orderId}`)
+                                            // console.log("this is the orderId ", orderId)
+                                            // console.log("what is this response", response)
+                                        } else if (response?.data?.status == 401) {
+                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            router.replace('/signin')
+                                        } else {
+                                            appAlert.error(response?.error?.data?.message)
+                                        }
+
+
                                         // router.push('/quick-trade/confirm-sales')
                                     }}
                                     validateOnChange
@@ -236,7 +257,7 @@ const BuyP2p = ({
                                                                 <Input
                                                                     borderTopLeftRadius={"5px"}
                                                                     borderBottomLeftRadius={"5px"}
-                                                                    placeholder="Enter amount NGN"
+                                                                    placeholder={`Enter Quantity ${modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}`}
                                                                     borderRight={"none"}
                                                                     autoComplete='off'
                                                                     type="number"
@@ -264,7 +285,10 @@ const BuyP2p = ({
                                                         <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderTopLeftRadius={"5px"}
                                                             borderBottomLeftRadius={"5px"}
                                                             justifyContent={'space-between'} alignItems={'center'} >
-                                                            <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text> 
+                                                            {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
+                                                            <Text w='full'>{amountt*modalData?.price}</Text> 
+                                                        
+                                                        
                                                         </Flex>
                                                         <InputRightAddon background={"none"} borderLeft="0px">
                                                         <Flex gap={"20px"}>
