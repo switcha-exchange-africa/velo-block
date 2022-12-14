@@ -214,7 +214,7 @@ const BuyStepTwo = (props:any) => {
 
                         <Flex  direction={"column"} mt={"24px"} justifyContent={"space-between"}  p={"12px"} w={"100%"} bg="#FFFFFF" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["flex", "flex", "none"]}>
                             <Flex mb="24px">
-                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee: 0.5%</Text>
                                 <Flex ml="10px" alignItems={"center"}>
                                     <InfoIcon
                                         mr={"5px"}
@@ -222,7 +222,7 @@ const BuyStepTwo = (props:any) => {
                                         w={"10px"}
                                         h={"10px"}
                                     />
-                                    <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                                    <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>{coin}</Text>
                                 </Flex>
                             </Flex>
                             
@@ -239,7 +239,7 @@ const BuyStepTwo = (props:any) => {
 
                     <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
                         <Flex>
-                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee: 0.5%</Text>
                             <Flex ml="10px" alignItems={"center"}>
                                 <InfoIcon
                                     mr={"5px"}
@@ -247,7 +247,7 @@ const BuyStepTwo = (props:any) => {
                                     w={"10px"}
                                     h={"10px"}
                                 />
-                                <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                                <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>{coin}</Text>
                             </Flex>
                         </Flex>
                         

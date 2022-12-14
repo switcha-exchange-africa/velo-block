@@ -37,18 +37,15 @@ const ConfirmPurchase = () => {
             const response: any = await quickTrade(data)
             
             if (response?.data?.status == 200) {
-                // alert(JSON.stringify(response?.data?.data))
                 appAlert.success('order created successfully')
                 dispatch(setOrderPayload({ order: response?.data?.data }))
                 const orderId = response?.data?.data?.order?.orderId
                 router.push(`/quick-trade/order/${orderId}`)
             } else if (response?.data?.status == 401) {
                 appAlert.error(`${response?.error?.data?.message}`)
-                // alert(JSON.stringify(res))
                 router.replace('/signin')
             } else {
                 appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                // console.log("this is it", response?.error?.data?.message)
             }
         } catch (error) {
             console.log(error)

@@ -41,8 +41,12 @@ const QuickSellComponent = () => {
                         fee: '0.5%',
                         cash: creditCoin,
                         coin: debitCoin,
-                        rate: 'no rate for now'
+                        rate: 'no rate for now',
+                        // clientAccountName: "",
+                        // clientAccountNumber: "",
+                        // clientBankName: ""
                     }))
+
                     router.push('/quick-trade/confirm-sales')
                 }}
                 validateOnChange
@@ -71,9 +75,6 @@ const QuickSellComponent = () => {
                                                 <Flex w={'full'} justifyContent={'flex-end'}>
                                                     {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setDebitCoin(selectedValue)} value={debitCoin} />}
                                                 </Flex>
-
-
-
                                             </InputRightElement>
                                         </InputGroup>
                                         <FormErrorMessage>{form.errors.debitCoinValue}</FormErrorMessage>
