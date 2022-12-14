@@ -27,7 +27,7 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                 const response: any = await confirmP2pOrderWithoutCode(id)
     
                 if (response?.data?.status == 200 || response?.data?.status == 201 || response?.data?.status == 202) {
-                    console.log(response)
+                    
                     appAlert.success(`${response?.data?.message}`)
                     setLoading(false)
                 } else if (response?.data?.status == 401) {

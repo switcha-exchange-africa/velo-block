@@ -2,7 +2,6 @@ import { Box, Checkbox, Divider, Flex, Heading, Modal, ModalBody, ModalCloseButt
 import React, { useState } from 'react'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
-import { useConfirmP2pOrderWithoutCodeMutation } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 import SecurityVerification from './SecurityVerification'
 
