@@ -257,7 +257,7 @@ const BuyP2p = ({
                                                                 <Input
                                                                     borderTopLeftRadius={"5px"}
                                                                     borderBottomLeftRadius={"5px"}
-                                                                    placeholder="Enter amount NGN"
+                                                                    placeholder={`Enter Quantity ${modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}`}
                                                                     borderRight={"none"}
                                                                     autoComplete='off'
                                                                     type="number"
