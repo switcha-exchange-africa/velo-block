@@ -142,8 +142,7 @@ const NotifyTraders = () => {
                             
                             
                             {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy')  ? (
-                                <>
-                                
+                                <>                                
                                     <Box w={'full'}>
                                         <Flex mt="15px">
                                             <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
