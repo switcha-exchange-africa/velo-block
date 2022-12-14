@@ -10,8 +10,6 @@ import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
 import { useGetOrderDetailQuery, } from '../../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
-
-import RenderAdBankDetails from '../../../components/RenderAdBankDetails'
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
 import remoteImages from '../../../constants/remoteImages'
 
@@ -24,37 +22,9 @@ const NotifyTraders = () => {
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
-    // console.log(orderDetail)
-    // const [currentPage, setCurrentPage] = useState(1)
-    // const getAddedBank = useGetAddedBankPaginationQuery({arg: currentPage})
-
-    // console.log("getAddedBank is this ", getAddedBank?.data?.data)
-
-    // console.log("ths is the order details ", orderDetail.data)
-
     const today = moment().valueOf()
-    // const handlePreviousPage = () => {
-    //     setCurrentPage(currentPage - 1)
-    // }
-
-    // const handleNextPage = () => {
-    //     setCurrentPage(currentPage + 1)
-    // }
-    // console.log(" orderDetail detail about to check the behaviour of the bank! ", orderDetail.data)
-
-    // React.useEffect(() => {
-    //     if (isModalOpen == true) {
-    //         onOpen()
-    //     }
-    // }, [isModalOpen, onOpen])
-
-    // Create a service for get Single order and call the usequery hook here and pass the orderId. also call the isFetching to show Loader when the page is Loading
-
-    // React.useEffect(() => {
-    //     if (!orderDetail.isFetching) {
-    //         alert(`${moment(orderDetail?.data?.data?.createdAt).valueOf()} + ${(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)} > ${today}`)
-    //     }
-    // }, [orderDetail, today])
+    
+    
     console.log("this is the orderDetail ", orderDetail)
 
 
