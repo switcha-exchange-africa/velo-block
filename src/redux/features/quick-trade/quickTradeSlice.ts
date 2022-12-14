@@ -36,7 +36,7 @@ export const quickTradeSlice = createSlice({
     setQuickBuyPayload: (
       state,
       {
-        payload: { amount, creditCoinAmount, fee, cash, coin, rate, clientAccountName, clientAccountNumber, clientBankName },
+        payload: { amount, creditCoinAmount, fee, cash, coin, rate},
       }: PayloadAction<{
         amount: any;
         creditCoinAmount: any;
@@ -44,9 +44,9 @@ export const quickTradeSlice = createSlice({
         cash: any;
         coin: any;
         rate: any;
-        clientAccountName: any;
-        clientAccountNumber: any;
-        clientBankName: any;
+        // clientAccountName: any;
+        // clientAccountNumber: any;
+        // clientBankName: any;
       }>
     ) => {
       state.amount = amount;
@@ -55,9 +55,9 @@ export const quickTradeSlice = createSlice({
       state.cash = cash;
       state.coin = coin;
       state.rate = rate;
-      state.clientAccountName= clientAccountName;
-      state.clientAccountNumber= clientAccountNumber;
-      state.clientBankName= clientBankName;
+      // state.clientAccountName= clientAccountName;
+      // state.clientAccountNumber= clientAccountNumber;
+      // state.clientBankName= clientBankName;
     },
 
     setOrderPayload: (

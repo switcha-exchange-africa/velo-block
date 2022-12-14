@@ -6,7 +6,6 @@ import { Box, Flex, Text,
     MenuItem,
     MenuGroup,
     Button,
-    MenuDivider,
     MenuItemOption,
     MenuOptionGroup} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
