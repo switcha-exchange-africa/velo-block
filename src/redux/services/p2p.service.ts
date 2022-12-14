@@ -49,6 +49,24 @@ export const p2pApi = baseApi.injectEndpoints({
       invalidatesTags: ["Order"],
     }),
 
+
+    p2pBuyOrder: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `p2p/order`,
+          method: "POST",
+          body: { ...body },
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+      invalidatesTags: ["Order"],
+    }),
+
+
+
+
     getP2pOrderForClients: builder.query<any, void>({
       query: () => `p2p/order/client`,
       transformResponse: (responseData: any) => {
@@ -92,6 +110,6 @@ export const {
   useGetP2pOrderForClientsQuery,
   useGetP2pOrderForMerchantsQuery,
   useGetP2pOrderFilterForClientQuery,
-  useGetP2pOrderFilterForMerchantQuery
-
+  useGetP2pOrderFilterForMerchantQuery,
+  useP2pBuyOrderMutation
 } = p2pApi;

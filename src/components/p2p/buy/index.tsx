@@ -7,7 +7,7 @@ import {
   ModalContent, Tab,
   TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
 } from "@chakra-ui/react"
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
@@ -16,6 +16,8 @@ import { Field, Form, Formik } from 'formik';
 // import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
 // import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
+import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
+import appAlert from '../../../helpers/appAlert';
 
 const BuyP2p = ({
     pageNumber,
@@ -30,7 +32,7 @@ const BuyP2p = ({
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
-    
+    const [p2pBuyOrder] = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()
 
@@ -204,17 +206,24 @@ const BuyP2p = ({
                                         // coin: coin,
                                         // method: "bank",
                                         // type: "sell"
-
                                         const data = {
-                                            amount: parseFloat(amountt),
-                                            creditCoinAmount: calculateConversion(parseFloat(amountt)),
-                                            fee: '0.5%',
-                                            cash: modalData?.cash,
-                                            coin: modalData?.coin,
-                                            rate: 'no rate for now'
+                                            // creditCoinAmount: calculateConversion(parseFloat(amountt)),
+                                            adId: modalData?._id,
+                                            bankId: modalData?.bank[0]?._id,
+                                            quantity: parseFloat(amountt),
+                                            // cash: modalData?.cash,
+                                            // coin: modalData?.coin,
+                                            type: "buy"
                                         }
 
                                         console.log("this is the data for the buy coin selected ", data)
+                                        const response = await p2pBuyOrder(data)
+
+                                        console.log(response)
+
+                                        appAlert.error(response?.error?.data?.message)
+
+
                                         // router.push('/quick-trade/confirm-sales')
                                     }}
                                     validateOnChange
