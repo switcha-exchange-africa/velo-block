@@ -141,6 +141,7 @@ const TableComponent = ({
                         color="#FFF"
                         borderRadius={"3px"}
                         onClick={() => onClick(api?._id,  apiData)}
+                        isDisabled
                     >
                         {buttonTitle}
                     </Button>
@@ -211,7 +212,7 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={() => onClick(api?._id,  apiData)} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button isDisabled onClick={() => onClick(api?._id,  apiData)} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             

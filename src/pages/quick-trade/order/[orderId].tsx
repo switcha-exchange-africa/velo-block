@@ -16,8 +16,6 @@ import remoteImages from '../../../constants/remoteImages'
 const NotifyTraders = () => {
     const router = useRouter()
     const { orderId } = router.query
-    // console.log(orderId)
-    // const { isModalOpen } = useAppSelector((state) => state.quickTrade)
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
@@ -25,7 +23,7 @@ const NotifyTraders = () => {
     const today = moment().valueOf()
     
     
-    console.log("this is the orderDetail ", orderDetail)
+    // console.log("this is the orderDetail ", orderDetail)
 
 
     return (
