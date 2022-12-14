@@ -11,7 +11,7 @@ import SecurityVerification from './SecurityVerification'
 const ConfirmRelease = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, status }: any) => {
     const router = useRouter()
     const [onConfirm, setOnConfirm] = useState(false)
-    const [confirmP2pOrderWithoutCode, { isLoading }] = useConfirmP2pOrderWithoutCodeMutation()
+    const [ { isLoading }] = useConfirmP2pOrderWithoutCodeMutation()
     const dispatch = useAppDispatch()
     const { isOpen: isVerifyOpen, onOpen: onVerifyOpen, onClose: onVerifyClose } = useDisclosure();
 
