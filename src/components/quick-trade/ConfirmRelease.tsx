@@ -1,7 +1,5 @@
 import { Box, Checkbox, Divider, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import appAlert from '../../helpers/appAlert'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
 import { useConfirmP2pOrderWithoutCodeMutation } from '../../redux/services/p2p.service'
@@ -9,9 +7,7 @@ import MainAppButton from '../buttons/MainAppButton'
 import SecurityVerification from './SecurityVerification'
 
 const ConfirmRelease = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, status }: any) => {
-    const router = useRouter()
     const [onConfirm, setOnConfirm] = useState(false)
-    const [ { isLoading }] = useConfirmP2pOrderWithoutCodeMutation()
     const dispatch = useAppDispatch()
     const { isOpen: isVerifyOpen, onOpen: onVerifyOpen, onClose: onVerifyClose } = useDisclosure();
 
@@ -42,7 +38,7 @@ const ConfirmRelease = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }, id, 
                                 Cancel
                             </MainAppButton>
                             <Box w={'12'}></Box>
-                            <MainAppButton disabled={onConfirm == true ? false : true} isLoading={isLoading} backgroundColor={'primaryColor.900'} onClick={() => confirmP2pOrderWithoutCodeFunction()}>
+                            <MainAppButton disabled={onConfirm == true ? false : true}  backgroundColor={'primaryColor.900'} onClick={() => confirmP2pOrderWithoutCodeFunction()}>
                                 Submit
                             </MainAppButton>
                             <SecurityVerification isOpen={isVerifyOpen} onClose={onVerifyClose} id={id} onReleaseClose={onClose} status={ status} />
