@@ -221,7 +221,19 @@ const BuyP2p = ({
 
                                         console.log(response)
 
-                                        appAlert.error(response?.error?.data?.message)
+                                        if (response?.data?.status == 200) {
+                                            // appAlert.success('order created successfully')
+                                            // dispatch(setOrderPayload({ order: response?.data?.data }))
+                                            console.log("this is the response ", response)
+                                            const orderId = response?.data?.data?.order?.orderId
+                                            // router.push(`/quick-trade/order/${orderId}`)
+                                            // console.log("what is this response", response)
+                                        } else if (response?.data?.status == 401) {
+                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            router.replace('/signin')
+                                        } else {
+                                            appAlert.error(response?.error?.data?.message)
+                                        }
 
 
                                         // router.push('/quick-trade/confirm-sales')
