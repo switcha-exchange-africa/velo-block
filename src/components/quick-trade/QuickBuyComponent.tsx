@@ -123,14 +123,8 @@ const QuickBuyComponent = () => {
 
                             <Box py={'1'}></Box>
                             <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} backgroundColor={'secondaryColor.900'} >
-                                {/* Buy with {fee ?? calculateQuickBuyFees?.data?.data?.fee} {debitCoin} fee */}
                                 Buy
-
                             </MainAppButton>
-
-
-
-
 
                         </VStack>
                     </Form>

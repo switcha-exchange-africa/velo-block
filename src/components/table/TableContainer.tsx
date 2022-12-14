@@ -16,10 +16,11 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { CheckCircleIcon } from "@chakra-ui/icons"
+import uuid from 'react-uuid';
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
-    onClick?: () => void,
+    onClick?: any,
     buttonTitle?: string,
     apiData: any,
     handlePreviousPage?: () => void,
@@ -40,12 +41,15 @@ const TableComponent = ({
         return percent
     }
 
+
+    // console.log("this is the apiData ", apiData)
+
     return (
         <>
 
             {/* for mobile screen */}
             {apiData?.data?.map((api: any) => (
-                <Box key={api?.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                <Box key={uuid()} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
                     <Flex
                         alignItems="center"
                         w="100%"
@@ -136,8 +140,8 @@ const TableComponent = ({
                         textAlign={"center"}
                         color="#FFF"
                         borderRadius={"3px"}
-                        onClick={onClick}
-                        disabled
+                        onClick={() => onClick(api?._id,  apiData)}
+                        isDisabled
                     >
                         {buttonTitle}
                     </Button>
@@ -160,7 +164,7 @@ const TableComponent = ({
                     </Thead>
 
                     {apiData?.data?.map((api:any) => (
-                        <Tbody key={api?.id}>
+                        <Tbody key={uuid()}>
                             <Tr>
                                 <Td paddingLeft="0">
                                     <HStack>
@@ -208,7 +212,7 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={onClick} color="white" disabled fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button isDisabled onClick={() => onClick(api?._id,  apiData)} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             

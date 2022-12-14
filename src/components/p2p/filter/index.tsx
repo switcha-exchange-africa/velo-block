@@ -64,7 +64,7 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                         padding={"5px 20px"}
                         borderRadius={"5px"}
                     >
-                        <Text>0 Fee</Text>
+                        <Text>0.5 % Fee</Text>
                     </Box>
                 </Flex>
                 <Box
@@ -73,7 +73,7 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                     padding={"5px 20px"}
                     borderRadius={"5px"}
                 >
-                    <Text>0 Fee</Text>
+                    <Text>0.5% Fee</Text>
                 </Box>
             </Flex>
         </>

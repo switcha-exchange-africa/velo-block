@@ -284,7 +284,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
-                        ) : "NO SELL ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
@@ -299,7 +301,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
-                        ) : "NO SELL ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
@@ -313,7 +317,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
-                        ) : "NO SELL ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
@@ -327,7 +333,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 handleNextPage={handleNextPage}
                                 onClick={onOpen}
                             />      
-                        ) : "NO SELL ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
 
 
@@ -341,7 +349,9 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
                             />      
-                        ) : "NO SELL ADS YET"}
+                        ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
+                        </Flex>}
                     </TabPanel>
                 </TabPanels>
             </Tabs>
