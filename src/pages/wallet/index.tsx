@@ -80,7 +80,6 @@ function WalletPage() {
             convToUsd.push({ coin: wallet?.coin, usdValue })
             if (usdValue) {
               localFuncTotal = localFuncTotal + usdValue
-
             }
 
           }

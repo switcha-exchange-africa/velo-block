@@ -6,7 +6,9 @@ import { Box, Flex, Text,
     MenuItem,
     MenuGroup,
     Button,
-    MenuDivider} from '@chakra-ui/react'
+    MenuDivider,
+    MenuItemOption,
+    MenuOptionGroup} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import MainAppButton from '../../../components/buttons/MainAppButton'
@@ -124,21 +126,21 @@ const ConfirmSales = () => {
                                 </MenuButton>
                                 
                                 <MenuList minWidth='380px' border="none" boxShadow={"1px 1px 0px red"}>
-                                    <MenuGroup defaultValue='asc'>
+                                    <MenuOptionGroup defaultValue='asc'>
                                         {getUsersBank?.data.length !== 0 ? (
                                             getUsersBank?.data?.map((item: any) => (
-                                                <MenuItem key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>{item?.accountNumber}</MenuItem>
+                                                <MenuItemOption key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>{item?.accountNumber}</MenuItemOption>
                                             ))
                                         ) : (
                                             <MenuItem p="20px" cursor="pointer" alignItems="center">
                                                 No payment method Added
                                             </MenuItem>
                                         )}
-                                    </MenuGroup>
+                                    </MenuOptionGroup>
                                     
-                                    <MenuDivider bg="grey" />
+                                    <Box border="1px solid gray"></Box>
                                     <MenuGroup>
-                                        <MenuItem p="20px" cursor="pointer" alignItems="center"  onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
+                                        <MenuItem p="10px 20px 5px" cursor="pointer" alignItems="center"  onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
                                             <AddIcon color="black" mr="5px" w="10px" height="10px"  />
                                             Add Payment Method
                                         </MenuItem>
