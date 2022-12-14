@@ -10,7 +10,7 @@ interface RenderBalanceToUsdProps {
 
 const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps) => {
     const [convertCoins] = useLazySwapConvertQuery()
-    const [convertedValue, setConvertedValue] = React.useState(0)
+    const [convertedValue, setConvertedValue] = useState(0)
 
 
     const to8Dp = (number: any) => {
