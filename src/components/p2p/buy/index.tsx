@@ -190,62 +190,32 @@ const BuyP2p = ({
                                     initialValues={{ debitCoinValue: amounts ?? '', creditCoinValue: creditCoinAmounts ?? '' }}
 
                                     onSubmit={async () => {
-                                        
-                                        // dispatch(setQuickBuyPayload({
-                                        //     amount: parseFloat(amountt),
-                                        //     creditCoinAmount: calculateConversion(parseFloat(amountt)),
-                                        //     fee: '0.5%',
-                                        //     cash: creditCoin,
-                                        //     coin: debitCoin,
-                                        //     rate: 'no rate for now'
-
-
-                                        // }))
-                                        // amount: amount,
-                                        // cash: cash,
-                                        // coin: coin,
-                                        // method: "bank",
-                                        // type: "sell"
                                         const data = {
-                                            // creditCoinAmount: calculateConversion(parseFloat(amountt)),
                                             adId: modalData?._id,
                                             bankId: modalData?.bank[0]?._id,
                                             quantity: parseFloat(amountt),
-                                            // cash: modalData?.cash,
-                                            // coin: modalData?.coin,
                                             type: "buy"
                                         }
 
-                                        // console.log("this is the data for the buy coin selected ", data)
                                         const response = await p2pBuyOrder(data)
 
                                         if (response?.data?.status == 200) {
-                                            // appAlert.success('order created successfully')
-                                            // dispatch(setOrderPayload({ order: response?.data?.data }))
-                                            // console.log("this is the response ", response)
                                             appAlert.success(response?.data?.message)
                                             const orderId = response?.data?.data?.order?.orderId
                                             router.push(`/quick-trade/order/${orderId}`)
-                                            // console.log("this is the orderId ", orderId)
-                                            // console.log("what is this response", response)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')
                                         } else {
                                             appAlert.error(response?.error?.data?.message)
                                         }
-
-
-                                        // router.push('/quick-trade/confirm-sales')
-                                    }}
+                                }}
                                     validateOnChange
                                     validateOnBlur
                                     validateOnMount
                                 >
                                     {({
                                         setFieldValue,
-                                        // handleSubmit,
-                                        // isSubmitting
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
