@@ -12,15 +12,6 @@ import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
 import { useEffect, useMemo, useState } from 'react';
 import { checkValidToken } from '../../../helpers/functions/checkValidToken';
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
-// import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
-// import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
-// import appAlert from '../../../helpers/appAlert'
-// import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-// import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-// import { useGetOrderDetailQuery, } from '../../../redux/services/p2p.service'
-
-// import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
-// import remoteImages from '../../../constants/remoteImages'
 
 const NotifyTraders = () => {
     const router = useRouter()
@@ -172,16 +163,6 @@ const NotifyTraders = () => {
                             }
                             
 
-                            {/* I will come back to this later */}
-                            {/* <Box w={'full'}>
-                                <Flex mt="15px">
-                                    <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                    <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
-                                </Flex>
-                            </Box> */}
-
-
-
                             {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'sell' ? <Flex>
                                 
                                 {/* I will come back to this later */}
@@ -309,8 +290,6 @@ const RenderTimer = ({ timeRemaining }: any) => {
     const [time, setTime] = useState(timeRemaining / 1000);
 
     const remainTime = useMemo(() => {
-        // const days = Math.floor(time / 24 / 3600);
-        // const hours = Math.floor((time - days * 24 * 3600) / 3600);
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
 
