@@ -205,7 +205,6 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                             clientAccountNumber: clientAccountNumber,
                                             clientBankName: clientBankName
                                         }
-
                                         
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")

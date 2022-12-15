@@ -41,8 +41,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
         }
     }
 
-
-
     const amounts = 0
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
@@ -53,8 +51,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
     const calculateConversion = (numberAmount: number) => {
         return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
     }
-
-
 
     return (
         
