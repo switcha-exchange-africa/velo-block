@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { CheckCircleIcon } from "@chakra-ui/icons"
+import { AddIcon, CheckCircleIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import {
-  Avatar, Box, Button, Flex, Input,
-  InputGroup,
-  InputRightAddon,  Modal, ModalBody, ModalCloseButton,
-  ModalContent, Tab,
-  TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
+    Avatar, Box, Button, Flex, Input,
+    InputGroup,
+    InputRightAddon,  Modal, ModalBody, ModalCloseButton,
+    ModalContent, Tab,
+    TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure,
+    Menu, MenuButton, MenuList,
+    MenuItem, MenuGroup,
+    MenuItemOption,
+    MenuOptionGroup
 } from "@chakra-ui/react"
 import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
@@ -16,7 +20,8 @@ import { Field, Form, Formik } from 'formik';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
 import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 import appAlert from '../../../helpers/appAlert';
-
+import { useGetUsersBankQuery } from '../../../redux/services/bank.service';
+import uuid from "react-uuid"
 
 
 
@@ -62,6 +67,21 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
         return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
     }
 
+
+
+    const {data:getUsersBank} = useGetUsersBankQuery()
+
+    // const [bank, setBank] = useState("")
+    const [clientAccountName, setClientAccountName] = useState("")
+    const [clientBankName, setClientBankAccountName] = useState("")
+    const [clientAccountNumber, setClientAccountNumber] = useState("")
+    
+
+    const handleValue = (bName:string, bAccountNumber: string, clientName: string) => {
+        setClientBankAccountName(bName)
+        setClientAccountName(clientName)
+        setClientAccountNumber(bAccountNumber)
+    }
 
 
     return (
@@ -255,7 +275,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                                 </Box>
                                                 <Box>
                                                     <Text fontSize={"xs"}>Payment Method </Text>
-                                                    <Flex
+                                                    {/* <Flex
                                                         alignItems={"center"}
                                                         justifyContent="space-between"
                                                         border={"1px solid #E2E8F0"}
@@ -278,18 +298,66 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                                         <Box>
                                                         <Text fontSize={"sm"}>NGN</Text>
                                                         </Box>
-                                                    </Flex>
+                                                    </Flex> */}
+
+
                                                 </Box>
-                                                    <Flex gap={"10px"} justifyContent="center" mt="25px">
-                                                        <Button onClick={onClose}>Cancel</Button>
-                                                        <Button
-                                                            type="submit"
-                                                            color={"#fff"}
-                                                            background={"#EB4335"}
-                                                        >
-                                                            Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                        </Button>
-                                                    </Flex>
+                                                <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} w="100%" borderBottom={'1px'} p={'1'} borderRadius={'md'}  mb={'1'} borderColor={'#E2E8F0'}>
+                                                    <Menu closeOnSelect={true}>
+                                                        <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon color="black" />} textAlign="left">
+                                                            <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'}>Bank Transfer</Text>
+
+                                                        </MenuButton>
+                                                        
+                                                        <MenuList minWidth='380px' border="none" boxShadow={"1px 1px 0px #E2E8F0"}>
+                                                            <MenuOptionGroup defaultValue='asc'>
+                                                                {getUsersBank?.data.length !== 0 ? (
+                                                                    getUsersBank?.data?.map((item: any) => (
+                                                                        <MenuItemOption key={uuid()} onClick={() => handleValue(item?.name, item?.accountNumber, item?.accountName)}>
+                                                                            <Flex direction="column" pb="5px">
+                                                                                <Text>{item?.accountNumber}</Text>
+                                                                                <Text>{item?.accountName}</Text>    
+                                                                                <Text>{item?.name}</Text>
+                                                                            </Flex>       
+                                                                        </MenuItemOption>
+                                                                    ))
+                                                                ) : (
+                                                                    <MenuItem p="20px" cursor="pointer" alignItems="center">
+                                                                        No payment method Added
+                                                                    </MenuItem>
+                                                                )}
+                                                            </MenuOptionGroup>
+                                                            
+                                                            <Box border="1px solid gray"></Box>
+                                                            <MenuGroup>
+                                                                <MenuItem p="10px 20px 5px" cursor="pointer" alignItems="center"  onClick={() => router.push("/settings/profile/verification/bank-accounts")}>
+                                                                    <AddIcon color="black" mr="5px" w="10px" height="10px"  />
+                                                                    Add Payment Method
+                                                                </MenuItem>
+                                                            </MenuGroup>
+                                                        </MenuList>
+                                                        
+
+                                                        <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientAccountNumber ? clientAccountNumber : ""}</Text>
+                                                        <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientAccountName ? clientAccountName : ""}</Text>
+                                                        <Text fontSize='sm' as='p'  p="0 15px" align={'left'} color="black" >{clientBankName ? clientBankName : ""}</Text>
+                                                    
+
+                                                    </Menu>
+                                                </Box>
+
+
+
+                                                <Flex gap={"10px"} justifyContent="center" mt="25px">
+                                                    <Button onClick={onClose}>Cancel</Button>
+                                                    <Button
+                                                        type="submit"
+                                                        color={"#fff"}
+                                                        background={"#EB4335"}
+                                                    >
+                                                        Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
+                                                    </Button>
+                                                </Flex>
                                             </Box>            
                                         </Form>
                                     )}
