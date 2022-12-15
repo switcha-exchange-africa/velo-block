@@ -10,6 +10,8 @@ import remoteImages from '../../../constants/remoteImages';
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
 import { useEffect, useMemo, useState } from 'react';
+import { checkValidToken } from '../../../helpers/functions/checkValidToken';
+import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
 // import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
 // import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
 // import appAlert from '../../../helpers/appAlert'
