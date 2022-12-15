@@ -13,8 +13,6 @@ import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 import { Field, Form, Formik } from 'formik';
-// import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
-// import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
 import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 import appAlert from '../../../helpers/appAlert';
@@ -54,8 +52,6 @@ const BuyP2p = ({
 
 
 
-    // const dispatch = useAppDispatch()
-    // const { amount, cash, coin, creditCoinAmount } = useAppSelector((state) => state.quickTrade)
     const amounts = 0
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
@@ -68,9 +64,6 @@ const BuyP2p = ({
         return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
     }
 
-
-    // console.log("this is the amount ", amountt)
-    // console.log("this is it ", convertFromCreditCoin)
 
     return (
         <Box  position="relative">
@@ -103,7 +96,7 @@ const BuyP2p = ({
                                 ></Avatar>
                                 <Box display={"flex"} gap="10px">
                                 <Box display={"flex"} alignItems={"center"} gap="3px">
-                                    <Text fontSize={"sm"}>{modalData?.user[0]?.username}</Text>
+                                    <Text fontSize={"sm"} textTransform="capitalize">{modalData?.user[0]?.username}</Text>
                                     <CheckCircleIcon
                                         color={"#22C36B"}
                                         w={"10px"}
@@ -141,7 +134,7 @@ const BuyP2p = ({
 
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Available</Text>
-                                    <Text>{modalData?.totalAmount} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
+                                    <Text>{(modalData?.totalAmount)?.toLocaleString()} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                 </Box>
                                 </Flex>
                                 <Flex

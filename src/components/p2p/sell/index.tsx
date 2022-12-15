@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CheckCircleIcon } from "@chakra-ui/icons"
 import {
   Avatar, Box, Button, Flex, Input,
@@ -12,6 +12,13 @@ import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
 import { useGetSellAdsQuery } from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
+import { Field, Form, Formik } from 'formik';
+import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
+import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
+import appAlert from '../../../helpers/appAlert';
+
+
+
 
 const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageReset}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -21,8 +28,42 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
     const { data:eth } = useGetSellAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetSellAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetSellAdsQuery({arg: "USDT_TRON", pageNumber: `${pageNumber}`})
+    const [p2pSellOrder]:any = useP2pBuyOrderMutation()
 
     
+
+    const [modalData, setModalData] = useState<any>()
+    const percentageCompletion = (completedOrder: number, adsCreated: number) => {
+        const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
+        return percent
+    }
+
+
+    const handleOpen = (id: string, apiData: any) => {
+        const item = apiData?.data.find((obj: any) => obj._id === id);
+        setModalData(item)
+        if (item) {
+            console.log("this is the modal Data, trying again ", modalData)
+            onOpen()
+        
+        }
+    }
+
+
+    const amounts = 0
+    const creditCoinAmounts = 0
+    const [creditCoin] = useState(modalData?.cash ?? `NGN`)
+    // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
+    const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
+
+    const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: modalData?.coin?.toLowerCase() == 'btc' ? 'bitcoin' : modalData?.coin?.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
+
+    const calculateConversion = (numberAmount: number) => {
+        return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
+    }
+
+
+
     return (
         <>
             <Modal  blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
@@ -46,13 +87,14 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 gap="5px"
                             >
                                 <Avatar
+                                    color="white"
                                     size={"md"}
                                     background={"#FB5E04"}
-                                    name="Maximus"
+                                    name={modalData?.user[0]?.username}
                                 ></Avatar>
                                 <Box display={"flex"} gap="10px">
                                 <Box display={"flex"} alignItems={"center"} gap="3px">
-                                    <Text fontSize={"sm"}>Maximus</Text>
+                                    <Text fontSize={"sm"} textTransform="capitalize">{modalData?.user[0]?.username}</Text>
                                     <CheckCircleIcon
                                         color={"#22C36B"}
                                         w={"10px"}
@@ -66,7 +108,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                     fontSize={"xs"}
                                     color="#8E9BAE"
                                 >
-                                    <Text>1534 orders</Text>|<Text>92.19% completion</Text>
+                                    <Text>{modalData?.user[0]?.noOfP2pOrderCompleted} orders</Text>|
+                                    <Text>{percentageCompletion(parseInt(modalData?.user[0]?.noOfP2pOrderCompleted), parseInt(modalData?.user[0]?.noOfP2pAdsCreated))} %&nbsp;completion</Text>
                                 </Box>
                                 </Box>
                             </Box>
@@ -84,12 +127,12 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 >
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Price</Text>
-                                    <Text>580.89NGN</Text>
+                                    <Text>{modalData?.price}</Text>
                                 </Box>
 
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Available</Text>
-                                    <Text>963.16 USDT</Text>
+                                    <Text>{(modalData?.totalAmount)?.toLocaleString()} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                 </Box>
                                 </Flex>
                                 <Flex
@@ -118,93 +161,140 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 </Box>
                                 </Flex>
                                 <Box>
-                                <Text mt={"10px"} color="#FB5E04">
-                                    Terms and Condition
-                                </Text>
-                                <Text color={"#8E9BAE"}>
-                                    Always online making fast payment
-                                </Text>
+                                    <Text mt={"10px"} color="#FB5E04">
+                                        Terms and Condition
+                                    </Text>
+                                    <Text color={"#8E9BAE"}>
+                                        Always online making fast payment
+                                    </Text>
                                 </Box>
                             </Box>
                             </Box>
                             <Box flex={1} borderLeft={["0", "0", "1px solid  #E2E8F0"]}>
-                            <Box w={["full", "full", "300px"]} margin={"0px auto"}>
-                                <Box mb={"10px"}>
-                                <Text fontSize={"xs"}>I want to Sell </Text>
-                                <InputGroup size="sm">
-                                    <Input
-                                        borderTopLeftRadius={"5px"}
-                                        borderBottomLeftRadius={"5px"}
-                                        placeholder="Enter amount NGN"
-                                        borderRight={"none"}
-                                    />
-                                    <InputRightAddon background={"none"} borderLeft="0px">
-                                    <Flex gap={"20px"}>
-                                        <Text fontSize={"sm"}>All</Text>
-                                        <Text fontSize={"sm"}>USDT</Text>
-                                    </Flex>
-                                    </InputRightAddon>
-                                </InputGroup>
-                                </Box>
-                                <Box mb={"10px"}>
-                                <Text fontSize={"xs"}>I will recieve </Text>
-                                <InputGroup size="sm">
-                                    <Input
-                                        borderTopLeftRadius={"5px"}
-                                        borderBottomLeftRadius={"5px"}
-                                        placeholder="Enter amount NGN"
-                                        borderRight={"none"}
-                                    />
-                                    <InputRightAddon background={"none"} borderLeft="0px">
-                                    <Flex gap={"20px"}>
-                                        <Text fontSize={"sm"}>All</Text>
-                                        <Text fontSize={"sm"}>NGN</Text>
-                                    </Flex>
-                                    </InputRightAddon>
-                                </InputGroup>
-                                </Box>
-                                <Box>
-                                <Text fontSize={"xs"}>Payment Method </Text>
-                                <Flex
-                                    alignItems={"center"}
-                                    justifyContent="space-between"
-                                    border={"1px solid #E2E8F0"}
-                                    padding="5px 10px"
-                                    borderRadius={"5px"}
-                                    mb={"10px"}
+                       
+                                <Formik
+                                    initialValues={{ debitCoinValue: amounts ?? '', creditCoinValue: creditCoinAmounts ?? '' }}
+
+                                    onSubmit={async () => {
+                                        const data = {
+                                            adId: modalData?._id,
+                                            bankId: modalData?.bank[0]?._id,
+                                            quantity: parseFloat(amountt),
+                                            type: "sell"
+                                        }
+
+                                        console.log("this is the data ", data)
+
+
+                                        // const response = await p2pSellOrder(data)
+
+                                        // if (response?.data?.status == 200) {
+                                        //     appAlert.success(response?.data?.message)
+                                        //     const orderId = response?.data?.data?.order?.orderId
+                                        //     router.push(`p2p/buy/${orderId}`)
+                                        // } else if (response?.data?.status == 401) {
+                                        //     appAlert.error(`${response?.error?.data?.message}`)
+                                        //     router.replace('/signin')
+                                        // } else {
+                                        //     appAlert.error(response?.error?.data?.message)
+                                        // }
+                                }}
+                                    validateOnChange
+                                    validateOnBlur
+                                    validateOnMount
                                 >
-                                    <Box display={"flex"} gap="10px" alignItems={"center"}>
-                                    <Text
-                                        fontSize={"10px"}
-                                        textAlign={"center"}
-                                        background={"#FFF7F2"}
-                                        color={"#FB5E04"}
-                                        borderRadius={"3px"}
-                                    >
-                                        Bank Transfer
-                                    </Text>
-                                    <Text fontSize={"xs"}>1522574741</Text>
-                                    </Box>
-                                    <Box>
-                                    <Text fontSize={"sm"}>NGN</Text>
-                                    </Box>
-                                </Flex>
-                                </Box>
-                                <Box>
-                                <Flex gap={"10px"} justifyContent="center">
-                                    <Button>Cancel</Button>
-                                    <Button
-                                    onClick={() => {
-                                        router.push("/p2p/sell");
-                                    }}
-                                        color={"#fff"}
-                                        background={"#EB4335"}
-                                    >
-                                        Sell USDT
-                                    </Button>
-                                </Flex>
-                                </Box>
-                            </Box>
+                                    {({
+                                        setFieldValue,
+                                    }) => (
+                                        <Form>
+                                            <Box w={["full", "full", "300px"]} margin={"0px auto"}>
+                                                <Box mb={"10px"}>
+                                                    <Text fontSize={"xs"} mb="5px">I want to Sell </Text>
+                                                    <Field name='debitCoinValue' >
+                                                        {({ field }: any) => (
+                                                            <InputGroup size="sm">
+                                                                <Input
+                                                                    borderTopLeftRadius={"5px"}
+                                                                    borderBottomLeftRadius={"5px"}
+                                                                    placeholder={`Enter Quantity ${modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}`}
+                                                                    borderRight={"none"}
+                                                                    autoComplete='off'
+                                                                    type="number"
+                                                                    variant={'outline'}
+                                                                    {...field}
+                                                                    onChange={(e) => {
+                                                                        setFieldValue('debitCoinValue', e.target.value);
+                                                                        setAmountt(e.target.value)
+                                                                        !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
+                                                                    }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} 
+                                                                />
+                                                                <InputRightAddon background={"none"} borderLeft="0px">
+                                                                    <Flex gap={"20px"}>
+                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
+                                                                    </Flex>
+                                                                </InputRightAddon>
+                                                            </InputGroup>
+                                                        )}
+                                                    </Field>
+                                                </Box>
+                                                <Box mb={"15px"}>
+                                                    <Text fontSize={"xs"} mb="5px">I will receive </Text>
+                                                    <InputGroup size="sm">
+                                                        <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderTopLeftRadius={"5px"}
+                                                            borderBottomLeftRadius={"5px"}
+                                                            justifyContent={'space-between'} alignItems={'center'} >
+                                                            <Text w='full'>{(amountt * modalData?.price).toLocaleString()}</Text> 
+                                                        </Flex>
+                                                        <InputRightAddon background={"none"} borderLeft="0px">
+                                                        <Flex gap={"20px"}>
+                                                            <Text fontSize={"sm"}>NGN</Text>
+                                                        </Flex>
+                                                        </InputRightAddon>
+                                                    </InputGroup>
+                                                </Box>
+                                                <Box>
+                                                    <Text fontSize={"xs"}>Payment Method </Text>
+                                                    <Flex
+                                                        alignItems={"center"}
+                                                        justifyContent="space-between"
+                                                        border={"1px solid #E2E8F0"}
+                                                        padding="5px 10px"
+                                                        borderRadius={"5px"}
+                                                        mb={"10px"}
+                                                    >
+                                                        <Box display={"flex"} gap="10px" alignItems={"center"}>
+                                                        <Text
+                                                            fontSize={"10px"}
+                                                            textAlign={"center"}
+                                                            background={"#FFF7F2"}
+                                                            color={"#FB5E04"}
+                                                            borderRadius={"3px"}
+                                                        >
+                                                            Bank Transfer
+                                                        </Text>
+                                                        <Text fontSize={"xs"}>1522574741</Text>
+                                                        </Box>
+                                                        <Box>
+                                                        <Text fontSize={"sm"}>NGN</Text>
+                                                        </Box>
+                                                    </Flex>
+                                                </Box>
+                                                    <Flex gap={"10px"} justifyContent="center" mt="25px">
+                                                        <Button onClick={onClose}>Cancel</Button>
+                                                        <Button
+                                                            type="submit"
+                                                            color={"#fff"}
+                                                            background={"#EB4335"}
+                                                        >
+                                                            Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
+                                                        </Button>
+                                                    </Flex>
+                                            </Box>            
+                                        </Form>
+                                    )}
+
+                                </Formik>
                             </Box>
                         </Flex>
                     </ModalBody>
@@ -282,7 +372,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 apiData={btc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
@@ -299,7 +389,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 apiData={eth}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
@@ -315,7 +405,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 apiData={usdt}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
@@ -331,7 +421,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 apiData={usdc}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
-                                onClick={onOpen}
+                                onClick={handleOpen}
                             />      
                         ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>
