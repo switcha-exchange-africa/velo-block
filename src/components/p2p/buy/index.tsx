@@ -61,12 +61,6 @@ const BuyP2p = ({
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
     const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
-    // const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    // const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
-
-    // console.log("this is the credit coin ", creditCoin)
-    // console.log("this is the debit coin ", debitCoin)
-    // const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
     const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: modalData?.coin?.toLowerCase() == 'btc' ? 'bitcoin' : modalData?.coin?.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
 
