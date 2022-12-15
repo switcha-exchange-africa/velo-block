@@ -24,15 +24,12 @@ import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
 
 const NotifyTraders = () => {
     const router = useRouter()
-    const { orderId } = router.query
+    const { buyId } = router.query
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
-    const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
+    const orderDetail = useGetOrderDetailQuery(buyId, { skip: !buyId, refetchOnMountOrArgChange: true, })
     
     const today = moment().valueOf()
-    
-    
-    console.log("this is the orderDetail ", orderDetail)
 
 
     return (

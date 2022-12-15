@@ -202,7 +202,7 @@ const BuyP2p = ({
                                         if (response?.data?.status == 200) {
                                             appAlert.success(response?.data?.message)
                                             const orderId = response?.data?.data?.order?.orderId
-                                            router.push(`/quick-trade/order/${orderId}`)
+                                            router.push(`p2p/buy/${orderId}`)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')
@@ -256,7 +256,7 @@ const BuyP2p = ({
                                                             borderBottomLeftRadius={"5px"}
                                                             justifyContent={'space-between'} alignItems={'center'} >
                                                             {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
-                                                            <Text w='full'>{amountt*modalData?.price}</Text> 
+                                                            <Text w='full'>{(amountt * modalData?.price).toLocaleString()}</Text> 
                                                         
                                                         
                                                         </Flex>
