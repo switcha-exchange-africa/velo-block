@@ -200,24 +200,30 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                             adId: modalData?._id,
                                             bankId: modalData?.bank[0]?._id,
                                             quantity: parseFloat(amountt),
-                                            type: "sell"
+                                            type: "sell",
+                                            clientAccountName: clientAccountName,
+                                            clientAccountNumber: clientAccountNumber,
+                                            clientBankName: clientBankName
                                         }
 
                                         console.log("this is the data ", data)
 
+                                        if (clientAccountNumber === "") {
+                                            appAlert.error("Please select Payment method")
+                                        } else {
+                                            const response = await p2pSellOrder(data)
 
-                                        // const response = await p2pSellOrder(data)
-
-                                        // if (response?.data?.status == 200) {
-                                        //     appAlert.success(response?.data?.message)
-                                        //     const orderId = response?.data?.data?.order?.orderId
-                                        //     router.push(`p2p/buy/${orderId}`)
-                                        // } else if (response?.data?.status == 401) {
-                                        //     appAlert.error(`${response?.error?.data?.message}`)
-                                        //     router.replace('/signin')
-                                        // } else {
-                                        //     appAlert.error(response?.error?.data?.message)
-                                        // }
+                                            if (response?.data?.status == 200) {
+                                                appAlert.success(response?.data?.message)
+                                                const orderId = response?.data?.data?.order?.orderId
+                                                router.push(`p2p/sell/${orderId}`)
+                                            } else if (response?.data?.status == 401) {
+                                                appAlert.error(`${response?.error?.data?.message}`)
+                                                router.replace('/signin')
+                                            } else {
+                                                appAlert.error(response?.error?.data?.message)
+                                            }
+                                        } 
                                 }}
                                     validateOnChange
                                     validateOnBlur

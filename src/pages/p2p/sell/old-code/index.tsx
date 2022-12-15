@@ -3,7 +3,7 @@ import {
 } from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
-import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
+import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout";
 
 import {
   Avatar, Box, Button, Checkbox, Flex, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton,
