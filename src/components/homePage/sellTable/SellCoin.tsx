@@ -23,6 +23,7 @@ import uuid from "react-uuid"
 import appAlert from '../../../helpers/appAlert';
 import { useGetUsersBankQuery } from '../../../redux/services/bank.service';
 import { useRouter } from 'next/router';
+import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 
 const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageReset}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
