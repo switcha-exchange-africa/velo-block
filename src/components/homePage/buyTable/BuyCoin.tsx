@@ -15,6 +15,7 @@ import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 import { useState } from 'react';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
 import appAlert from "../../../helpers/appAlert";
+import MainAppButton from "../../buttons/MainAppButton";
 
 
 const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageReset}: P2pAdsComponentProps) => {
@@ -192,6 +193,8 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                 >
                                     {({
                                         setFieldValue,
+                                        isSubmitting,
+                                        handleSubmit
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
@@ -245,13 +248,9 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                 </Box>
                                                     <Flex gap={"10px"} justifyContent="center" mt="25px">
                                                         <Button onClick={onClose}>Cancel</Button>
-                                                        <Button
-                                                            type="submit"
-                                                            color={"#fff"}
-                                                            background={"#22C36B"}
-                                                        >
+                                                        <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} width="50%" backgroundColor={'#22C36B'} >
                                                             Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                        </Button>
+                                                        </MainAppButton>
                                                     </Flex>
                                             </Box>            
                                         </Form>

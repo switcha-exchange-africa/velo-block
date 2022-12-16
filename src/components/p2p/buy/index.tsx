@@ -16,6 +16,7 @@ import { Field, Form, Formik } from 'formik';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
 import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 import appAlert from '../../../helpers/appAlert';
+import MainAppButton from '../../buttons/MainAppButton';
 
 const BuyP2p = ({
     pageNumber,
@@ -205,6 +206,8 @@ const BuyP2p = ({
                                 >
                                     {({
                                         setFieldValue,
+                                        isSubmitting,
+                                        handleSubmit
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
@@ -256,45 +259,11 @@ const BuyP2p = ({
                                                         </InputRightAddon>
                                                     </InputGroup>
                                                 </Box>
-                                                {/* <Box>
-                                                <Text fontSize={"xs"}>Payment Method </Text>
-                                                <Flex
-                                                    alignItems={"center"}
-                                                    justifyContent="space-between"
-                                                    border={"1px solid #E2E8F0"}
-                                                    padding="5px 10px"
-                                                    borderRadius={"5px"}
-                                                    mb={"10px"}
-                                                >
-                                                    <Box display={"flex"} gap="10px" alignItems={"center"}>
-                                                    <Text
-                                                        fontSize={"10px"}
-                                                        textAlign={"center"}
-                                                        background={"#FFF7F2"}
-                                                        color={"#FB5E04"}
-                                                        borderRadius={"3px"}
-                                                    >
-                                                        Bank Transfer
-                                                    </Text>
-                                                    <Text fontSize={"xs"}>1522574741</Text>
-                                                    </Box>
-                                                    <Box>
-                                                    <Text fontSize={"sm"}>NGN</Text>
-                                                    </Box>
-                                                </Flex>
-                                                </Box> */}
                                                     <Flex gap={"10px"} justifyContent="center" mt="25px">
                                                         <Button onClick={onClose}>Cancel</Button>
-                                                        <Button
-                                                            // onClick={() => {
-                                                            //     router.push("/p2p/buy");
-                                                            // }}
-                                                            type="submit"
-                                                            color={"#fff"}
-                                                            background={"#22C36B"}
-                                                        >
+                                                        <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} width="50%" backgroundColor={'#22C36B'} >
                                                             Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                        </Button>
+                                                        </MainAppButton>
                                                     </Flex>
                                             </Box>            
                                         </Form>

@@ -22,6 +22,7 @@ import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
 import appAlert from '../../../helpers/appAlert';
 import { useGetUsersBankQuery } from '../../../redux/services/bank.service';
 import uuid from "react-uuid"
+import MainAppButton from '../../buttons/MainAppButton';
 
 
 
@@ -208,12 +209,12 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                         
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")
-                                        } else if (amountt === "0") {
-                                            appAlert.error("quantity must be a positive number ")
                                         } else {
                                             const response = await p2pSellOrder(data)
 
-                                            if (response?.data?.status == 200) {
+                                            if (amountt === "0") {
+                                                appAlert.error("quantity must be a positive number ")
+                                            } else if (response?.data?.status == 200) {
                                                 appAlert.success(response?.data?.message)
                                                 const orderId = response?.data?.data?.order?.orderId
                                                 router.push(`p2p/sell/${orderId}`)
@@ -231,6 +232,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 >
                                     {({
                                         setFieldValue,
+                                        handleSubmit,
+                                        isSubmitting,
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
@@ -356,13 +359,19 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
 
                                                 <Flex gap={"10px"} justifyContent="center" mt="25px">
                                                     <Button onClick={onClose}>Cancel</Button>
-                                                    <Button
+                                                    {/* <Button
                                                         type="submit"
                                                         color={"#fff"}
                                                         background={"#EB4335"}
                                                     >
                                                         Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                    </Button>
+                                                    </Button> */}
+
+                                                    {/* <MainApp */}
+                                                    
+                                                    <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} width="50%" backgroundColor={'#EB4335'} >
+                                                        Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
+                                                    </MainAppButton>
                                                 </Flex>
                                             </Box>            
                                         </Form>
