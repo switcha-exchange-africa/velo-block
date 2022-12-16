@@ -173,11 +173,12 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                         }
 
                                         const response = await p2pBuyOrder(data)
-
                                         if (response?.data?.status == 200) {
                                             appAlert.success(response?.data?.message)
                                             const orderId = response?.data?.data?.order?.orderId
                                             router.push(`p2p/buy/${orderId}`)
+                                        } else if (amountt === "0") {
+                                            appAlert.error("quantity must be a positive number ")
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')

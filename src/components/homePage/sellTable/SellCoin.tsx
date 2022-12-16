@@ -203,12 +203,13 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             clientAccountNumber: clientAccountNumber,
                                             clientBankName: clientBankName
                                         }
-                                        
+
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")
+                                        } else if (amountt === "0") {
+                                            appAlert.error("quantity must be a positive number ")
                                         } else {
                                             const response = await p2pSellOrder(data)
-
                                             if (response?.data?.status == 200) {
                                                 appAlert.success(response?.data?.message)
                                                 const orderId = response?.data?.data?.order?.orderId
