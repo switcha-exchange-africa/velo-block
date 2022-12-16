@@ -28,7 +28,7 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
     
                 if (response?.data?.status == 200 || response?.data?.status == 201 || response?.data?.status == 202) {
                     
-                    appAlert.success(`${response?.data?.message}`)
+                    appAlert.success(`Enter the 6-digit code sent to your email`)
                     setLoading(false)
                 } else if (response?.data?.status == 401) {
 
