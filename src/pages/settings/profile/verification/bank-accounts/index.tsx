@@ -22,7 +22,7 @@ const BankAccounts = () => {
             <Box
                 background={"#F8FAFC"} height={"full"}
                 color="black" px={{ lg: "10%", base: '0' }} >
-                <Show above='md'>
+                <Show above='760px'>
                     <Button
                         onClick={() => Router.back()}
                         leftIcon={<ArrowBackIcon />}
@@ -50,7 +50,7 @@ const BankAccounts = () => {
                     </HStack>
                 </Show>
 
-                <Show below='sm'>
+                <Show below='768px'>
                     <Flex justifyContent={'start'} bg={'white'}>
                         <Button
                             onClick={() => Router.back()}
@@ -66,7 +66,25 @@ const BankAccounts = () => {
                         <Heading size="md"
                             ml={'1rem'}>Profile</Heading>
                         </Button>
+
+                        
                     </Flex>
+                     <Flex justifyContent="flex-end">
+
+                        <Box  p={"11px 22px"} mt="20px" color="white" bg="#FB5E04" border={"0.88px solid #FB5e04"} cursor={"pointer"} borderRadius={"5px"} onClick={() => Router.push('/settings/profile/verification/bank-accounts/add-bank')}>
+                            <AddIcon
+                                mr="5px"
+                                color={"white"}
+                                w={"10px"}
+                                h={"10px"}
+                            />
+                            Add Bank
+                        </Box>
+
+                     </Flex>
+                   
+                    
+
                 </Show>
 
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
@@ -86,8 +104,6 @@ const BankAccounts = () => {
                                             <Text  color="#8E9BAE">Name</Text>
                                             <Text py="10px" color="#8E9BAE">Bank Account N..</Text>
                                             <Text  color="#8E9BAE">Bank name</Text>
-                                            
-                                            {/* <Text flex="1.75" color="#000000">{bank?.accountName} </Text> */}
                                             
                                         </VStack>
                                         <VStack flex="1.78" alignItems="flex-start" justifyContent="space-between">
@@ -182,8 +198,8 @@ const BankAccounts = () => {
 
 
                     {getUsersBank?.data.length === 0 && (
-                        <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
-                            <Text fontSize="20px" fontWeight="700" color={'#64748B'}>Click the "Add Bank" Button to Add Bank</Text>
+                        <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" p="100px" px="10px">
+                            <Text fontSize="20px" fontWeight="700" color={'#64748B'} textAlign="center">Click the "Add Bank" Button to Add Bank</Text>
                         </Flex>
                     )}                    
 
