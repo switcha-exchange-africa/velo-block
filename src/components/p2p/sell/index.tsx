@@ -208,6 +208,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                         
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")
+                                        } else if (amountt === "0") {
+                                            appAlert.error("quantity must be a positive number ")
                                         } else {
                                             const response = await p2pSellOrder(data)
 
