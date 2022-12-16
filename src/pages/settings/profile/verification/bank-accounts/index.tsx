@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 import { useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
-
+import uuid from "react-uuid"
 
 const BankAccounts = () => {
     const Router = useRouter()
@@ -92,7 +92,7 @@ const BankAccounts = () => {
                         getUsersBank?.data?.map((bank: any) => (      
                             <>
                                 <Box
-                                    key={bank?._id} 
+                                    key={uuid()} 
                                     background={'#FFFFFF'}
                                     width={{ lg: "70%", base: '100%' }}
                                     justifyContent={"space-between"}
@@ -102,7 +102,7 @@ const BankAccounts = () => {
                                     <Flex borderRadius={"5px"}  mb={"24px"} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                         <VStack flex="1"   alignItems="flex-start" justifyContent="space-between">
                                             <Text  color="#8E9BAE">Name</Text>
-                                            <Text py="10px" color="#8E9BAE">Bank Account N..</Text>
+                                            <Text py="10px" color="#8E9BAE">Account Number</Text>
                                             <Text  color="#8E9BAE">Bank name</Text>
                                             
                                         </VStack>
@@ -123,8 +123,6 @@ const BankAccounts = () => {
                                                 Edit
                                             </Box>
 
-                                            {/* <Text flex="1" color="#8E9BAE">Bank name</Text> */}
-                                            {/* <Text flex="1.79" color="#000000">{bank?.name} </Text> */}
                                             <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
                                                 <DeleteIcon
                                                     mr="5px"
@@ -166,14 +164,14 @@ const BankAccounts = () => {
                                                 Edit
                                             </Box>
                                         </HStack>
-                                        <HStack w="100%"  alignItems="flex-start">
-                                            <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
+                                        <HStack w="100%"  alignItems="center">
+                                            <Text flex="1" color="#8E9BAE">Account Number</Text>
                                             <Text  flex="2.2" color="#000000">{bank?.accountNumber} </Text>
                                             
                                         </HStack>
                                         <HStack w="100%"  alignItems="flex-start">
                                             <Text flex="1" color="#8E9BAE">Bank name</Text>
-                                            <Text flex="1.79" color="#000000">{bank?.name} </Text>
+                                            <Text flex="1.79" color="#000000" >{bank?.name} </Text>
                                             <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
                                                 <DeleteIcon
                                                     mr="5px"
