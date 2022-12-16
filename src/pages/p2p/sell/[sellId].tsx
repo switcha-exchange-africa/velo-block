@@ -1,30 +1,26 @@
 import { Box, Divider, Flex, Img, Input, Text, useDisclosure } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import React from 'react'
-import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo'
-import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal'
-import appAlert from '../../../helpers/appAlert'
-import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-import { useGetOrderDetailQuery, } from '../../../redux/services/p2p.service'
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
-import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease'
-import remoteImages from '../../../constants/remoteImages'
+import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
+import { useGetOrderDetailQuery } from '../../../redux/services/p2p.service';
+import appAlert from '../../../helpers/appAlert';
+import remoteImages from '../../../constants/remoteImages';
+import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
+import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
+import { useEffect, useMemo, useState } from 'react';
+import { checkValidToken } from '../../../helpers/functions/checkValidToken';
+import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
 
 const NotifyTraders = () => {
     const router = useRouter()
-    const { orderId } = router.query
+    const { sellId } = router.query
     const { isOpen: isNotifyOpen, onOpen: onNotifyOpen, onClose: onNotifyClose } = useDisclosure();
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
-    const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
+    const orderDetail = useGetOrderDetailQuery(sellId, { skip: !sellId, refetchOnMountOrArgChange: true, })
     
     const today = moment().valueOf()
-    
-    
-    console.log("this is the orderDetail ", orderDetail)
-
 
     return (
         <DashboardLayout title='Quick Trade'>
@@ -35,7 +31,6 @@ const NotifyTraders = () => {
                         <Flex alignItems={'center'} pt={{ base: '2', md: '4' }}>
                             <Text fontSize={'sm'} color={'#64748B'}>The order is created, please wait for system confirmation.</Text>
                             <Text fontWeight={'medium'} fontSize={'sm'} color={'#ffffff'} ml={'2'} borderRadius={'md'} px={'2'} bg={orderDetail?.data?.data?.status.toLowerCase() != 'expired' ? 'primaryColor.900' : orderDetail?.data?.data?.status.toLowerCase() == 'completed' ? 'green' : 'gray.400'}>{orderDetail?.data?.data?.status.toLowerCase() == 'expired' ? 'Expired' : orderDetail?.data?.data?.status.toLowerCase() == 'completed' ? 'Completed' :
-                                // moment(parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000).format('mm:ss')
                                 (moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) > today ? <RenderTimer timeRemaining={(moment(orderDetail?.data?.data?.createdAt).valueOf() + (parseInt(orderDetail?.data?.data?.ad[0]?.paymentTimeLimit) * 60000)) - today} /> : '00:00'
                             }</Text>
 
@@ -166,26 +161,16 @@ const NotifyTraders = () => {
                             }
                             
 
-                            {/* I will come back to this later */}
-                            {/* <Box w={'full'}>
-                                <Flex mt="15px">
-                                    <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                    <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
-                                </Flex>
-                            </Box> */}
-
-
-
                             {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'sell' ? <Flex direction="column">
                                 
                                 {/* I will come back to this later */}
-                                    <Box w={'full'}>
-                                        <Flex mt="15px">
-                                            <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                            <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
-                                        </Flex>
-                                    </Box>
-                                    <Flex>
+                                <Box w={'full'}>
+                                    <Flex mt="15px">
+                                        <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
+                                        <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
+                                    </Flex>
+                                </Box>
+                                <Flex>
                                         <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
                                             onNotifyOpen()}>Transfered and Notify Seller </Text>
 
@@ -302,11 +287,9 @@ const StepLabels = ({ activeStep }: any) => {
 }
 
 const RenderTimer = ({ timeRemaining }: any) => {
-    const [time, setTime] = React.useState(timeRemaining / 1000);
+    const [time, setTime] = useState(timeRemaining / 1000);
 
-    const remainTime = React.useMemo(() => {
-        // const days = Math.floor(time / 24 / 3600);
-        // const hours = Math.floor((time - days * 24 * 3600) / 3600);
+    const remainTime = useMemo(() => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
 
@@ -318,7 +301,7 @@ const RenderTimer = ({ timeRemaining }: any) => {
         }
     }, [time]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const interval = setInterval(() => {
             setTime(time => time > 0 ? time - 1 : 0);
         }, 1000);
@@ -328,23 +311,6 @@ const RenderTimer = ({ timeRemaining }: any) => {
     return (<Text> {remainTime.minutes}:{remainTime.seconds}</Text>)
 }
 
-// export const RenderBankName = ({ bankId }: any) => {
-//     const [getSingleBank] = useLazyGetBankByIdQuery()
-//     const [bankName, setBankName] = React.useState('')
-//     alert(bankId)
-//     React.useEffect(() => {
-//         const getBank = async () => {
-//             const bank = await getSingleBank(bankId).unwrap()
-//             setBankName(bank?.data?.name)
-//         }
-
-//         getBank()
-
-
-//     }, [bankId, getSingleBank])
-//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-// }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 

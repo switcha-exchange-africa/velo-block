@@ -7,15 +7,16 @@ import {
   ModalContent, Tab,
   TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure
 } from "@chakra-ui/react"
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import P2pTopfilter from '../filter';
 import TableComponent from '../../table/TableContainer';
 import {  useGetBuyAdsQuery} from '../../../redux/services/p2p-ads.service';
 import { P2pAdsComponentProps } from '../../../interfaces/p2p-ads/P2pAdsComponent';
 import { Field, Form, Formik } from 'formik';
-// import { useAppDispatch, useAppSelector } from '../../../helpers/hooks/reduxHooks';
-// import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service';
 import { useQuickTradeConvertQuery } from '../../../redux/services/new-conversion.service';
+import { useP2pBuyOrderMutation } from '../../../redux/services/p2p.service';
+import appAlert from '../../../helpers/appAlert';
+import MainAppButton from '../../buttons/MainAppButton';
 
 const BuyP2p = ({
     pageNumber,
@@ -24,13 +25,13 @@ const BuyP2p = ({
     handlePageReset
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    // const router = useRouter();
+    const router = useRouter();
     const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
-    
+    const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()
 
@@ -52,19 +53,11 @@ const BuyP2p = ({
 
 
 
-    // const dispatch = useAppDispatch()
-    // const { amount, cash, coin, creditCoinAmount } = useAppSelector((state) => state.quickTrade)
     const amounts = 0
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
-    const [amountt, setAmountt] = useState(amounts ? `${amounts}` : '0')
-    // const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    // const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
-
-    // console.log("this is the credit coin ", creditCoin)
-    // console.log("this is the debit coin ", debitCoin)
-    // const convertFromDebitCoin: any = useConvertQuery({ amount: amountt, source: debitCoin, destination: creditCoin }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
+    const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
 
     const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: modalData?.coin?.toLowerCase() == 'btc' ? 'bitcoin' : modalData?.coin?.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
 
@@ -72,9 +65,6 @@ const BuyP2p = ({
         return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
     }
 
-
-    // console.log("this is the amount ", amountt)
-    // console.log("this is it ", convertFromCreditCoin)
 
     return (
         <Box  position="relative">
@@ -107,7 +97,7 @@ const BuyP2p = ({
                                 ></Avatar>
                                 <Box display={"flex"} gap="10px">
                                 <Box display={"flex"} alignItems={"center"} gap="3px">
-                                    <Text fontSize={"sm"}>{modalData?.user[0]?.username}</Text>
+                                    <Text fontSize={"sm"} textTransform="capitalize">{modalData?.user[0]?.username}</Text>
                                     <CheckCircleIcon
                                         color={"#22C36B"}
                                         w={"10px"}
@@ -145,7 +135,7 @@ const BuyP2p = ({
 
                                 <Box display={"flex"} gap="10px">
                                     <Text color={"#8E9BAE"}>Available</Text>
-                                    <Text>{modalData?.totalAmount} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
+                                    <Text>{(modalData?.totalAmount)?.toLocaleString()} {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                 </Box>
                                 </Flex>
                                 <Flex
@@ -188,43 +178,36 @@ const BuyP2p = ({
                                     initialValues={{ debitCoinValue: amounts ?? '', creditCoinValue: creditCoinAmounts ?? '' }}
 
                                     onSubmit={async () => {
-                                        
-                                        // dispatch(setQuickBuyPayload({
-                                        //     amount: parseFloat(amountt),
-                                        //     creditCoinAmount: calculateConversion(parseFloat(amountt)),
-                                        //     fee: '0.5%',
-                                        //     cash: creditCoin,
-                                        //     coin: debitCoin,
-                                        //     rate: 'no rate for now'
-
-
-                                        // }))
-                                        // amount: amount,
-                                        // cash: cash,
-                                        // coin: coin,
-                                        // method: "bank",
-                                        // type: "sell"
-
                                         const data = {
-                                            amount: parseFloat(amountt),
-                                            creditCoinAmount: calculateConversion(parseFloat(amountt)),
-                                            fee: '0.5%',
-                                            cash: modalData?.cash,
-                                            coin: modalData?.coin,
-                                            rate: 'no rate for now'
+                                            adId: modalData?._id,
+                                            bankId: modalData?.bank[0]?._id,
+                                            quantity: parseFloat(amountt),
+                                            type: "buy"
                                         }
 
-                                        console.log("this is the data for the buy coin selected ", data)
-                                        // router.push('/quick-trade/confirm-sales')
-                                    }}
+                                        const response = await p2pBuyOrder(data)
+
+                                        if (response?.data?.status == 200) {
+                                            appAlert.success(response?.data?.message)
+                                            const orderId = response?.data?.data?.order?.orderId
+                                            router.push(`p2p/buy/${orderId}`)
+                                        } else if (amountt === "0") {
+                                            appAlert.error("quantity must be a positive number ")
+                                        } else if (response?.data?.status == 401) {
+                                            appAlert.error(`${response?.error?.data?.message}`)
+                                            router.replace('/signin')
+                                        } else {
+                                            appAlert.error(response?.error?.data?.message)
+                                        }
+                                }}
                                     validateOnChange
                                     validateOnBlur
                                     validateOnMount
                                 >
                                     {({
                                         setFieldValue,
-                                        // handleSubmit,
-                                        // isSubmitting
+                                        isSubmitting,
+                                        handleSubmit
                                     }) => (
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
@@ -236,7 +219,7 @@ const BuyP2p = ({
                                                                 <Input
                                                                     borderTopLeftRadius={"5px"}
                                                                     borderBottomLeftRadius={"5px"}
-                                                                    placeholder="Enter amount NGN"
+                                                                    placeholder={`Enter Quantity ${modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}`}
                                                                     borderRight={"none"}
                                                                     autoComplete='off'
                                                                     type="number"
@@ -264,7 +247,10 @@ const BuyP2p = ({
                                                         <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderTopLeftRadius={"5px"}
                                                             borderBottomLeftRadius={"5px"}
                                                             justifyContent={'space-between'} alignItems={'center'} >
-                                                            <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text> 
+                                                            {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
+                                                            <Text w='full'>{(amountt * modalData?.price).toLocaleString()}</Text> 
+                                                        
+                                                        
                                                         </Flex>
                                                         <InputRightAddon background={"none"} borderLeft="0px">
                                                         <Flex gap={"20px"}>
@@ -273,45 +259,11 @@ const BuyP2p = ({
                                                         </InputRightAddon>
                                                     </InputGroup>
                                                 </Box>
-                                                {/* <Box>
-                                                <Text fontSize={"xs"}>Payment Method </Text>
-                                                <Flex
-                                                    alignItems={"center"}
-                                                    justifyContent="space-between"
-                                                    border={"1px solid #E2E8F0"}
-                                                    padding="5px 10px"
-                                                    borderRadius={"5px"}
-                                                    mb={"10px"}
-                                                >
-                                                    <Box display={"flex"} gap="10px" alignItems={"center"}>
-                                                    <Text
-                                                        fontSize={"10px"}
-                                                        textAlign={"center"}
-                                                        background={"#FFF7F2"}
-                                                        color={"#FB5E04"}
-                                                        borderRadius={"3px"}
-                                                    >
-                                                        Bank Transfer
-                                                    </Text>
-                                                    <Text fontSize={"xs"}>1522574741</Text>
-                                                    </Box>
-                                                    <Box>
-                                                    <Text fontSize={"sm"}>NGN</Text>
-                                                    </Box>
-                                                </Flex>
-                                                </Box> */}
                                                     <Flex gap={"10px"} justifyContent="center" mt="25px">
                                                         <Button onClick={onClose}>Cancel</Button>
-                                                        <Button
-                                                            // onClick={() => {
-                                                            //     router.push("/p2p/buy");
-                                                            // }}
-                                                            type="submit"
-                                                            color={"#fff"}
-                                                            background={"#22C36B"}
-                                                        >
+                                                        <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} width="50%" backgroundColor={'#22C36B'} >
                                                             Buy {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                        </Button>
+                                                        </MainAppButton>
                                                     </Flex>
                                             </Box>            
                                         </Form>

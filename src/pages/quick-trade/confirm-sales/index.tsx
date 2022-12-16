@@ -1,10 +1,7 @@
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import { Box, Flex, Text,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuGroup,
+    Menu, MenuButton, MenuList,
+    MenuItem, MenuGroup,
     Button,
     MenuItemOption,
     MenuOptionGroup} from '@chakra-ui/react'
@@ -45,8 +42,7 @@ const ConfirmSales = () => {
     const [clientAccountName, setClientAccountName] = useState("")
     const [clientBankName, setClientBankAccountName] = useState("")
     const [clientAccountNumber, setClientAccountNumber] = useState("")
-    console.log("this is the data", getUsersBank)
-
+    
     const handleSubmit = async () => {
         const data = {
             amount: amount,
@@ -62,8 +58,6 @@ const ConfirmSales = () => {
         if (clientAccountNumber === "") {
             appAlert.error("Please select Payment method")
         } else {
-
-            console.log("this is the ", data )
 
             try {
                 const response: any = await quickTrade(data)
@@ -82,12 +76,7 @@ const ConfirmSales = () => {
             } catch (error) {
                 console.log(error)
             }
-
-        }
-
-
-        
-
+        } 
     }
 
 

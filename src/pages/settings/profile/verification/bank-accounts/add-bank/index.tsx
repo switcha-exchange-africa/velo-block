@@ -1,14 +1,7 @@
 import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
-  Box, Button, Flex, Heading,
-  Show,
-  HStack,
-  VStack,
-  Input,
-  Select,
-  FormControl,
-  FormLabel,
-  FormErrorMessage
+  Box, Button, Flex, Heading, Show, HStack, VStack,
+  Input, Select, FormControl, FormLabel, FormErrorMessage
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
@@ -140,12 +133,7 @@ const AddBankAccounts = () => {
                             validateOnMount
                         >
                             {({
-                                // handleChange,
-                                // handleBlur,
-                                // handleSubmit,
                                 isSubmitting,
-                                // values
-                                /* and other goodies */
                             }) => (
                                 <Form  >
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>

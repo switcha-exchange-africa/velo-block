@@ -107,7 +107,7 @@ const TableComponent = ({
                             <Text fontSize={"xs"} color={"#8E9BAE"}>
                                 Available
                             </Text>
-                            <Text fontSize={"xs"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}</Text>
+                            <Text fontSize={"xs"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}  {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                         </Flex>
                         <Flex alignItems={"center"} gap="10px">
@@ -141,7 +141,7 @@ const TableComponent = ({
                         color="#FFF"
                         borderRadius={"3px"}
                         onClick={() => onClick(api?._id,  apiData)}
-                        isDisabled
+                        // isDisabled
                     >
                         {buttonTitle}
                     </Button>
@@ -197,7 +197,7 @@ const TableComponent = ({
                                 <Td>
                                     <Text fontSize="14px">{api?.price ? api?.price?.toLocaleString() : api?.price}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
                                 </Td>
-                                <Td fontSize="14px">{api?.totalAmount ?  api?.totalAmount?.toLocaleString() : api?.totalAmount}</Td>
+                                <Td fontSize="14px">{api?.totalAmount ?  api?.totalAmount?.toLocaleString() : api?.totalAmount} {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
                                 <Td fontSize="14px">{api?.minLimit ? api?.minLimit?.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit?.toLocaleString() : api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
                                 <Td fontSize="14px">
                                     <Text
@@ -212,7 +212,10 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button isDisabled onClick={() => onClick(api?._id,  apiData)} color="white"  fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button
+                                        // isDisabled
+                                        onClick={() => onClick(api?._id, apiData)}
+                                        color="white" fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             
