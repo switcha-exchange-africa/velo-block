@@ -45,7 +45,7 @@ const RecentTransaction = () => {
     return (
         <DashboardLayout title="Recent Transactions">
             <Button
-                onClick={() => router.back()}
+                onClick={() => router.push("/dashboard")}
                 leftIcon={<ArrowBackIcon />}
                 colorScheme="transparent"
                 variant="solid"

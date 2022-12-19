@@ -82,6 +82,19 @@ export const authApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    changeNumber: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `account/update-phone`,
+          method: "PUT",
+          body: { ...body},
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -94,4 +107,5 @@ export const {
   useLazyGetUserQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useChangeNumberMutation
 } = authApi;

@@ -5,21 +5,34 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-// import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
+import { useAppDispatch } from "../../../helpers/hooks/reduxHooks"
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+import { setPhoneNumber } from "../../../redux/features/accountSettings/accounSettingsSlice"
 import { useGetUserQuery } from "../../../redux/services/auth.service"
 
 const Profile = () => {
+  const dispatch = useAppDispatch()
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
-
-  const num = getUser?.phoneNumber
-
 
 
   const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
 
+  const num = getUser?.data?.phone ? getUser?.data?.phone : ""
+
+
+
+  const handlePhoneNumber = () => {
+    dispatch(setPhoneNumber({phoneNumber: num}))
+    Router.push("/settings/profile/change-phone-number")
+  }
+
+  const handleAddPhoneNumber = () => {
+    Router.push("/settings/profile/add-phone-number")
+  }
+
+  
   return (
     <DashboardLayout title="Profile">
       <Box
@@ -140,9 +153,18 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
-                <Text
-                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
+                <Text>{num ? ( "xxx "+num.toString().slice(-3)) : "xxxxxx"}</Text>
+                {num ? (
+                  <Text
+                    color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>
+                    Change phone number
+                  </Text>
+                ): (
+                  <Text
+                      color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handleAddPhoneNumber}>
+                      Add Phone Number
+                  </Text>
+                )}
               </Flex>
             </Flex>
 
