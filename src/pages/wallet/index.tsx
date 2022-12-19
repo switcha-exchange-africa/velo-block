@@ -17,7 +17,6 @@ import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
 import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
-// import appAlert from "../../helpers/appAlert";
 
 
 function WalletPage() {
@@ -28,8 +27,6 @@ function WalletPage() {
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
-  // const [source, setSource] = useState('BTC')
-  // const [usdConvertedList, setUsdConvertedList] = useState<any>([])
 
   
   const walletsquery: any = useGetWalletsQuery()
@@ -82,8 +79,6 @@ function WalletPage() {
 
 
   useEffect(() => {
-    // alert(JSON.stringify(walletsquery?.error?.data?.status))
-    // setTotal(0)
 
   }, [total])
 
@@ -101,15 +96,6 @@ function WalletPage() {
   const btnRef = useRef(null);
   const router = useRouter()
   const dispatch = useAppDispatch()
-  // if (walletsquery?.isFetching) {
-  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
-  // }
-  // if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
-
-  //   // appAlert.warning('Session Expired, please sign in again')
-  //   return <LoginPage />
-
-  // }
 
 
 
