@@ -174,7 +174,7 @@ const AllAds = () => {
                         </form>
 
 
-                        <Text  mt={{ base: '0px', md: '25px' }} flex="1" textAlign={{ base: 'left', md: 'right' }} w="100%" color="#FB5E04" fontWeight="600" fontSize="14px">Ad History</Text>
+                        <Text  mt={{ base: '0px', md: '25px' }} flex="1" textAlign={{ base: 'left', md: 'right' }} w="100%" color="#FB5E04" fontWeight="600" fontSize="14px" onClick={()=> router.push("/dashboard/recent-transactions")}>Ad History</Text>
         
                     </Flex>
                         
