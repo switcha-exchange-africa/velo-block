@@ -12,6 +12,8 @@ export const TableContainerComponent = ({ data}: any) => {
         router.push('/p2p/order/'+orderId)
     }
     
+    console.log("this is the dta ", data)
+
     return (
         <>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
@@ -52,7 +54,7 @@ export const TableContainerComponent = ({ data}: any) => {
                                         </Flex>
                                     </Td>
                                     <Td>
-                                        <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()}</Text>
+                                        <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()} {order?.cash}</Text>
                                     </Td>
                                     <Td>
                                         <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
@@ -113,7 +115,7 @@ export const TableContainerComponent = ({ data}: any) => {
                     <Flex flexDirection={'column'}>
                         <Flex fontSize={{ base: 'sm', md: 'md' }}>
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Amount</Text>
-                            <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()}</Text>
+                            <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()} {order?.cash}</Text>
                         </Flex>
                         <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Counterparty</Text>
