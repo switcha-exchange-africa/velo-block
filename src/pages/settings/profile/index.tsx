@@ -14,7 +14,11 @@ const Profile = () => {
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
 
+  console.log("this is the user information ", getUser)
+
   const num = getUser?.phoneNumber
+
+  console.log("this is the num ", num)
 
   const handlePhoneNumber = () => {
     Router.push("/settings/profile/phone-number")
@@ -144,7 +148,9 @@ const Profile = () => {
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
                 <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
                 <Text
-                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>Change phone number</Text>
+                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>
+                  {num ? "Change phone number" : "Add Phone Number"}
+                </Text>
               </Flex>
             </Flex>
 
