@@ -157,14 +157,11 @@ const Profile = () => {
                     Change phone number
                   </Text>
                 ): (
-                  
                   <Text
                       color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handleAddPhoneNumber}>
                       Add Phone Number
                   </Text>
                 )}
-                
-                
               </Flex>
             </Flex>
 
