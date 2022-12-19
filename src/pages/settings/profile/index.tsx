@@ -16,7 +16,9 @@ const Profile = () => {
 
   const num = getUser?.phoneNumber
 
-
+  const handlePhoneNumber = () => {
+    Router.push("/settings/profile/phone-number")
+  }
 
   const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
 
@@ -142,7 +144,7 @@ const Profile = () => {
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
                 <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
                 <Text
-                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }}>Change phone number</Text>
+                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>Change phone number</Text>
               </Flex>
             </Flex>
 
