@@ -177,7 +177,7 @@ function WalletPage() {
                     marginTop={"12px"}
                     justify={{ sm: "space-between", md: "space-evenly" }}
                   >
-                    <WrapItem>
+                    {/* <WrapItem>
                       <Button
                         background={"#FB5E04"}
                         color={"#fff"}
@@ -196,9 +196,9 @@ function WalletPage() {
                       <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
                         Transfer
                       </Button>
-                    </WrapItem>
+                    </WrapItem> */}
                     <WrapItem>
-                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
+                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }} onClick={()=> router.push("/dashboard/recent-transactions")}>
                         History
                       </Button>
                     </WrapItem>
