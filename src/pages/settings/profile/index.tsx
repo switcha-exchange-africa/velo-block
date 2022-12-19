@@ -5,22 +5,26 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-// import MainAppButton from '../../../components/buttons/MainAppButton'
 import SettingsButton from '../../../components/dashboard/settings/SettingsButton'
+import { useAppDispatch } from "../../../helpers/hooks/reduxHooks"
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
+import { setPhoneNumber } from "../../../redux/features/accountSettings/accounSettingsSlice"
 import { useGetUserQuery } from "../../../redux/services/auth.service"
 
 const Profile = () => {
+  const dispatch = useAppDispatch()
   const Router = useRouter()
   const {data: getUser} = useGetUserQuery()
 
-  console.log("this is the user information ", getUser)
 
-  const num = getUser?.phoneNumber
+  const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
 
-  console.log("this is the num ", num)
+  const num = getUser?.data?.phone ? getUser?.data?.phone : ""
+
+
 
   const handlePhoneNumber = () => {
+    dispatch(setPhoneNumber({phoneNumber: num}))
     Router.push("/settings/profile/change-phone-number")
   }
 
@@ -28,8 +32,7 @@ const Profile = () => {
     Router.push("/settings/profile/add-phone-number")
   }
 
-  const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
-
+  
   return (
     <DashboardLayout title="Profile">
       <Box
@@ -150,8 +153,8 @@ const Profile = () => {
                 Phone Number
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
-                <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
-                {num ? (
+                <Text>{num ? ( "xxx "+num.toString().slice(-3)) : "xxxxxx"}</Text>
+                {!num ? (
                   <Text
                     color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>
                     Change phone number

@@ -5,13 +5,15 @@ import {
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
-import { useAppDispatch } from "../../../../helpers/hooks/reduxHooks"
-import { setPhoneNumber } from "../../../../redux/features/accountSettings/accounSettingsSlice"
+import MainAppButton from "../../../../../components/buttons/MainAppButton"
+import appAlert from "../../../../../helpers/appAlert"
+import { useAppSelector } from "../../../../../helpers/hooks/reduxHooks"
+import DashboardLayout from '../../../../../layouts/dashboard/DashboardLayout'
+import { useChangeNumberMutation, useGetUserQuery } from "../../../../../redux/services/auth.service"
 
-const Verification = () => {
+const VerifyNumber = () => {
     const Router = useRouter()
-    const dispatch = useAppDispatch()
+    const {phoneNumber} = useAppSelector((state) => state.accountSettings)
     const validatePhoneNumber = (value: string, ) => {
         let error
         if (!value) {
@@ -20,7 +22,11 @@ const Verification = () => {
 
         return error
     }
-    
+
+    const getUser = useGetUserQuery()
+
+    const [changeNumber]:any = useChangeNumberMutation()
+
     return (
         <DashboardLayout title='Verification'>
             <Box
@@ -66,6 +72,7 @@ const Verification = () => {
                     </Flex>
                 </Show>
                 
+                                {/* this is where the form starts from */}
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
                     <Box 
                         background={'#FFFFFF'}
@@ -73,25 +80,35 @@ const Verification = () => {
                         justifyContent={"space-between"}
                         p={"20px"}
                     >
-
-                        <Flex justifyContent="space-between" fontSize="14px" color="rgba(0, 0, 0, 0.75)" fontWeight="500">
-                            <Text >Old Phone Number</Text>
-                            <Text>08141994081</Text>
-                        </Flex>
-                        <Text fontSize="14px" mt="12px" color="rgba(0, 0, 0, 0.75)" fontWeight="500">Please input the new Phone Number you would like to use.</Text>
+                        <Text fontSize="14px" mt="12px" color="rgba(0, 0, 0, 0.75)" fontWeight="500">Are you sure you want to change your phone number to</Text>
                         
                         <Formik
-                            initialValues={{phoneNumber: ""}}
+                            initialValues={{phoneNumber: phoneNumber}}
 
                             onSubmit={async (values:any) => {                                
-                                dispatch(setPhoneNumber({phoneNumber: values.phoneNumber}))
-                                Router.push("/settings/profile/change-phone-number/verify-change")
-                                }}
+                                
+                                const data = {
+                                    phone: values.phoneNumber
+                                }
+
+                                const resp = await changeNumber(data)
+                                if (resp?.data?.status === 200) {
+                                    appAlert.success(resp?.data?.message)
+                                    getUser.refetch()
+                                    Router.push("/settings/profile/change-phone-number/verify-change/success")
+                                
+                                } else if (resp?.data?.status == 401) {
+                                    Router.push("/signin")
+                                } else {
+                                    appAlert.error(resp?.error?.data?.message)
+                                }
+                            }}
                             validateOnChange
                             validateOnBlur
                             validateOnMount
                         >
                             {({
+                                handleSubmit,
                                 isSubmitting,
                             }) => (
                                 <Form  >
@@ -99,22 +116,25 @@ const Verification = () => {
                                         
                                         <Field name='phoneNumber' validate={validatePhoneNumber}>
                                             {({ field, form }: any) => (
-                                                <FormControl  pt='4' isInvalid={form.errors.phoneNumber && form.touched.phoneNumber}>
+                                                <FormControl  pt='4' >
                                                     <FormLabel fontSize="18px">New Phone Number</FormLabel>
-                                                    <Input {...field} type="text" pattern="[0-9]*" placeholder="0000000"/>
+                                                    <Input {...field} type="text" pattern="[0-9]*" value={phoneNumber} placeholder="0000000"/>
                                                     <FormErrorMessage>{form.errors.phoneNumber}</FormErrorMessage>
                                                 </FormControl>
                                             )}
                                         </Field>
+                                        
                                     </VStack>
-                                    <Flex>
-                                        <Button mt="24px" mr="20px" onClick={() => Router.back()} p={"11px 22px"} color="#FB5E04" bg="white" cursor={"pointer"} borderRadius={"5px"} >
-                                            Cancel
+
+                                    <Flex justifyContent="center" mt="24px">
+                                        <Button  mr="20px" onClick={() => Router.back()}  p={"11px 22px"} color="#FB5E04" bg="white" cursor={"pointer"}  borderRadius={"5px"} >
+                                            Back
                                         </Button>
                                     
-                                        <Button mt="24px" isLoading={isSubmitting} type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
-                                            Next
-                                        </Button>
+                                        <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} backgroundColor="#FB5E04" width="150px" >
+                                            Yes, Change
+                                        </MainAppButton>
+
                                     </Flex>
                                 </Form>
                             )}
@@ -133,4 +153,4 @@ const Verification = () => {
     )
 }
 
-export default Verification
+export default VerifyNumber
