@@ -21,7 +21,11 @@ const Profile = () => {
   console.log("this is the num ", num)
 
   const handlePhoneNumber = () => {
-    Router.push("/settings/profile/phone-number")
+    Router.push("/settings/profile/change-phone-number")
+  }
+
+  const handleAddPhoneNumber = () => {
+    Router.push("/settings/profile/add-phone-number")
   }
 
   const name = (getUser?.data?.firstName ? getUser?.data?.firstName : "") + " " + (getUser?.data?.lastName ? getUser?.data?.lastName : "")
@@ -147,10 +151,20 @@ const Profile = () => {
               </Text>
               <Flex flexDirection={{ base: 'column', md: 'row' }}  w="100%" alignItems={{ base: 'end', md: 'start' }} justifyContent={"space-between"} pr='4' fontSize={"14px"}>
                 <Text>{num ? ( "xxx"+num.toString().slice(-3)) : "xxxxxx"}</Text>
-                <Text
-                  color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>
-                  {num ? "Change phone number" : "Add Phone Number"}
-                </Text>
+                {num ? (
+                  <Text
+                    color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handlePhoneNumber}>
+                    Change phone number
+                  </Text>
+                ): (
+                  
+                  <Text
+                      color={'#FB5E04'} fontSize={{ base: 'sm', lg: '14px' }} cursor="pointer" onClick={handleAddPhoneNumber}>
+                      Add Phone Number
+                  </Text>
+                )}
+                
+                
               </Flex>
             </Flex>
 
