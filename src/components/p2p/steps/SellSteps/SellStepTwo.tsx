@@ -10,7 +10,7 @@ import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
-import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service';
+import { useAddP2pSellAdsBankMutation, useDeleteAddedBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service';
 import MainAppButton from '../../../buttons/MainAppButton';
 
 
@@ -65,7 +65,8 @@ const SellStepTwo = (props:any) => {
     const {data:getBanks} = useGetNigerianBankQuery()
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
-    
+    const [deleteAddedBank] = useDeleteAddedBankMutation()
+        
     
     const handleSelect = async (value: any) => {
         const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
@@ -81,9 +82,27 @@ const SellStepTwo = (props:any) => {
         onClose()
     }
     
-    const handleEdit = (e) => {
-        e.stopPropagation()
+    const handleEdit = (id:string) => {
+        // e.stopPropagation()
     }
+
+    const handleBankDelete = async (id: string) => {
+        const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
+        const resp = await deleteAddedBank(data)
+        if(resp) {
+            appAlert.success("Bank Removed")
+        }
+        getAddedBankSellType.refetch()
+    }
+
+
 
     function filteredBanks(arr: any, comp: any) {
         const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
@@ -123,8 +142,16 @@ const SellStepTwo = (props:any) => {
                                                         <Text  color="#FB5E04">Bank Transfer</Text>
                                                         {/* <Text flex="1.76" color="#000000">{bank?.accountName}</Text> */}
                                                         <Flex>
-                                                            <Text  color="#FB5E04" onClick={handleEdit}>Delete</Text>
-                                                            <Text  color="#FB5E04" ml="30px" onClick={handleEdit}>Edit</Text>
+                                                            <Text color="#FB5E04" onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                handleBankDelete(bank?._id)
+                                                            }}>
+                                                                Delete
+                                                            </Text>
+                                                            <Text color="#FB5E04" ml="30px" onClick={(e) => {
+                                                                e.stopPropagation()
+                                                                handleEdit(bank?._id)
+                                                            }}>Edit</Text>
                                                         </Flex>
                                                     </HStack>
                                                     <Flex w="100%">
@@ -320,6 +347,8 @@ const SellStepTwo = (props:any) => {
         appAlert.success("Bank Removed")
     }
     
+
+
     return (
         <>
             <SellStepTwoModal action={props.action} />
