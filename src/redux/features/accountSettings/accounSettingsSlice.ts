@@ -54,7 +54,7 @@ export const accountSlice = createSlice({
 
         setPhoneNumber: (state, { payload: { phoneNumber } }: PayloadAction<{ phoneNumber: any }>) => {
             state.phoneNumber = phoneNumber
-        }
+        },
 
     },
 });

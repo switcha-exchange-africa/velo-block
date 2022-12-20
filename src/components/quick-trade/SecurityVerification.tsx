@@ -3,7 +3,6 @@ import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import appAlert from '../../helpers/appAlert'
-import { useAppSelector } from '../../helpers/hooks/reduxHooks'
 import { useConfirmP2pOrderWithCodeMutation, useConfirmP2pOrderWithoutCodeMutation, useLazyGetOrderDetailQuery } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 
@@ -12,7 +11,6 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
     const { orderId } = router.query
     const [confirmP2pOrderWithCode, { isLoading }] = useConfirmP2pOrderWithCodeMutation()
     const [getOrderDetail] = useLazyGetOrderDetailQuery()
-    const { user } = useAppSelector((state) => state.auth)
 
     const [confirmP2pOrderWithoutCode] = useConfirmP2pOrderWithoutCodeMutation()
 
@@ -116,7 +114,7 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                                                         
                                                         </InputRightElement>
                                                     </InputGroup>
-                                                    <FormLabel pt={'1'} fontSize={'xs'} color={'textLightColor'}>Enter the 6-digit code code sent to {user?.email}</FormLabel>
+                                                    <FormLabel pt={'1'} fontSize={'xs'} color={'textLightColor'}>Enter the 6-digit code sent to your email</FormLabel>
                                                     <FormErrorMessage>{form.errors.code}</FormErrorMessage>
                                                 </FormControl>
                                             )}

@@ -9,11 +9,12 @@ import { useRouter } from 'next/router';
 import appAlert from '../../../../helpers/appAlert';
 import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
 import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
+import MainAppButton from '../../../buttons/MainAppButton';
 import Status from '../../radioGroup/Status';
 
 const SellStepThree = (props: any) => {
     const router = useRouter()
-    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, priceType, values, banks, cash, paymentTimeLimit} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     const getAddedBanks:any = useGetAddedBankQuery()
@@ -37,17 +38,21 @@ const SellStepThree = (props: any) => {
     useEffect(() => {
       checkCoin(coin)
     }, [coin])
-    
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
-    const handleBuyAds = async () => {
+    const[load, setLoading] = useState(false)
+
+
+    const handleSellAds = async () => {
+        setLoading(true)
+        
         const data = {
             type: "sell",
-            cash: "NGN",
+            cash: cash,
             coin: changeUSDTtronCoin,
             remark: remark,
-            paymentTimeLimit: values.paymentTimeLimit,
+            paymentTimeLimit: paymentTimeLimit,
             priceType: priceType,
             price: parseFloat(price),
             totalAmount: parseFloat(values.totalAmount),
@@ -60,18 +65,18 @@ const SellStepThree = (props: any) => {
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
-        // console.log(data)
-
+        
         const response: any = await postP2pBuyAds(data)
-        // console.log("this is the main ", response)
         if (response?.data?.status == 201) {
             onClose()
             router.push("/p2p")
+            setLoading(false)
             appAlert.success(`${response?.data?.message}`)   
                 
         } if (response?.data?.status != 201) {    
             onClose()
             appAlert.error(`${response?.error?.data?.message}`)
+            setLoading(false)
             router.push("/p2p")
         } 
     }
@@ -106,7 +111,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -122,7 +127,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -148,7 +153,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>15 min</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} Mins</Text>
                             </VStack>
                         </HStack>
 
@@ -158,8 +163,10 @@ const SellStepThree = (props: any) => {
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                     banks.map((item:any) => (
-                                        <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name}, &nbsp; </Text>
+                                        <Flex key={item._id} justifyContent={"space-between"} direction="column" mr="10px" alignItems="flex-start" color="#000000" >
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name} &nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.accountName} &nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.accountNumber} &nbsp; </Text>
                                         </Flex>        
                                     ))
                                 )}
@@ -173,9 +180,12 @@ const SellStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
+                            
+                            <MainAppButton onClick={handleSellAds} width="150px" isLoading={load} backgroundColor={'primaryColor.900'} >
                                 Confirm to Post
-                            </Button>
+                            </MainAppButton>
+
+
                         </Flex>
                     </ModalBody>
 

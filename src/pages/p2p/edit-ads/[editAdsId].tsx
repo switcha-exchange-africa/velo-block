@@ -468,8 +468,7 @@ const EditAds = (props:any) => {
         <form onSubmit={handleSubmit}>
 
           <FormControl>
-          
-
+        
             <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
               <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}}>
                 <VStack alignItems="flex-start">
