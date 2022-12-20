@@ -321,7 +321,7 @@ const SellStepTwo = (props:any) => {
                                     <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                 </InputRightElement>
                             </InputGroup>
-                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>={renderBalance(coin)} {coin}</Text>
+                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>Balance ={renderBalance(coin)} {coin}</Text>
                         </Flex>
                         
                         <HStack mt="24px"  w={["100%", "100%", "50%"]}>
