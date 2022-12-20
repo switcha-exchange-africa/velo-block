@@ -116,23 +116,23 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    const handleEdit = (id:string) => {
-        const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
-        const data = {
-            id: obj?._id,
-            name: obj?.name,
-            accountName: obj.accountName,
-            code: obj?.code,
-            accountNumber: obj?.accountNumber
-        }
+    // const handleEdit = (id:string) => {
+    //     const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
+    //     const data = {
+    //         id: obj?._id,
+    //         name: obj?.name,
+    //         accountName: obj.accountName,
+    //         code: obj?.code,
+    //         accountNumber: obj?.accountNumber
+    //     }
 
 
 
-        console.log("this is the data ", data)
-        setDataObj(data)
+    //     console.log("this is the data ", data)
+    //     setDataObj(data)
 
-        setDefaultTab(() => defaultTab + 2)
-    }
+    //     setDefaultTab(() => defaultTab + 2)
+    // }
 
     const [load, setLoad] = useState(false)
 
@@ -442,7 +442,7 @@ const SellStepTwo = (props:any) => {
                                         )}
 
                                     </Formik> */}
-                                    <form onSubmit={handleEditSubmit}>
+                                    {/* <form onSubmit={handleEditSubmit}>
 
                                         <FormControl>
                                             <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
@@ -499,6 +499,7 @@ const SellStepTwo = (props:any) => {
                                                     />
                                                     Edit Bank
                                                 </MainAppButton>
+                                                
                                                 <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
                                                     <CloseIcon
                                                         mr="5px"
@@ -510,7 +511,7 @@ const SellStepTwo = (props:any) => {
                                                 </Button>  
                                             </HStack>
                                         </FormControl>
-                                    </form>
+                                    </form> */}
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>
