@@ -82,10 +82,16 @@ const BuyStepTwo = (props:any) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         getAddedBanksIdValues()
-        handleNextStep()
-
+        if (banks?.length === 0) {
+            appAlert.error("Payment method not added")
+        } else {
+            
+            handleNextStep()
+        }
     }
 
+
+    
 
     const handleDelete = async (id: string) => {
         const obj:any = getAddedBanks?.data?.data?.find((o:any) => o._id === id);
