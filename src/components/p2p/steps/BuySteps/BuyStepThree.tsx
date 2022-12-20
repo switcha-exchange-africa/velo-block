@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import appAlert from '../../../../helpers/appAlert';
 import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
 import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
+import MainAppButton from '../../../buttons/MainAppButton';
 import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
@@ -41,7 +42,12 @@ const BuyStepThree = (props: any) => {
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
 
+    const[load, setLoading] = useState(false)
+
+
     const handleBuyAds = async () => {
+        setLoading(true)
+        
         const data = {
             type: "buy",
             cash: cash,
@@ -64,9 +70,11 @@ const BuyStepThree = (props: any) => {
         if (response?.data?.status == 200) {
             onClose()
             router.push("/p2p")
+            setLoading(false)
             appAlert.success(`${response?.data?.message}`)    
         } if (response?.data?.status != 200) {
             appAlert.error(`${response?.error?.data?.message}`)
+            setLoading(false)
             onClose()
         } 
     }
@@ -168,9 +176,11 @@ const BuyStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
+
+                            <MainAppButton onClick={handleBuyAds} width="150px" isLoading={load} backgroundColor={'primaryColor.900'} >
                                 Confirm to Post
-                            </Button>
+                            </MainAppButton>
+                            
                         </Flex>
                     </ModalBody>
 
