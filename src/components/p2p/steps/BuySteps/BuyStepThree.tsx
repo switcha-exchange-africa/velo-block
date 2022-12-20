@@ -13,17 +13,17 @@ import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
     const router = useRouter()
-    const {handlePreviousStep, price, coin, cash, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, cash, priceType, paymentTimeLimit, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     const getAddedBanks:any = useGetAddedBankQuery()
     
 
+    console.log("this is the time limmit selected ", paymentTimeLimit)
     const [remark, setRemark] = useState("")
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
     const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
-    
     let [changeUSDTtronCoin, setChangeUSDTtronCoin] = useState(coin)
 
     const checkCoin = (coin:string) => {
@@ -49,7 +49,7 @@ const BuyStepThree = (props: any) => {
             cash: cash,
             coin: changeUSDTtronCoin,
             remark: remark,
-            paymentTimeLimit: values.paymentTimeLimit,
+            paymentTimeLimit: paymentTimeLimit,
             priceType: priceType,
             price: parseFloat(price),
             totalAmount: parseFloat(values.totalAmount),
@@ -145,7 +145,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>15 min</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} mins</Text>
                             </VStack>
                         </HStack>
 

@@ -15,7 +15,7 @@ const BuyStepTwo = (props:any) => {
     
     const getAddedBanks:any = useGetAddedBankQuery()
 
-    const { handlePreviousStep, handleNextStep, coin, values, setValues, banks } = props
+    const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
     
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
@@ -202,15 +202,22 @@ const BuyStepTwo = (props:any) => {
                         </Box>
                         
                         <Text mt="24px" color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Time Limit</Text>
-                        <Select
-                            mt="12px"
+                        
+                        <Select mt="12px"
                             w="137px"
                             bg='transparent'
                             border='0.88px solid #8E9BAE'
                             borderRadius="5px"
                             color='black'
-                            placeholder='15 Min'
-                        />
+                            value={paymentTimeLimit}
+                            onChange={(e) => {
+                                setPaymentTimeLimit(e.target.value)
+                            }
+                        }>
+                            <option value={'15'}>15 Mins</option>
+                            <option value={'30'}>30 Mins</option>
+                            <option value={'45'}>45 Mins</option>
+                        </Select>
 
                         <Flex  direction={"column"} mt={"24px"} justifyContent={"space-between"}  p={"12px"} w={"100%"} bg="#FFFFFF" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["flex", "flex", "none"]}>
                             <Flex mb="24px">

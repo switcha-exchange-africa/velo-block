@@ -10,7 +10,7 @@ interface InitialValuesProps {
     totalAmount: string
     minLimit: string
     maxLimit: string
-    paymentTimeLimit: string
+    // paymentTimeLimit: string
 }
 
 const BuyAds = () => {
@@ -19,12 +19,14 @@ const BuyAds = () => {
     const [cash, setCash] = useState("NGN")
     const [priceType, setPriceType] = useState('fixed')
     const [price, setPrice] = useState<any>(0)
+    const [paymentTimeLimit, setPaymentTimeLimit] = useState(`15`)
+    
     
     const initialValues:InitialValuesProps = {
         totalAmount: "",
         minLimit: "",
         maxLimit: "",
-        paymentTimeLimit: "15"
+        // paymentTimeLimit: ""
     }
 
     const [values, setValues] = useState(initialValues)
@@ -65,6 +67,8 @@ const BuyAds = () => {
                         handleNextStep={handleNextStep}
                         values={values}
                         setValues={setValues}
+                        paymentTimeLimit={paymentTimeLimit}
+                        setPaymentTimeLimit={setPaymentTimeLimit}
                         banks={banks}
                     />
                 )
@@ -77,6 +81,7 @@ const BuyAds = () => {
                         coin={coin}
                         cash={cash}
                         price={price}
+                        paymentTimeLimit={paymentTimeLimit}
                         priceType={priceType}
                         handleNextStep={handleNextStep}
                         values={values}
