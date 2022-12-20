@@ -10,7 +10,7 @@ import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
-import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service';
 import MainAppButton from '../../../buttons/MainAppButton';
 
 
@@ -18,7 +18,7 @@ const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
         
-    const { isLoading} = useGetUsersBankQuery()
+    // const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
@@ -156,7 +156,6 @@ const SellStepTwo = (props:any) => {
                                             {getAddedBankSellType.isFetching ? "Refreshing. . ." : "Refresh"}
                                         </Button>  
                                     </HStack>
-                                
                                 </TabPanel>
 
                                 <TabPanel>

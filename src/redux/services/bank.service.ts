@@ -59,6 +59,19 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    deleteAddedBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `/p2p/bank/${id}`,
+          method: "DELETE",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
     getAddedBankSellType: builder.query<any, void>({
       query: () => `p2p/bank/?type=sell`,
       transformResponse: (responseData: any) => {
@@ -104,6 +117,7 @@ export const {
   useAddP2pSellAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
+  useDeleteAddedBankMutation,
   useGetAddedBankSellTypeQuery,
   useGetUsersBankQuery,
   useGetAddedBankPaginationQuery

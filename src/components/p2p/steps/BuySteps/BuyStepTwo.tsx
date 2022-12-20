@@ -8,12 +8,13 @@ import {
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
-import { useGetAddedBankQuery } from '../../../../redux/services/bank.service'
+import { useDeleteAddedBankMutation, useGetAddedBankQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
 const BuyStepTwo = (props:any) => {
-    const getAddedBanks:any = useGetAddedBankQuery()
+    const getAddedBanks: any = useGetAddedBankQuery()
+    const [deleteAddedBank] = useDeleteAddedBankMutation()
     const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
@@ -84,6 +85,22 @@ const BuyStepTwo = (props:any) => {
 
     }
 
+
+    const handleDelete = async (id: string) => {
+        const obj:any = getAddedBanks?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
+        const resp = await deleteAddedBank(data)
+        if(resp) {
+            appAlert.success("Bank Removed")
+        }
+        getAddedBanks.refetch()
+    }
 
 
     return (
@@ -173,6 +190,7 @@ const BuyStepTwo = (props:any) => {
                                                 w={"10px"}
                                                 h={"10px"}
                                                 cursor="pointer"
+                                                onClick={() => handleDelete(item._id)}
                                             />
                                         </Flex>        
                                     ))
