@@ -9,12 +9,12 @@ import {
 import { MouseEventHandler} from 'react'
 import appAlert from '../../../../helpers/appAlert'
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
-import { useDeleteAddedBankMutation, useGetAddedBankQuery } from '../../../../redux/services/bank.service'
+import { useDeleteAddedBankMutation, useGetAddedBankBuyTypeQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
 const BuyStepTwo = (props:any) => {
-    const getAddedBanks: any = useGetAddedBankQuery()
+    const getAddedBanks: any = useGetAddedBankBuyTypeQuery()
     const [deleteAddedBank] = useDeleteAddedBankMutation()
     const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
