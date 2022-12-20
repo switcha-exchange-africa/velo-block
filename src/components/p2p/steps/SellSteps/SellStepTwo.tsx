@@ -81,6 +81,10 @@ const SellStepTwo = (props:any) => {
         onClose()
     }
     
+    const handleEdit = (e) => {
+        e.stopPropagation()
+    }
+
     function filteredBanks(arr: any, comp: any) {
         const unique = arr.map((e:any) => e[comp]).map((e:any, i:any, final:any) => final.indexOf(e) === i && i).filter((e:any) => arr[e]).map((e:any) => arr[e])   
         return unique
@@ -115,21 +119,24 @@ const SellStepTwo = (props:any) => {
                                         {getAddedBankSellType.isFetching ? <Flex w={{ md: "100%", base: '100%' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                             getAddedBankSellType?.data?.data?.map((bank: any) => (  
                                                 <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} cursor="pointer" onClick={() => handleSelect(bank?._id)} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
-                                                    <HStack w="100%">
-                                                        <Text flex="1" color="#FB5E04">Bank Transfer</Text>
-                                                        <Text flex="1.76" color="#000000">{bank?.accountName}</Text>
-                                                        <Text flex="0.2" color="#FB5E04">Edit</Text>
+                                                    <HStack w="100%" justifyContent="space-between">
+                                                        <Text  color="#FB5E04">Bank Transfer</Text>
+                                                        {/* <Text flex="1.76" color="#000000">{bank?.accountName}</Text> */}
+                                                        <Flex>
+                                                            <Text  color="#FB5E04" onClick={handleEdit}>Delete</Text>
+                                                            <Text  color="#FB5E04" ml="30px" onClick={handleEdit}>Edit</Text>
+                                                        </Flex>
                                                     </HStack>
-                                                    <HStack w="100%">
-                                                        <Text flex="1" color="#8E9BAE">Name</Text>
+                                                    <Flex w="100%">
+                                                        <Text flex="1.5" color="#8E9BAE">Name</Text>
                                                         <Text flex="2" color="#000000">{bank?.accountName}</Text>
-                                                    </HStack>
+                                                    </Flex>
                                                     <HStack w="100%">
-                                                        <Text flex="1" color="#8E9BAE">Bank Account N..</Text>
+                                                        <Text flex="1.5" color="#8E9BAE">Bank Account N..</Text>
                                                         <Text  flex="2" color="#000000">{bank?.accountNumber}</Text>
                                                     </HStack>
                                                     <HStack w="100%">
-                                                        <Text flex="1" color="#8E9BAE">Bank name</Text>
+                                                        <Text flex="1.5" color="#8E9BAE">Bank name</Text>
                                                         <Text flex="2" color="#000000">{bank?.name}</Text>
                                                     </HStack>
                                                 </VStack>
@@ -394,7 +401,7 @@ const SellStepTwo = (props:any) => {
                                 {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
                                     banks?.map((item: any) => {
                                         return (
-                                            <Flex key={item?.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                            <Flex key={item?.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "136px", "136px"]} >
                                                 {item?.name.substring(0, 13)}
                                                 <CloseIcon
                                                     mr="5px"
