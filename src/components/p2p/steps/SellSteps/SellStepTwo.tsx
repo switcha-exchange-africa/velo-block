@@ -94,10 +94,7 @@ const SellStepTwo = (props:any) => {
 
 
         const handleRefresh = async () => {
-            console.log("you refreshed me ")
-            getUserBank.refetch()
-            
-            // console.log("this it the resp ", resp)
+            getAddedBankSellType.refetch()
         }
 
         return (
@@ -114,7 +111,7 @@ const SellStepTwo = (props:any) => {
                                         Select Payment Method
                                     </ModalHeader>
                                     <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
-                                        {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
+                                        {getAddedBankSellType.isFetching ? <Flex w={{ md: "100%", base: '100%' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                             getAddedBankSellType?.data?.data?.map((bank: any) => (  
                                                 <VStack key={bank?._id} borderRadius={"5px"} mb={"24px"} cursor="pointer" onClick={() => handleSelect(bank?._id)} border={"1px solid #64748B"} fontWeight={"600"} p="12px" fontSize="14px" justifyContent="space-between">
                                                     <HStack w="100%">
@@ -155,7 +152,7 @@ const SellStepTwo = (props:any) => {
                                                 w={"10px"}
                                                 h={"10px"}
                                             />
-                                            Refresh
+                                            {getAddedBankSellType.isFetching ? "Refreshing. . ." : "Refresh"}
                                         </Button>  
                                     </HStack>
                                 
