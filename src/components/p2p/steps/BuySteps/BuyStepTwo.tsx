@@ -7,8 +7,7 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
-import { useAppDispatch, useAppSelector } from '../../../../helpers/hooks/reduxHooks'
-import { setErrorMessage } from '../../../../redux/features/accountSettings/accounSettingsSlice'
+import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
 import { useGetAddedBankQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
@@ -18,7 +17,6 @@ const BuyStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
-    const dispatch = useAppDispatch()    
 
     const renderBalance:any = (coinName: any) => {
         const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
@@ -28,7 +26,7 @@ const BuyStepTwo = (props:any) => {
 
 
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
-        dispatch(setErrorMessage({errorMessage: props}))
+        console.log(props)
         
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg" >
