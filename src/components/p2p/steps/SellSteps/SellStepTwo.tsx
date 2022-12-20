@@ -182,7 +182,6 @@ const SellStepTwo = (props:any) => {
                                                 code: newItem
                                             }
                                             const response:any = await addP2pSellAdsBank(data)
-                                            console.log("this i the ", response)
                                             
                                             if (response?.data?.status == 200 || response?.data?.status == 201) {
                                                 getAddedBankSellType.refetch()
@@ -197,8 +196,9 @@ const SellStepTwo = (props:any) => {
                                         validateOnMount
                                     >
                                         {({
-                                            isSubmitting,
-                                            handleSubmit
+                                            handleSubmit,
+                                            isSubmitting
+                                            
                                          }) => (
                                             <Form  >
                                                 <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
