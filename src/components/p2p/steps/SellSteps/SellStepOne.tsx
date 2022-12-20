@@ -1,5 +1,4 @@
 import { Box, Button, Flex, FormControl, HStack, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
-import { useState } from 'react'
 import { InfoOutlineIcon } from '@chakra-ui/icons';
 import Asset from '../../radioGroup/Asset';
 import WithCash from '../../radioGroup/WithCash';
@@ -21,7 +20,6 @@ interface SellStepProps {
 
 
 const SellStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setPrice, priceType, setPriceType }: SellStepProps) => {
-    const [withCash, setWithCash] = useState('NGN')
  
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value)
