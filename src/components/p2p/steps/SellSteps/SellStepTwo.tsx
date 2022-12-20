@@ -96,6 +96,7 @@ const SellStepTwo = (props:any) => {
         const handleRefresh = async () => {
             console.log("you refreshed me ")
             getUserBank.refetch()
+            
             // console.log("this it the resp ", resp)
         }
 
@@ -298,6 +299,15 @@ const SellStepTwo = (props:any) => {
         }
     }
 
+    const handleDelete = (id:string) => {
+        setBanks((items: any) =>
+            items?.filter((item: any) => {
+                return item?.id !== id;
+            }),
+        );
+        appAlert.success("Bank removed")
+        
+    }
     
     return (
         <>
@@ -380,28 +390,30 @@ const SellStepTwo = (props:any) => {
                                 {banks?.length === 0 ? null : (banks.length > 0 && banks.length === 1) ? (
                                     banks?.map((item: any) => {
                                         return (
-                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                                {item.name.substring(0, 13)}
+                                            <Flex key={item?.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item?.name.substring(0, 13)}
                                                 <CloseIcon
                                                     mr="5px"
                                                     color={"#000000"}
                                                     w={"10px"}
                                                     h={"10px"}
                                                     cursor="pointer"
+                                                    onClick={() => handleDelete(item?.id)}
                                                 />
                                             </Flex>        
                                         ) 
                                         
                                     } 
                                     )) : (filteredBanks(banks, "id")).map((item:any) => (
-                                            <Flex key={item.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
-                                                {item.name.substring(0, 13)}
+                                            <Flex key={item?.id} p={"11px 10px"}  justifyContent={"space-between"} alignItems="center" color="#000000" borderRadius={"5px"} border={"0.88px solid #8e9bae"} bg={"transparent"} w={["45%", "45%", "136px"]} >
+                                                {item?.name.substring(0, 13)}
                                                 <CloseIcon
                                                     mr="5px"
                                                     color={"#000000"}
                                                     w={"10px"}
                                                     h={"10px"}
                                                     cursor="pointer"
+                                                    onClick={() => handleDelete(item?.id)}
                                                 />
                                             </Flex> 
                                         ))
