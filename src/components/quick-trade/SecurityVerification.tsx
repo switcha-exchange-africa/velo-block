@@ -12,7 +12,6 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
     const { orderId } = router.query
     const [confirmP2pOrderWithCode, { isLoading }] = useConfirmP2pOrderWithCodeMutation()
     const [getOrderDetail] = useLazyGetOrderDetailQuery()
-    const { user } = useAppSelector((state) => state.auth)
 
     const [confirmP2pOrderWithoutCode] = useConfirmP2pOrderWithoutCodeMutation()
 
@@ -116,7 +115,7 @@ const SecurityVerification = ({ isOpen, onClose, size = { md: 'md', base: 'sm' }
                                                         
                                                         </InputRightElement>
                                                     </InputGroup>
-                                                    <FormLabel pt={'1'} fontSize={'xs'} color={'textLightColor'}>Enter the 6-digit code code sent to {user?.email}</FormLabel>
+                                                    <FormLabel pt={'1'} fontSize={'xs'} color={'textLightColor'}>Enter the 6-digit code sent to your email</FormLabel>
                                                     <FormErrorMessage>{form.errors.code}</FormErrorMessage>
                                                 </FormControl>
                                             )}

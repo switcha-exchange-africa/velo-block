@@ -59,10 +59,8 @@ const SellStepThree = (props: any) => {
             registeredZeroDaysAgo: registeredZeroDaysAgo,
             isPublished:true,
         }
-        // console.log(data)
-
+        
         const response: any = await postP2pBuyAds(data)
-        // console.log("this is the main ", response)
         if (response?.data?.status == 201) {
             onClose()
             router.push("/p2p")
@@ -177,6 +175,8 @@ const SellStepThree = (props: any) => {
                             <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
                                 Confirm to Post
                             </Button>
+
+                            
                         </Flex>
                     </ModalBody>
 
