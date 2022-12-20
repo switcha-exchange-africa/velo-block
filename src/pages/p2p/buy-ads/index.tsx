@@ -10,7 +10,6 @@ interface InitialValuesProps {
     totalAmount: string
     minLimit: string
     maxLimit: string
-    // paymentTimeLimit: string
 }
 
 const BuyAds = () => {
@@ -26,7 +25,6 @@ const BuyAds = () => {
         totalAmount: "",
         minLimit: "",
         maxLimit: "",
-        // paymentTimeLimit: ""
     }
 
     const [values, setValues] = useState(initialValues)

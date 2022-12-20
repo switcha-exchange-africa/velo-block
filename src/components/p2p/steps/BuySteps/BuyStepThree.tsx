@@ -19,7 +19,6 @@ const BuyStepThree = (props: any) => {
     const getAddedBanks:any = useGetAddedBankQuery()
     
 
-    console.log("this is the time limmit selected ", paymentTimeLimit)
     const [remark, setRemark] = useState("")
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
@@ -41,7 +40,6 @@ const BuyStepThree = (props: any) => {
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
-    console.log("this is the values ", values)
 
     const handleBuyAds = async () => {
         const data = {
@@ -119,7 +117,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -145,7 +143,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} mins</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} Mins</Text>
                             </VStack>
                         </HStack>
 

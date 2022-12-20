@@ -13,7 +13,7 @@ import Status from '../../radioGroup/Status';
 
 const SellStepThree = (props: any) => {
     const router = useRouter()
-    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, priceType, values, banks, cash, paymentTimeLimit} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     const getAddedBanks:any = useGetAddedBankQuery()
@@ -44,10 +44,10 @@ const SellStepThree = (props: any) => {
     const handleBuyAds = async () => {
         const data = {
             type: "sell",
-            cash: "NGN",
+            cash: cash,
             coin: changeUSDTtronCoin,
             remark: remark,
-            paymentTimeLimit: values.paymentTimeLimit,
+            paymentTimeLimit: paymentTimeLimit,
             priceType: priceType,
             price: parseFloat(price),
             totalAmount: parseFloat(values.totalAmount),
@@ -106,7 +106,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -122,7 +122,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -148,7 +148,7 @@ const SellStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>15 min</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} Mins</Text>
                             </VStack>
                         </HStack>
 

@@ -13,7 +13,6 @@ const WithCash = ({cash, setCash}: WithCashProps) => {
     const { data } = useGetCoinsByTypeQuery("fiat")
     const cashOptions = data?.data?.map((item: any) => item.coin)
 
-    console.log("this is the cash options ", cashOptions?.sort())
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
