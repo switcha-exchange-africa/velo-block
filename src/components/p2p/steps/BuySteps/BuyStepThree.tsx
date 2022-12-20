@@ -7,7 +7,7 @@
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
+import { useGetAddedBankBuyTypeQuery } from '../../../../redux/services/bank.service';
 import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
 import MainAppButton from '../../../buttons/MainAppButton';
 import Status from '../../radioGroup/Status';
@@ -17,7 +17,7 @@ const BuyStepThree = (props: any) => {
     const {handlePreviousStep, price, coin, cash, priceType, paymentTimeLimit, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
-    const getAddedBanks:any = useGetAddedBankQuery()
+    const getAddedBanks:any = useGetAddedBankBuyTypeQuery()
     
 
     const [remark, setRemark] = useState("")

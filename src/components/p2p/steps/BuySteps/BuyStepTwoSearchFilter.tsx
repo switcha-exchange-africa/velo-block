@@ -19,10 +19,8 @@ interface SearchInput {
 }
 
 const SearchInput = ({onClose}: SearchInput) => {
-
     const {data:getBanks, isLoading} = useGetNigerianBankQuery()
     const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
     const [filter, setFilter] = useState("")
     const searchText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value)
