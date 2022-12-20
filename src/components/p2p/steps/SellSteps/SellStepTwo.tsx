@@ -17,7 +17,7 @@ const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const { getUserBank, isLoading} = useGetUsersBankQuery()
+    const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
