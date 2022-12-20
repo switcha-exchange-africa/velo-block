@@ -16,6 +16,7 @@ interface InitialValuesProps {
 const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const [coin, setCoin] = useState('BTC')
+    const [cash, setCash] = useState("NGN")
     const [priceType, setPriceType] = useState('fixed')
     const [price, setPrice] = useState<any>(0)
     
@@ -46,6 +47,8 @@ const BuyAds = () => {
                         handleNextStep={handleNextStep}
                         coin={coin}
                         setCoin={setCoin}
+                        cash={cash}
+                        setCash={setCash}
                         price={price}
                         setPrice={setPrice}
                         priceType={priceType}
@@ -53,6 +56,7 @@ const BuyAds = () => {
                     />
                 )
             }
+                
             case 2: {
                 return (
                     <BuyStepTwo
@@ -65,11 +69,13 @@ const BuyAds = () => {
                     />
                 )
             }
+                
             case 3: {
                 return (
                     <BuyStepThree
                         handlePreviousStep={handlePreviousStep}
                         coin={coin}
+                        cash={cash}
                         price={price}
                         priceType={priceType}
                         handleNextStep={handleNextStep}

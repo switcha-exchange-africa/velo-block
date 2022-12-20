@@ -19,6 +19,8 @@ const Asset = ({coin,setCoin}: AssetProps) => {
             return item.coin
         }
     })
+
+    console.log("this is the coin Assets ", coinAssets?.sort())
     
    
     const { getRootProps, getRadioProps } = useRadioGroup({

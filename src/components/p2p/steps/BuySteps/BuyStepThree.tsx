@@ -13,7 +13,7 @@ import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
     const router = useRouter()
-    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, cash, priceType, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
     const getAddedBanks:any = useGetAddedBankQuery()
@@ -41,10 +41,12 @@ const BuyStepThree = (props: any) => {
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
+    console.log("this is the values ", values)
+
     const handleBuyAds = async () => {
         const data = {
             type: "buy",
-            cash: "NGN",
+            cash: cash,
             coin: changeUSDTtronCoin,
             remark: remark,
             paymentTimeLimit: values.paymentTimeLimit,
@@ -101,7 +103,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{cash}</Text>
                             </VStack>
 
                         </HStack>

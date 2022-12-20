@@ -11,6 +11,8 @@ interface BuyStepProps {
     handleNextStep: () => void
     coin?: string | undefined | any
     setCoin?: React.SetStateAction<string> | undefined | any
+    cash?: string | undefined | any
+    setCash?: React.SetStateAction<string> | undefined | any
     priceType?: string | undefined | any
     setPriceType?: React.SetStateAction<string> | undefined | any
     price?: string |  any
@@ -18,10 +20,7 @@ interface BuyStepProps {
 }
 
 
-const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
-    
-    const [withCash, setWithCash] = useState('NGN')
- 
+const BuyStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setPrice, priceType, setPriceType }: BuyStepProps) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(event.target.value)
     }
@@ -82,7 +81,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, price, setPrice, priceType,
                                 {/* coin radio group imported here*/}
                                     <Asset coin={coin} setCoin={setCoin} />
                                     {/* with Cash group imported here */}
-                                    <WithCash withCash={withCash} setWithCash={setWithCash}/>
+                                    <WithCash cash={cash} setCash={setCash}/>
                                 {/* <Text>{total}</Text> */}
                                     <HStack my="20px" gap={"50px"}>
                                         <VStack alignItems={"flex-start"}>

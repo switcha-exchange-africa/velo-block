@@ -4,19 +4,21 @@ import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service
 import { RadioCard } from './RadioGroup'
 
 interface WithCashProps {
-    withCash: string,
-    setWithCash: React.Dispatch<React.SetStateAction<string>>
+    cash: string,
+    setCash: React.Dispatch<React.SetStateAction<string>>
 }
 
 
-const WithCash = ({withCash, setWithCash}: WithCashProps) => {
+const WithCash = ({cash, setCash}: WithCashProps) => {
     const { data } = useGetCoinsByTypeQuery("fiat")
     const cashOptions = data?.data?.map((item: any) => item.coin)
+
+    console.log("this is the cash options ", cashOptions?.sort())
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: 'WithCashs',
         defaultValue: 'NGN',
-        onChange: setWithCash
+        onChange: setCash
     })
     
     const withCashGroup = getRootProps()
@@ -36,7 +38,7 @@ const WithCash = ({withCash, setWithCash}: WithCashProps) => {
                 />    
             </Flex>
             
-            <RadioGroup onChange={setWithCash} value={withCash} mt="12px" mb="48px">
+            <RadioGroup onChange={setCash} value={cash} mt="12px" mb="48px">
                 <Flex {...withCashGroup} w={"100%"}  gap={["20px", "20px", "24px 78px"]} flexWrap={"wrap"}>
                     {cashOptions?.map((value:any) => {
                         const radio = getRadioProps({ value })
