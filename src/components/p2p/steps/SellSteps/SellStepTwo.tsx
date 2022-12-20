@@ -115,7 +115,7 @@ const SellStepTwo = (props:any) => {
 
     }
 
-    
+
     const handleEdit = (id:string) => {
         const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
         const data = {
@@ -137,7 +137,7 @@ const SellStepTwo = (props:any) => {
     const [load, setLoad] = useState(false)
 
 
-    const handleEditSubmit = (e) => {
+    const handleEditSubmit = (e:any) => {
         e.preventDefault()
     }
 
@@ -178,10 +178,12 @@ const SellStepTwo = (props:any) => {
                                                             }}>
                                                                 Delete
                                                             </Text>
-                                                            <Text color="#FB5E04" ml="30px" onClick={(e) => {
-                                                                e.stopPropagation()
-                                                                handleEdit(bank?._id)
-                                                            }}>Edit</Text>
+                                                            <Text color="#FB5E04" ml="30px"
+                                                                // onClick={(e) => {
+                                                                //     e.stopPropagation()
+                                                                //     handleEdit(bank?._id)
+                                                                // }}
+                                                            >Edit</Text>
                                                         </Flex>
                                                     </HStack>
                                                     <Flex w="100%">
@@ -488,7 +490,7 @@ const SellStepTwo = (props:any) => {
                                                 </VStack>
                                             </Box>
                                             <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                                <MainAppButton onClick={handleEditSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
+                                                <MainAppButton onClick={handleSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
                                                     <AddIcon
                                                         mr="5px"
                                                         color={"white"}
