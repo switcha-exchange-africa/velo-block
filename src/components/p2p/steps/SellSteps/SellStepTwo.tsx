@@ -107,13 +107,13 @@ const SellStepTwo = (props:any) => {
 
 
 
-    const [dataObj, setDataObj] = useState<any>({})
+    // const [dataObj, setDataObj] = useState<any>({})
 
-    // const [bankName]
+    // // const [bankName]
 
-    const handleChange = () => {
+    // const handleChange = () => {
 
-    }
+    // }
 
 
     // const handleEdit = (id:string) => {
@@ -137,9 +137,9 @@ const SellStepTwo = (props:any) => {
     const [load, setLoad] = useState(false)
 
 
-    const handleEditSubmit = (e:any) => {
-        e.preventDefault()
-    }
+    // const handleEditSubmit = (e:any) => {
+    //     e.preventDefault()
+    // }
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
