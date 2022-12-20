@@ -37,6 +37,8 @@ const SellStepThree = (props: any) => {
     useEffect(() => {
       checkCoin(coin)
     }, [coin])
+
+    console.log(banks)
     
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
@@ -158,8 +160,10 @@ const SellStepThree = (props: any) => {
                                 <Flex w="100%" flexWrap="wrap">
                                     {getAddedBanks.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> : (
                                     banks.map((item:any) => (
-                                        <Flex key={item._id} justifyContent={"space-between"} alignItems="center" color="#000000" >
-                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name}, &nbsp; </Text>
+                                        <Flex key={item._id} justifyContent={"space-between"} direction="column" mr="10px" alignItems="flex-start" color="#000000" >
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.name} &nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.accountName} &nbsp; </Text>
+                                            <Text fontSize={"14px"} fontWeight={"600"}>{item?.accountNumber} &nbsp; </Text>
                                         </Flex>        
                                     ))
                                 )}

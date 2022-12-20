@@ -278,7 +278,11 @@ const SellStepTwo = (props:any) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        handleNextStep()
+        if (banks.length === 0) {
+            appAlert.error("Banks not selected")
+        } else {
+            handleNextStep()
+        }
     }
 
     
