@@ -11,6 +11,7 @@ import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
 import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
+import MainAppButton from '../../../buttons/MainAppButton';
 
 
 const SellStepTwo = (props:any) => {
@@ -181,12 +182,14 @@ const SellStepTwo = (props:any) => {
                                                 code: newItem
                                             }
                                             const response:any = await addP2pSellAdsBank(data)
-                                            if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                            console.log("this i the ", response)
+                                            
+                                            if (response?.data?.status == 200 || response?.data?.status == 201) {
                                                 getAddedBankSellType.refetch()
                                                 setDefaultTab(0)
                                                 appAlert.success(response?.data?.message)
                                             } else {
-                                                    appAlert.error(response?.error?.data?.message[0])
+                                                    appAlert.error(response?.error?.data?.message)
                                                 } 
                                             }}
                                         validateOnChange
@@ -195,6 +198,7 @@ const SellStepTwo = (props:any) => {
                                     >
                                         {({
                                             isSubmitting,
+                                            handleSubmit
                                          }) => (
                                             <Form  >
                                                 <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
@@ -243,7 +247,7 @@ const SellStepTwo = (props:any) => {
                                                 </VStack>
                                             </Box>
                                             <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                                <Button isLoading={isSubmitting} type="submit" p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" >
+                                                {/* <Button isLoading={isSubmitting} onClick={handleSubmit} type="submit" p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" >
                                                     <AddIcon
                                                         mr="5px"
                                                         color={"#FB5E04"}
@@ -251,7 +255,16 @@ const SellStepTwo = (props:any) => {
                                                         h={"10px"}
                                                     />
                                                     Add Bank
-                                                </Button>  
+                                                    </Button>   */}
+                                                    <MainAppButton onClick={handleSubmit} width="150px" isLoading={isSubmitting} backgroundColor={'#FB5E04'}  color="white">
+                                                        <AddIcon
+                                                            mr="5px"
+                                                            color={"white"}
+                                                            w={"10px"}
+                                                            h={"10px"}
+                                                        />
+                                                        Add Bank
+                                                    </MainAppButton>
                                                 <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
                                                     <CloseIcon
                                                         mr="5px"
@@ -259,7 +272,7 @@ const SellStepTwo = (props:any) => {
                                                         w={"10px"}
                                                         h={"10px"}
                                                     />
-                                                Cancel
+                                                    Cancel
                                                 </Button>  
                                             </HStack>
                                         </Form>
@@ -302,8 +315,7 @@ const SellStepTwo = (props:any) => {
                 return item?.id !== id;
             }),
         );
-        appAlert.success("Bank removed")
-        
+        appAlert.success("Bank Removed")
     }
     
     return (
