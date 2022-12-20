@@ -1,5 +1,4 @@
 import { Box, Button, Flex, FormControl, HStack, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text, VStack  } from '@chakra-ui/react';
-import { useState } from 'react'
 import { InfoOutlineIcon } from '@chakra-ui/icons';
 import Asset from '../../radioGroup/Asset';
 import WithCash from '../../radioGroup/WithCash';
@@ -25,19 +24,9 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setPr
         setPrice(event.target.value)
     }
     
-    // const [currentPrice, setCurrentPrice] = useState(1)
-    // const [total, setTotal] = useState(0)
 
     const addPrice = () => {
-        // let currentPrice = 1
-        // setCurrentPrice(1)
-        // setPrice(price + currentPrice)
-        // setTotal(price)
-        // const sum = price + 1any
-        // setPrice(sum)
         setPrice((currentPrice: number)=>  currentPrice + 1)            
-        
-
     }
 
     const  minusPrice = () => {
@@ -46,15 +35,7 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setPr
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // const data = {
-        //     coin,
-        //     withCash,
-        //     priceType,
-        //     price
-        // }
-
-        handleNextStep()   
-        
+        handleNextStep()  
     }
     
 
@@ -79,28 +60,27 @@ const BuyStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setPr
                             {/* Buy Tab */}
                             <TabPanel px={["15px", "10px", "60px"]} pb="70px">
                                 {/* coin radio group imported here*/}
-                                    <Asset coin={coin} setCoin={setCoin} />
-                                    {/* with Cash group imported here */}
-                                    <WithCash cash={cash} setCash={setCash}/>
-                                {/* <Text>{total}</Text> */}
-                                    <HStack my="20px" gap={"50px"}>
-                                        <VStack alignItems={"flex-start"}>
-                                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
-                                        </VStack>
-                                        <VStack alignItems={"flex-start"}>
-                                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
-                                                Highest Order Price
-                                                <InfoOutlineIcon
-                                                    ml="5px"
-                                                    color={"#8E9BAE"}
-                                                    w={"10px"}
-                                                    h={"10px"}
-                                                />    
-                                            </Text>
-                                            <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
-                                        </VStack>
-                                    </HStack>
+                                <Asset coin={coin} setCoin={setCoin} />
+                                {/* with Cash group imported here */}
+                                <WithCash cash={cash} setCash={setCash}/>
+                                <HStack my="20px" gap={"50px"}>
+                                    <VStack alignItems={"flex-start"}>
+                                        <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Your Price</Text>
+                                        <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
+                                    </VStack>
+                                    <VStack alignItems={"flex-start"}>
+                                        <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>
+                                            Highest Order Price
+                                            <InfoOutlineIcon
+                                                ml="5px"
+                                                color={"#8E9BAE"}
+                                                w={"10px"}
+                                                h={"10px"}
+                                            />    
+                                        </Text>
+                                        <Text fontSize="24px" fontWeight={"600"} fontFamily={"Open Sans"}>₦{!price ? 0 : parseInt(price)?.toLocaleString()}</Text>
+                                    </VStack>
+                                </HStack>
 
                                     {/* Price type radio group imported here */}
                                 <PriceType priceType={priceType} setPriceType={setPriceType} />                            
