@@ -86,11 +86,11 @@ const SellStepTwo = (props:any) => {
         return unique
     }
 
-    
+    const[load, setLoad] = useState(false)
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
-        const getUserBank = useGetUsersBankQuery()
+        // const getUserBank = useGetUsersBankQuery()
     
 
 
@@ -166,7 +166,9 @@ const SellStepTwo = (props:any) => {
                                     <Formik
                                         initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
 
-                                        onSubmit={async (values:any) => {                                
+                                        onSubmit={async (values: any) => {    
+                                            
+                                            setLoad(true)
                                             let res = values.name
                                             let filteredBank =  getBanks?.filter(function(bank:any) {
                                                 return bank.bankName === res;
@@ -175,19 +177,23 @@ const SellStepTwo = (props:any) => {
 
                                             let newItem = codeValue[0]
 
-
                                             const data = {
                                                 ...values,
                                                 accountNumber: values.accountNumber.toString(),
                                                 code: newItem
                                             }
-                                            const response:any = await addP2pSellAdsBank(data)
+                                          
+                                            const response: any = await addP2pSellAdsBank(data)
                                             
                                             if (response?.data?.status == 200 || response?.data?.status == 201) {
                                                 getAddedBankSellType.refetch()
                                                 setDefaultTab(0)
+
+                                                setLoad(false)
                                                 appAlert.success(response?.data?.message)
                                             } else {
+
+                                                    setLoad(false)
                                                     appAlert.error(response?.error?.data?.message)
                                                 } 
                                             }}
@@ -196,8 +202,7 @@ const SellStepTwo = (props:any) => {
                                         validateOnMount
                                     >
                                         {({
-                                            handleSubmit,
-                                            isSubmitting
+                                            handleSubmit
                                             
                                          }) => (
                                             <Form  >
@@ -247,24 +252,15 @@ const SellStepTwo = (props:any) => {
                                                 </VStack>
                                             </Box>
                                             <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                                {/* <Button isLoading={isSubmitting} onClick={handleSubmit} type="submit" p={"11px 22px"} color="#FB5E04" border={"0.88px solid #FB5e04"} bg="transparent" >
+                                                <MainAppButton onClick={handleSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
                                                     <AddIcon
                                                         mr="5px"
-                                                        color={"#FB5E04"}
+                                                        color={"white"}
                                                         w={"10px"}
                                                         h={"10px"}
                                                     />
                                                     Add Bank
-                                                    </Button>   */}
-                                                    <MainAppButton onClick={handleSubmit} width="150px" isLoading={isSubmitting} backgroundColor={'#FB5E04'}  color="white">
-                                                        <AddIcon
-                                                            mr="5px"
-                                                            color={"white"}
-                                                            w={"10px"}
-                                                            h={"10px"}
-                                                        />
-                                                        Add Bank
-                                                    </MainAppButton>
+                                                </MainAppButton>
                                                 <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
                                                     <CloseIcon
                                                         mr="5px"
