@@ -9,6 +9,7 @@ import {
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
+import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
 import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
@@ -16,8 +17,18 @@ const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
     
-    const { isLoading} = useGetUsersBankQuery()
+    const { getUserBank, isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
+
+    const { walletBalance } = useAppSelector((state) => state.accountSettings)
+
+    const renderBalance:any = (coinName: any) => {
+        const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString() || 0
+    }
+
+
+
 
     const changeIndexOfTab = () => {
         setDefaultTab(() => defaultTab + 1)
@@ -79,6 +90,15 @@ const SellStepTwo = (props:any) => {
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
+        const getUserBank = useGetUsersBankQuery()
+    
+
+
+        const handleRefresh = async () => {
+            console.log("you refreshed me ")
+            getUserBank.refetch()
+            // console.log("this it the resp ", resp)
+        }
 
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg" motionPreset='none'>
@@ -128,7 +148,7 @@ const SellStepTwo = (props:any) => {
                                             />
                                             Add new
                                         </Button>  
-                                        <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={onOpen}>
+                                        <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={handleRefresh}>
                                             <RepeatIcon
                                                 mr="5px"
                                                 color={"#FB5E04"}
@@ -269,12 +289,6 @@ const SellStepTwo = (props:any) => {
     }
 
 
-    // const getAddedBanksIdValues = () => {
-    //     const ids = banks.map((item: any) => item._id)
-    //     for (let i = 0; i < ids.length; i++) {
-    //         banks.push(ids[i])
-    //     }
-    // }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -307,7 +321,7 @@ const SellStepTwo = (props:any) => {
                                     <Text fontSize={"14px"} fontWeight={"400"}>{coin}</Text>
                                 </InputRightElement>
                             </InputGroup>
-                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
+                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>={renderBalance(coin)} {coin}</Text>
                         </Flex>
                         
                         <HStack mt="24px"  w={["100%", "100%", "50%"]}>

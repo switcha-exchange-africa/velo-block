@@ -7,17 +7,24 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
+import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
 import { useGetAddedBankQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
 const BuyStepTwo = (props:any) => {
-    
     const getAddedBanks:any = useGetAddedBankQuery()
-
     const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
-    
+    const { walletBalance } = useAppSelector((state) => state.accountSettings)
+
+    const renderBalance:any = (coinName: any) => {
+        const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString() || 0
+    }
+
+
+
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
         console.log(props)
         return (
@@ -100,7 +107,7 @@ const BuyStepTwo = (props:any) => {
                                     <Text fontSize={"14px"}  fontWeight={"400"}>{coin}</Text>
                                 </InputRightElement>
                             </InputGroup>
-                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
+                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>={renderBalance(coin)} {coin}</Text>
                         </Flex>
                         
                         <HStack mt="24px"  w={["100%", "100%", "50%"]}>

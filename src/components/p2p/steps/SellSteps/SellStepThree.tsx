@@ -38,9 +38,6 @@ const SellStepThree = (props: any) => {
       checkCoin(coin)
     }, [coin])
 
-    console.log(banks)
-    
-
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
     const handleBuyAds = async () => {
