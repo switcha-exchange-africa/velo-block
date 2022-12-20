@@ -7,6 +7,7 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
+import appAlert from '../../../../helpers/appAlert'
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
 import { useDeleteAddedBankMutation, useGetAddedBankQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
