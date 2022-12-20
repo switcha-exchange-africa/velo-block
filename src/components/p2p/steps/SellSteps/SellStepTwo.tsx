@@ -9,14 +9,15 @@ import {
 import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../../helpers/hooks/reduxHooks';
+import { setErrorMessage } from '../../../../redux/features/accountSettings/accounSettingsSlice';
 import { useAddP2pSellAdsBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useGetUsersBankQuery } from '../../../../redux/services/bank.service';
 
 
 const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
-    
+    const dispatch = useAppDispatch()    
     const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
 
@@ -26,7 +27,6 @@ const SellStepTwo = (props:any) => {
         const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
         return obj?.balance?.toLocaleString() || 0
     }
-
 
 
 
@@ -89,7 +89,8 @@ const SellStepTwo = (props:any) => {
     
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
-        console.log(props)
+        
+        dispatch(setErrorMessage({errorMessage: props}))
         const getUserBank = useGetUsersBankQuery()
     
 
