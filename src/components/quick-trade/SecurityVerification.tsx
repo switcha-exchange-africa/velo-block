@@ -3,7 +3,6 @@ import { Field, Form, Formik } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import appAlert from '../../helpers/appAlert'
-import { useAppSelector } from '../../helpers/hooks/reduxHooks'
 import { useConfirmP2pOrderWithCodeMutation, useConfirmP2pOrderWithoutCodeMutation, useLazyGetOrderDetailQuery } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 
