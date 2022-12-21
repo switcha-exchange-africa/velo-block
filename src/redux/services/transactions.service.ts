@@ -19,10 +19,33 @@ export const transactionsApi = baseApi.injectEndpoints({
       providesTags: ["Transactions"],
     }),
 
-  }),
+
+    getTransactionPin: builder.query<any, any>({
+      query: () => `account/transaction-pin`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+      providesTags: ["Transactions"],
+    }),
+
+    createTransactionPin: builder.mutation<any, any>({
+        query: (body) => {
+            return {
+                url: `account/transaction-pin`,
+                method: "POST",
+                body: { ...body },
+            };
+        },
+        transformResponse: (responseData: any) => {
+            return responseData;
+        },
+      }),
+    })
 });
 
 export const {
     useGetActivitiesQuery,
-    useGetAllTransactionsQuery
+  useGetAllTransactionsQuery,
+  useGetTransactionPinQuery,
+  useCreateTransactionPinMutation
 } = transactionsApi;

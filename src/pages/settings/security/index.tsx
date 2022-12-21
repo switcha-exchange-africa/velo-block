@@ -7,14 +7,16 @@ import {
 import SettingsOptionComponent from "../../../components/dashboard/settings/SettingsOptionComponent";
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import { useGetUserQuery } from "../../../redux/services/auth.service";
+import { useGetTransactionPinQuery } from "../../../redux/services/transactions.service";
 
 const Security = () => {
   const router = useRouter();
     
 
-  const {data: getUser} = useGetUserQuery()
+  const { data: getUser } = useGetUserQuery()
+  const {data: getTransactionPin} = useGetTransactionPinQuery()
 
-  console.log("this is the user ", getUser)
+  console.log("this is the user ", getTransactionPin?.data)
   
   return (
     <DashboardLayout title="Settings">

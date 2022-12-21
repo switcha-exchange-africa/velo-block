@@ -15,10 +15,12 @@ import { useRouter } from 'next/router'
 import { useState } from "react"
 import MainAppButton from "../../../../../components/buttons/MainAppButton"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
+import { useCreateTransactionPinMutation } from "../../../../../redux/services/transactions.service"
 
 const VerificationCode = () => {
     const Router = useRouter()
     const [pin, setPin] = useState("")
+    const [createTransactionPin] = useCreateTransactionPinMutation()
 
 
     const validatePin = (value: string,) => {
