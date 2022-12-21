@@ -33,7 +33,7 @@ interface InitialValuesProps {
 const EditAds = (props:any) => {
   const router = useRouter()
   const { singleAds } = useAppSelector((state) => state.accountSettings)
-  console.log("sell ", singleAds)
+  // console.log("sell ", singleAds)
   
   // console.log("this is the singleAds ", singleAds)
 

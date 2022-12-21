@@ -1,11 +1,5 @@
 import { AddIcon, ArrowBackIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
-import {
-  Box, Button, Flex, Heading,
-  Show, Text,
-  HStack,
-  VStack,
-  Spinner
-} from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Show, Text, HStack, VStack, Spinner } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 import { useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
@@ -13,9 +7,7 @@ import uuid from "react-uuid"
 
 const BankAccounts = () => {
     const Router = useRouter()
-
-    const {data:getUsersBank, isLoading} = useGetUsersBankQuery()
-
+    const { data:getUsersBank, isLoading } = useGetUsersBankQuery()
 
     return (
         <DashboardLayout title="Bank account">
@@ -62,15 +54,13 @@ const BankAccounts = () => {
                             color={'black'}
                             ml={'2'}
                         >
-                        Back
+                            Back
                         <Heading size="md"
                             ml={'1rem'}>Profile</Heading>
                         </Button>
-
-                        
                     </Flex>
-                     <Flex justifyContent="flex-end">
 
+                     <Flex justifyContent="flex-end">
                         <Box  p={"11px 22px"} mt="20px" color="white" bg="#FB5E04" border={"0.88px solid #FB5e04"} cursor={"pointer"} borderRadius={"5px"} onClick={() => Router.push('/settings/profile/verification/bank-accounts/add-bank')}>
                             <AddIcon
                                 mr="5px"
@@ -80,11 +70,7 @@ const BankAccounts = () => {
                             />
                             Add Bank
                         </Box>
-
                      </Flex>
-                   
-                    
-
                 </Show>
 
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
@@ -188,21 +174,17 @@ const BankAccounts = () => {
                                             {/* <Text flex="2.2" color="#000000">{bank?.code}</Text> */}
                                         </HStack>
                                     </VStack>
-
                                 </Box>
                             </>    
                         ))
                     )}
-
 
                     {getUsersBank?.data.length === 0 && (
                         <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" p="100px" px="10px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'} textAlign="center">Click the "Add Bank" Button to Add Bank</Text>
                         </Flex>
                     )}                    
-
                 </Box>
-
             </Box>
         </DashboardLayout>
 
