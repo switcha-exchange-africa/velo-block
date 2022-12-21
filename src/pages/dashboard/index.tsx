@@ -94,9 +94,9 @@ const DashboardPage = () => {
   
 
   const checkForTransactionPin = () => {
-    if (getTransactionPin?.data === false) {
+    if (getTransactionPin?.data ===false) {
       appAlert.success("Set up your Withdrawal Pin")
-      router.push("/settings/security")
+      router.push("/settings/security/withdrawal-pin/set-pin")
     }
   }
 
