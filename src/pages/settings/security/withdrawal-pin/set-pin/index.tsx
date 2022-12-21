@@ -14,6 +14,7 @@ import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
 import { useState } from "react"
 import MainAppButton from "../../../../../components/buttons/MainAppButton"
+import appAlert from "../../../../../helpers/appAlert"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 import { useCreateTransactionPinMutation } from "../../../../../redux/services/transactions.service"
 
@@ -74,9 +75,9 @@ const VerificationCode = () => {
                     
                     <HStack width={{ lg: "70%", base: '100%' }}  alignItems={"center"} justifyContent={"space-between"} py={'2rem'} gap={"1rem"}>
                         <Heading size="md"  ml={'1rem'}>Withdrawal Pin</Heading>
-                        <Box  p={"11px 22px"} color="white" bg="#FB5E04" border={"0.88px solid #FB5e04"} cursor={"pointer"} borderRadius={"5px"} onClick={() => Router.push('/settings/security/withdrawal-pin/set-pin')}>
+                        {/* <Box  p={"11px 22px"} color="white" bg="#FB5E04" border={"0.88px solid #FB5e04"} cursor={"pointer"} borderRadius={"5px"} onClick={() => Router.push('/settings/security/withdrawal-pin/set-pin')}>
                             Disable
-                        </Box>
+                        </Box> */}
                     </HStack>
                 </Show>
 
@@ -98,11 +99,11 @@ const VerificationCode = () => {
                         </Button>
                     </Flex>
 
-                     <Flex justifyContent="flex-end">
+                     {/* <Flex justifyContent="flex-end">
                         <Box  p={"11px 22px"} mt="20px" color="white" bg="#FB5E04" border={"0.88px solid #FB5e04"} cursor={"pointer"} borderRadius={"5px"} onClick={() => Router.push('/settings/security/withdrawal-pin/set-pin')}>
                             Disable
                         </Box>
-                     </Flex>
+                     </Flex> */}
                 </Show>
 
 
@@ -121,50 +122,31 @@ const VerificationCode = () => {
                         initialValues={{ pin: "", confirmPin: "" }}
 
                         onSubmit={async (values, { setSubmitting }) => {
-
                             const data = {
-                                pin: values.pin,
-                                confirmPin: values.confirmPin
+                                pin: values.pin
                             }
-                            console.log(data)
+
                             try {
-                                // setSubmitting(true)
-                                // const response: any = await verifyOtp(values.pin)
-                                // if (response?.data?.status == 201 || response?.data?.status == 200) {
-                                //     setSubmitting(false)
-                                //     appAlert.success('Verification Successful')
-                                //     dispatch(setCredentials({ user: response?.data?.data, token: response?.data?.token }))
-                                //     dispatch(clearFromLocalStorage())
-                                //     dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
-                                //     router.replace('/dashboard')
-                                // Router.push('/settings/security/withdrawal-pin/set-pin/success')
-                                // } else {
-                                //     setSubmitting(false)
-                                //     appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
-                                // }
+                                setSubmitting(true)
+                                const response: any = await createTransactionPin(data)
+                                if (response?.data?.status == 201 || response?.data?.status == 200) {
+                                    setSubmitting(false)
+                                    appAlert.success(response?.data?.message)
+                                    Router.push('/settings/security/withdrawal-pin/set-pin/success')
+                                } else {
+                                    setSubmitting(false)
+                                    appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
+                                }
                             } catch (error) {
-                                // setSubmitting(false)
-                                // console.log(error)
+                                setSubmitting(false)
+                                console.log(error)
                             }
-                            // try {
-                            //     await dispatch(verifyOtp(values.pin)).unwrap()
-                            //     localStorage.removeItem('lastname')
-                            //     localStorage.removeItem('email')
-                            //     // router.push('/dashboard')
-                            //     router.replace('/signin')
-
-                            // } catch (error) {
-                            //     console.log(error)
-                            // }
-                            // router.replace('/signin')
-
                         }}
                         validateOnChange
                         validateOnBlur
                         validateOnMount
                     >
                         {({
-                            // submitForm,
                             handleSubmit,
                             isSubmitting,
                             setFieldValue
