@@ -13,6 +13,8 @@ const Security = () => {
     
 
   const {data: getUser} = useGetUserQuery()
+
+  console.log("this is the user ", getUser)
   
   return (
     <DashboardLayout title="Settings">
@@ -62,6 +64,9 @@ const Security = () => {
           <SettingsOptionComponent onClick={() => { router.push('/settings/security/change-password') }} buttonLabel='Change' title='Login Password' >Login password is used to log in to your account</SettingsOptionComponent>
 
           <SettingsOptionComponent buttonLabel='Request' title='Email Change' >Email used to open the account</SettingsOptionComponent>
+
+          <SettingsOptionComponent onClick={() => { router.push('/settings/security/withdrawal-pin') }} buttonLabel='Enable' title='Withdrawal Pin' >Pin for validating Withdrawals</SettingsOptionComponent>
+
 
         </VStack>
       </Box>
