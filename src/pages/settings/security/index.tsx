@@ -67,7 +67,7 @@ const Security = () => {
 
           <SettingsOptionComponent buttonLabel='Request' title='Email Change' >Email used to open the account</SettingsOptionComponent>
 
-          <SettingsOptionComponent onClick={() => { router.push('/settings/security/withdrawal-pin') }} buttonLabel='Enable' title='Withdrawal Pin' >Pin for validating Withdrawals</SettingsOptionComponent>
+          <SettingsOptionComponent onClick={() => { router.push('/settings/security/withdrawal-pin') }} buttonLabel={getTransactionPin?.data === true ? null : "Enable"} title='Withdrawal Pin' >Pin for validating Withdrawals</SettingsOptionComponent>
 
 
         </VStack>
