@@ -127,6 +127,19 @@ export const bankApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    updateUsersBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `bank/${id}`,
+          method: "PUT",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -143,5 +156,6 @@ export const {
   useGetAddedBankBuyTypeQuery,
   useGetUsersBankQuery,
   useDeleteUsersBankMutation,
+  useUpdateUsersBankMutation,
   useGetAddedBankPaginationQuery
 } = bankApi;
