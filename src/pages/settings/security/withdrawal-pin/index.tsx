@@ -3,35 +3,13 @@ import {
   Box, Button, Flex, Heading,
   Show,
   HStack,
-  VStack,
-  Input,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
   Text
 } from '@chakra-ui/react'
-import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
-import appAlert from "../../../../helpers/appAlert"
-import { useAppDispatch } from "../../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../../layouts/dashboard/DashboardLayout"
-import { setOldPassword } from "../../../../redux/features/accountSettings/accounSettingsSlice"
-import { useConfirmOldAccountPasswordMutation } from "../../../../redux/services/2fa.service"
 
 const ChangePassword = () => {
     const Router = useRouter()
-    const dispatch = useAppDispatch();
-
-    const [confirmOldPassword] = useConfirmOldAccountPasswordMutation()
-
-    const validatePassword = (value: string, ) => {
-        let error
-        if (!value) {
-            error = 'Required Field'
-        }
-        return error
-    }
-
     
 
     return (

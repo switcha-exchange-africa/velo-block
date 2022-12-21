@@ -79,10 +79,10 @@ const AuthSuccess = () => {
                           </Box>
                           
                         <HStack mb="24px" justifyContent={"center"}>
-                            <Text fontSize={"14px"} color="#8E9BAE" textAlign="center">You have successfully added Google Authenticator</Text>
+                            <Text fontSize={"14px"} color="#8E9BAE" textAlign="center">You have successfully set your withdrawal pin</Text>
                         </HStack>
                         <HStack>
-                            <MainAppButton isLoading={false} onClick={() => Router.push("/dashboard")} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Dashboard</MainAppButton>
+                            <MainAppButton isLoading={false} onClick={() => Router.push("/dashboard")} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Profile</MainAppButton>
                         </HStack>
                     </Box>
 

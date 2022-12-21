@@ -4,9 +4,7 @@ import {
   Show,
   HStack,
   VStack,
-  Input,
   FormControl,
-  FormLabel,
   FormErrorMessage,
   Text,
   PinInputField,
@@ -107,12 +105,12 @@ const VerificationCode = () => {
 
 
                 {/* this is where the form starts from */}
-                <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
+                <Box  mb="24px" pt={{ md: '0', base: '12' }} >
                     <Box 
                         background={'#FFFFFF'}
-                        width={{ lg: "50%", base: '100%' }}
+                        width={{ lg: "70%", base: '100%' }}
                         justifyContent={"space-between"}
-                        p={"20px"}
+                        p={{ lg: "20px", sm:"20px", base: '20px' }}
                     >
                         <Text fontSize="14px" color="rgba(0, 0, 0, 0.75)">Set the withdrawal Pin that will be used to validate your withdrawals</Text>
 
@@ -137,6 +135,7 @@ const VerificationCode = () => {
                                 //     dispatch(clearFromLocalStorage())
                                 //     dispatch(setEmailVerified({ emailVerified: response?.data?.data?.emailVerified }))
                                 //     router.replace('/dashboard')
+                                // Router.push('/settings/security/withdrawal-pin/set-pin/success')
                                 // } else {
                                 //     setSubmitting(false)
                                 //     appAlert.error(`${response?.error?.data?.message ?? 'An error Occured'}`)
@@ -163,7 +162,7 @@ const VerificationCode = () => {
                         validateOnMount
                     >
                         {({
-                            submitForm,
+                            // submitForm,
                             handleSubmit,
                             isSubmitting,
                             setFieldValue
@@ -171,13 +170,13 @@ const VerificationCode = () => {
                             <Form>
                                 <VStack w={{ lg: 'xs', md: 'sm', base: 'xs' }} align='left' >
                                     
-                                    <Text >Set Pin</Text>
+                                    <Text mt="20px">Set Pin</Text>
                                     <Field name='pin' validate={validatePin}>
                                         {({ field, form }: any) => (
-                                            <FormControl isInvalid={form.errors.pin && form.touched.pin} >
+                                            <FormControl isInvalid={form.errors.pin && form.touched.pin} pb="24px" >
                                                 <HStack justify='space-evenly'  >
                                                 
-                                                <PinInput {...field}
+                                                <PinInput {...field}       
                                                     mask={false}
                                                     onChange={(e) => {
                                                         setFieldValue('pin', e)
@@ -201,7 +200,7 @@ const VerificationCode = () => {
                                     <Text >Confirm Pin</Text>
                                     <Field name='confirmPin' validate={validateConfirmPin}>
                                         {({ field, form }: any) => (
-                                            <FormControl isInvalid={form.errors.confirmPin && form.touched.confirmPin} >
+                                            <FormControl isInvalid={form.errors.confirmPin && form.touched.confirmPin} pb="24px" >
                                                 <HStack justify='space-evenly'  >
                                                 
                                                 <PinInput {...field}
