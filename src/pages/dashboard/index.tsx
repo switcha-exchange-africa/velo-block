@@ -1,5 +1,5 @@
 import { HStack, Heading, Text, Box, Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
