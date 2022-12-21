@@ -7,13 +7,18 @@ import {
 import SettingsOptionComponent from "../../../components/dashboard/settings/SettingsOptionComponent";
 import DashboardLayout from "../../../layouts/dashboard/DashboardLayout";
 import { useGetUserQuery } from "../../../redux/services/auth.service";
+import { useGetTransactionPinQuery } from "../../../redux/services/transactions.service";
+
 
 const Security = () => {
   const router = useRouter();
     
 
-  const {data: getUser} = useGetUserQuery()
+  const { data: getUser } = useGetUserQuery()
+  const {data: getTransactionPin} = useGetTransactionPinQuery()
+
   
+
   return (
     <DashboardLayout title="Settings">
       <Box background={"#F8FAFC"} height={"100vh"} color="black" px={{ md: "10%", base: '0' }}>
@@ -62,6 +67,9 @@ const Security = () => {
           <SettingsOptionComponent onClick={() => { router.push('/settings/security/change-password') }} buttonLabel='Change' title='Login Password' >Login password is used to log in to your account</SettingsOptionComponent>
 
           <SettingsOptionComponent buttonLabel='Request' title='Email Change' >Email used to open the account</SettingsOptionComponent>
+            {getTransactionPin?.data === true ? null : (
+              <SettingsOptionComponent onClick={() => { router.push('/settings/security/withdrawal-pin') }} buttonLabel="Enable" title='Withdrawal Pin' >Pin for validating Withdrawals</SettingsOptionComponent>
+            )}
 
         </VStack>
       </Box>

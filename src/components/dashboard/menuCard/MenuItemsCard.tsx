@@ -12,14 +12,14 @@ type CardProps = {
 
 export const MenuItemsCard = ({ bgColor, title, description, leftIcon, onClick }: CardProps) => {
   return (
-    <Box p="16px 28px" bgColor={bgColor} borderRadius="10px" minW="235px">
+    <Box p="16px 28px" bgColor={bgColor} borderRadius="10px" minW="235px" cursor="pointer" onClick={onClick} >
       <Heading fontSize='xl'>{title}</Heading>
       <Text mt="1px" fontSize="14px">{description}</Text>
       <Flex justifyContent="space-between" mt="23px">
         <Box>
           <Image src={leftIcon} alt="file icon" />
         </Box>
-        <Box onClick={onClick} width="30px" cursor="pointer">
+        <Box width="30px" cursor="pointer">
           <Image src={Arrow} alt="file icon" />
         </Box>
       </Flex>

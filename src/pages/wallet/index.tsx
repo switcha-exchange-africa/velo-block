@@ -17,7 +17,6 @@ import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
 import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
-// import appAlert from "../../helpers/appAlert";
 
 
 function WalletPage() {
@@ -28,15 +27,10 @@ function WalletPage() {
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
-  // const [source, setSource] = useState('BTC')
-  // const [usdConvertedList, setUsdConvertedList] = useState<any>([])
 
   
   const walletsquery: any = useGetWalletsQuery()
-  // console.log("walletsquery is this ", walletsquery)
   
-  // const convertCoinsToUSD = useConvertQuery({ amount: amount, source: source, destination: 'USDC' }, { skip: source == '' || amount == 0, refetchOnMountOrArgChange: true })
-
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
@@ -64,41 +58,27 @@ function WalletPage() {
       if (walletsquery?.data?.data) {
         for (let i = 0; i < walletsquery?.data?.data?.length; i++) {
           const wallet = walletsquery?.data?.data[i]
-          // alert(JSON.stringify(wallet?.coin))
-          // setSource(wallet?.coin)
           if (wallet?.balance == 0) {
             convToUsd.push({ coin: wallet?.coin, usdValue: 0 })
           } else {
             const convert = await convertCoins({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }).unwrap()
-            // dispatch(buySellAPi.endpoints.convert.initiate({ amount: wallet?.balance, source: wallet?.coin, destination: 'USDC' }, { forceRefetch: true, }))
-            // alert(JSON.stringify(convertCoinsToEquivalentUSD))
-            // setAmount(wallet?.balance)
-            // setSource(wallet?.coin)
-            const usdValue = convert?.data?.destinationAmount?.destinationAmount
-            // alert(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
-            // appAlert.warning(JSON.stringify(convert?.data?.destinationAmount?.destinationAmount))
+            const usdValue = convert?.data?.destinationAmount
             convToUsd.push({ coin: wallet?.coin, usdValue })
             if (usdValue) {
               localFuncTotal = localFuncTotal + usdValue
             }
-
           }
         }
-        // setUsdConvertedList(convToUsd)
         setTotal(localFuncTotal)
         const convert = await convertCoins({ amount: localFuncTotal, source: 'USDC', destination: 'BTC' }).unwrap()
-        // dispatch(buySellAPi.endpoints.convert.initiate({ amount: total, source: 'USDC', destination: 'BTC' }, { forceRefetch: true, }))
-        // alert(JSON.stringify(convert))
-        setBtcTotal(convert?.data?.destinationAmount?.destinationAmount)
-
+        setBtcTotal(convert?.data?.destinationAmount)
       }
     }
     convertCoinsToEquivalentUSD()
   }, [convertCoins, walletsquery])
 
+
   useEffect(() => {
-    // alert(JSON.stringify(walletsquery?.error?.data?.status))
-    // setTotal(0)
 
   }, [total])
 
@@ -116,15 +96,6 @@ function WalletPage() {
   const btnRef = useRef(null);
   const router = useRouter()
   const dispatch = useAppDispatch()
-  // if (walletsquery?.isFetching) {
-  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
-  // }
-  // if (walletsquery?.error && walletsquery?.error?.data?.status == 401) {
-
-  //   // appAlert.warning('Session Expired, please sign in again')
-  //   return <LoginPage />
-
-  // }
 
 
 
@@ -177,7 +148,7 @@ function WalletPage() {
                     marginTop={"12px"}
                     justify={{ sm: "space-between", md: "space-evenly" }}
                   >
-                    <WrapItem>
+                    {/* <WrapItem>
                       <Button
                         background={"#FB5E04"}
                         color={"#fff"}
@@ -196,9 +167,9 @@ function WalletPage() {
                       <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
                         Transfer
                       </Button>
-                    </WrapItem>
+                    </WrapItem> */}
                     <WrapItem>
-                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }}>
+                      <Button background={"#8E9BAE"} color={"#fff"} size={{ md: "md", base: 'sm' }} onClick={()=> router.push("/dashboard/recent-transactions")}>
                         History
                       </Button>
                     </WrapItem>

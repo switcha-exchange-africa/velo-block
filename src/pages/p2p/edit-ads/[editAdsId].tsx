@@ -33,7 +33,7 @@ interface InitialValuesProps {
 const EditAds = (props:any) => {
   const router = useRouter()
   const { singleAds } = useAppSelector((state) => state.accountSettings)
-  console.log("sell ", singleAds)
+  // console.log("sell ", singleAds)
   
   // console.log("this is the singleAds ", singleAds)
 
@@ -468,8 +468,7 @@ const EditAds = (props:any) => {
         <form onSubmit={handleSubmit}>
 
           <FormControl>
-          
-
+        
             <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
               <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}}>
                 <VStack alignItems="flex-start">

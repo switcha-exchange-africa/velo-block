@@ -1,5 +1,5 @@
 import { HStack, Heading, Text, Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import {  useState } from "react";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
@@ -10,8 +10,8 @@ import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useRouter } from "next/router";
 import MainAppButton from "../../components/buttons/MainAppButton";
-
-
+import { useGetTransactionPinQuery } from "../../redux/services/transactions.service";
+import appAlert from "../../helpers/appAlert";
 
 
 const DashboardPage = () => {
@@ -87,6 +87,22 @@ const DashboardPage = () => {
     }
   }
   const router = useRouter()
+
+    
+  const {data: getTransactionPin} = useGetTransactionPinQuery()
+  
+  
+
+  const checkForTransactionPin = () => {
+    if (getTransactionPin?.data === false) {
+      appAlert.success("Set up your Withdrawal Pin")
+      router.push("/settings/security")
+    }
+  }
+
+  checkForTransactionPin()
+
+
 
   return (
     <DashboardLayout title="Dashboard">

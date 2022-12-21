@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import appAlert from '../../../../helpers/appAlert'
-import { useAddP2pBuyAdsBankMutation, useGetAddedBankQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service'
+import { useAddP2pBuyAdsBankMutation, useGetAddedBankBuyTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service'
 
 interface BankProps {
     bankName: string,
@@ -19,10 +19,8 @@ interface SearchInput {
 }
 
 const SearchInput = ({onClose}: SearchInput) => {
-
     const {data:getBanks, isLoading} = useGetNigerianBankQuery()
     const searchOptions = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O","P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
     const [filter, setFilter] = useState("")
     const searchText = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value)
@@ -33,7 +31,7 @@ const SearchInput = ({onClose}: SearchInput) => {
     })
 
     // the get request to fetch all added banks
-    const getAddedBanks = useGetAddedBankQuery()
+    const getAddedBanks = useGetAddedBankBuyTypeQuery()
 
     // the post request mutaution
     const [ addP2pBuyAdsBank ] = useAddP2pBuyAdsBankMutation()

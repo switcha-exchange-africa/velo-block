@@ -7,7 +7,8 @@ interface AccountState {
     code: string,
     secretKey: string,
     url: string,
-    authenticator: string
+    authenticator: string,
+    phoneNumber: string
 }
 
 const initialState: AccountState = {
@@ -17,7 +18,8 @@ const initialState: AccountState = {
     code: "",
     secretKey: "",
     url: "",
-    authenticator: ""
+    authenticator: "",
+    phoneNumber: ""
 }
 
 
@@ -48,7 +50,11 @@ export const accountSlice = createSlice({
 
         setAuthenticator: (state, { payload: { authenticator } }: PayloadAction<{ authenticator: any }>) => {
             state.authenticator = authenticator
-        }
+        },
+
+        setPhoneNumber: (state, { payload: { phoneNumber } }: PayloadAction<{ phoneNumber: any }>) => {
+            state.phoneNumber = phoneNumber
+        },
 
     },
 });
@@ -60,7 +66,8 @@ export const {
     setOldPassword,
     setCode,
     setAuthSecurity,
-    setAuthenticator
+    setAuthenticator,
+    setPhoneNumber
 } = accountSlice.actions
 
 

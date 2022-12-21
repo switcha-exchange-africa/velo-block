@@ -7,23 +7,23 @@
 import { useRouter } from 'next/router';
     import { MouseEventHandler, useEffect, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
-import { useGetAddedBankQuery } from '../../../../redux/services/bank.service';
+import { useGetAddedBankBuyTypeQuery } from '../../../../redux/services/bank.service';
 import { useCreateBuyAdsMutation } from '../../../../redux/services/p2p-ads.service';
+import MainAppButton from '../../../buttons/MainAppButton';
 import Status from '../../radioGroup/Status';
 
 const BuyStepThree = (props: any) => {
     const router = useRouter()
-    const {handlePreviousStep, price, coin, priceType, values, banks} = props;
+    const {handlePreviousStep, price, coin, cash, priceType, paymentTimeLimit, values, banks} = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState('Online right now')
-    const getAddedBanks:any = useGetAddedBankQuery()
+    const getAddedBanks:any = useGetAddedBankBuyTypeQuery()
     
 
     const [remark, setRemark] = useState("")
     const [kyc, setKyc] = useState(true)
     const [registeredZeroDaysAgo, setRegisteredZeroDaysAgo] = useState(false)
     const [moreThanDot1Btc, setMoreThanDot1Btc] = useState(false)
-    
     let [changeUSDTtronCoin, setChangeUSDTtronCoin] = useState(coin)
 
     const checkCoin = (coin:string) => {
@@ -41,13 +41,19 @@ const BuyStepThree = (props: any) => {
 
     const [postP2pBuyAds] = useCreateBuyAdsMutation()
     
+
+    const[load, setLoading] = useState(false)
+
+
     const handleBuyAds = async () => {
+        setLoading(true)
+        
         const data = {
             type: "buy",
-            cash: "NGN",
+            cash: cash,
             coin: changeUSDTtronCoin,
             remark: remark,
-            paymentTimeLimit: values.paymentTimeLimit,
+            paymentTimeLimit: paymentTimeLimit,
             priceType: priceType,
             price: parseFloat(price),
             totalAmount: parseFloat(values.totalAmount),
@@ -64,9 +70,11 @@ const BuyStepThree = (props: any) => {
         if (response?.data?.status == 200) {
             onClose()
             router.push("/p2p")
+            setLoading(false)
             appAlert.success(`${response?.data?.message}`)    
         } if (response?.data?.status != 200) {
             appAlert.error(`${response?.error?.data?.message}`)
+            setLoading(false)
             onClose()
         } 
     }
@@ -101,7 +109,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Currency</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -117,7 +125,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Floating</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;NGN</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{price ? parseFloat(price)?.toLocaleString() : price}&nbsp;{cash}</Text>
                             </VStack>
 
                         </HStack>
@@ -143,7 +151,7 @@ const BuyStepThree = (props: any) => {
                             </VStack>
                             <VStack alignItems={"flex-start"}>
                                 <Text fontSize={"14px"} fontWeight={"600"} color="#8E9BAE">Payment Time Limit</Text>
-                                <Text fontSize={"14px"} fontWeight={"600"}>15 min</Text>
+                                <Text fontSize={"14px"} fontWeight={"600"}>{paymentTimeLimit} Mins</Text>
                             </VStack>
                         </HStack>
 
@@ -168,9 +176,11 @@ const BuyStepThree = (props: any) => {
                             <Button borderRadius={"5px"} border={ "0.88px solid #8E9BAE"} onClick={onClose}  bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"}>
                                 Cancel
                             </Button>
-                            <Button borderRadius={"5px"} onClick={handleBuyAds}  bg={"#FB5E04"} color={"white"} p={"11px 30px"} fontSize={"14px"} >
+
+                            <MainAppButton onClick={handleBuyAds} width="150px" isLoading={load} backgroundColor={'primaryColor.900'} >
                                 Confirm to Post
-                            </Button>
+                            </MainAppButton>
+                            
                         </Flex>
                     </ModalBody>
 

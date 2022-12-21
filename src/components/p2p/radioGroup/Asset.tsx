@@ -19,6 +19,7 @@ const Asset = ({coin,setCoin}: AssetProps) => {
             return item.coin
         }
     })
+
     
    
     const { getRootProps, getRadioProps } = useRadioGroup({

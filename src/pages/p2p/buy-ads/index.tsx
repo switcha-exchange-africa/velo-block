@@ -10,20 +10,21 @@ interface InitialValuesProps {
     totalAmount: string
     minLimit: string
     maxLimit: string
-    paymentTimeLimit: string
 }
 
 const BuyAds = () => {
     const [currentStep, setCurrentStep] = useState(1)
     const [coin, setCoin] = useState('BTC')
+    const [cash, setCash] = useState("NGN")
     const [priceType, setPriceType] = useState('fixed')
     const [price, setPrice] = useState<any>(0)
+    const [paymentTimeLimit, setPaymentTimeLimit] = useState(`15`)
+    
     
     const initialValues:InitialValuesProps = {
         totalAmount: "",
         minLimit: "",
         maxLimit: "",
-        paymentTimeLimit: "15"
     }
 
     const [values, setValues] = useState(initialValues)
@@ -46,6 +47,8 @@ const BuyAds = () => {
                         handleNextStep={handleNextStep}
                         coin={coin}
                         setCoin={setCoin}
+                        cash={cash}
+                        setCash={setCash}
                         price={price}
                         setPrice={setPrice}
                         priceType={priceType}
@@ -53,6 +56,7 @@ const BuyAds = () => {
                     />
                 )
             }
+                
             case 2: {
                 return (
                     <BuyStepTwo
@@ -61,16 +65,21 @@ const BuyAds = () => {
                         handleNextStep={handleNextStep}
                         values={values}
                         setValues={setValues}
+                        paymentTimeLimit={paymentTimeLimit}
+                        setPaymentTimeLimit={setPaymentTimeLimit}
                         banks={banks}
                     />
                 )
             }
+                
             case 3: {
                 return (
                     <BuyStepThree
                         handlePreviousStep={handlePreviousStep}
                         coin={coin}
+                        cash={cash}
                         price={price}
+                        paymentTimeLimit={paymentTimeLimit}
                         priceType={priceType}
                         handleNextStep={handleNextStep}
                         values={values}
