@@ -15,7 +15,6 @@ const BankAccounts = () => {
 
         
     const handleBankDelete = async (id: string) => {
-        console.log(getUsersBank)
         const obj:any = getUsersBank?.data?.data?.find((o:any) => o._id === id);
         const data = {
             id: obj?._id,
@@ -24,7 +23,6 @@ const BankAccounts = () => {
             code: obj?.code,
             accountNumber: obj?.accountNumber
         }
-        console.log("this is the obj", id)
 
         const resp = await deleteAddedBank(data)
         console.log("this is the response ")
@@ -34,7 +32,21 @@ const BankAccounts = () => {
         getUsersBank.refetch()
     }
 
+    const handleEdit = (id: string) => {
+        const obj:any = getUsersBank?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
 
+        Router.push("/settings/profile/verification/bank-accounts/edit-bank")        
+
+
+
+    } 
 
     return (
         <DashboardLayout title="Bank account">
@@ -126,7 +138,7 @@ const BankAccounts = () => {
                                             
                                         </VStack>
                                         <VStack flex="0.5" justifyContent="space-between">
-                                            <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  p={"5px 11px"} onClick={() => handleEdit(bank?._id)} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
                                                 <EditIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -167,7 +179,7 @@ const BankAccounts = () => {
                                         <HStack w="100%" alignItems="flex-start">
                                             <Text flex="1" color="#8E9BAE">Name</Text>
                                             <Text flex="1.76" color="#000000">{bank?.accountName} </Text>
-                                            <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  p={"5px 11px"} onClick={() => handleEdit(bank?._id)} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
                                                 <EditIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
