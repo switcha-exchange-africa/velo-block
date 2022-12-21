@@ -106,6 +106,8 @@ const SellStepTwo = (props:any) => {
         getAddedBankSellType.refetch()
     }
 
+    const [dataObj, setDataObj] = useState<any>({})
+
 
     const handleEdit = (id:string) => {
         const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
@@ -125,6 +127,27 @@ const SellStepTwo = (props:any) => {
         setDefaultTab(() => defaultTab + 2)
     }
 
+
+    // const [bankName]
+
+    
+//     const initialValues:InitialValuesProps = {
+//       totalAmount: singleAds?.totalAmount,
+//       minLimit: singleAds?.minLimit,
+//       maxLimit: singleAds?.maxLimit,
+//       paymentTimeLimit: "15"
+//   }
+
+
+    // const [values, setValues] = useState(initialValues)
+  
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setDataObj({
+            ...values,
+            [name]: value,
+        })
+    }
 
     const [accountNumber, setAccountNumber] = useState("")
     const [accountName, setAccountName] = useState("")
