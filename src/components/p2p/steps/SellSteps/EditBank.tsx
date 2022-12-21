@@ -11,7 +11,7 @@ import { useAddP2pSellAdsBankMutation, useDeleteAddedBankMutation, useGetAddedBa
 import MainAppButton from '../../../buttons/MainAppButton';
 
 
-const EditBank = () => {
+const EditBank = ({dataObj} : any) => {
 
     const {data:getBanks} = useGetNigerianBankQuery()
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
@@ -25,29 +25,7 @@ const EditBank = () => {
     }
 
 
-
-    const [dataObj, setDataObj] = useState<any>({})
-
-    // const [bankName]
-
     
-//     const initialValues:InitialValuesProps = {
-//       totalAmount: singleAds?.totalAmount,
-//       minLimit: singleAds?.minLimit,
-//       maxLimit: singleAds?.maxLimit,
-//       paymentTimeLimit: "15"
-//   }
-
-
-    // const [values, setValues] = useState(initialValues)
-  
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
-        setDataObj({
-            ...values,
-            [name]: value,
-        })
-    }
 
     return (
        <form onSubmit={handleEditSubmit}>
