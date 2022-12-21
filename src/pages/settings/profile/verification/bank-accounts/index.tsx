@@ -5,11 +5,13 @@ import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
 import { useDeleteUsersBankMutation, useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
 import uuid from "react-uuid"
 import appAlert from "../../../../../helpers/appAlert"
+import { useAppDispatch } from "../../../../../helpers/hooks/reduxHooks"
+import { setAccountInfo } from "../../../../../redux/features/accountSettings/accounSettingsSlice"
 
 const BankAccounts = () => {
     const Router = useRouter()
     const getUsersBank = useGetUsersBankQuery()
-
+    const dispatch = useAppDispatch()
     const [deleteAddedBank] =   useDeleteUsersBankMutation()
 
 
@@ -41,6 +43,8 @@ const BankAccounts = () => {
             code: obj?.code,
             accountNumber: obj?.accountNumber
         }
+
+        dispatch(setAccountInfo({accountInfo: data}))
 
         Router.push("/settings/profile/verification/bank-accounts/edit-bank")        
 
