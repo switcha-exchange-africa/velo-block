@@ -20,7 +20,7 @@ export const transactionsApi = baseApi.injectEndpoints({
     }),
 
 
-    getTransactionPin: builder.query<any, any>({
+    getTransactionPin: builder.query<any, void>({
       query: () => `account/transaction-pin`,
       transformResponse: (responseData: any) => {
         return responseData;

@@ -16,13 +16,13 @@ import { useState } from "react"
 import MainAppButton from "../../../../../components/buttons/MainAppButton"
 import appAlert from "../../../../../helpers/appAlert"
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
-import { useCreateTransactionPinMutation } from "../../../../../redux/services/transactions.service"
+import { useCreateTransactionPinMutation, useGetTransactionPinQuery } from "../../../../../redux/services/transactions.service"
 
 const VerificationCode = () => {
     const Router = useRouter()
     const [pin, setPin] = useState("")
     const [createTransactionPin] = useCreateTransactionPinMutation()
-
+    const getTransactionPin = useGetTransactionPinQuery()
 
     const validatePin = (value: string,) => {
         let error
@@ -132,6 +132,7 @@ const VerificationCode = () => {
                                 if (response?.data?.status == 201 || response?.data?.status == 200) {
                                     setSubmitting(false)
                                     appAlert.success(response?.data?.message)
+                                    getTransactionPin.refetch()
                                     Router.push('/settings/security/withdrawal-pin/set-pin/success')
                                 } else {
                                     setSubmitting(false)
