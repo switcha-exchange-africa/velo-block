@@ -9,6 +9,10 @@ const BankAccounts = () => {
     const Router = useRouter()
     const { data:getUsersBank, isLoading } = useGetUsersBankQuery()
 
+    const handleDelete = () => {
+
+    }
+
     return (
         <DashboardLayout title="Bank account">
             <Box
@@ -109,7 +113,7 @@ const BankAccounts = () => {
                                                 Edit
                                             </Box>
 
-                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} onClick={handleDelete}  >
                                                 <DeleteIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -158,7 +162,7 @@ const BankAccounts = () => {
                                         <HStack w="100%"  alignItems="flex-start">
                                             <Text flex="1" color="#8E9BAE">Bank name</Text>
                                             <Text flex="1.79" color="#000000" >{bank?.name} </Text>
-                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} onClick={handleDelete}>
                                                 <DeleteIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}

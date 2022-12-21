@@ -163,6 +163,7 @@ const DashboardPage = () => {
           pageNumber={pageNumber}
           handlePageReset={handlePageReset}
         />
+        
       ) : (
         <SellCoin
           handlePreviousPage={handlePreviousPage}

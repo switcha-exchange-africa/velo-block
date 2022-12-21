@@ -30,7 +30,8 @@ const BuyP2p = ({
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data:usdt_tron } = useGetBuyAdsQuery({arg: "USDT-TRON", pageNumber: `${pageNumber}`})
+    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT-TRON", pageNumber: `${pageNumber}` })
+    
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()
