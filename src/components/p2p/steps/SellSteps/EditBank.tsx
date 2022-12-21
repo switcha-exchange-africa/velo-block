@@ -6,6 +6,7 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
     Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage, Tooltip
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { useAddP2pSellAdsBankMutation, useDeleteAddedBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service';
 import MainAppButton from '../../../buttons/MainAppButton';
 
@@ -16,7 +17,38 @@ const EditBank = () => {
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
     const [deleteAddedBank] = useDeleteAddedBankMutation()
+    const [load, setLoad] = useState(false)
         
+
+    const handleEditSubmit = (e) => {
+        e.preventDefault()
+    }
+
+
+
+    const [dataObj, setDataObj] = useState<any>({})
+
+    // const [bankName]
+
+    
+//     const initialValues:InitialValuesProps = {
+//       totalAmount: singleAds?.totalAmount,
+//       minLimit: singleAds?.minLimit,
+//       maxLimit: singleAds?.maxLimit,
+//       paymentTimeLimit: "15"
+//   }
+
+
+    // const [values, setValues] = useState(initialValues)
+  
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setDataObj({
+            ...values,
+            [name]: value,
+        })
+    }
+
     return (
        <form onSubmit={handleEditSubmit}>
             <FormControl>
@@ -66,6 +98,8 @@ const EditBank = () => {
 
                     </VStack>
                 </Box>
+
+
                 <HStack px="20px" py="12px"  justifyContent={"space-between"}>
                     <MainAppButton  width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
                         <AddIcon
@@ -86,6 +120,9 @@ const EditBank = () => {
                         Cancel
                     </Button>  
                 </HStack>
+
+
+
             </FormControl>
         </form>
     )
