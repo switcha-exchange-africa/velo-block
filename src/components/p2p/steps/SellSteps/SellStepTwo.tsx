@@ -106,40 +106,62 @@ const SellStepTwo = (props:any) => {
     }
 
 
-
-    // const [dataObj, setDataObj] = useState<any>({})
-
-    // // const [bankName]
-
-    // const handleChange = () => {
-
-    // }
-
-
-    // const handleEdit = (id:string) => {
-    //     const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
-    //     const data = {
-    //         id: obj?._id,
-    //         name: obj?.name,
-    //         accountName: obj.accountName,
-    //         code: obj?.code,
-    //         accountNumber: obj?.accountNumber
-    //     }
+    const handleEdit = (id:string) => {
+        const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
 
 
 
-    //     console.log("this is the data ", data)
-    //     setDataObj(data)
+        console.log("this is the data ", data)
+        setDataObj(data)
 
-    //     setDefaultTab(() => defaultTab + 2)
-    // }
+        setDefaultTab(() => defaultTab + 2)
+    }
+
+    const [dataObj, setDataObj] = useState<any>({})
+
+    // const [bankName]
+
+    
+//     const initialValues:InitialValuesProps = {
+//       totalAmount: singleAds?.totalAmount,
+//       minLimit: singleAds?.minLimit,
+//       maxLimit: singleAds?.maxLimit,
+//       paymentTimeLimit: "15"
+//   }
+
+
+    // const [values, setValues] = useState(initialValues)
+  
+    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        setDataObj({
+            ...values,
+            [name]: value,
+        })
+    }
+
+    const [accountNumber, setAccountNumber] = useState("")
+    const [accountName, setAccountName] = useState("")
+    const [bankName, setBankName] = useState("")
+
+
+
+    
+
 
     const [load, setLoad] = useState(false)
 
 
-    // const handleEditSubmit = (e:any) => {
-    //     e.preventDefault()
-    // }
+    const handleEditSubmit = (e:any) => {
+        e.preventDefault()
+    }
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
@@ -179,10 +201,10 @@ const SellStepTwo = (props:any) => {
                                                                 Delete
                                                             </Text>
                                                             <Text color="#FB5E04" ml="30px"
-                                                                // onClick={(e) => {
-                                                                //     e.stopPropagation()
-                                                                //     handleEdit(bank?._id)
-                                                                // }}
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation()
+                                                                    handleEdit(bank?._id)
+                                                                }}
                                                             >Edit</Text>
                                                         </Flex>
                                                     </HStack>
@@ -442,76 +464,7 @@ const SellStepTwo = (props:any) => {
                                         )}
 
                                     </Formik> */}
-                                    {/* <form onSubmit={handleEditSubmit}>
-
-                                        <FormControl>
-                                            <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
                                     
-                                                <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
-                                                    
-                                                    <FormControl >
-                                                        <FormLabel>Bank</FormLabel>
-                                                        <Select
-                                                            value={dataObj?.name}        
-                                                            placeholder='Select Bank'
-                                                            cursor="pointer"
-                                                            iconSize={"10px"}
-                                                            icon={<TriangleDownIcon />}            
-                                                        >
-                                                            {getBanks?.map((item: any, index: number) => (
-                                                                <option key={index} value={item?.bankName}>{item?.bankName}</option>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-
-                                                    <FormControl  pt='4'>
-                                                        <FormLabel>Account Number</FormLabel>
-                                                        <Input
-                                                            value={dataObj.accountNumber}
-                                                            onChange={handleChange}
-                                                            type="number"
-                                                            placeholder="215xxxxx900"
-                                                        />
-                                                    </FormControl>
-                                            
-                                            
-                                                    <FormControl  pt='4'>
-                                                        <FormLabel>Account Name</FormLabel>
-                                                        <Input
-                                                            value={dataObj?.accountName}
-                                                            onChange={handleChange}
-                                                            type="text"
-                                                            placeholder="John Doe"
-                                                        />
-                                                       
-                                                    </FormControl>
-                                            
-
-                                                </VStack>
-                                            </Box>
-                                            <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                                <MainAppButton onClick={handleSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
-                                                    <AddIcon
-                                                        mr="5px"
-                                                        color={"white"}
-                                                        w={"10px"}
-                                                        h={"10px"}
-                                                    />
-                                                    Edit Bank
-                                                </MainAppButton>
-                                                
-                                                <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
-                                                    <CloseIcon
-                                                        mr="5px"
-                                                        color={"#FB5E04"}
-                                                        w={"10px"}
-                                                        h={"10px"}
-                                                    />
-                                                    Cancel
-                                                </Button>  
-                                            </HStack>
-                                        </FormControl>
-                                    </form> */}
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>
