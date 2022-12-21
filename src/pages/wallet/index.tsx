@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash"
-import {Box, Heading, Text, Button, Avatar, useDisclosure, Wrap, WrapItem, Flex, Spinner, Table, Thead, Tbody, Tr, Th, Td, TableContainer, HStack } from "@chakra-ui/react";
+import {Box, Heading, Text, Button, useDisclosure, Wrap, WrapItem, Flex, Spinner, Table, Thead, Tbody, Tr, Th, Td, TableContainer, HStack } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 import { useRouter } from "next/router";
