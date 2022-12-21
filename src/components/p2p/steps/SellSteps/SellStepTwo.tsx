@@ -128,7 +128,7 @@ const SellStepTwo = (props:any) => {
     const [load, setLoad] = useState(false)
 
 
-    const handleEditSubmit = (e) => {
+    const handleEditSubmit = (e:any) => {
         e.preventDefault()
     }
 
