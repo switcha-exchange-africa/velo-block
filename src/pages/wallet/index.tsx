@@ -13,7 +13,7 @@ import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
-import remoteImages from "../../constants/remoteImages";
+// import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
 import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
