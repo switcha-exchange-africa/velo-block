@@ -6,8 +6,8 @@ import {
 } from "@chakra-ui/react";
 import Congratulations from "../../../../../../../../public/assets/svgs/congratulations.svg"
 import Image from "next/image";
-import MainAppButton from "../../../../../../../../components/buttons/MainAppButton";
-import DashboardLayout from "../../../../../../../../layouts/dashboard/DashboardLayout";
+import MainAppButton from "../../../../../../components/buttons/MainAppButton";
+import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout";
 
 const AuthSuccess = () => {
   const Router = useRouter();
@@ -82,7 +82,7 @@ const AuthSuccess = () => {
                             <Text fontSize={"14px"} color="#8E9BAE" textAlign="center">You have successfully added Google Authenticator</Text>
                         </HStack>
                         <HStack>
-                            <MainAppButton isLoading={false} onClick={() => router.push("/dashboard")} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Dashboard</MainAppButton>
+                            <MainAppButton isLoading={false} onClick={() => Router.push("/dashboard")} size={{ base: "sm", md: 'md' }} width={{ base: '100%', md: '100%' }}>Dashboard</MainAppButton>
                         </HStack>
                     </Box>
 
