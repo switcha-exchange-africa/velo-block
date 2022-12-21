@@ -159,7 +159,7 @@ const AddBankAccounts = () => {
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
                                                     <FormLabel>Account Number</FormLabel>
-                                                    <Input {...field} type="number" placeholder="215xxxxx900"/>
+                                                    <Input {...field} type="text" placeholder="215xxxxx900"/>
                                                     <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
                                                 </FormControl>
                                             )}
