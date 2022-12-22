@@ -26,12 +26,13 @@ const BankAccounts = () => {
             accountNumber: obj?.accountNumber
         }
 
-        const resp = await deleteAddedBank(data)
-        console.log("this is the response ")
-        if(resp) {
-            appAlert.success("Bank Removed")
-        }
-        getUsersBank.refetch()
+        const response = await deleteAddedBank(data)
+        if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+            appAlert.success(response?.data?.message)
+            getUsersBank.refetch()
+        } else {
+            appAlert.error(response?.error?.data?.message)
+        } 
     }
 
     const handleEdit = (id: string) => {
@@ -45,11 +46,7 @@ const BankAccounts = () => {
         }
 
         dispatch(setAccountInfo({accountInfo: data}))
-
         Router.push("/settings/profile/verification/bank-accounts/edit-bank")        
-
-
-
     } 
 
     return (

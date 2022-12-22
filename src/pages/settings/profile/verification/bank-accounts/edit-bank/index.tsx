@@ -19,23 +19,19 @@ const AddBankAccounts = () => {
     const [accountNumber, setAccountNumber] = useState(accountInfo?.accountNumber)
     const [accountName, setAccountName] = useState(accountInfo?.accountName)
     const [name, setName] = useState(accountInfo?.name)
-    const fetchAllUsersBank = useGetUsersBankQuery()
-console.log(accountInfo)
-    
+    const fetchAllUsersBank = useGetUsersBankQuery()    
+    const [load, setLoad] = useState(false)
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-
-        
+        setLoad(true)
         let res = name
         let filteredBank =  getBanks?.filter(function(bank:any) {
             return bank.bankName === res;
         });
     
         let codeValue = filteredBank.map((code: any) => code?.bankCode)
-
         let newItem = codeValue[0]
-
 
         const data = {
             id: accountInfo?.id,
@@ -45,14 +41,14 @@ console.log(accountInfo)
             code: newItem
         }
 
-
-        console.log("this is the data ", data)
         const response:any = await updateBank(data)
         if (response?.data?.status == 200 || response?.data?.status == 201 ) {
             appAlert.success(response?.data?.message)
             fetchAllUsersBank.refetch()
+            setLoad(false)
             Router.back()
         } else {
+            setLoad(false)
             appAlert.error(response?.error?.data?.message)
         } 
     }
@@ -244,7 +240,7 @@ console.log(accountInfo)
                                 </FormControl>
 
 
-                                <Button mt="24px"  type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
+                                <Button mt="24px" isLoading={load}  type="submit" p={"11px 22px"} color="white" bg="#FB5E04" cursor={"pointer"} borderRadius={"5px"} >
                                     <AddIcon
                                         mr="5px"
                                         color={"white"}
