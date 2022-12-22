@@ -22,6 +22,8 @@ const AddBankAccounts = () => {
     const fetchAllUsersBank = useGetUsersBankQuery()    
     const [load, setLoad] = useState(false)
 
+    console.log("this is the name ", name)
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setLoad(true)
@@ -207,7 +209,7 @@ const AddBankAccounts = () => {
                                 <FormControl>
                                     <FormLabel>Bank</FormLabel>
                                         <Select
-                                            defaultValue={name}  
+                                            value={name}  
                                             onChange={(e) =>setName(e.target.value)}
                                         placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
                                     >

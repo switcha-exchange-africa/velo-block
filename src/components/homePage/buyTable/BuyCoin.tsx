@@ -340,6 +340,7 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             </Flex>}              
                     </TabPanel>
 
+                    
                     {/* Tab panel 5 */}
                     <TabPanel px={["0", "0px", "28px", "28px"]}>
                         {usdt_tron?.data?.length !== 0 ? (

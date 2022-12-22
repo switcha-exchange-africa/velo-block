@@ -41,13 +41,13 @@ const BuyP2p = ({
         return percent
     }
 
+    console.log("this is the page NUmber ", pageNumber)
 
     const handleOpen = (id: string, apiData: any) => {
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
             onOpen()
-
           }
     }
 
@@ -279,9 +279,7 @@ const BuyP2p = ({
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -290,10 +288,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -302,9 +297,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -313,9 +306,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -324,9 +315,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
