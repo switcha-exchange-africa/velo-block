@@ -22,8 +22,6 @@ const NotifyTraders = () => {
     
     const today = moment().valueOf()
     
-    
-    // console.log("this is the orderDetail ", orderDetail)
 
 
     return (
@@ -91,7 +89,7 @@ const NotifyTraders = () => {
                                         </Flex>
                                         <Flex flexDirection={'column'} pr={'8'}>
                                             <Text fontSize={'xs'} color={'#64748B'}>Quantity</Text>
-                                            <Text fontSize={'sm'} >{orderDetail?.data?.data?.quantity} {orderDetail?.data?.data?.ad[0]?.coin}</Text>
+                                            <Text fontSize={'sm'} >{orderDetail?.data?.data?.quantity} {orderDetail?.data?.data?.ad[0]?.coin==="USDT_TRON" ? "USDT-TRON" : orderDetail?.data?.data?.ad[0]?.coin}</Text>
                                         </Flex>
                                     </Flex>
                                 </Flex>
@@ -197,7 +195,7 @@ const NotifyTraders = () => {
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
                                     >
-                                        Comfirm Release
+                                        Confirm Release
                                     </Text>
 
                                     <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
@@ -226,7 +224,7 @@ const NotifyTraders = () => {
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
                                     >
-                                        Comfirm Release</Text>
+                                        Confirm Release</Text>
                                         <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
                                         <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
                                     </Flex>

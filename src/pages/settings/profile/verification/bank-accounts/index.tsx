@@ -2,12 +2,52 @@ import { AddIcon, ArrowBackIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import { Box, Button, Flex, Heading, Show, Text, HStack, VStack, Spinner } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import DashboardLayout from "../../../../../layouts/dashboard/DashboardLayout"
-import { useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
+import { useDeleteUsersBankMutation, useGetUsersBankQuery } from "../../../../../redux/services/bank.service"
 import uuid from "react-uuid"
+import appAlert from "../../../../../helpers/appAlert"
+import { useAppDispatch } from "../../../../../helpers/hooks/reduxHooks"
+import { setAccountInfo } from "../../../../../redux/features/accountSettings/accounSettingsSlice"
 
 const BankAccounts = () => {
     const Router = useRouter()
-    const { data:getUsersBank, isLoading } = useGetUsersBankQuery()
+    const getUsersBank = useGetUsersBankQuery()
+    const dispatch = useAppDispatch()
+    const [deleteAddedBank] =   useDeleteUsersBankMutation()
+
+
+        
+    const handleBankDelete = async (id: string) => {
+        const obj:any = getUsersBank?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
+
+        const response:any = await deleteAddedBank(data)
+        if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+            appAlert.success(response?.data?.message)
+            getUsersBank.refetch()
+        } else {
+            appAlert.error(response?.error?.data?.message)
+        } 
+    }
+
+    const handleEdit = (id: string) => {
+        const obj:any = getUsersBank?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
+
+        dispatch(setAccountInfo({accountInfo: data}))
+        Router.push("/settings/profile/verification/bank-accounts/edit-bank")        
+    } 
 
     return (
         <DashboardLayout title="Bank account">
@@ -74,8 +114,8 @@ const BankAccounts = () => {
                 </Show>
 
                 <Box px={{ md: '0', base: '4' }} mb="24px" pt={{ md: '0', base: '12' }} >
-                    {isLoading ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> :(
-                        getUsersBank?.data?.map((bank: any) => (      
+                    {getUsersBank.isFetching ? <Flex w={{ md: "3xl", base: 'sm' }} h={'2xs'} alignItems={'center'} justifyContent={'center'}><Spinner color='primaryColor.900' size={'xl'} thickness={'2px'} /></Flex> :(
+                        getUsersBank?.data?.data?.map((bank: any) => (      
                             <>
                                 <Box
                                     key={uuid()} 
@@ -99,7 +139,7 @@ const BankAccounts = () => {
                                             
                                         </VStack>
                                         <VStack flex="0.5" justifyContent="space-between">
-                                            <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  p={"5px 11px"} onClick={() => handleEdit(bank?._id)} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
                                                 <EditIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -109,7 +149,7 @@ const BankAccounts = () => {
                                                 Edit
                                             </Box>
 
-                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} onClick={()=> handleBankDelete(bank?._id)}  >
                                                 <DeleteIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -120,16 +160,12 @@ const BankAccounts = () => {
                                             </Box>
                                         </VStack>
 
-                                        <HStack >
-                                            {/* <Text flex="1" color="#8E9BAE">Transactions</Text> */}
-                                            {/* <Text flex="2.2" color="#000000">{bank?.code}</Text> */}
-                                        </HStack>
                                     </Flex>
 
                                 </Box>
 
                                 <Box
-                                    key={bank?._id} 
+                                    key={uuid()} 
                                     background={'#FFFFFF'}
                                     width={{ lg: "70%", base: '100%' }}
                                     justifyContent={"space-between"}
@@ -140,7 +176,7 @@ const BankAccounts = () => {
                                         <HStack w="100%" alignItems="flex-start">
                                             <Text flex="1" color="#8E9BAE">Name</Text>
                                             <Text flex="1.76" color="#000000">{bank?.accountName} </Text>
-                                            <Box  p={"5px 11px"} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  p={"5px 11px"} onClick={() => handleEdit(bank?._id)} color="#fc1f00" bg="transparent" border={"0.88px solid #FB5e04"} fontSize="14px" cursor={"pointer"} borderRadius={"5px"} >
                                                 <EditIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -158,7 +194,7 @@ const BankAccounts = () => {
                                         <HStack w="100%"  alignItems="flex-start">
                                             <Text flex="1" color="#8E9BAE">Bank name</Text>
                                             <Text flex="1.79" color="#000000" >{bank?.name} </Text>
-                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} >
+                                            <Box  color="#fc1f00" bg="transparent" cursor={"pointer"} borderRadius={"5px"} onClick={()=> handleBankDelete(bank?._id)}>
                                                 <DeleteIcon
                                                     mr="5px"
                                                     color={"#fc1f00"}
@@ -179,7 +215,7 @@ const BankAccounts = () => {
                         ))
                     )}
 
-                    {getUsersBank?.data.length === 0 && (
+                    {getUsersBank?.data?.data?.length === 0 && (
                         <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" p="100px" px="10px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'} textAlign="center">Click the "Add Bank" Button to Add Bank</Text>
                         </Flex>

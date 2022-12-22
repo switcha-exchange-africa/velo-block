@@ -285,7 +285,7 @@ const SellStepTwo = (props:any) => {
                                                         {({ field, form }: any) => (
                                                             <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
                                                                 <FormLabel>Account Number</FormLabel>
-                                                                <Input {...field} type="number" placeholder="215xxxxx900"/>
+                                                                <Input {...field} type="text" placeholder="215xxxxx900"/>
                                                                 <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
                                                             </FormControl>
                                                         )}
@@ -452,7 +452,7 @@ const SellStepTwo = (props:any) => {
 
                                                     <FormControl  pt='4'>
                                                         <FormLabel>Account Number</FormLabel>
-                                                        <Input defaultValue={dataObj.accountNumber} type="number" placeholder="215xxxxx900" />
+                                                        <Input defaultValue={dataObj.accountNumber} type="text" placeholder="215xxxxx900" />
                                                         
                                                     </FormControl>
                                             
