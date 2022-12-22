@@ -22,8 +22,6 @@ const NotifyTraders = () => {
     
     const today = moment().valueOf()
     
-    
-    // console.log("this is the orderDetail ", orderDetail)
 
 
     return (
