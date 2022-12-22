@@ -1,16 +1,25 @@
 import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Select, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useGetFeesQuery } from '../../../redux/services/p2p-ads.service';
 
 interface P2pTopfilterProps {
     routeName?: string,
-    coinName?: string
+    coinName?: string,
+    amount: string,
+    setAmount: () => void
 }
 
-const P2pTopfilter = ({routeName, coinName}: P2pTopfilterProps) => {
+const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProps) => {
     const router = useRouter();
     const getFees = useGetFeesQuery("p2p-buy")
+    console.log(coinName)
 
+    const handleSubmit = (e: any) => {
+
+        console.log("this is the amount ", amount)
+        setAmount("")
+    }
 
     return (
         <>
@@ -23,21 +32,26 @@ const P2pTopfilter = ({routeName, coinName}: P2pTopfilterProps) => {
                 <Flex alignItems={"flex-end"}  wrap={"wrap"} gap="20px" >
                     <Box >
                         <Text fontSize={"xs"} mb="10px">Amount</Text>
-                        <InputGroup size="sm">
-                            <Input
-                                borderTopLeftRadius={"5px"}
-                                borderBottomLeftRadius={"5px"}
-                                // width="250px"
-                                placeholder={`Enter Amount  ${coinName}` }
-                            />
+                        <form >
 
-                            <InputRightElement width={{ md: '70px', base: '36' }}  >
-                                <Flex alignItems="center">
-                                    <Divider orientation='vertical' h='25px' mr="5px" />
-                                    <Text cursor={'pointer'}  fontSize={'sm'} color={"#FB5E04"} >Search</Text>
-                                </Flex>
-                            </InputRightElement>
-                        </InputGroup>
+                            <InputGroup size="sm" >
+                                <Input
+                                    borderTopLeftRadius={"5px"}
+                                    borderBottomLeftRadius={"5px"}
+                                    // width="250px"
+                                    placeholder={`Enter Amount`}  
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    // placeholder={`Enter Amount  ${coinName}` }
+                                />
+                                <InputRightElement width={{ md: '70px', base: '70px' }}  >
+                                    <Flex alignItems="center">
+                                        <Divider orientation='vertical' h='25px' mr="5px" />
+                                        <Text cursor={'pointer'}  fontSize={'sm'} color={"#FB5E04"} onClick={handleSubmit}>Search</Text>
+                                    </Flex>
+                                </InputRightElement>
+                            </InputGroup>    
+                        </form>
                         </Box>
                     <Box>
                     <Text fontSize={"xs"} mb="10px">Fiat</Text>
