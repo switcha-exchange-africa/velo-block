@@ -26,7 +26,7 @@ const BankAccounts = () => {
             accountNumber: obj?.accountNumber
         }
 
-        const response = await deleteAddedBank(data)
+        const response:any = await deleteAddedBank(data)
         if (response?.data?.status == 200 || response?.data?.status == 201 ) {
             appAlert.success(response?.data?.message)
             getUsersBank.refetch()
