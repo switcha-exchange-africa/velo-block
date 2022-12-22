@@ -15,8 +15,7 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
     const getFees = useGetFeesQuery("p2p-buy")
     console.log(coinName)
 
-    const handleSubmit = (e: any) => {
-
+    const handleSubmit = () => {
         console.log("this is the amount ", amount)
         setAmount("")
     }
