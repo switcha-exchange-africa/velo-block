@@ -7,7 +7,7 @@ interface P2pTopfilterProps {
     routeName?: string,
     coinName?: string,
     amount: string,
-    setAmount: () => void
+    setAmount: (e:any) => void
 }
 
 const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProps) => {
