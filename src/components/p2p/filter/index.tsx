@@ -1,5 +1,6 @@
 import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Select, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
+import { useGetFeesQuery } from '../../../redux/services/p2p-ads.service';
 
 interface P2pTopfilterProps {
     routeName?: string
@@ -7,7 +8,9 @@ interface P2pTopfilterProps {
 
 const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
     const router = useRouter();
-    
+    const getFees = useGetFeesQuery("p2p-buy")
+
+
     return (
         <>
             <Flex
@@ -64,7 +67,7 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                         padding={"5px 20px"}
                         borderRadius={"5px"}
                     >
-                        <Text>0.5 % Fee</Text>
+                        <Text>{getFees?.data?.data?.amountInPercentage}% Fee</Text>
                     </Box>
                 </Flex>
                 <Box
@@ -73,7 +76,7 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                     padding={"5px 20px"}
                     borderRadius={"5px"}
                 >
-                    <Text>0.5% Fee</Text>
+                    <Text>{getFees?.data?.data?.amountInPercentage}% Fee</Text>
                 </Box>
             </Flex>
         </>

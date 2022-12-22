@@ -46,10 +46,9 @@ const BuyP2p = ({
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            console.log("this is the modal Data, trying again ", modalData)
             onOpen()
-        
-        }
+
+          }
     }
 
 
@@ -57,7 +56,6 @@ const BuyP2p = ({
     const amounts = 0
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
-    // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
     const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
 
     const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: modalData?.coin?.toLowerCase() == 'btc' ? 'bitcoin' : modalData?.coin?.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
