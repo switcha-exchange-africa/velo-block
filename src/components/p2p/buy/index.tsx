@@ -27,12 +27,13 @@ const BuyP2p = ({
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const [amount, setAmount] = useState("")
-    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT_TRON", pageNumber: `${pageNumber}` })
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT_TRON", pageNumber: `${pageNumber}`, amount: `${amount}` })
     
+    // console.log("this is eth ", eth)
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()

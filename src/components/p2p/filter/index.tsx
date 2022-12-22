@@ -1,6 +1,5 @@
 import { Box, Button, Divider, Flex, Input, InputGroup, InputRightElement, Select, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { useGetFeesQuery } from '../../../redux/services/p2p-ads.service';
 
 interface P2pTopfilterProps {
@@ -15,9 +14,11 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
     const getFees = useGetFeesQuery("p2p-buy")
     console.log(coinName)
 
+
+
     const handleSubmit = () => {
         console.log("this is the amount ", amount)
-        setAmount("")
+        // setAmount("")
     }
 
     return (
