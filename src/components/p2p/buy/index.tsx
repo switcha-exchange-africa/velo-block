@@ -30,7 +30,7 @@ const BuyP2p = ({
     const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT-TRON", pageNumber: `${pageNumber}` })
+    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT_TRON", pageNumber: `${pageNumber}` })
     
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
@@ -41,8 +41,6 @@ const BuyP2p = ({
         return percent
     }
 
-    console.log("this is the page NUmber ", pageNumber)
-
     const handleOpen = (id: string, apiData: any) => {
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
@@ -50,6 +48,7 @@ const BuyP2p = ({
             onOpen()
           }
     }
+
 
 
 
@@ -326,7 +325,7 @@ const BuyP2p = ({
 
                 <TabPanels>
                     <TabPanel paddingLeft={0} >                        
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' coinName="BTC"/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy BTC"
@@ -341,8 +340,9 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
+                    
                     <TabPanel paddingLeft={0}>    
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' coinName="ETH"/>
                         {eth?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy ETH"
@@ -358,7 +358,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDT"
@@ -374,7 +374,7 @@ const BuyP2p = ({
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDC"
@@ -390,7 +390,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' coinName="USDT-TRON"/>
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDT-TRON"
