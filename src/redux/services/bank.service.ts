@@ -114,6 +114,32 @@ export const bankApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    deleteUsersBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `bank/${id}`,
+          method: "DELETE",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    updateUsersBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `bank/${id}`,
+          method: "PUT",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -129,5 +155,7 @@ export const {
   useGetAddedBankSellTypeQuery,
   useGetAddedBankBuyTypeQuery,
   useGetUsersBankQuery,
+  useDeleteUsersBankMutation,
+  useUpdateUsersBankMutation,
   useGetAddedBankPaginationQuery
 } = bankApi;

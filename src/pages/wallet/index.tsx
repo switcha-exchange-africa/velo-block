@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import _ from "lodash"
-import {Box, Heading, Text, Button, Avatar, useDisclosure, Wrap, WrapItem, Flex, Spinner, Table, Thead, Tbody, Tr, Th, Td, TableContainer, HStack } from "@chakra-ui/react";
+import {Box, Heading, Text, Button, useDisclosure, Wrap, WrapItem, Flex, Spinner, Table, Thead, Tbody, Tr, Th, Td, TableContainer, HStack } from "@chakra-ui/react";
 import WalletDepositDrawer from "../../components/dashboard/wallet/WalletDepositDrawer";
 import WalletWithdrawDrawer from "../../components/dashboard/wallet/WalletWithdrawDrawer";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
-import remoteImages from "../../constants/remoteImages";
+// import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
 import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
@@ -359,6 +359,7 @@ function WalletPage() {
                       alignItems={"center"}
                       padding="12px 12px"
                       height="250px"
+                      
                     >
                       Activities will appear here    
                     </Box>
@@ -415,9 +416,10 @@ function RecentTransaction(props:any) {
               alignItems={"flex-start"}
               padding="12px 10px"
               key={transaction?._id}
+              height="30px"
             >
               <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-                {transaction?.coin === "BTC" && (
+                {/* {transaction?.coin === "BTC" && (
                   <Avatar
                     name="Bitcoin"
                     src={remoteImages.bitcoinLogo}
@@ -452,11 +454,11 @@ function RecentTransaction(props:any) {
                     src={remoteImages.tronlogo}
                     size="sm"
                   />
-                )}
+                )} */}
                 <Box w="100%">
-                  <Text fontSize="xs" fontWeight={"700"}>
+                  {/* <Text fontSize="xs" fontWeight={"700"}>
                     {transaction?.coin === "USDT_TRON" ? "USDT-TRON" : transaction?.coin}
-                  </Text>
+                  </Text> */}
                   <Text color={"#64748B"} fontSize="sm"  >
                     {transaction?.description}
                   </Text>
