@@ -452,7 +452,7 @@ const SellStepTwo = (props:any) => {
 
                                                     <FormControl  pt='4'>
                                                         <FormLabel>Account Number</FormLabel>
-                                                        <Input defaultValue={dataObj.accountNumber} type="number" placeholder="215xxxxx900" />
+                                                        <Input defaultValue={dataObj.accountNumber} type="text" placeholder="215xxxxx900" />
                                                         
                                                     </FormControl>
                                             
