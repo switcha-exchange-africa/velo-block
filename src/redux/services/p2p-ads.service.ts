@@ -68,7 +68,7 @@ export const adsOrdersApi = baseApi.injectEndpoints({
         }),
 
         getP2pAllAdsFilter: builder.query<any, any>({
-            query: ({userId, pageNumber, type, status, coin}) => `p2p/ads?userId=${userId}&perpage=5&page=${pageNumber}&type=${type}&status=${status}&coin=${coin}`,
+            query: ({userId, pageNumber, type, status, coin, createdAt}) => `p2p/ads?userId=${userId}&perpage=5&page=${pageNumber}&type=${type}&status=${status}&coin=${coin}&createdAt=${createdAt}`,
             transformResponse: (responseData: any) => {
                 return responseData;
             },

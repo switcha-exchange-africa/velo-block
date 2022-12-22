@@ -26,6 +26,8 @@ const AllAds = () => {
     const [orderType, setOrderType] = useState(`buy/sell`)
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
+    const [date, setDate] = useState("")
+
     const { user } = useAppSelector((state) => state.auth)
     const [pageNumber, setPageNumber] = useState(1)
     
@@ -34,16 +36,18 @@ const AllAds = () => {
     const data = {
         coinType: coinType,
         statusType: statusType,
-        orderType: orderType
+        orderType: orderType,
+        date: date
     }
     console.log("this is the data ", data)
     // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
-    const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType)})
-    
+    const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType), createdAt: date})
+    console.log("this is the getallAds ", getAllAds)
     const handleReset = () => {
         setOrderType(`buy/sell`)
         setCoinType(`All Assets`)
         setStatusType(`All Status`)
+        setDate("")
     }
 
     const handlePreviousPage = () => {
@@ -177,6 +181,7 @@ const AllAds = () => {
                                     <option value={'All Status'}>All Status</option>
                                     <option value={'pending'}>Pending</option>
                                     <option value={'partial'}>Partial</option>
+                                    <option value={'filled'}>Filled</option>
                                     <option value={'processing'}>Processing</option>
                                     <option value={'completed'}>Completed</option>
                                     <option value={'expired'}>Expired</option>
@@ -189,7 +194,7 @@ const AllAds = () => {
                                 <Text fontWeight={'medium'} color={'#64748B'}>Created Time</Text>
                                 
                                 <Flex mt={'3'} alignItems="center">
-                                    <Input  fontSize={{ base: '12px', md: 'md' }} type="date" />
+                                    <Input  fontSize={{ base: '12px', md: 'md' }} type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                                     <Button mx="25px" color="#FB5e04" bg="transparent" _hover={{ bg: "transparent"}} border="1px solid #FB5E04">Filter</Button>
                                     <Button bg="transparent" _hover={{ bg: "transparent"}} onClick={handleReset}>Reset</Button >
                                 </Flex>
