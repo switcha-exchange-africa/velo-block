@@ -1,6 +1,6 @@
 import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
-  Box, Button, Flex, Heading, Show, HStack, VStack,
+  Box, Button, Flex, Heading, Show, HStack,
   Input, Select, FormControl, FormLabel
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -8,18 +8,19 @@ import { useState } from "react"
 import appAlert from "../../../../../../helpers/appAlert"
 import { useAppSelector } from "../../../../../../helpers/hooks/reduxHooks"
 import DashboardLayout from "../../../../../../layouts/dashboard/DashboardLayout"
-import { useAddBankMutation, useGetNigerianBankQuery, useGetUsersBankQuery, useUpdateUsersBankMutation } from "../../../../../../redux/services/bank.service"
+import { useGetNigerianBankQuery, useGetUsersBankQuery, useUpdateUsersBankMutation } from "../../../../../../redux/services/bank.service"
 
 
 const AddBankAccounts = () => {
     const Router = useRouter()
     const {data:getBanks} = useGetNigerianBankQuery()
     const {accountInfo} =  useAppSelector((state) => state.accountSettings)
-    const updateBank = useUpdateUsersBankMutation()
+    const [updateBank] = useUpdateUsersBankMutation()
     const [accountNumber, setAccountNumber] = useState(accountInfo?.accountNumber)
     const [accountName, setAccountName] = useState(accountInfo?.accountName)
     const [name, setName] = useState(accountInfo?.name)
-
+    const fetchAllUsersBank = useGetUsersBankQuery()
+console.log(accountInfo)
     
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,6 +38,7 @@ const AddBankAccounts = () => {
 
 
         const data = {
+            id: accountInfo?.id,
             name: name,
             accountName: accountName,
             accountNumber: accountNumber,
@@ -51,15 +53,10 @@ const AddBankAccounts = () => {
             fetchAllUsersBank.refetch()
             Router.back()
         } else {
-                appAlert.error(response?.error?.data?.message)
+            appAlert.error(response?.error?.data?.message)
         } 
     }
     
-    
-    
-    const [addBank] = useAddBankMutation()
-    const fetchAllUsersBank = useGetUsersBankQuery()
-
 
     return (
         <DashboardLayout title="Edit bank account">
