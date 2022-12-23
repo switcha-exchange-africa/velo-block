@@ -182,9 +182,6 @@ const AllAds = () => {
                                     <option value={'pending'}>Pending</option>
                                     <option value={'partial'}>Partial</option>
                                     <option value={'filled'}>Filled</option>
-                                    <option value={'processing'}>Processing</option>
-                                    <option value={'completed'}>Completed</option>
-                                    <option value={'expired'}>Expired</option>
                                 </Select>
                             </Flex>
                         </Flex>
