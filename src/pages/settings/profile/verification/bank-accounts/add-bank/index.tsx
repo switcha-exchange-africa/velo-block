@@ -119,6 +119,7 @@ const AddBankAccounts = () => {
                                     accountNumber: values.accountNumber.toString(),
                                     code: newItem
                                 }
+
                                 const response:any = await addBank(data)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
                                     appAlert.success(response?.data?.message)

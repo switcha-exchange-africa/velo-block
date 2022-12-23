@@ -15,26 +15,45 @@ import More from "../../../../public/assets/svgs/more.svg"
 import SelectedMore from "../../../../public/assets/svgs/selectedMenu.svg"
 import mobileOrders from "../../../../public/assets/svgs/mobileOrders.svg"
 import mobileMore from "../../../../public/assets/svgs/mobileMore.svg"
-import { useGetP2pAllAdsQuery } from '../../../redux/services/p2p-ads.service'
+import {   useGetP2pAllAdsFilterQuery } from '../../../redux/services/p2p-ads.service'
 import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import { P2pAds } from '../../../components/p2p/ads/P2pAds'
-
+import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
+import uuid from "react-uuid"
 
 const AllAds = () => {
     const router = useRouter()
-    const [orderType, setOrderType] = useState(`Buy/Sell`)
+    const [orderType, setOrderType] = useState(`buy/sell`)
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
+    const [date, setDate] = useState("")
+
     const { user } = useAppSelector((state) => state.auth)
     const [pageNumber, setPageNumber] = useState(1)
     
+    const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     
-    const getAllAds = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
+    // const data = {
+    //     coinType: coinType,
+    //     statusType: statusType,
+    //     orderType: orderType,
+    //     date: date
+    // }
+    // console.log("this is the data ", data)
+    // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
+    const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType), createdAt: date})
+    // console.log("this is the getallAds ", getAllAds)
+    const handleReset = () => {
+        setOrderType(`buy/sell`)
+        setCoinType(`All Assets`)
+        setStatusType(`All Status`)
+        setDate("")
+    }
+
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
     }
 
-    // console.log(getAllAds)
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1)
     }
@@ -134,7 +153,10 @@ const AllAds = () => {
                                 <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={coinType} onChange={(e) => {
                                     setCoinType(e.target.value);
                                 }}>
-                                    <option value={'buy'}>All Assets</option>
+                                    <option value={'All Assets'}>All Assets</option>
+                                    {coinsByTypeCrypto?.data?.data?.map((item:any) => {
+                                        return <option key={uuid()} value={item?.coin}>{item?.coin==="USDT_TRON" ? "USDT-TRON" : item?.coin}</option>
+                                    })}
                                 </Select>
 
                             </Flex>
@@ -156,7 +178,13 @@ const AllAds = () => {
                                 <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
                                     setStatusType(e.target.value);
                                 }}>
-                                    <option value={'buy'}>All Status</option>
+                                    <option value={'All Status'}>All Status</option>
+                                    <option value={'pending'}>Pending</option>
+                                    <option value={'partial'}>Partial</option>
+                                    <option value={'filled'}>Filled</option>
+                                    <option value={'processing'}>Processing</option>
+                                    <option value={'completed'}>Completed</option>
+                                    <option value={'expired'}>Expired</option>
                                 </Select>
                             </Flex>
                         </Flex>
@@ -166,9 +194,9 @@ const AllAds = () => {
                                 <Text fontWeight={'medium'} color={'#64748B'}>Created Time</Text>
                                 
                                 <Flex mt={'3'} alignItems="center">
-                                    <Input  fontSize={{ base: '12px', md: 'md' }} type="date" />
+                                    <Input  fontSize={{ base: '12px', md: 'md' }} type="date" value={date} onChange={(e) => setDate(e.target.value)} />
                                     <Button mx="25px" color="#FB5e04" bg="transparent" _hover={{ bg: "transparent"}} border="1px solid #FB5E04">Filter</Button>
-                                    <Button bg="transparent" _hover={{ bg: "transparent"}}>Reset</Button >
+                                    <Button bg="transparent" _hover={{ bg: "transparent"}} onClick={handleReset}>Reset</Button >
                                 </Flex>
                             </Flex>
                         </form>

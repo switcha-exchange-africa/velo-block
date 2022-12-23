@@ -3,13 +3,23 @@ import { useRouter } from 'next/router';
 import { useGetFeesQuery } from '../../../redux/services/p2p-ads.service';
 
 interface P2pTopfilterProps {
-    routeName?: string
+    routeName?: string,
+    coinName?: string,
+    amount: string,
+    setAmount: (e:any) => void
 }
 
-const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
+const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProps) => {
     const router = useRouter();
     const getFees = useGetFeesQuery("p2p-buy")
+    console.log(coinName)
 
+
+
+    const handleSubmit = () => {
+        console.log("this is the amount ", amount)
+        // setAmount("")
+    }
 
     return (
         <>
@@ -20,22 +30,28 @@ const P2pTopfilter = ({routeName}: P2pTopfilterProps) => {
                 mb="40px"
             >
                 <Flex alignItems={"flex-end"}  wrap={"wrap"} gap="20px" >
-                    <Box>
+                    <Box >
                         <Text fontSize={"xs"} mb="10px">Amount</Text>
-                        <InputGroup size="sm">
-                            <Input
-                                borderTopLeftRadius={"5px"}
-                                borderBottomLeftRadius={"5px"}
-                                placeholder="Enter amount NGN"
-                            />
+                        <form >
 
-                            <InputRightElement width={{ md: '70px', base: '36' }}  >
-                                <Flex alignItems="center">
-                                    <Divider orientation='vertical' h='25px' mr="5px" />
-                                    <Text cursor={'pointer'}  fontSize={'sm'} color={"#FB5E04"} >Search</Text>
-                                </Flex>
-                            </InputRightElement>
-                        </InputGroup>
+                            <InputGroup size="sm" >
+                                <Input
+                                    borderTopLeftRadius={"5px"}
+                                    borderBottomLeftRadius={"5px"}
+                                    // width="250px"
+                                    placeholder={`Enter Amount`}  
+                                    value={amount}
+                                    onChange={(e) => setAmount(e.target.value)}
+                                    // placeholder={`Enter Amount  ${coinName}` }
+                                />
+                                <InputRightElement width={{ md: '70px', base: '70px' }}  >
+                                    <Flex alignItems="center">
+                                        <Divider orientation='vertical' h='25px' mr="5px" />
+                                        <Text cursor={'pointer'}  fontSize={'sm'} color={"#FB5E04"} onClick={handleSubmit}>Search</Text>
+                                    </Flex>
+                                </InputRightElement>
+                            </InputGroup>    
+                        </form>
                         </Box>
                     <Box>
                     <Text fontSize={"xs"} mb="10px">Fiat</Text>

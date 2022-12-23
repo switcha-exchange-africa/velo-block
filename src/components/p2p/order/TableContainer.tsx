@@ -12,7 +12,6 @@ export const TableContainerComponent = ({ data}: any) => {
         router.push('/p2p/order/'+orderId)
     }
     
-    console.log("this is the dta ", data)
 
     return (
         <>

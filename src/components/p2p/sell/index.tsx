@@ -29,7 +29,9 @@ import MainAppButton from '../../buttons/MainAppButton';
 const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageReset}: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetSellAdsQuery({arg: "USDT" , pageNumber: `${pageNumber}`})
+    
+    const [amount, setAmount] = useState("")
+    const { data: usdt } = useGetSellAdsQuery({ arg: "USDT", pageNumber: `${pageNumber}` })
     const { data:usdc } = useGetSellAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
     const { data:eth } = useGetSellAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
     const { data:btc } = useGetSellAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
@@ -284,32 +286,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                                 </Box>
                                                 <Box>
                                                     <Text fontSize={"xs"}>Payment Method </Text>
-                                                    {/* <Flex
-                                                        alignItems={"center"}
-                                                        justifyContent="space-between"
-                                                        border={"1px solid #E2E8F0"}
-                                                        padding="5px 10px"
-                                                        borderRadius={"5px"}
-                                                        mb={"10px"}
-                                                    >
-                                                        <Box display={"flex"} gap="10px" alignItems={"center"}>
-                                                        <Text
-                                                            fontSize={"10px"}
-                                                            textAlign={"center"}
-                                                            background={"#FFF7F2"}
-                                                            color={"#FB5E04"}
-                                                            borderRadius={"3px"}
-                                                        >
-                                                            Bank Transfer
-                                                        </Text>
-                                                        <Text fontSize={"xs"}>1522574741</Text>
-                                                        </Box>
-                                                        <Box>
-                                                        <Text fontSize={"sm"}>NGN</Text>
-                                                        </Box>
-                                                    </Flex> */}
-
-
+                                                   
                                                 </Box>
                                                 <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} w="100%" borderBottom={'1px'} p={'1'} borderRadius={'md'}  mb={'1'} borderColor={'#E2E8F0'}>
                                                     <Menu closeOnSelect={true}>
@@ -359,15 +336,6 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
 
                                                 <Flex gap={"10px"} justifyContent="center" mt="25px">
                                                     <Button onClick={onClose}>Cancel</Button>
-                                                    {/* <Button
-                                                        type="submit"
-                                                        color={"#fff"}
-                                                        background={"#EB4335"}
-                                                    >
-                                                        Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
-                                                    </Button> */}
-
-                                                    {/* <MainApp */}
                                                     
                                                     <MainAppButton  isLoading={isSubmitting} onClick={handleSubmit} width="50%" backgroundColor={'#EB4335'} >
                                                         Sell {modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}
@@ -447,7 +415,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                 <TabPanels>
                     <TabPanel paddingLeft={0}>
                         
-                        <P2pTopfilter routeName='sell-ads'/>
+                        <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName=""/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="SELL BTC"
@@ -463,7 +431,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>    
-                        <P2pTopfilter routeName='sell-ads'/>
+                        <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         
                         {eth?.data?.length !== 0 ? (
                             <TableComponent
@@ -480,7 +448,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='sell-ads'/>
+                        <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="SELL USDT"
@@ -496,7 +464,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='sell-ads'/>
+                        <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="SELL USDC"
@@ -514,6 +482,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
 
                     {/* Tab panel 5 */}
                     <TabPanel paddingLeft={0}>
+                        <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
+                        
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="SELL USDT-TRON"
