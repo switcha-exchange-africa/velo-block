@@ -27,7 +27,6 @@ const AllAds = () => {
     const [coinType, setCoinType] = useState(`All Assets`)
     const [statusType, setStatusType] = useState(`All Status`)
     const [date, setDate] = useState("")
-
     const { user } = useAppSelector((state) => state.auth)
     const [pageNumber, setPageNumber] = useState(1)
     
@@ -37,7 +36,7 @@ const AllAds = () => {
     //     coinType: coinType,
     //     statusType: statusType,
     //     orderType: orderType,
-    //     date: date
+    //     date: dateBB
     // }
     // console.log("this is the data ", data)
     // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})

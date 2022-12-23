@@ -24,19 +24,6 @@ const AdsOrders = () => {
     const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin, orderType: "p2p"})
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
-    // console
-    console.log("this is the client for p2p ads ", filterClientOrderByTypeAndStatus)
-
-
-
-    // const [coinType, setCoinType] = useState(`All Coins`)
-    // const clientOrders = useGetP2pOrderForClientsQuery()
-    // const merchantOrders = useGetP2pOrderForMerchantsQuery()
-    // const { amount, cash, coin, creditCoinAmount} = useAppSelector((state) => state.quickTrade
-    // // useGetFilterForMerchantQuery
-    // console.log("chekc this data out bro ", filterClientOrderByTypeAndStatus.data)
-
-
     return (
         <DashboardLayout title='Orders'>
              <Tabs variant='unstyled'>
@@ -95,7 +82,13 @@ const AdsOrders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        router.push('/quick-trade/order/'+orderId)
+        const obj = data.find((item:any) => item.orderId === orderId)
+        if (obj.type === "buy") {
+            router.push('/p2p/buy/'+orderId)
+    
+        } else {
+            router.push('/p2p/sell/'+orderId)
+        }
     }
     
     return (
