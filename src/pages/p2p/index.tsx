@@ -18,10 +18,12 @@ const P2P = () => {
       color2: "#8E9BAE"
   })
 
-  const handleOrderRoute = () => {
+  const handleAdsRoute = () => {
     router.push("/p2p/ads")
   }
-  
+  const handleOrdersRoute = () => {
+    router.push("/p2p/ads/orders")
+  }
     const handleSelect = (id: string) => {
         if (id === "1") {
         setSelectedId(id)
@@ -65,7 +67,7 @@ const P2P = () => {
         padding="10px 5px"
         bg="white"
       >
-        <Flex justifyContent={"space-between"} alignItems="center">
+        <Flex justifyContent={"space-between"} alignItems="center" >
           <HStack px={["0", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
             <HStack>
                 <Text cursor="pointer" fontWeight="bold" color={color.color1} onClick={()=> handleSelect("1")}>Buy</Text>
@@ -74,18 +76,34 @@ const P2P = () => {
             </HStack>  
         </HStack>
         
-          <Text
-            textDecoration={"underline"}
-            color={"#FB5E04"}
-            fontSize={"16px"}
-            cursor="pointer"
-            _hover={{
-              color: "#fb5e09"
-            }}
-            onClick={handleOrderRoute}
-          >
-            See Your Ads
-          </Text>
+          <Flex>
+            <Text
+              textDecoration={"underline"}
+              color={"#FB5E04"}
+              fontSize={"16px"}
+              cursor="pointer"
+              _hover={{
+                color: "#fb5e09"
+              }}
+              onClick={handleAdsRoute}
+            >
+              See Your Ads
+            </Text>
+
+            <Text
+              marginLeft="30px"
+              textDecoration={"underline"}
+              color={"#FB5E04"}
+              fontSize={"16px"}
+              cursor="pointer"
+              _hover={{
+                color: "#fb5e09"
+              }}
+              onClick={handleOrdersRoute}
+            >
+              See Your Orders
+            </Text>
+          </Flex>
           
         </Flex>
 

@@ -84,7 +84,7 @@ export const p2pApi = baseApi.injectEndpoints({
     }),
 
     getP2pOrderFilterForClient: builder.query<any, any>({
-      query: ({type, status, coin}) => `p2p/order/client/?type=${type}&status=${status}&coin=${coin}`,
+      query: ({type, status, coin, orderType}) => `p2p/order/client/?type=${type}&status=${status}&coin=${coin}&orderType=${orderType}`,
       transformResponse: (responseData: any) => {
         return responseData;
       },

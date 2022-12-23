@@ -6,27 +6,27 @@ import moment from 'moment'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import RenderCoinComponent from '../../../components/dashboard/wallet/RenderCoinComponent'
-import RenderCoinsDropdown from '../../../components/select/RenderCoinsDropdown'
-import { checkValidToken } from '../../../helpers/functions/checkValidToken'
-import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
-import DashboardLayout from '../../../layouts/dashboard/DashboardLayout'
-import { useGetCoinsByTypeQuery } from '../../../redux/services/buy-sell.service'
-import { useGetP2pOrderFilterForClientQuery, useGetP2pOrderFilterForMerchantQuery } from '../../../redux/services/p2p.service'
+import RenderCoinComponent from '../../../../components/dashboard/wallet/RenderCoinComponent'
+import RenderCoinsDropdown from '../../../../components/select/RenderCoinsDropdown'
+import { checkValidToken } from '../../../../helpers/functions/checkValidToken'
+import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
+import DashboardLayout from '../../../../layouts/dashboard/DashboardLayout'
+import { useGetCoinsByTypeQuery } from '../../../../redux/services/buy-sell.service'
+import { useGetP2pOrderFilterForClientQuery, useGetP2pOrderFilterForMerchantQuery } from '../../../../redux/services/p2p.service'
 
 
-const Orders = () => {
+const AdsOrders = () => {
     const [orderType, setOrderType] = useState(`buy/sell`)
     const { isClientSelected, coin } = useAppSelector((state) => state.quickTrade)
     const [statusType, setStatusType] = useState(`All Status`)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
-    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin, orderType: "quick-trade"})
+    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin, orderType: "p2p"})
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
 
-    console.log("this is the client ", filterClientOrderByTypeAndStatus)
-
     // console
+    console.log("this is the client for p2p ads ", filterClientOrderByTypeAndStatus)
+
 
 
     // const [coinType, setCoinType] = useState(`All Coins`)
@@ -95,11 +95,6 @@ const Orders = () => {
 export const RenderOrderComponent = ({ data }: any) => {
     const router = useRouter()
     const handleClick = (orderId: string) => {
-        // // console.log(orderId)
-
-        // const obj = data.find((obj:any) => obj?.orderId === orderId)
-        // console.log(obj)
-        // dispatch(setIsClientSelected({isClientSelected: true}))
         router.push('/quick-trade/order/'+orderId)
     }
     
@@ -247,4 +242,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return checkValidToken(context)
 }
 
-export default Orders
+export default AdsOrders
