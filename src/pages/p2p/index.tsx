@@ -19,7 +19,7 @@ const P2P = () => {
   })
 
   const handleOrderRoute = () => {
-    router.push("/p2p/all-ads")
+    router.push("/p2p/ads")
   }
   
     const handleSelect = (id: string) => {
