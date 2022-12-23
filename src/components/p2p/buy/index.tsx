@@ -26,12 +26,14 @@ const BuyP2p = ({
 }: P2pAdsComponentProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
-    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`})
-    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`})
-    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`})
-    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`})
-    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT-TRON", pageNumber: `${pageNumber}` })
+    const [amount, setAmount] = useState("")
+    const { data:usdt } = useGetBuyAdsQuery({arg: "USDT", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:usdc } = useGetBuyAdsQuery({arg: "USDC", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:eth } = useGetBuyAdsQuery({arg: "ETH", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data:btc } = useGetBuyAdsQuery({arg: "BTC", pageNumber: `${pageNumber}`, amount: `${amount}`})
+    const { data: usdt_tron } = useGetBuyAdsQuery({ arg: "USDT_TRON", pageNumber: `${pageNumber}`, amount: `${amount}` })
     
+    // console.log("this is eth ", eth)
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
 
     const [modalData, setModalData] = useState<any>()
@@ -41,15 +43,14 @@ const BuyP2p = ({
         return percent
     }
 
-
     const handleOpen = (id: string, apiData: any) => {
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
             onOpen()
-
           }
     }
+
 
 
 
@@ -279,9 +280,7 @@ const BuyP2p = ({
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -290,10 +289,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -302,9 +298,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -313,9 +307,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -324,9 +316,7 @@ const BuyP2p = ({
                     </Tab>
                     <Tab
                         onClick={handlePageReset}
-                        _selected={{
-                            color: "black",
-                            borderBottom: "1px solid #FB5E04",
+                        _selected={{color: "black", borderBottom: "1px solid #FB5E04",
                         }}
                         padding={0}
                         fontSize={"small"}
@@ -337,7 +327,7 @@ const BuyP2p = ({
 
                 <TabPanels>
                     <TabPanel paddingLeft={0} >                        
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="BTC"/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy BTC"
@@ -352,8 +342,9 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
+                    
                     <TabPanel paddingLeft={0}>    
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         {eth?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy ETH"
@@ -369,7 +360,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDT"
@@ -385,7 +376,7 @@ const BuyP2p = ({
                     </TabPanel>
                     
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDC"
@@ -401,7 +392,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     <TabPanel paddingLeft={0}>
-                        <P2pTopfilter routeName='buy-ads'/>
+                        <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent
                                 buttonTitle="Buy USDT-TRON"

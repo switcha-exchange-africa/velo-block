@@ -460,10 +460,7 @@ const SellStepTwo = (props:any) => {
                                                     <FormControl  pt='4'>
                                                         <FormLabel>Account Name</FormLabel>
                                                         <Input  defaultValue={dataObj?.accountName} type="text" placeholder="John Doe"/>
-                                                       
                                                     </FormControl>
-                                            
-
                                                 </VStack>
                                             </Box>
                                             <HStack px="20px" py="12px"  justifyContent={"space-between"}>
@@ -505,8 +502,6 @@ const SellStepTwo = (props:any) => {
             [name]: value,
         })
     }
-
-
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
