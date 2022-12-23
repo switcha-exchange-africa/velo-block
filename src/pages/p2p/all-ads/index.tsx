@@ -42,7 +42,7 @@ const AllAds = () => {
     // console.log("this is the data ", data)
     // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
     const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType), createdAt: date})
-    console.log("this is the getallAds ", getAllAds)
+    // console.log("this is the getallAds ", getAllAds)
     const handleReset = () => {
         setOrderType(`buy/sell`)
         setCoinType(`All Assets`)
