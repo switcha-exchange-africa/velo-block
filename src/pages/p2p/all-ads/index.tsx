@@ -33,13 +33,13 @@ const AllAds = () => {
     
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     
-    const data = {
-        coinType: coinType,
-        statusType: statusType,
-        orderType: orderType,
-        date: date
-    }
-    console.log("this is the data ", data)
+    // const data = {
+    //     coinType: coinType,
+    //     statusType: statusType,
+    //     orderType: orderType,
+    //     date: date
+    // }
+    // console.log("this is the data ", data)
     // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
     const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType), createdAt: date})
     console.log("this is the getallAds ", getAllAds)
