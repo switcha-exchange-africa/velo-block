@@ -26,7 +26,7 @@ const Order = () => {
     }
     
     const handleAdsRoute = () => {
-        router.push("/p2p/all-ads")
+        router.push("/p2p/ads")
     }
 
     return (
