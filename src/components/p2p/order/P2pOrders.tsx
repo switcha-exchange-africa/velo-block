@@ -22,16 +22,13 @@ const P2pOrders = () => {
     
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
-        // setOrderType(`buy/sell`)
-        // setStatusType(`All Status`)
     }
 
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1)
-        // setOrderType(`buy/sell`)
-        // setStatusType(`All Status`)
      }
 
+    
 
     return (
         <>
