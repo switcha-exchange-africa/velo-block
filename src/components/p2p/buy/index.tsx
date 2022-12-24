@@ -54,7 +54,7 @@ const BuyP2p = ({
 
 
 
-    const [amounts, setAmounts] = useState(0)
+    const amounts = useState(0)
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
