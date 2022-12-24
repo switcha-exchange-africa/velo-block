@@ -62,13 +62,6 @@ const AllAds = () => {
     
     console.log("get All ads ", getAllAds )
 
-    // const data ={
-    //     todaysDate: todaysDate,
-    //     selectedDate: selectedDate
-    // }
-
-    // console.log("this is the date ", data)
-    
     const handleReset = () => {
         setOrderType(`buy/sell`)
         setCoinType(`All Assets`)
@@ -78,18 +71,10 @@ const AllAds = () => {
 
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
-        setOrderType(`buy/sell`)
-        setCoinType(`All Assets`)
-        setStatusType(`All Status`)
-        setDate("")
     }
 
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1)
-        setOrderType(`buy/sell`)
-        setCoinType(`All Assets`)
-        setStatusType(`All Status`)
-        setDate("")
     }
 
     const [tabIndex, setTabIndex] = useState(0)
