@@ -29,19 +29,37 @@ const AllAds = () => {
     const [date, setDate] = useState("")
     const { user } = useAppSelector((state) => state.auth)
     const [pageNumber, setPageNumber] = useState(1)
-    
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
+    // const currentDate = new Date()
     
-    // const data = {
-    //     coinType: coinType,
-    //     statusType: statusType,
-    //     orderType: orderType,
-    //     date: dateBB
+    // // to convert date to ISOString
+    // const convertDate = (dateValue: any) => {
+    //     if (dateValue) {
+    //         return new Date(dateValue).toISOString()    
+    //     } else {
+    //         return ""
+    //     }
     // }
-    // console.log("this is the data ", data)
-    // const getAllAdss = useGetP2pAllAdsQuery({userId: user?._id, pageNumber: pageNumber})
-    const getAllAds = useGetP2pAllAdsFilterQuery({userId: user?._id, pageNumber: pageNumber, type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin:(coinType==="All Assets" ? "" : coinType), createdAt: date})
-    // console.log("this is the getallAds ", getAllAds)
+
+    // useEffect(() => {
+      
+    // console.log("this is the coin type ", coinType)
+    // }, [])
+    
+    // const todaysDate = convertDate(currentDate)
+    // const selectedDate = convertDate(date)
+    // const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType), dateFrom: "", dateTo: "" })
+    const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType)})
+    
+    // console.log("get All ads ", getAllAds )
+
+    // const data ={
+    //     todaysDate: todaysDate,
+    //     selectedDate: selectedDate
+    // }
+
+    // console.log("this is the date ", data)
+    
     const handleReset = () => {
         setOrderType(`buy/sell`)
         setCoinType(`All Assets`)

@@ -8,6 +8,8 @@ import { setSingleAds } from '../../../redux/features/accountSettings/accounSett
 export const P2pAds = ({ data }: any) => {   
     const router = useRouter()
     const dispatch= useAppDispatch()
+
+    console.log("this is the data ", data)
     
     const handleEdit = async (adIds: any) => {
         const singleAds = data?.find((ads:any) => ads._id === adIds);        
