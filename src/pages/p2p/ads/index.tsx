@@ -54,13 +54,13 @@ const AllAds = () => {
     const todaysDate = convertDate(currentDate)
     const selectedDate = convertDate(date)
 
-    console.log("todays date ", todaysDate)
-    console.log("selected date ", selectedDate)
+    // console.log("todays date ", todaysDate)
+    // console.log("selected date ", selectedDate)
     
     const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType), dateFrom: selectedDate, dateTo: (selectedDate==="" ? "" : todaysDate) })
     // const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType)})
     
-    // console.log("get All ads ", getAllAds )
+    console.log("get All ads ", getAllAds )
 
     // const data ={
     //     todaysDate: todaysDate,
@@ -78,6 +78,10 @@ const AllAds = () => {
 
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
+        setOrderType(`buy/sell`)
+        setCoinType(`All Assets`)
+        setStatusType(`All Status`)
+        setDate("")
     }
 
     const handleNextPage = () => {
