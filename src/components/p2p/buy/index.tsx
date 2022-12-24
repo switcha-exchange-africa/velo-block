@@ -54,7 +54,7 @@ const BuyP2p = ({
 
 
 
-    const amounts = 0
+    const [amounts, setAmounts] = useState(0)
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
     const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
@@ -63,6 +63,14 @@ const BuyP2p = ({
 
     const calculateConversion = (numberAmount: number) => {
         return !isNaN(numberAmount) && amountt && amountt != '' ? modalData?.coin?.toLowerCase() == 'btc' ? (convertFromCreditCoin?.data?.data?.bitcoin?.ngn * numberAmount) : modalData?.coin?.toLowerCase() == 'eth' ? (convertFromCreditCoin?.data?.data?.ethereum?.ngn * numberAmount) : (convertFromCreditCoin?.data?.data?.tether?.ngn * numberAmount) : 0
+    }
+
+    const handleAllValue = (value: any) => {
+        // const value = amount
+        console.log("this is the amount ", amount, " and value ", value, " and aamount ", amounts)
+
+        setAmountt(value)
+
     }
 
 
@@ -233,7 +241,7 @@ const BuyP2p = ({
                                                                 />
                                                                 <InputRightAddon background={"none"} borderLeft="0px">
                                                                     <Flex gap={"20px"}>
-                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text fontSize={"sm"} cursor="pointer" onClick={()=> handleAllValue(modalData?.totalAmount)}>All</Text>
                                                                         <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                                                     </Flex>
                                                                 </InputRightAddon>
