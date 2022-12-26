@@ -62,6 +62,8 @@ const WalletWithdrawDrawer = (props: any) => {
 
     // }
 
+    const [amount, setAmount] = useState<any>(0)
+
     return (
         <>
             <Drawer
@@ -95,26 +97,26 @@ const WalletWithdrawDrawer = (props: any) => {
                             <QRCode value="hey" />
                         </Flex> */}
                         <Formik
-                            initialValues={{ address: '', amount: "" }}
+                            initialValues={{ address: '', amount: amount ?? '' }}
                             onSubmit={async (values) => {
                                 const data = {
                                     destination: values?.address,
                                     coin: props?.coin,
-                                    amount: parseFloat(values?.amount)
+                                    amount: parseFloat(amount)
                                 }
 
-                                // console.log("this is the data ", data)
+                                console.log("this is the data ", data)
 
-                                const response = await withdrawCrypto(data) 
-                                // console.log(response)
-                                if (response?.data?.status == 200 || response?.data?.status == 201 ) {
-                                    handleClose()
-                                    appAlert.success(response?.data?.message)
-                                } else {
-                                    handleClose()
-                                    // console.log("this is the response ", response)
-                                    appAlert.error(response?.error?.data?.message)
-                                }
+                                // const response = await withdrawCrypto(data) 
+                                // // console.log(response)
+                                // if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                //     handleClose()
+                                //     appAlert.success(response?.data?.message)
+                                // } else {
+                                //     handleClose()
+                                //     // console.log("this is the response ", response)
+                                //     appAlert.error(response?.error?.data?.message)
+                                // }
                             }}
                             validateOnChange
                             validateOnBlur
@@ -123,6 +125,7 @@ const WalletWithdrawDrawer = (props: any) => {
                             {({
                                 // handleChange,
                                 // handleBlur,
+                                setFieldValue,
                                 handleSubmit,
                                 isSubmitting,
                                 // values,
@@ -137,7 +140,13 @@ const WalletWithdrawDrawer = (props: any) => {
                                                     {({ field, form }: any) => (
                                                         <FormControl isInvalid={form.errors.amount && form.touched.amount} >                                                            
                                                             <InputGroup py="5px">
-                                                                <Input width="100%" height="100%" ref={props?.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
+                                                                <Input width="100%" height="100%" ref={props?.btnRef} isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
+                                                                    onChange={(e) => {
+                                                                        setFieldValue('amount', e.target.value);
+                                                                        setAmount(e.target.value)
+                                                                        // !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
+                                                                    }}
+                                                                />
                                                             </InputGroup>
 
                                                             <FormErrorMessage textAlign={"center"}>{form.errors.amount}</FormErrorMessage>
@@ -152,7 +161,13 @@ const WalletWithdrawDrawer = (props: any) => {
                                             </Text>
                                             
                             
-                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props?.coin)} )</Text>
+                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}
+                                                onClick={() => {
+
+                                                }}
+                                            >
+                                                Send All ({renderBalance(props?.coin)} )
+                                            </Text>
                                         </Flex>
                                         {/* <Flex>
                                             <ArrowDownIcon  w={6} h={6} />
