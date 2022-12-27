@@ -1,8 +1,7 @@
 import { AddIcon, CloseIcon, InfoIcon, RepeatIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import {
-    Box, Button, Flex,
-    FormControl,
-    HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
+    Box, Button, Flex, FormControl, HStack, Input, InputGroup, InputRightElement,
+    Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
     Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage, Tooltip
 } from '@chakra-ui/react';
@@ -57,7 +56,6 @@ const SellStepTwo = (props:any) => {
         if (!value) {
             error = 'Bank not selected '
         }
-
         return error
     }
     
@@ -67,7 +65,8 @@ const SellStepTwo = (props:any) => {
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
     const [deleteAddedBank] = useDeleteAddedBankMutation()
     const [updateBank] = useUpdateAddedBankMutation()
-    
+    const [load, setLoad] = useState(false)
+
 
 
     const handleSelect = async (value: any) => {
@@ -126,8 +125,7 @@ const SellStepTwo = (props:any) => {
         setDefaultTab(() => defaultTab + 2)
     }
 
-    const [load, setLoad] = useState(false)
-
+    
 
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
