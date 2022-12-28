@@ -25,6 +25,7 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
             bg={{ md: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'primaryColor.900' : '', base: '' }}
             onClick={onClick}
             cursor={disabled ? '' : 'pointer'}
+            
         >
             <Box bg={{ md: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'appWhiteColor' : 'appDarkColor', base: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'rgba(251, 94, 4, 0.25)' : '' }} p={{ lg: '2.5', base: '2' }}
                 borderRadius={'md'} >

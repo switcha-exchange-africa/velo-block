@@ -16,10 +16,7 @@ import MainAppButton from '../../../buttons/MainAppButton';
 const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
-        
-    // const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
-
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
 
     const renderBalance:any = (coinName: any) => {
@@ -130,8 +127,6 @@ const SellStepTwo = (props:any) => {
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
-    
-
 
         const handleRefresh = async () => {
             getAddedBankSellType.refetch()

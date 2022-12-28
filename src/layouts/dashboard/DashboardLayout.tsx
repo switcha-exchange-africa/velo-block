@@ -15,12 +15,6 @@ import {
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
-// import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
-// import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
-// import LoginPage from "../../pages/signin";
-// import { useGetUserQuery } from "../../redux/services/auth.service";
-// import appAlert from "../../helpers/appAlert";
-// import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
 import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import Head from "next/head";
@@ -39,7 +33,6 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const { token } = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch();
-  // const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
   const checkForToken = () => {
     dispatch(getTokenFromLocalStorage())
     // getUser.isFetching
@@ -88,16 +81,10 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
   return (
     <Flex
-      // align="stretch"
-      // maxH={["100vh", "100vh", "100vh", "100vh"]}
       flexDirection={'column'}
       h={{ lg: "100vh", md: "100vh", sm: "100vh", base: "100vh" }}
-      // h={["100vh"]}
       bg="mainBGColor"
       width={["100%", "100%", "unset", "unset"]}
-    // justify="stretch"
-    // overflowY={'scroll'}
-
     >
       <Head>
         <title>{title}</title>
@@ -168,6 +155,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
         display={["flex", "flex", "", ""]}
         flexDirection={["column-reverse", "column-reverse", "unset", "unset"]}
         overflowY={'scroll'}
+        // bg="red"
       >
         <GridItem colSpan={[0, 0, 2, 2]} color={"black"} rowSpan={[2, 2, 0, 0]}>
           <VStack
@@ -176,9 +164,9 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
             // py={["20px", "20px", "10px", "5px"]}
-            py={{ base: '5px', md: '8' }}
-            boxShadow={["dark-lg", "dark-lg", "unset", "unset"]}
-            borderRadius={["30px 30px 0 0", "30px 30px 0 0", "unset", "unset"]}
+            // py={{ base: '5px', md: '8' }}
+            boxShadow={["0px -4px 11px rgba(0, 0, 0, 0.08)", "0px -4px 11px rgba(0, 0, 0, 0.08)", "unset", "unset"]}
+            borderRadius={["12px 12px 0px 0px", "10px 10px 0 0", "unset", "unset"]}
           >
             <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')}>
               <Show above="md">
@@ -334,7 +322,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="FAQs" route="faq" >
+            {/* <DashBoardSidBarOptionComponent label="FAQs" route="faq" >
               <Show above="md">
                 {router.pathname.includes('faq') ? <Img
                   src={remoteImages.faqsSelected}
@@ -392,7 +380,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                 />}
               </Show>
 
-            </DashBoardSidBarOptionComponent>
+            </DashBoardSidBarOptionComponent> */}
 
             <Divider bg={"black"} display={["none", "none", "flex", "flex"]} />
             <HStack
@@ -414,6 +402,8 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             </HStack>
           </VStack>
         </GridItem>
+       
+       
         <GridItem
           colSpan={[0, 0, 10, 10]}
           rowSpan={[10, 10, 0, 0]}
