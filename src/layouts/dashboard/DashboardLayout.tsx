@@ -1,26 +1,10 @@
 import React, { useEffect } from "react";
-
 import {
-  VStack,
-  chakra,
-  Flex,
-  Img,
-  Heading,
-  HStack,
-  Grid,
-  GridItem,
-  Text,
-  Divider,
-  Show,
-  Box,
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  useDisclosure,
+  VStack, chakra, Flex, Img, Heading,
+  HStack, Grid, GridItem, Text,
+  Divider, Show, Box, Drawer,
+  DrawerBody, DrawerHeader, DrawerOverlay,
+  DrawerContent, DrawerCloseButton, useDisclosure,
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
