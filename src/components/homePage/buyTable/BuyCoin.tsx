@@ -180,6 +180,8 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             router.push(`p2p/buy/${orderId}`)
                                         } else if (amountt === "0") {
                                             appAlert.error("quantity must be a positive number ")
+                                        } else if (response?.error?.status == 400) {
+                                            appAlert.error(`${response?.error?.data?.message[0]}`)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')
