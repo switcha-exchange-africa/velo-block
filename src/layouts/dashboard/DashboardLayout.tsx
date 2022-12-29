@@ -12,6 +12,7 @@ import {
   Text,
   Divider,
   Show,
+  Box,
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
@@ -19,8 +20,10 @@ import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import Head from "next/head";
 import remoteImages from "../../constants/remoteImages";
+import MobileMore from "../../../public/assets/svgs/menuIcon.svg"
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
+import Image from "next/image";
 
 
 interface DashboardLayoutProps {
@@ -78,6 +81,10 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   //     router.push('/dashboard')
   //   }
   // }, [getUser, getUser?.error?.data?.status, router])
+
+  const handleDrawer = () => {
+    console.log("you cliicked me ")
+  }
 
   return (
     <Flex
@@ -163,12 +170,10 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             justifyContent={["", "", "space-between", "space-between"]}
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
-            // py={["20px", "20px", "10px", "5px"]}
-            // py={{ base: '5px', md: '8' }}
             boxShadow={["0px -4px 11px rgba(0, 0, 0, 0.08)", "0px -4px 11px rgba(0, 0, 0, 0.08)", "unset", "unset"]}
             borderRadius={["12px 12px 0px 0px", "10px 10px 0 0", "unset", "unset"]}
           >
-            <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')}>
+            <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('dashboard') ? <Img
                   src={remoteImages.homeSelected}
@@ -199,7 +204,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Quick Trade" route="trade" onClick={() => router.push('/quick-trade')}>
+            <DashBoardSidBarOptionComponent label="Quick Trade" route="trade" onClick={() => router.push('/quick-trade')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('trade') ? <Img
                   src={remoteImages.quickTradeSelected}
@@ -231,7 +236,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="P2P" route="p2p" onClick={() => router.push('/p2p')}>
+            <DashBoardSidBarOptionComponent label="P2P" route="p2p" onClick={() => router.push('/p2p')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('p2p') ? <Img
                   src={remoteImages.p2pSelected}
@@ -261,7 +266,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Swap" route="swap" onClick={() => router.push('/swap')}>
+            <DashBoardSidBarOptionComponent label="Swap" route="swap" onClick={() => router.push('/swap')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('swap') ? <Img
                   src={remoteImages.swapSelected}
@@ -292,37 +297,37 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             </DashBoardSidBarOptionComponent>
 
 
-            <DashBoardSidBarOptionComponent label="Wallet" route="wallet" onClick={() => router.push('/wallet')}>
-              <Show above="md">
-                {router.pathname.includes('wallet') ? <Img
-                  src={remoteImages.walletSelected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                /> : <Img
-                  src={remoteImages.walletDesktopUnselected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                />}
-              </Show>
-              <Show below="sm">
-                {router.pathname.includes('wallet') ? <Img
-                  src={remoteImages.walletSelected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                /> : <Img
-                  src={remoteImages.walletMobileUnselected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                />}
-              </Show>
+            <DashBoardSidBarOptionComponent label="Wallet" route="wallet" onClick={() => router.push('/wallet')} display={["none", "none", "flex", "flex"]}>
+            <Show above="md">
+              {router.pathname.includes('wallet') ? <Img
+                src={remoteImages.walletSelected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              /> : <Img
+                src={remoteImages.walletDesktopUnselected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              />}
+            </Show>
+            <Show below="sm">
+              {router.pathname.includes('wallet') ? <Img
+                src={remoteImages.walletSelected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              /> : <Img
+                src={remoteImages.walletMobileUnselected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              />}
+            </Show>
 
             </DashBoardSidBarOptionComponent>
 
-            {/* <DashBoardSidBarOptionComponent label="FAQs" route="faq" >
+            <DashBoardSidBarOptionComponent label="FAQs" route="faq" display={["none", "none", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('faq') ? <Img
                   src={remoteImages.faqsSelected}
@@ -352,7 +357,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Settings" route="setting" onClick={() => router.push('/settings')}>
+            <DashBoardSidBarOptionComponent label="Settings" route="setting" onClick={() => router.push('/settings')} display={["none", "none", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('setting') ? <Img
                   src={remoteImages.settingsSelected}
@@ -380,7 +385,36 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                 />}
               </Show>
 
-            </DashBoardSidBarOptionComponent> */}
+            </DashBoardSidBarOptionComponent>
+
+            
+
+            
+            {/* this is the more button for the mobile section */}
+            <HStack
+              px={[0, 0, 8, 8]}
+              py={[3, 3, 3, 3]}
+              display={["flex", "flex", "none", "none"]}
+              borderRadius={[0, 0, 'md', 'lg']}
+              my={[0, 0, 2, 2]}
+              width={"100%"}
+              flexDirection={["column", "column", "row", "row"]}
+              alignItems={["center"]}
+              onClick={handleDrawer}
+            >
+              <Box p={{ lg: '2.5', base: '2' }}
+                  borderRadius={'md'} >
+                  <Image src={MobileMore} alt=""/>
+              </Box>
+              
+              <Text
+                  fontSize={["10px", "10px", "lg", "lg"]}
+                  margin={["0"]}
+                  textAlign={{ base: 'center', md: 'left' }}
+              >
+                  More
+              </Text>
+            </HStack>
 
             <Divider bg={"black"} display={["none", "none", "flex", "flex"]} />
             <HStack
