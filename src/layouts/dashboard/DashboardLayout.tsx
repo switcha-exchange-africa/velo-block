@@ -13,6 +13,14 @@ import {
   Divider,
   Show,
   Box,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
@@ -24,6 +32,7 @@ import MobileMore from "../../../public/assets/svgs/menuIcon.svg"
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
 import Image from "next/image";
+import { DashBoardSidBarMobileOptionComponent } from "../../components/dashboard/DashBoardSidBarMobileOptionComponent";
 
 
 interface DashboardLayoutProps {
@@ -82,9 +91,14 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   //   }
   // }, [getUser, getUser?.error?.data?.status, router])
 
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  
+
   const handleDrawer = () => {
-    console.log("you cliicked me ")
+    onOpen()
   }
+
 
   return (
     <Flex
@@ -139,17 +153,73 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           </HStack>
         </Flex>
       </chakra.header>
-      {/* <Show below="sm">
-        {router.pathname.includes('trade') && <chakra.header>
-          <Flex boxShadow={'md'} w={'100%'} bg={'#ffffff'} px={'4'}>
-            <Text py={'4'} fontWeight={'medium'} size="md" cursor={'pointer'} onClick={() => router.push('/quick-trade/order')}>
-              All Orders
-              {router.pathname.includes('order') && <Divider borderColor={'primaryColor.900'} />}
-            </Text>
-          </Flex>
-        </chakra.header>}
-      </Show> */}
-      {/* <Flex color="black">{children}</Flex> */}
+
+      {/* contains the drawer for mobile view */}
+      <Box display={["flex", "flex", "none", "none"]} bg="red">
+        <Drawer
+          isOpen={isOpen}
+          placement='right'
+          onClose={onClose}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader mt=" 50px" pl="55px">More</DrawerHeader>
+            <DrawerBody>
+              <DashBoardSidBarMobileOptionComponent label="Wallet" route="wallet" onClick={() => {
+                router.push('/wallet')
+                  onClose()
+              }} display={["flex", "flex", "flex", "flex"]}>
+                {router.pathname.includes('wallet') ? <Img
+                    src={remoteImages.walletSelected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  /> : <Img
+                    src={remoteImages.walletDesktopUnselected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />}
+              </DashBoardSidBarMobileOptionComponent>
+
+              <DashBoardSidBarMobileOptionComponent label="FAQs" route="faq" display={["flex", "flex", "flex", "flex"]}>
+                {router.pathname.includes('faq') ? <Img
+                    src={remoteImages.faqsSelected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  /> : <Img
+                    src={remoteImages.faqsDesktopUnselected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />}
+              </DashBoardSidBarMobileOptionComponent>
+
+              <DashBoardSidBarMobileOptionComponent label="Settings" route="setting" display={["flex", "flex", "flex", "flex"]} onClick={() => {
+                router.push('/settings')
+                onClose()
+              }}>
+                {router.pathname.includes('setting') ? <Img
+                  src={remoteImages.settingsSelected}
+                  alt=""
+                  objectFit="contain"
+                  boxSize=""
+                /> : <Img
+                  src={remoteImages.settingsDesktopUnselected}
+                  alt=""
+                  objectFit="contain"
+                  boxSize=""
+                />}
+              </DashBoardSidBarMobileOptionComponent>
+            </DrawerBody>
+
+            {/* <DrawerFooter>Switcha</DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
+      </Box>
+      
       <Grid
         templateColumns={[
           "unset",
@@ -162,7 +232,6 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
         display={["flex", "flex", "", ""]}
         flexDirection={["column-reverse", "column-reverse", "unset", "unset"]}
         overflowY={'scroll'}
-        // bg="red"
       >
         <GridItem colSpan={[0, 0, 2, 2]} color={"black"} rowSpan={[2, 2, 0, 0]}>
           <VStack
@@ -406,7 +475,6 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                   borderRadius={'md'} >
                   <Image src={MobileMore} alt=""/>
               </Box>
-              
               <Text
                   fontSize={["10px", "10px", "lg", "lg"]}
                   margin={["0"]}

@@ -1,7 +1,7 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-interface DashBoardSidBarOptionComponentProps {
+export interface DashBoardSidBarOptionComponentProps {
     isActive?: boolean
     route: string
     onClick?: () => void
@@ -9,7 +9,6 @@ interface DashBoardSidBarOptionComponentProps {
     children?: any
     label: string
     display?: any
-
 }
 
 const DashBoardSidBarOptionComponent = ({display, isActive, onClick, disabled, children, label, route }: DashBoardSidBarOptionComponentProps,) => {
