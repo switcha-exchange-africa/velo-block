@@ -1,17 +1,17 @@
 import { Box, HStack, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
-interface DashBoardSidBarOptionComponentProps {
+export interface DashBoardSidBarOptionComponentProps {
     isActive?: boolean
     route: string
     onClick?: () => void
     disabled?: boolean
     children?: any
     label: string
-
+    display?: any
 }
 
-const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children, label, route }: DashBoardSidBarOptionComponentProps,) => {
+const DashBoardSidBarOptionComponent = ({display, isActive, onClick, disabled, children, label, route }: DashBoardSidBarOptionComponentProps,) => {
     const router = useRouter()
     return (
         <HStack
@@ -20,6 +20,7 @@ const DashBoardSidBarOptionComponent = ({ isActive, onClick, disabled, children,
             borderRadius={[0, 0, 'md', 'lg']}
             my={[0, 0, 2, 2]}
             width={"100%"}
+            display={display}
             flexDirection={["column", "column", "row", "row"]}
             alignItems={["center"]}
             bg={{ md: isActive || router.pathname.toLowerCase().includes(`${route.toLowerCase()}`) ? 'primaryColor.900' : '', base: '' }}

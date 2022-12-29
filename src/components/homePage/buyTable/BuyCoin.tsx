@@ -220,7 +220,14 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                                 />
                                                                 <InputRightAddon background={"none"} borderLeft="0px">
                                                                     <Flex gap={"20px"}>
-                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text
+                                                                            fontSize={"sm"}
+                                                                            cursor="pointer"
+                                                                            onClick={() => {
+                                                                                setFieldValue("debitCoinValue", modalData?.totalAmount)
+                                                                                setAmountt(modalData?.totalAmount)
+                                                                            }}
+                                                                        >All</Text>
                                                                         <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                                                     </Flex>
                                                                 </InputRightAddon>

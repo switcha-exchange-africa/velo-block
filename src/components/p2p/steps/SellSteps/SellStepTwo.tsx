@@ -1,8 +1,7 @@
 import { AddIcon, CloseIcon, InfoIcon, RepeatIcon, TriangleDownIcon } from '@chakra-ui/icons';
 import {
-    Box, Button, Flex,
-    FormControl,
-    HStack, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton,
+    Box, Button, Flex, FormControl, HStack, Input, InputGroup, InputRightElement,
+    Modal, ModalBody, ModalCloseButton,
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure, VStack,
     Tabs, TabPanels, TabPanel, Spinner,    FormLabel, FormErrorMessage, Tooltip
 } from '@chakra-ui/react';
@@ -10,17 +9,14 @@ import { Field, Form, Formik } from "formik"
 import { MouseEventHandler, useState } from 'react';
 import appAlert from '../../../../helpers/appAlert';
 import { useAppSelector } from '../../../../helpers/hooks/reduxHooks';
-import { useAddP2pSellAdsBankMutation, useDeleteAddedBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery } from '../../../../redux/services/bank.service';
+import { useAddP2pSellAdsBankMutation, useDeleteAddedBankMutation, useGetAddedBankSellTypeQuery, useGetNigerianBankQuery, useUpdateAddedBankMutation } from '../../../../redux/services/bank.service';
 import MainAppButton from '../../../buttons/MainAppButton';
 
 
 const SellStepTwo = (props:any) => {
     const { handlePreviousStep, handleNextStep, coin, banks, setBanks, values, setValues, paymentTimeLimit, setPaymentTimeLimit } = props
     const { isOpen, onOpen, onClose } = useDisclosure();
-        
-    // const { isLoading} = useGetUsersBankQuery()
     const [defaultTab, setDefaultTab] = useState(0)
-
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
 
     const renderBalance:any = (coinName: any) => {
@@ -57,7 +53,6 @@ const SellStepTwo = (props:any) => {
         if (!value) {
             error = 'Bank not selected '
         }
-
         return error
     }
     
@@ -66,8 +61,11 @@ const SellStepTwo = (props:any) => {
     const [addP2pSellAdsBank] = useAddP2pSellAdsBankMutation()
     const getAddedBankSellType = useGetAddedBankSellTypeQuery()
     const [deleteAddedBank] = useDeleteAddedBankMutation()
-        
-    
+    const [updateBank] = useUpdateAddedBankMutation()
+    const [load, setLoad] = useState(false)
+
+
+
     const handleSelect = async (value: any) => {
         const findBankCode = getAddedBankSellType?.data?.data?.find((item:any) => item?._id === value) 
         const body = {
@@ -108,7 +106,7 @@ const SellStepTwo = (props:any) => {
 
 
     const [dataObj, setDataObj] = useState<any>({})
-
+    const [accountTitle, setAccountTitle] = useState("")
     const handleEdit = (id:string) => {
         const obj:any = getAddedBankSellType?.data?.data?.find((o:any) => o._id === id);
         const data = {
@@ -119,24 +117,16 @@ const SellStepTwo = (props:any) => {
             accountNumber: obj?.accountNumber
         }
 
-        console.log("this is the data ", data)
+        setAccountTitle(data.accountName)
         setDataObj(data)
-
-        // setDefaultTab(() => defaultTab + 2)
+        setDefaultTab(() => defaultTab + 2)
     }
 
-    const [load, setLoad] = useState(false)
+    
 
-
-    const handleEditSubmit = (e:any) => {
-        e.preventDefault()
-    }
 
     const SellStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined; }) => {
         console.log(props)
-        // const getUserBank = useGetUsersBankQuery()
-    
-
 
         const handleRefresh = async () => {
             getAddedBankSellType.refetch()
@@ -242,11 +232,9 @@ const SellStepTwo = (props:any) => {
                                             if (response?.data?.status == 200 || response?.data?.status == 201) {
                                                 getAddedBankSellType.refetch()
                                                 setDefaultTab(0)
-
                                                 setLoad(false)
                                                 appAlert.success(response?.data?.message)
                                             } else {
-
                                                     setLoad(false)
                                                     appAlert.error(response?.error?.data?.message)
                                                 } 
@@ -336,12 +324,11 @@ const SellStepTwo = (props:any) => {
                                     <ModalHeader fontSize={"14px"} textAlign={"center"} padding={"10px 0"}>
                                         Edit Bank Details
                                     </ModalHeader>
-                                    {/* <Formik
-                                        initialValues={{name: "", accountName: "", accountNumber: "", code: "" }}
+                                    <Formik
+                                        initialValues={{name: dataObj?.name ?? '', accountName: accountTitle ?? "", accountNumber: dataObj?.accountNumber ?? "", code: "" }}
 
-                                        onSubmit={async (defaultValue: any) => {    
-                                            // setLoad(true)
-                                            // setLoad(false)
+                                        onSubmit={async (values: any) => {    
+                                            setLoad(true)
                                             let res = values.name
                                             let filteredBank =  getBanks?.filter(function(bank:any) {
                                                 return bank.bankName === res;
@@ -351,32 +338,34 @@ const SellStepTwo = (props:any) => {
                                             let newItem = codeValue[0]
 
                                             const data = {
-                                                ...defaultValue,
+                                                accountName: values.accountName,
                                                 accountNumber: values.accountNumber.toString(),
-                                                code: newItem
+                                                name: values.name,
+                                                code: newItem,
+                                                id: dataObj?.id
                                             }
                                           
-                                            console.log("this is the data noww ", data)
-                                            // const response: any = await addP2pSellAdsBank(data)
                                             
-                                            // if (response?.data?.status == 200 || response?.data?.status == 201) {
-                                            //     getAddedBankSellType.refetch()
-                                            //     setDefaultTab(0)
+                                            
+                                            const response:any = await updateBank(data)
 
-                                            //     setLoad(false)
-                                            //     appAlert.success(response?.data?.message)
-                                            // } else {
-
-                                            //         setLoad(false)
-                                            //         appAlert.error(response?.error?.data?.message)
-                                            //     } 
-                                            }}
+                                            if (response?.data?.status == 200 || response?.data?.status == 201 ) {
+                                                appAlert.success(response?.data?.message)
+                                                getAddedBankSellType.refetch()
+                                                setDefaultTab(0)
+                                                setLoad(false)
+                                            } else {
+                                                setLoad(false)
+                                                appAlert.error(response?.error?.data?.message)
+                                            } 
+                                        }}
                                         validateOnChange
                                         validateOnBlur
                                         validateOnMount
                                     >
                                         {({
-                                            handleSubmit
+                                            handleSubmit,
+                                            setFieldValue
                                             
                                          }) => (
                                             <Form  >
@@ -384,39 +373,59 @@ const SellStepTwo = (props:any) => {
                                     
                                                 <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
                                                     
-                                                    <Field name="name" id="name" >
+                                                    <Field name="name" id="name" validate={validateBankName}>
                                                         {({ field , form}: any) => (
                                                         <FormControl isInvalid={form.errors.name && form.touched.name}>
                                                             <FormLabel>Bank</FormLabel>
-                                                            <Select
-                                                                        // {...field}          
-                                                                defaultValue={dataObj?.name}        
-                                                                placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
-                                                            >
-                                                                {getBanks?.map((item: any, index: number) => (
-                                                                    <option key={index} value={item?.bankName}>{item?.bankName}</option>
-                                                                ))}
+                                                                <Select
+                                                                    {...field} 
+                                                                    onChange={(e) => {
+                                                                        setFieldValue("name", e.target.value);
+                                                                    }}
+                                                                    
+                                                                        
+                                                                    placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
+                                                                >
+                                                                    {getBanks?.map((item: any, index: number) => (
+                                                                        <option key={index} value={item?.bankName}>{item?.bankName}</option>
+                                                                    ))}
                                                             </Select>
                                                             <FormErrorMessage>{form.errors.name}</FormErrorMessage>    
                                                         </FormControl>
                                                         )}
                                                     </Field>
                                                     
-                                                    <Field name='accountNumber' >
+                                                    <Field name='accountNumber' validate={validateAccountNumber}>
                                                         {({ field, form }: any) => (
                                                             <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
                                                                 <FormLabel>Account Number</FormLabel>
-                                                                <Input defaultValue={dataObj.accountNumber} type="number" placeholder="215xxxxx900"/>
+                                                                    <Input
+                                                                        {...field}
+                                                                        onChange={(e) => {
+                                                                            setFieldValue('accountNumber', e.target.value);
+                                                                        }}
+
+                                                                        type="text"
+                                                                        placeholder="215xxxxx900"
+                                                                    />
                                                                 <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
                                                             </FormControl>
                                                         )}
                                                     </Field>
 
-                                                    <Field name='accountName' >
+                                                    <Field name='accountName' validate={validateAccountName}>
                                                         {({ field, form }: any) => (
                                                             <FormControl  pt='4' isInvalid={form.errors.accountName && form.touched.accountName}>
                                                                 <FormLabel>Account Name</FormLabel>
-                                                                <Input  defaultValue={dataObj?.accountName} type="text" placeholder="John Doe"/>
+                                                                    <Input
+                                                                        {...field}
+                                                                        onChange={(e) => {
+                                                                            setFieldValue('accountName', e.target.value);
+                                                                        }}
+
+                                                                        type="text"
+                                                                        placeholder="John Doe"
+                                                                    />
                                                                 <FormErrorMessage>{form.errors.accountName}</FormErrorMessage>
                                                             </FormControl>
                                                         )}
@@ -426,45 +435,8 @@ const SellStepTwo = (props:any) => {
 
                                                 </VStack>
                                             </Box>
-                                            
-                                        </Form>
-                                        )}
-
-                                    </Formik> */}
-                                    <form onSubmit={handleEditSubmit}>
-
-                                        <FormControl>
-                                            <Box px="18px" mt="20px" overflowY={"scroll"} height={"350px"} >    
-                                    
-                                                <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
-                                                    
-                                                    <FormControl >
-                                                        <FormLabel>Bank</FormLabel>
-                                                        <Select
-                                                            defaultValue={dataObj?.name}        
-                                                            placeholder='Select Bank' cursor="pointer" iconSize={"10px"} icon={<TriangleDownIcon/>}            
-                                                        >
-                                                            {getBanks?.map((item: any, index: number) => (
-                                                                <option key={index} value={item?.bankName}>{item?.bankName}</option>
-                                                            ))}
-                                                        </Select>
-                                                    </FormControl>
-
-                                                    <FormControl  pt='4'>
-                                                        <FormLabel>Account Number</FormLabel>
-                                                        <Input defaultValue={dataObj.accountNumber} type="text" placeholder="215xxxxx900" />
-                                                        
-                                                    </FormControl>
-                                            
-                                            
-                                                    <FormControl  pt='4'>
-                                                        <FormLabel>Account Name</FormLabel>
-                                                        <Input  defaultValue={dataObj?.accountName} type="text" placeholder="John Doe"/>
-                                                    </FormControl>
-                                                </VStack>
-                                            </Box>
                                             <HStack px="20px" py="12px"  justifyContent={"space-between"}>
-                                                {/* <MainAppButton onClick={handleEditSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
+                                                <MainAppButton onClick={handleSubmit} width="150px" isLoading={load} backgroundColor={'#FB5E04'}  color="white">
                                                     <AddIcon
                                                         mr="5px"
                                                         color={"white"}
@@ -472,7 +444,7 @@ const SellStepTwo = (props:any) => {
                                                         h={"10px"}
                                                     />
                                                     Edit Bank
-                                                </MainAppButton> */}
+                                                </MainAppButton>
                                                 <Button p={"11px 22px"} color="#000000" border={"0.88px solid #8E9BAE"} bg="transparent" onClick={() => setDefaultTab(0)}>
                                                     <CloseIcon
                                                         mr="5px"
@@ -483,8 +455,9 @@ const SellStepTwo = (props:any) => {
                                                     Cancel
                                                 </Button>  
                                             </HStack>
-                                        </FormControl>
-                                    </form>
+                                        </Form>
+                                        )}
+                                    </Formik>
                                 </TabPanel>
                             </TabPanels>
                         </Tabs>

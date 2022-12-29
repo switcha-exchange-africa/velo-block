@@ -229,11 +229,18 @@ const BuyP2p = ({
                                                                         setFieldValue('debitCoinValue', e.target.value);
                                                                         setAmountt(e.target.value)
                                                                         !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
-                                                                    }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} 
+                                                                    }}
+                                                                    onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} 
                                                                 />
                                                                 <InputRightAddon background={"none"} borderLeft="0px">
                                                                     <Flex gap={"20px"}>
-                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text fontSize={"sm"}
+                                                                            cursor="pointer"
+                                                                            onClick={() => {
+                                                                                setFieldValue("debitCoinValue", modalData?.totalAmount)
+                                                                                setAmountt(modalData?.totalAmount)
+                                                                            }}
+                                                                        >All</Text>
                                                                         <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                                                     </Flex>
                                                                 </InputRightAddon>
