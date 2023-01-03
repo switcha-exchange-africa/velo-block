@@ -215,12 +215,12 @@ export const TableContainerComponent = ({ data, handleClick }: any) => {
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Status</Text>
                             <Flex flexDirection={'column'}>
                                 <Text fontWeight={'medium'}>{order?.status}</Text>
-                                <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
+                                {/* <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text> */}
                             </Flex>
                         </Flex>
 
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
+                        <Flex fontSize={{ base: 'sm', md: 'md' }} >
+                            <Text color="#FB5E04" bg="#FB5E0440" fontWeight="bold" px="5px" mt="15px" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
                         </Flex>
                     </Flex>
                 </Flex>
