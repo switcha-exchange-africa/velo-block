@@ -35,7 +35,6 @@ const BuyP2p = ({
     
     // console.log("this is eth ", eth)
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
-console.log("this is the btc ", btc)
     const [modalData, setModalData] = useState<any>()
 
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {

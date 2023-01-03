@@ -15,7 +15,7 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
     console.log(coinName)
 
     const handleSubmit = () => {
-        console.log("this is the amount ", amount)
+
     }
 
     return (
@@ -36,7 +36,7 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
                                     borderTopLeftRadius={"5px"}
                                     borderBottomLeftRadius={"5px"}
                                     // width="250px"
-                                    placeholder={`Enter Amount`}  
+                                    placeholder={`Enter Amount `}  
                                     value={amount}
                                     onChange={(e) => setAmount(e.target.value)}
                                 />
