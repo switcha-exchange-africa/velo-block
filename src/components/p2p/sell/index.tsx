@@ -419,7 +419,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName=""/>
                         {btc?.data?.length !== 0 ? (
@@ -436,7 +436,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>    
+                    <TabPanel px={"0"}>    
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         
                         {eth?.data?.length !== 0 ? (
@@ -453,7 +453,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
@@ -469,7 +469,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
                     
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
@@ -487,7 +487,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
 
 
                     {/* Tab panel 5 */}
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
                         
                         {usdt_tron?.data?.length !== 0 ? (

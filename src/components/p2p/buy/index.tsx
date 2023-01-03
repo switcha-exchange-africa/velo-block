@@ -66,7 +66,7 @@ const BuyP2p = ({
 
 
     return (
-        <Box  position="relative">
+        <Box  position="relative" px="0">
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} >
                 <ModalContent
                     maxW={["100%", "100%", "75%", "75%", "79%"]}
@@ -282,7 +282,7 @@ const BuyP2p = ({
                 </ModalContent>
             </Modal>
             
-            <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
+            <Tabs variant="unstyled" mt={["20px"]} px={["0px", "0px", "28px", "28px"]}>
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
                         onClick={handlePageReset}
@@ -332,7 +332,7 @@ const BuyP2p = ({
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0} >                        
+                    <TabPanel px={"0px"} >                        
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="BTC"/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
@@ -349,7 +349,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     
-                    <TabPanel paddingLeft={0}>    
+                    <TabPanel px={"0px"}>    
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         {eth?.data?.length !== 0 ? (
                             <TableComponent
@@ -365,7 +365,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
@@ -381,7 +381,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
                     
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
@@ -397,7 +397,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent

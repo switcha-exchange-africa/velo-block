@@ -49,12 +49,12 @@ const TableComponent = ({
 
             {/* for mobile screen */}
             {apiData?.data?.map((api: any) => (
-                <Box key={uuid()} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                <Box key={uuid()} mt={"2rem"}  display={["block", "block", "none"]}  px="0">
                     <Flex
                         alignItems="center"
                         w="100%"
                     >
-                    <Flex w={"full"} flexDirection="column">
+                    <Flex w={"full"} flexDirection="column" >
                         <Box display={"flex"} alignItems={"center"} gap="5px">
                         <Avatar
                             size={"md"}
@@ -103,11 +103,11 @@ const TableComponent = ({
                             </Box>
                             </Flex>
 
-                            <Flex alignItems="center" gap={"10px"}>
-                            <Text fontSize={"xs"} color={"#8E9BAE"}>
-                                Available
-                            </Text>
-                            <Text fontSize={"xs"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}  {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
+                            <Flex alignItems="center" gap={"3px"}>
+                                <Text fontSize={"xs"} color={"#8E9BAE"}>
+                                    Available
+                                </Text>
+                                <Text fontSize={"11px"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}  {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                         </Flex>
                         <Flex alignItems={"center"} gap="10px">
@@ -117,7 +117,7 @@ const TableComponent = ({
                                 Limit
                             </Text>
                             {/* // mark */}
-                            <Text fontSize={"xs"}>{api?.minLimit ? api?.minLimit.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit.toLocaleString(): api?.maxLimit}&nbsp;{api?.coin}</Text>
+                            <Text fontSize={"xs"}>{api?.minLimit ? api?.minLimit.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit.toLocaleString(): api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                             <Box>
                             <Text
@@ -134,14 +134,13 @@ const TableComponent = ({
                         </Box>
                     </Flex>
                     <Button
-                        width={"150px"}
-                        fontSize={"12px"}
+                        width={"130px"}
+                        fontSize={"10px"}
                         bg={backgroundColor}
                         textAlign={"center"}
                         color="#FFF"
                         borderRadius={"3px"}
                         onClick={() => onClick(api?._id,  apiData)}
-                        // isDisabled
                     >
                         {buttonTitle}
                     </Button>
@@ -150,7 +149,7 @@ const TableComponent = ({
             ))}
 
             {/* for desktop view */}
-            <TableContainer display={["none", "none", "block"]}  paddingLeft="0">
+            <TableContainer display={["none", "none", "block"]}  paddingLeft="0" >
                 <Table variant='simple'>
                     <Thead>
                         <Tr>
