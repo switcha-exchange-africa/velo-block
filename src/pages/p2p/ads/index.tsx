@@ -45,7 +45,6 @@ const AllAds = () => {
     // console.log("this is the date ", day)
     // let today = new Date();
     // useEffect(() => {
-      
     // console.log("this is the coin type ", coinType)
     // }, [])
     

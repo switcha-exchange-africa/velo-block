@@ -14,11 +14,8 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
     const getFees = useGetFeesQuery("p2p-buy")
     console.log(coinName)
 
-
-
     const handleSubmit = () => {
-        console.log("this is the amount ", amount)
-        // setAmount("")
+
     }
 
     return (
@@ -39,10 +36,9 @@ const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProp
                                     borderTopLeftRadius={"5px"}
                                     borderBottomLeftRadius={"5px"}
                                     // width="250px"
-                                    placeholder={`Enter Amount`}  
+                                    placeholder={`Enter Amount `}  
                                     value={amount}
                                     onChange={(e) => setAmount(e.target.value)}
-                                    // placeholder={`Enter Amount  ${coinName}` }
                                 />
                                 <InputRightElement width={{ md: '70px', base: '70px' }}  >
                                     <Flex alignItems="center">

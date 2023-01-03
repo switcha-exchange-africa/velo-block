@@ -4,7 +4,7 @@ import {
   HStack, Grid, GridItem, Text,
   Divider, Show, Box, Drawer,
   DrawerBody, DrawerHeader, DrawerOverlay,
-  DrawerContent, DrawerCloseButton, useDisclosure,
+  DrawerContent, DrawerCloseButton, useDisclosure
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
@@ -50,31 +50,6 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
     dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
   
   }, [])
-  // if (getUser?.isFetching) {
-  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
-  // }
-
-  // if (getUser?.error?.data?.status == 401) {
-  //   // appAlert.warning('Session Expired, please sign in again')
-  //   return (<LoginPage />)
-  // }
-
-  // if (!token) {
-  //   return (<LoginPage />)
-  // }
-
-
-
-  // React.useEffect(() => {
-  //   if (getUser?.error?.data?.status == 401) {
-  //     // alert(JSON.stringify(getUser))
-  //     router.push('/signin')
-  //   }
-  //   if (getUser?.isFetching) {
-  //     router.push('/dashboard')
-  //   }
-  // }, [getUser, getUser?.error?.data?.status, router])
-
   
   const { isOpen, onOpen, onClose } = useDisclosure()
   
@@ -197,9 +172,28 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                   boxSize=""
                 />}
               </DashBoardSidBarMobileOptionComponent>
+
+              
+            <Divider bg={"black"} display={["flex", "flex", "flex", "flex"]} />
+              <HStack
+                pl={"45px"}
+                mt="20px"
+                width={"100%"}
+                display={["flex", "flex", "flex", "flex"]}
+                cursor={'pointer'}
+                onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+                >
+                  <Img
+                    src={remoteImages.logoutSvg}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />
+                  <Text fontSize={"lg"}>Log Out</Text>
+                </HStack>
+
             </DrawerBody>
 
-            {/* <DrawerFooter>Switcha</DrawerFooter> */}
           </DrawerContent>
         </Drawer>
       </Box>

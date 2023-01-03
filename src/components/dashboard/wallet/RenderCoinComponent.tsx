@@ -20,7 +20,17 @@ const RenderCoinComponent = ({ coin, size = { md: "sm", base: 'xs' } }: any) => 
                 name="Naira"
                 src={remoteImages.ngnsvg}
                 size={size}
-            /> : coin == 'USDC' ? <Avatar
+            /> : coin == 'KES' ? <Avatar
+                name="Kenya Shillings"
+                src={remoteImages.kesLogo}
+                size={size}
+            />
+                : coin == 'GHS' ? <Avatar
+                name="Ghana Cedis"
+                src={remoteImages.ghsLogo}
+                size={size}
+            />
+                : coin == 'USDC' ? <Avatar
                 name="USD COIN"
                 src={remoteImages.usdcLogo}
                 size={size}

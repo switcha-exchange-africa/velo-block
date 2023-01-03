@@ -164,7 +164,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             <Box flex={1} borderLeft={["0", "0", "1px solid  #E2E8F0"]}>
                                 <Formik
                                     initialValues={{ debitCoinValue: amounts ?? '', creditCoinValue: creditCoinAmounts ?? '' }}
-
                                     onSubmit={async () => {
                                         const data = {
                                             adId: modalData?._id,
@@ -172,7 +171,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             quantity: parseFloat(amountt),
                                             type: "buy"
                                         }
-
                                         const response = await p2pBuyOrder(data)
                                         if (response?.data?.status == 200) {
                                             appAlert.success(response?.data?.message)
@@ -180,6 +178,8 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             router.push(`p2p/buy/${orderId}`)
                                         } else if (amountt === "0") {
                                             appAlert.error("quantity must be a positive number ")
+                                        } else if (response?.error?.status == 400) {
+                                            appAlert.error(`${response?.error?.data?.message[0]}`)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')

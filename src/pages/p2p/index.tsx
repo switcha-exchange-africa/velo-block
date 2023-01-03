@@ -61,14 +61,13 @@ const P2P = () => {
     <DashboardLayout title="P2p">
       <Box
         width={"100%"}
-        
         height={"100vh"}
         margin={"-10px auto"}
-        padding="10px 5px"
+        padding="10px 0px"
         bg="white"
       >
         <Flex justifyContent={"space-between"} alignItems="center" >
-          <HStack px={["0", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
+          <HStack px={["0px", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
             <HStack>
                 <Text cursor="pointer" fontWeight="bold" color={color.color1} onClick={()=> handleSelect("1")}>Buy</Text>
                 <Box h="16px" w="2px" bg="#8B8CA7"></Box>
@@ -76,11 +75,11 @@ const P2P = () => {
             </HStack>  
         </HStack>
         
-          <Flex>
+          <Flex mt="30px">
             <Text
               textDecoration={"underline"}
               color={"#FB5E04"}
-              fontSize={"16px"}
+              fontSize={"14px"}
               cursor="pointer"
               _hover={{
                 color: "#fb5e09"
@@ -94,7 +93,7 @@ const P2P = () => {
               marginLeft="30px"
               textDecoration={"underline"}
               color={"#FB5E04"}
-              fontSize={"16px"}
+              fontSize={"14px"}
               cursor="pointer"
               _hover={{
                 color: "#fb5e09"

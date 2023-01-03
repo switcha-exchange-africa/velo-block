@@ -51,9 +51,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            console.log("this is the modal Data, trying again ", modalData)
             onOpen()
-        
         }
     }
 
@@ -220,6 +218,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                                 appAlert.success(response?.data?.message)
                                                 const orderId = response?.data?.data?.order?.orderId
                                                 router.push(`p2p/sell/${orderId}`)
+                                            } else if (response?.error?.status == 400) {
+                                                appAlert.error(`${response?.error?.data?.message[0]}`)
                                             } else if (response?.data?.status == 401) {
                                                 appAlert.error(`${response?.error?.data?.message}`)
                                                 router.replace('/signin')
@@ -419,7 +419,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName=""/>
                         {btc?.data?.length !== 0 ? (
@@ -436,7 +436,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>    
+                    <TabPanel px={"0"}>    
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         
                         {eth?.data?.length !== 0 ? (
@@ -453,7 +453,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
@@ -469,7 +469,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                         </Flex>}
                     </TabPanel>
                     
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
@@ -487,7 +487,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
 
 
                     {/* Tab panel 5 */}
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0"}>
                         <P2pTopfilter routeName='sell-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
                         
                         {usdt_tron?.data?.length !== 0 ? (

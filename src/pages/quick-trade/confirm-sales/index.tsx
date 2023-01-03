@@ -90,7 +90,7 @@ const ConfirmSales = () => {
     return (
         <DashboardLayout title='Confirm Sales'>
             <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
-                <Box bg={'appWhiteColor'} p={'4'}>
+                <Box bg={'appWhiteColor'}  w={["100%", "80%", "390px", "390px"]} px="10px">
                     <Flex flexDirection={'column'}>
                         <Flex alignItems={'center'} pb={'4'}>
                             <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'sell' } }) }} />
@@ -110,10 +110,9 @@ const ConfirmSales = () => {
                             <Menu closeOnSelect={true}>
                                 <MenuButton as={Button} colorScheme='transparent' w="100%" rightIcon={<ChevronDownIcon color="black" />} textAlign="left">
                                     <Text fontSize='sm' as='p' align={'left'} color="black" fontWeight={'semibold'}>Bank Transfer</Text>
-
                                 </MenuButton>
                                 
-                                <MenuList minWidth='380px' border="none" boxShadow={"1px 1px 0px red"}>
+                                <MenuList minWidth={['330px', '330px', '368px']} border="none" boxShadow={"1px 1px 0px red"}>
                                     <MenuOptionGroup defaultValue='asc'>
                                         {getUsersBank?.data.length !== 0 ? (
                                             getUsersBank?.data?.map((item: any) => (
@@ -152,7 +151,7 @@ const ConfirmSales = () => {
                         
                         
                         <Box py={'2'}></Box>
-                        <PaymentMethodComponent borderColor={'paymentMethodColor2'} label={'Switch NG Wallet'} rate={'550.67'} disabled />
+                            <PaymentMethodComponent borderColor={'paymentMethodColor2'} width="100%" label={'Switch NG Wallet'} rate={'550.67'} disabled />
                         <Box p={'12'}></Box>
                        
                         <MainAppButton isLoading={isLoading} onClick={() => handleSubmit()} backgroundColor={'secondary2Color.900'} >
