@@ -469,22 +469,22 @@ const EditAds = (props:any) => {
 
           <FormControl>
         
-            <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px">
-              <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}}>
+            <Box mt="80px" p="28px" px={["15px", "15px", "28px"]} fontFamily={"Open Sans"} bg="white" mx="10px" pb="70px" >
+              <Flex alignItems="center" mb="30px" justifyContent="space-between" w={{base: "100%", md:"50%"}} >
                 <VStack alignItems="flex-start">
                   <Text color={"#8E9BAE"} textTransform="capitalize">{singleAds?.type}</Text>
-                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}/{singleAds?.cash}</Heading>
+                  <Heading fontSize={{base: "14px", md:"24px"}} fontWeight="400">{singleAds?.coin === "USDT_TRON" ? "USDT-TRON" : singleAds?.coin}/{singleAds?.cash}</Heading>
                 </VStack>  
 
               <VStack alignItems="flex-start">
-                  <Text color={"#8E9BAE"}>Highest Order Price</Text>
-                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">₦{price?.toLocaleString()}</Heading>
-                </VStack>  
+                <Text color={"#8E9BAE"}>Highest Order Price</Text>
+                <Heading fontSize={{base: "14px", md:"24px"}} textAlign="center" width="100%" fontWeight="400">₦{price?.toLocaleString()}</Heading>
+              </VStack>  
 
 
               <VStack alignItems="flex-start">
-                  <Text color={"#8E9BAE"}>Price</Text>
-                  <Heading fontSize={{base: "20px", md:"24px"}} fontWeight="400">₦{price?.toLocaleString()}</Heading>
+                  <Text color={"#8E9BAE"} textAlign="right" width="100%">Price</Text>
+                  <Heading fontSize={{base: "14px", md:"24px"}} fontWeight="400">₦{price?.toLocaleString()}</Heading>
                 </VStack>  
             </Flex>
             <VStack alignItems={"flex-start"} mb="35px">
