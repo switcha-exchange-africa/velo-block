@@ -5,12 +5,13 @@ interface PaymentMethodComponentProps {
     borderColor: any
     label: string
     rate?: any
-    disabled?: boolean
+    disabled?: boolean,
+    width?: any
 }
 
-const PaymentMethodComponent = ({ borderColor, label, rate, disabled = false }: PaymentMethodComponentProps) => {
+const PaymentMethodComponent = ({ borderColor, label, rate, disabled = false, width }: PaymentMethodComponentProps) => {
     return (
-        <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} borderBottom={'1px'} borderColor={disabled ? 'gray' : borderColor} w={'sm'} mb={'1'} p={'1'} borderRadius={'md'}>
+        <Box borderRight={'4px'} borderTop={'1px'} borderLeft={'1px'} borderBottom={'1px'} borderColor={disabled ? 'gray' : borderColor} w={'sm'} width={width} mb={'1'} p={'1'} borderRadius={'md'}>
             <Flex justifyContent={'space-between'} >
                 <Text fontSize='sm' as='p' align={'center'} color={disabled ? 'gray' : ''} fontWeight={'semibold'} >{label}</Text>
                 <Flex flexDirection={'column'}>

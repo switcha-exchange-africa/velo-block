@@ -116,7 +116,6 @@ const TableComponent = ({
                                 {" "}
                                 Limit
                             </Text>
-                            {/* // mark */}
                             <Text fontSize={"xs"}>{api?.minLimit ? api?.minLimit.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit.toLocaleString(): api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                             <Box>
