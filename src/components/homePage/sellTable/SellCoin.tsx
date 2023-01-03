@@ -48,7 +48,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            console.log("this is the modal Data, trying again ", modalData)
+            // console.log("this is the modal Data, trying again ", modalData)
             onOpen()    
         }
     }
@@ -67,10 +67,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
     }
 
 
-
     const {data:getUsersBank} = useGetUsersBankQuery()
-
-    // const [bank, setBank] = useState("")
     const [clientAccountName, setClientAccountName] = useState("")
     const [clientBankName, setClientBankAccountName] = useState("")
     const [clientAccountNumber, setClientAccountNumber] = useState("")
@@ -204,7 +201,6 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             clientAccountNumber: clientAccountNumber,
                                             clientBankName: clientBankName
                                         }
-
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")
                                         } else if (amountt === "0") {

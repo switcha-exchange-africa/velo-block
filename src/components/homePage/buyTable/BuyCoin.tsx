@@ -164,7 +164,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                             <Box flex={1} borderLeft={["0", "0", "1px solid  #E2E8F0"]}>
                                 <Formik
                                     initialValues={{ debitCoinValue: amounts ?? '', creditCoinValue: creditCoinAmounts ?? '' }}
-
                                     onSubmit={async () => {
                                         const data = {
                                             adId: modalData?._id,
@@ -172,7 +171,6 @@ const BuyCoin = ({ pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             quantity: parseFloat(amountt),
                                             type: "buy"
                                         }
-
                                         const response = await p2pBuyOrder(data)
                                         if (response?.data?.status == 200) {
                                             appAlert.success(response?.data?.message)

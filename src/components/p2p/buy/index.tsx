@@ -35,7 +35,7 @@ const BuyP2p = ({
     
     // console.log("this is eth ", eth)
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
-
+console.log("this is the btc ", btc)
     const [modalData, setModalData] = useState<any>()
 
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
@@ -186,7 +186,6 @@ const BuyP2p = ({
                                         }
 
                                         const response = await p2pBuyOrder(data)
-                                        console.log("this is the response ", response)
 
                                         if (response?.data?.status == 200) {
                                             appAlert.success(response?.data?.message)
@@ -215,7 +214,7 @@ const BuyP2p = ({
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
                                                 <Box mb={"10px"}>
-                                                    <Text fontSize={"xs"} mb="5px">I want to buy </Text>
+                                                    <Text fontSize={"xs"} mb="5px">I want to buy</Text>
                                                     <Field name='debitCoinValue' >
                                                         {({ field }: any) => (
                                                             <InputGroup size="sm">
@@ -259,8 +258,6 @@ const BuyP2p = ({
                                                             justifyContent={'space-between'} alignItems={'center'} >
                                                             {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
                                                             <Text w='full'>{(amountt * modalData?.price).toLocaleString()}</Text> 
-                                                        
-                                                        
                                                         </Flex>
                                                         <InputRightAddon background={"none"} borderLeft="0px">
                                                         <Flex gap={"20px"}>

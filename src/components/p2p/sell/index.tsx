@@ -51,9 +51,7 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            console.log("this is the modal Data, trying again ", modalData)
             onOpen()
-        
         }
     }
 
