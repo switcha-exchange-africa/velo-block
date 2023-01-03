@@ -30,36 +30,37 @@ const AllAds = () => {
     const { user } = useAppSelector((state) => state.auth)
     const [pageNumber, setPageNumber] = useState(1)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
-    // const currentDate = new Date()
+    const currentDate = new Date()
     
     // // to convert date to ISOString
-    // const convertDate = (dateValue: any) => {
-    //     if (dateValue) {
-    //         return new Date(dateValue).toISOString()    
-    //     } else {
-    //         return ""
-    //     }
-    // }
+    const convertDate = (dateValue: any) => {
+        if (dateValue) {
+            return new Date(dateValue).toISOString()    
+        } else {
+            return ""
+        }
+    }
 
+    // day = date.getDate();
+    // console.log("this is the date ", day)
+    // let today = new Date();
     // useEffect(() => {
-      
     // console.log("this is the coin type ", coinType)
     // }, [])
     
-    // const todaysDate = convertDate(currentDate)
-    // const selectedDate = convertDate(date)
-    // const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType), dateFrom: "", dateTo: "" })
-    const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType)})
+
+
+    const todaysDate = convertDate(currentDate)
+    const selectedDate = convertDate(date)
+
+    // console.log("todays date ", todaysDate)
+    // console.log("selected date ", selectedDate)
+    
+    const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType), dateFrom: selectedDate, dateTo: (selectedDate==="" ? "" : todaysDate) })
+    // const getAllAds = useGetP2pAllAdsFilterQuery({ userId: user?._id, pageNumber: pageNumber, type: (orderType === "buy/sell" ? "" : orderType), status: (statusType === "All Status" ? "" : statusType), coin: (coinType === "All Assets" ? "" : coinType)})
     
     // console.log("get All ads ", getAllAds )
 
-    // const data ={
-    //     todaysDate: todaysDate,
-    //     selectedDate: selectedDate
-    // }
-
-    // console.log("this is the date ", data)
-    
     const handleReset = () => {
         setOrderType(`buy/sell`)
         setCoinType(`All Assets`)

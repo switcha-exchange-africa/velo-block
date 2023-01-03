@@ -48,7 +48,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            console.log("this is the modal Data, trying again ", modalData)
+            // console.log("this is the modal Data, trying again ", modalData)
             onOpen()    
         }
     }
@@ -67,10 +67,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
     }
 
 
-
     const {data:getUsersBank} = useGetUsersBankQuery()
-
-    // const [bank, setBank] = useState("")
     const [clientAccountName, setClientAccountName] = useState("")
     const [clientBankName, setClientBankAccountName] = useState("")
     const [clientAccountNumber, setClientAccountNumber] = useState("")
@@ -204,7 +201,6 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                             clientAccountNumber: clientAccountNumber,
                                             clientBankName: clientBankName
                                         }
-
                                         if (clientAccountNumber === "") {
                                             appAlert.error("Please select Payment method")
                                         } else if (amountt === "0") {
@@ -217,6 +213,8 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                 appAlert.success(response?.data?.message)
                                                 const orderId = response?.data?.data?.order?.orderId
                                                 router.push(`p2p/sell/${orderId}`)
+                                            } else if (response?.error?.status == 400) {
+                                                appAlert.error(`${response?.error?.data?.message[0]}`)
                                             } else if (response?.data?.status == 401) {
                                                 appAlert.error(`${response?.error?.data?.message}`)
                                                 router.replace('/signin')
@@ -258,7 +256,13 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                                 />
                                                                 <InputRightAddon background={"none"} borderLeft="0px">
                                                                     <Flex gap={"20px"}>
-                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text fontSize={"sm"}
+                                                                            cursor="pointer"
+                                                                            onClick={() => {
+                                                                                setFieldValue("debitCoinValue", modalData?.totalAmount)
+                                                                                setAmountt(modalData?.totalAmount)
+                                                                            }}
+                                                                        >All</Text>
                                                                         <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                                                     </Flex>
                                                                 </InputRightAddon>

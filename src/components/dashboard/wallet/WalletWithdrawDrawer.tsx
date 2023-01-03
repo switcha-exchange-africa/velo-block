@@ -15,12 +15,12 @@ const WalletWithdrawDrawer = (props: any) => {
     const { walletBalance } = useAppSelector((state) => state.accountSettings)
     const [amountState, setAmountState] = useState("")
     const [addressState, setAddressState] = useState("")
+    
     const renderBalance: any = (coinName: any) => {
         const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
         return obj?.balance?.toLocaleString() || 0
     }
 
-    
     const [withdrawCrypto]:any = useWithdrawCryptoMutation()
 
     const handleClose = () => {
@@ -29,14 +29,14 @@ const WalletWithdrawDrawer = (props: any) => {
         setIsNextClicked(false)
     }
 
-    const validateAmount = (value: string, ) => {
-        setAmountState(value)
-        let error
-        if (!value) {
-            error = 'Amount should not be empty '
-        }
-        return error
-    }
+    // const validateAmount = (value: string, ) => {
+    //     setAmountState(value)
+    //     let error
+    //     if (!value) {
+    //         error = 'Amount should not be empty '
+    //     }
+    //     return error
+    // }
 
     const validateAddress = (value: string, ) => {
         setAddressState(value)
@@ -95,16 +95,15 @@ const WalletWithdrawDrawer = (props: any) => {
                             <QRCode value="hey" />
                         </Flex> */}
                         <Formik
-                            initialValues={{ address: '', amount: "" }}
+                            initialValues={{ address: '', amount: '' }}
                             onSubmit={async (values) => {
                                 const data = {
                                     destination: values?.address,
                                     coin: props?.coin,
-                                    amount: parseFloat(values?.amount)
+                                    amount: parseFloat(amountState)
                                 }
 
-                                // console.log("this is the data ", data)
-
+                                
                                 const response = await withdrawCrypto(data) 
                                 // console.log(response)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
@@ -123,6 +122,7 @@ const WalletWithdrawDrawer = (props: any) => {
                             {({
                                 // handleChange,
                                 // handleBlur,
+                                setFieldValue,
                                 handleSubmit,
                                 isSubmitting,
                                 // values,
@@ -133,11 +133,16 @@ const WalletWithdrawDrawer = (props: any) => {
                                     {!isNextClicked  ? <Flex justifyContent={'space-evenly'} alignItems={'center'} pt={'12'}>
                                         <Flex flexDirection={'column'} alignItems={'center'} justifyContent="center"  >
                                             <Flex  justifyContent="center" w="75%" >
-                                                <Field name='amount' validate={validateAmount}>
+                                                <Field name='amount' >
                                                     {({ field, form }: any) => (
                                                         <FormControl isInvalid={form.errors.amount && form.touched.amount} >                                                            
                                                             <InputGroup py="5px">
-                                                                <Input width="100%" height="100%" ref={props?.btnRef}  isRequired type="number" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field} />
+                                                                <Input width="100%" height="100%" ref={props?.btnRef} isRequired type="text" border="none" textAlign="center" placeholder="0" fontWeight={'bold'} py={'15px'} color={'rgba(100, 116, 139, 1)'} fontSize={'4xl'} autoComplete='off' variant={'outline'} {...field}
+                                                                    onChange={(e) => {
+                                                                        setFieldValue('amount', e.target.value);
+                                                                        setAmountState(e.target.value)
+                                                                    }}
+                                                                />
                                                             </InputGroup>
 
                                                             <FormErrorMessage textAlign={"center"}>{form.errors.amount}</FormErrorMessage>
@@ -152,7 +157,15 @@ const WalletWithdrawDrawer = (props: any) => {
                                             </Text>
                                             
                             
-                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}>Send All ({renderBalance(props?.coin)} )</Text>
+                                            <Text fontWeight={'semibold'} color={'primaryColor.900'} pt={'2'}
+                                                onClick={() => {
+                                                    setFieldValue('amount', renderBalance(props?.coin));
+                                                    setAmountState(renderBalance(props?.coin))
+                                                }}
+                                                cursor="pointer"
+                                            >
+                                                Send All ({renderBalance(props?.coin)} )
+                                            </Text>
                                         </Flex>
                                         {/* <Flex>
                                             <ArrowDownIcon  w={6} h={6} />
@@ -170,7 +183,7 @@ const WalletWithdrawDrawer = (props: any) => {
 
 
                                     <VStack w={{ base: 'xs', md: 'sm' }} align='start' my={!isNextClicked ? { md: '16', base: '8' } : {}}>
-                                        {!isNextClicked  && <Field name='address' validate={validateAddress}>
+                                        {!isNextClicked  && <Field name='address' validate={validateAddress} >
                                             {({ field, form }: any) => (
                                                 <FormControl isInvalid={form.errors.address && form.touched.address} >
                                                     <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>

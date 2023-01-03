@@ -92,7 +92,7 @@ export const p2pApi = baseApi.injectEndpoints({
     }),
 
     getP2pOrderFilterForMerchant: builder.query<any, any>({
-      query: ({type, status, coin}) => `p2p/order/merchant/?type=${type}&status=${status}&coin=${coin}`,
+      query: ({type, status, coin, pageNumber}) => `p2p/order/merchant/?type=${type}&status=${status}&coin=${coin}&perpage=5&page=${pageNumber}`,
       transformResponse: (responseData: any) => {
         return responseData;
       },

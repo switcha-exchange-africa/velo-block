@@ -22,7 +22,6 @@ const QuickBuyComponent = () => {
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const coinsByTypeFiat: any = useGetCoinsByTypeQuery('fiat')
 
-
     // const sum = isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0
     // console.log(" naim be this o ", sum )
     // const ratePerDollar: any = useConvertToGetEstimatedRateQuery({ amount: '1', source: 'USDC', destination: debitCoin }, { refetchOnMountOrArgChange: true })

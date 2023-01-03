@@ -1,32 +1,22 @@
 import React, { useEffect } from "react";
-
 import {
-  VStack,
-  chakra,
-  Flex,
-  Img,
-  Heading,
-  HStack,
-  Grid,
-  GridItem,
-  Text,
-  Divider,
-  Show,
+  VStack, chakra, Flex, Img, Heading,
+  HStack, Grid, GridItem, Text,
+  Divider, Show, Box, Drawer,
+  DrawerBody, DrawerHeader, DrawerOverlay,
+  DrawerContent, DrawerCloseButton, useDisclosure
 } from "@chakra-ui/react";
 import DashBoardSidBarOptionComponent from "../../components/dashboard/DashBoardSidBarOptionComponent";
 import { useRouter } from "next/router";
-// import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
-// import { getTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
-// import LoginPage from "../../pages/signin";
-// import { useGetUserQuery } from "../../redux/services/auth.service";
-// import appAlert from "../../helpers/appAlert";
-// import RenderSwitchaLogo from "../../components/dashboard/RenderSwitchaLogo";
 import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { getTokenFromLocalStorage, removeTokenFromLocalStorage } from "../../redux/features/auth/authSlice";
 import Head from "next/head";
 import remoteImages from "../../constants/remoteImages";
+import MobileMore from "../../../public/assets/svgs/menuIcon.svg"
 import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
+import Image from "next/image";
+import { DashBoardSidBarMobileOptionComponent } from "../../components/dashboard/DashBoardSidBarMobileOptionComponent";
 
 
 interface DashboardLayoutProps {
@@ -39,7 +29,6 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const { token } = useAppSelector((state) => state.auth)
 
   const dispatch = useAppDispatch();
-  // const getUser: any = useGetUserQuery(undefined, { refetchOnFocus: true, refetchOnReconnect: true })
   const checkForToken = () => {
     dispatch(getTokenFromLocalStorage())
     // getUser.isFetching
@@ -61,43 +50,21 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
     dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
   
   }, [])
-  // if (getUser?.isFetching) {
-  //   return (<Flex w={'full'} h={'100vh'} alignItems={'center'} justifyContent={'center'} color={'rgba(100, 116, 139, 1)'}><RenderSwitchaLogo /></Flex>)
-  // }
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  
 
-  // if (getUser?.error?.data?.status == 401) {
-  //   // appAlert.warning('Session Expired, please sign in again')
-  //   return (<LoginPage />)
-  // }
+  const handleDrawer = () => {
+    onOpen()
+  }
 
-  // if (!token) {
-  //   return (<LoginPage />)
-  // }
-
-
-
-  // React.useEffect(() => {
-  //   if (getUser?.error?.data?.status == 401) {
-  //     // alert(JSON.stringify(getUser))
-  //     router.push('/signin')
-  //   }
-  //   if (getUser?.isFetching) {
-  //     router.push('/dashboard')
-  //   }
-  // }, [getUser, getUser?.error?.data?.status, router])
 
   return (
     <Flex
-      // align="stretch"
-      // maxH={["100vh", "100vh", "100vh", "100vh"]}
       flexDirection={'column'}
       h={{ lg: "100vh", md: "100vh", sm: "100vh", base: "100vh" }}
-      // h={["100vh"]}
       bg="mainBGColor"
       width={["100%", "100%", "unset", "unset"]}
-    // justify="stretch"
-    // overflowY={'scroll'}
-
     >
       <Head>
         <title>{title}</title>
@@ -145,17 +112,92 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
           </HStack>
         </Flex>
       </chakra.header>
-      {/* <Show below="sm">
-        {router.pathname.includes('trade') && <chakra.header>
-          <Flex boxShadow={'md'} w={'100%'} bg={'#ffffff'} px={'4'}>
-            <Text py={'4'} fontWeight={'medium'} size="md" cursor={'pointer'} onClick={() => router.push('/quick-trade/order')}>
-              All Orders
-              {router.pathname.includes('order') && <Divider borderColor={'primaryColor.900'} />}
-            </Text>
-          </Flex>
-        </chakra.header>}
-      </Show> */}
-      {/* <Flex color="black">{children}</Flex> */}
+
+      {/* contains the drawer for mobile view */}
+      <Box display={["flex", "flex", "none", "none"]} bg="red">
+        <Drawer
+          isOpen={isOpen}
+          placement='right'
+          onClose={onClose}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader mt=" 50px" pl="55px">More</DrawerHeader>
+            <DrawerBody>
+              <DashBoardSidBarMobileOptionComponent label="Wallet" route="wallet" onClick={() => {
+                router.push('/wallet')
+                  onClose()
+              }} display={["flex", "flex", "flex", "flex"]}>
+                {router.pathname.includes('wallet') ? <Img
+                    src={remoteImages.walletSelected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  /> : <Img
+                    src={remoteImages.walletDesktopUnselected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />}
+              </DashBoardSidBarMobileOptionComponent>
+
+              <DashBoardSidBarMobileOptionComponent label="FAQs" route="faq" display={["flex", "flex", "flex", "flex"]}>
+                {router.pathname.includes('faq') ? <Img
+                    src={remoteImages.faqsSelected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  /> : <Img
+                    src={remoteImages.faqsDesktopUnselected}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />}
+              </DashBoardSidBarMobileOptionComponent>
+
+              <DashBoardSidBarMobileOptionComponent label="Settings" route="setting" display={["flex", "flex", "flex", "flex"]} onClick={() => {
+                router.push('/settings')
+                onClose()
+              }}>
+                {router.pathname.includes('setting') ? <Img
+                  src={remoteImages.settingsSelected}
+                  alt=""
+                  objectFit="contain"
+                  boxSize=""
+                /> : <Img
+                  src={remoteImages.settingsDesktopUnselected}
+                  alt=""
+                  objectFit="contain"
+                  boxSize=""
+                />}
+              </DashBoardSidBarMobileOptionComponent>
+
+              
+            <Divider bg={"black"} display={["flex", "flex", "flex", "flex"]} />
+              <HStack
+                pl={"45px"}
+                mt="20px"
+                width={"100%"}
+                display={["flex", "flex", "flex", "flex"]}
+                cursor={'pointer'}
+                onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+                >
+                  <Img
+                    src={remoteImages.logoutSvg}
+                    alt=""
+                    objectFit="contain"
+                    boxSize=""
+                  />
+                  <Text fontSize={"lg"}>Log Out</Text>
+                </HStack>
+
+            </DrawerBody>
+
+          </DrawerContent>
+        </Drawer>
+      </Box>
+      
       <Grid
         templateColumns={[
           "unset",
@@ -175,12 +217,10 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             justifyContent={["", "", "space-between", "space-between"]}
             flexDirection={["row", "row", "column", "column"]}
             h={"100%"}
-            // py={["20px", "20px", "10px", "5px"]}
-            py={{ base: '5px', md: '8' }}
-            boxShadow={["dark-lg", "dark-lg", "unset", "unset"]}
-            borderRadius={["30px 30px 0 0", "30px 30px 0 0", "unset", "unset"]}
+            boxShadow={["0px -4px 11px rgba(0, 0, 0, 0.08)", "0px -4px 11px rgba(0, 0, 0, 0.08)", "unset", "unset"]}
+            borderRadius={["12px 12px 0px 0px", "10px 10px 0 0", "unset", "unset"]}
           >
-            <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')}>
+            <DashBoardSidBarOptionComponent label="Home" route="dashboard" onClick={() => router.push('/dashboard')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('dashboard') ? <Img
                   src={remoteImages.homeSelected}
@@ -211,7 +251,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Quick Trade" route="trade" onClick={() => router.push('/quick-trade')}>
+            <DashBoardSidBarOptionComponent label="Quick Trade" route="trade" onClick={() => router.push('/quick-trade')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('trade') ? <Img
                   src={remoteImages.quickTradeSelected}
@@ -243,7 +283,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="P2P" route="p2p" onClick={() => router.push('/p2p')}>
+            <DashBoardSidBarOptionComponent label="P2P" route="p2p" onClick={() => router.push('/p2p')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('p2p') ? <Img
                   src={remoteImages.p2pSelected}
@@ -273,7 +313,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Swap" route="swap" onClick={() => router.push('/swap')}>
+            <DashBoardSidBarOptionComponent label="Swap" route="swap" onClick={() => router.push('/swap')} display={["flex", "flex", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('swap') ? <Img
                   src={remoteImages.swapSelected}
@@ -304,37 +344,37 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             </DashBoardSidBarOptionComponent>
 
 
-            <DashBoardSidBarOptionComponent label="Wallet" route="wallet" onClick={() => router.push('/wallet')}>
-              <Show above="md">
-                {router.pathname.includes('wallet') ? <Img
-                  src={remoteImages.walletSelected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                /> : <Img
-                  src={remoteImages.walletDesktopUnselected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                />}
-              </Show>
-              <Show below="sm">
-                {router.pathname.includes('wallet') ? <Img
-                  src={remoteImages.walletSelected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                /> : <Img
-                  src={remoteImages.walletMobileUnselected}
-                  alt=""
-                  objectFit="contain"
-                  boxSize=""
-                />}
-              </Show>
+            <DashBoardSidBarOptionComponent label="Wallet" route="wallet" onClick={() => router.push('/wallet')} display={["none", "none", "flex", "flex"]}>
+            <Show above="md">
+              {router.pathname.includes('wallet') ? <Img
+                src={remoteImages.walletSelected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              /> : <Img
+                src={remoteImages.walletDesktopUnselected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              />}
+            </Show>
+            <Show below="sm">
+              {router.pathname.includes('wallet') ? <Img
+                src={remoteImages.walletSelected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              /> : <Img
+                src={remoteImages.walletMobileUnselected}
+                alt=""
+                objectFit="contain"
+                boxSize=""
+              />}
+            </Show>
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="FAQs" route="faq" >
+            <DashBoardSidBarOptionComponent label="FAQs" route="faq" display={["none", "none", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('faq') ? <Img
                   src={remoteImages.faqsSelected}
@@ -364,7 +404,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
-            <DashBoardSidBarOptionComponent label="Settings" route="setting" onClick={() => router.push('/settings')}>
+            <DashBoardSidBarOptionComponent label="Settings" route="setting" onClick={() => router.push('/settings')} display={["none", "none", "flex", "flex"]}>
               <Show above="md">
                 {router.pathname.includes('setting') ? <Img
                   src={remoteImages.settingsSelected}
@@ -394,6 +434,34 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
             </DashBoardSidBarOptionComponent>
 
+            
+
+            
+            {/* this is the more button for the mobile section */}
+            <HStack
+              px={[0, 0, 8, 8]}
+              py={[3, 3, 3, 3]}
+              display={["flex", "flex", "none", "none"]}
+              borderRadius={[0, 0, 'md', 'lg']}
+              my={[0, 0, 2, 2]}
+              width={"100%"}
+              flexDirection={["column", "column", "row", "row"]}
+              alignItems={["center"]}
+              onClick={handleDrawer}
+            >
+              <Box p={{ lg: '2.5', base: '2' }}
+                  borderRadius={'md'} >
+                  <Image src={MobileMore} alt=""/>
+              </Box>
+              <Text
+                  fontSize={["10px", "10px", "lg", "lg"]}
+                  margin={["0"]}
+                  textAlign={{ base: 'center', md: 'left' }}
+              >
+                  More
+              </Text>
+            </HStack>
+
             <Divider bg={"black"} display={["none", "none", "flex", "flex"]} />
             <HStack
               justifyContent={"center"}
@@ -414,6 +482,8 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
             </HStack>
           </VStack>
         </GridItem>
+       
+       
         <GridItem
           colSpan={[0, 0, 10, 10]}
           rowSpan={[10, 10, 0, 0]}

@@ -154,7 +154,7 @@ const AddBankAccounts = () => {
                                         w={"10px"}
                                         h={"10px"}
                                     />
-                                    Add Bank
+                                    Edit Bank
                                 </Button>
 
 

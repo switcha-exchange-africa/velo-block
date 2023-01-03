@@ -35,7 +35,6 @@ const BuyP2p = ({
     
     // console.log("this is eth ", eth)
     const [p2pBuyOrder]:any = useP2pBuyOrderMutation()
-
     const [modalData, setModalData] = useState<any>()
 
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
@@ -67,7 +66,7 @@ const BuyP2p = ({
 
 
     return (
-        <Box  position="relative">
+        <Box  position="relative" px="0">
             <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose} >
                 <ModalContent
                     maxW={["100%", "100%", "75%", "75%", "79%"]}
@@ -193,6 +192,8 @@ const BuyP2p = ({
                                             router.push(`p2p/buy/${orderId}`)
                                         } else if (amountt === "0") {
                                             appAlert.error("quantity must be a positive number ")
+                                        } else if (response?.error?.status == 400) {
+                                            appAlert.error(`${response?.error?.data?.message[0]}`)
                                         } else if (response?.data?.status == 401) {
                                             appAlert.error(`${response?.error?.data?.message}`)
                                             router.replace('/signin')
@@ -212,7 +213,7 @@ const BuyP2p = ({
                                         <Form>
                                             <Box w={["full", "full", "300px"]} margin={"0px auto"}>
                                                 <Box mb={"10px"}>
-                                                    <Text fontSize={"xs"} mb="5px">I want to buy </Text>
+                                                    <Text fontSize={"xs"} mb="5px">I want to buy</Text>
                                                     <Field name='debitCoinValue' >
                                                         {({ field }: any) => (
                                                             <InputGroup size="sm">
@@ -229,11 +230,18 @@ const BuyP2p = ({
                                                                         setFieldValue('debitCoinValue', e.target.value);
                                                                         setAmountt(e.target.value)
                                                                         !(convertFromCreditCoin.isFetching) && convertFromCreditCoin?.data?.data && setFieldValue('creditCoinValue', calculateConversion(parseFloat(e.target.value)).toLocaleString())
-                                                                    }} onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} 
+                                                                    }}
+                                                                    onKeyDown={(e) => { ['-', '+'].includes(e.key) && e.preventDefault(); }} 
                                                                 />
                                                                 <InputRightAddon background={"none"} borderLeft="0px">
                                                                     <Flex gap={"20px"}>
-                                                                        <Text fontSize={"sm"}>All</Text>
+                                                                        <Text fontSize={"sm"}
+                                                                            cursor="pointer"
+                                                                            onClick={() => {
+                                                                                setFieldValue("debitCoinValue", modalData?.totalAmount)
+                                                                                setAmountt(modalData?.totalAmount)
+                                                                            }}
+                                                                        >All</Text>
                                                                         <Text fontSize={"sm"}>{modalData?.coin === "USDT_TRON" ? "USDT-TRON" : modalData?.coin}</Text>
                                                                     </Flex>
                                                                 </InputRightAddon>
@@ -249,8 +257,6 @@ const BuyP2p = ({
                                                             justifyContent={'space-between'} alignItems={'center'} >
                                                             {/* <Text w='full'>{isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmounts?.toLocaleString() ?? 0}</Text>  */}
                                                             <Text w='full'>{(amountt * modalData?.price).toLocaleString()}</Text> 
-                                                        
-                                                        
                                                         </Flex>
                                                         <InputRightAddon background={"none"} borderLeft="0px">
                                                         <Flex gap={"20px"}>
@@ -276,7 +282,7 @@ const BuyP2p = ({
                 </ModalContent>
             </Modal>
             
-            <Tabs variant="unstyled" mt={["20px"]} px={["0", "0px", "28px", "28px"]}>
+            <Tabs variant="unstyled" mt={["20px"]} px={["0px", "0px", "28px", "28px"]}>
                 <TabList gap={["30px", "30px", "60px"]} >
                     <Tab
                         onClick={handlePageReset}
@@ -326,7 +332,7 @@ const BuyP2p = ({
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel paddingLeft={0} >                        
+                    <TabPanel px={"0px"} >                        
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="BTC"/>
                         {btc?.data?.length !== 0 ? (
                             <TableComponent
@@ -343,7 +349,7 @@ const BuyP2p = ({
                     </TabPanel>
 
                     
-                    <TabPanel paddingLeft={0}>    
+                    <TabPanel px={"0px"}>    
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="ETH"/>
                         {eth?.data?.length !== 0 ? (
                             <TableComponent
@@ -359,7 +365,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT"/>
                         {usdt?.data?.length !== 0 ? (
                             <TableComponent
@@ -375,7 +381,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
                     
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDC"/>
                         {usdc?.data?.length !== 0 ? (
                             <TableComponent
@@ -391,7 +397,7 @@ const BuyP2p = ({
                         </Flex>}
                     </TabPanel>
 
-                    <TabPanel paddingLeft={0}>
+                    <TabPanel px={"0px"}>
                         <P2pTopfilter routeName='buy-ads' amount={amount} setAmount={setAmount} coinName="USDT-TRON"/>
                         {usdt_tron?.data?.length !== 0 ? (
                             <TableComponent

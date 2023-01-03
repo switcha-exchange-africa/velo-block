@@ -53,8 +53,8 @@ const ConfirmPurchase = () => {
     }
     return (
         <DashboardLayout title='Confirm Purchase'>
-            <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='full' h={'full'}>
-                <Box bg={'appWhiteColor'} p={'4'}>
+            <Flex bg={'mainBGColor'} justifyContent={'center'} alignItems='center' w='100%' h={'full'}>
+                <Box bg={'appWhiteColor'}  w={["100%", "80%", "390px", "390px"]} px="10px">
                     <Flex flexDirection={'column'}>
                         <Flex alignItems={'center'} pb={'4'}>
                             <ChevronLeftIcon onClick={() => { router.replace({ pathname: '/quick-trade', query: { type: 'buy' } }) }} />
@@ -68,7 +68,7 @@ const ConfirmPurchase = () => {
                         </Text>
                         <Text fontSize='xs' as='p' fontWeight={'light'} w={'full'} align={'center'} >I will receive {creditCoinAmount} {coin === 'USDT_TRON' ? 'USDT-TRON' : coin}</Text>
                         <Text fontSize='xs' as='p' fontWeight={'semibold'} color={'textLightColor'} w={'full'} align={'left'} pt={'8'} pb={'1'}>Select payment method</Text>
-                        <PaymentMethodComponent borderColor={'primaryColor.900'} label={'Bank Transfer'}
+                        <PaymentMethodComponent width="100%" borderColor={'primaryColor.900'} label={'Bank Transfer'}
                         // rate={
                         //     rate ? parseFloat(rate).toFixed(2) : '0'} 
                         />
