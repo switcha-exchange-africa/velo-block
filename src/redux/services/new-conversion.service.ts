@@ -26,6 +26,15 @@ export const newConversionAPi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    quickTradeSellConvert: builder.query<any, any>({
+      query: (queryParams) => `trade/quick-trade/rate?amount=${queryParams.amount}&type=sell&coin=${queryParams.sub}&cash=${queryParams.base}`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    // {{SWITCHA_URL}}/api/v1/trade/quick-trade/rate?amount=100&type=sell&coin=USDT&cash=NGN
   }),
 });
 
@@ -36,4 +45,6 @@ export const {
   useSwapConvertToGetEstimatedRateQuery,
   useLazySwapConvertQuery,
   useQuickTradeConvertQuery,
+
+  useQuickTradeSellConvertQuery
 } = newConversionAPi;
