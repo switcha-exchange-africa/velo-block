@@ -497,6 +497,8 @@ const SellP2p = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRese
                                 apiData={usdt_tron}
                                 handlePreviousPage = { handlePreviousPage }
                                 handleNextPage={handleNextPage}
+                                onClick={handleOpen}
+
                             />      
                         ) : <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
                             <Text fontSize="20px" fontWeight="700" color={'#64748B'}>NO BUY ADS YET</Text>

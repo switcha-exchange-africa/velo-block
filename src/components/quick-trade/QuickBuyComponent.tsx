@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../helpers/hooks/reduxHooks';
 import { setQuickBuyPayload } from '../../redux/features/quick-trade/quickTradeSlice';
 import { useGetCoinsByTypeQuery } from '../../redux/services/buy-sell.service';
 import { useCalculateTradeFeesQuery } from '../../redux/services/fees.service';
-import { useQuickTradeConvertQuery } from '../../redux/services/new-conversion.service';
+import { useQuickTradeConvertQuery, useQuickTradeSellConvertQuery } from '../../redux/services/new-conversion.service';
 // import { useQuickTradeMutation } from '../../redux/services/quick-trade.service';
 import MainAppButton from '../buttons/MainAppButton';
 
@@ -32,16 +32,28 @@ const QuickBuyComponent = () => {
         sub: creditCoin.toLowerCase() == 'btc' ? 'bitcoin' : creditCoin.toLowerCase() == 'eth' ? 'ethereum' : 'tether'
     }, { refetchOnMountOrArgChange: true })
 
+    const convertUSDTCoin: any = useQuickTradeSellConvertQuery({ amount: amountt, base: debitCoin, sub: creditCoin }, { refetchOnMountOrArgChange: true })
+
+
     const calculateQuickBuyFees: any = useCalculateTradeFeesQuery({ amount: amountt, operation: 'buy' }, { skip: amountt == '0', refetchOnMountOrArgChange: true })
 
     const calculateConversion = (numberAmount: number) => {
         return !isNaN(numberAmount) && amountt && amountt != '' ? creditCoin.toLowerCase() == 'btc' ? (numberAmount / convertFromDebitCoin?.data?.data?.bitcoin?.ngn) : creditCoin.toLowerCase() == 'eth' ? (numberAmount / convertFromDebitCoin?.data?.data?.ethereum?.ngn) : (numberAmount / convertFromDebitCoin?.data?.data?.tether?.ngn) : 0
     }
 
-    // const [quickTrade] = useQuickTradeMutation()
-    const dispatch = useAppDispatch()
+    const calculateUSDsConversion = (numberAmount: number) => {
+        return !isNaN(numberAmount) && amountt && amountt != '' ? creditCoin=== "USDT" ? (numberAmount / convertUSDTCoin?.data?.data) : creditCoin=== "USDT" ? (numberAmount / convertUSDTCoin?.data?.data) : (numberAmount / convertUSDTCoin?.data?.data) : 0
+    }
 
-    // console.log(convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount)
+    const calculateBasedOnType = () => {
+        if (creditCoin === "BTC" || creditCoin === "ETH") {
+            return isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0
+        } else {
+            return isNaN(calculateUSDsConversion(parseFloat(amountt))) ? 0 : calculateUSDsConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0
+        }
+    }
+    
+    const dispatch = useAppDispatch()
 
     return (
         <Flex flexDirection={'column'} p={'8'}>
@@ -51,7 +63,6 @@ const QuickBuyComponent = () => {
                 onSubmit={async () => {
                     const data = {
                         amount: parseFloat(amountt),
-                        // creditCoinAmount: convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount,
                         creditCoinAmount: calculateConversion(parseFloat(amountt)).toFixed(8),
                         fee: calculateQuickBuyFees?.data?.data?.fee,
                         cash: debitCoin,
@@ -108,7 +119,7 @@ const QuickBuyComponent = () => {
                                         <FormLabel fontSize={'xs'} color={'textLightColor'}>To</FormLabel>
                                         <Flex pl={'4'} w='full' border={'1px'} zIndex={'base'} borderColor={'gray.200'} borderRadius={'8'} justifyContent={'space-between'} alignItems={'center'} ><Text w='full'>
                                             {/* {convertFromDebitCoin?.data?.data?.destinationAmount?.destinationAmount?.toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0} */}
-                                            {isNaN(calculateConversion(parseFloat(amountt))) ? 0 : calculateConversion(parseFloat(amountt)).toLocaleString() ?? creditCoinAmount?.toLocaleString() ?? 0}
+                                            {calculateBasedOnType()}
                                         </Text>
                                             {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
                                         </Flex>

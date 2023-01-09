@@ -32,47 +32,48 @@ const P2pOrders = () => {
 
     return (
         <>
-            {filterMerchantOrderByTypeAndStatus?.data?.data.length !== 0 ? (        
-                <>
-                    <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
-                        <Flex gap="24px" cursor="pointer">
-                            <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
-                                <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
-                                <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
-                                    {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
-                                </Flex>                        
-                            </Flex>
+            <Flex flexDirection={'column'} mt='20px' p={{ base: '0px', md: '' }}>
+                <Flex gap="24px" cursor="pointer">
+                    <Flex flexDirection={'column'}  fontSize={{ base: 'sm', md: 'md' }}>
+                        <Text fontWeight={'medium'} color={'#64748B'}>Coins</Text>
+                        <Flex mt={'2'} fontSize={{ base: '12px', md: 'md' }} border="1px solid #8B94A5" borderRadius="5px">
+                            {coinsByTypeCrypto?.data?.data && <RenderCoinsDropdown items={coinsByTypeCrypto?.data?.data} onChange={(selectedValue) => setCreditCoin(selectedValue)} value={creditCoin} />}
+                        </Flex>                        
+                    </Flex>
 
-                            <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
-                                <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
-                                
-                                <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
-                                    setOrderType(e.target.value);
-                                }}>
-                                    <option value={'buy/sell'}>Buy/Sell</option>
-                                    <option value={'buy'}>Buy</option>
-                                    <option value={'sell'}>Sell</option>
-                                </Select>
-                            </Flex>
-                            
-                            <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
-                                <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
-                                <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
-                                    setStatusType(e.target.value);
-                                }}>
-                                    <option value={'All Status'}>All Status</option>
-                                    <option value={'pending'}>Pending</option>
-                                    <option value={'processing'}>Processing</option>
-                                    <option value={'completed'}>Completed</option>
-                                    <option value={'expired'}>Expired</option>
-                                </Select>
-                            </Flex>
-                        </Flex>
+                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }} cursor="pointer" >
+                        <Text fontWeight={'medium'} color={'#64748B'}>Order Type</Text>
                         
-                        {filterMerchantOrderByTypeAndStatus?.data && <RenderOrder data={filterMerchantOrderByTypeAndStatus?.data?.data} />}
-                                
+                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={orderType} border="1px solid #8B94A5" onChange={(e) => {
+                            setOrderType(e.target.value);
+                        }}>
+                            <option value={'buy/sell'}>Buy/Sell</option>
+                            <option value={'buy'}>Buy</option>
+                            <option value={'sell'}>Sell</option>
+                        </Select>
+                    </Flex>
+                    
+                    <Flex flexDirection={'column'} fontSize={{ base: 'sm', md: 'md' }}>
+                        <Text fontWeight={'medium'} color={'#64748B'}>Status</Text>
+                        <Select mt={'2'} fontSize={{ base: '12px', md: 'md' }} value={statusType} onChange={(e) => {
+                            setStatusType(e.target.value);
+                        }}>
+                            <option value={'All Status'}>All Status</option>
+                            <option value={'pending'}>Pending</option>
+                            <option value={'processing'}>Processing</option>
+                            <option value={'completed'}>Completed</option>
+                            <option value={'expired'}>Expired</option>
+                        </Select>
+                    </Flex>
+                </Flex>
+                
+                {filterMerchantOrderByTypeAndStatus?.data && <RenderOrder data={filterMerchantOrderByTypeAndStatus?.data?.data} />}
                         
-                    </Flex>  
+                
+            </Flex>  
+            {filterMerchantOrderByTypeAndStatus?.data?.data.length !== 0 && (        
+                <>
+                    
                     {filterMerchantOrderByTypeAndStatus?.data?.pagination?.lastPage > 1 ? (
                         <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
                             <HStack >
@@ -96,11 +97,7 @@ const P2pOrders = () => {
                         </HStack>
                     ) : null}
                 </>
-            ) : (
-                    <Flex bg="white" w="100%" boxShadow="sm" alignItems="center" justifyContent="center" mt="70px" py="100px">
-                        <Text fontSize="20px" fontWeight="700" color={'#64748B'}>You Don't Have Any Orders Yet</Text>
-                    </Flex>
-                )}
+            ) }
 
         </>
     )
