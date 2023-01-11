@@ -214,7 +214,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                 const orderId = response?.data?.data?.order?.orderId
                                                 router.push(`p2p/sell/${orderId}`)
                                             } else if (response?.error?.status == 400) {
-                                                appAlert.error(`${response?.error?.data?.message[0]}`)
+                                                appAlert.error(`${response?.error?.data?.message}`)
                                             } else if (response?.data?.status == 401) {
                                                 appAlert.error(`${response?.error?.data?.message}`)
                                                 router.replace('/signin')
