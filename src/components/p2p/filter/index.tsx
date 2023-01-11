@@ -12,10 +12,10 @@ interface P2pTopfilterProps {
 const P2pTopfilter = ({routeName, coinName, amount, setAmount}: P2pTopfilterProps) => {
     const router = useRouter();
     const getFees = useGetFeesQuery("p2p-buy")
-    console.log(coinName)
+    // console.log(coinName)
 
     const handleSubmit = () => {
-
+        coinName
     }
 
     return (
