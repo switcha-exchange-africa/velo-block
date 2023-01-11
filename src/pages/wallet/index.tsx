@@ -295,7 +295,7 @@ function WalletPage() {
                                     wallet?.address,
                                     wallet?.coin,
                                     // supposed to be wallet.label
-                                    wallet?.coin
+                                    wallet?.coin,
                                     wallet?.accountId
                                   );
                                   setIsWithdrawalDrawerOpen(true);
@@ -314,6 +314,7 @@ function WalletPage() {
                                 label={label}
                                 coin={coin}
                                 address={address}
+                                accountId={accountId}
                               />
 
 
