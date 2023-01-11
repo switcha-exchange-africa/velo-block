@@ -40,5 +40,6 @@ export const {
   useWithdrawCryptoMutation,
   useGetWalletsQuery,
   useLazyGetSingleWalletQuery,
+  useGetSingleWalletQuery,
   useLazyGetWalletsQuery,
 } = walletApi;

@@ -2,10 +2,13 @@ import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, Draw
 import React from 'react';
 import QRCode from 'react-qr-code';
 import appAlert from '../../../helpers/appAlert';
+import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service';
 
 const WalletDepositDrawer = (props: any) => {
-
+    const getSingleWallet = useGetSingleWalletQuery(props?.accountId)
     console.log({props})
+
+    console.log({getSingleWallet})
 
     return (
         <>
@@ -43,7 +46,7 @@ const WalletDepositDrawer = (props: any) => {
                                 </Select>
                             </Box>
                         )}
-                        <Text fontWeight="600">{props.address}</Text>
+                        <Text fontWeight="600">{getSingleWallet?.data?.data?.address}</Text>
                         <Button
                             mt={"60px"}
                             width={"100%"}
@@ -51,7 +54,7 @@ const WalletDepositDrawer = (props: any) => {
                             background={"#10192D"}
                             size={"lg"}
                             onClick={() => {
-                                navigator.clipboard.writeText(props.address);
+                                navigator.clipboard.writeText(getSingleWallet?.data?.data?.address);
                                 appAlert.success("address copied")
                             }}
                         >

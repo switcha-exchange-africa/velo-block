@@ -30,12 +30,12 @@ function WalletPage() {
   const walletsquery: any = useGetWalletsQuery(user?._id)
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
-  const [accountId, setAccountId] = useState(walletsquery?.data?.data[0]?.accountId)
+  const [accountId, setAccountId] = useState(walletsquery?.data?.data[0]?._id)
   console.log({address})
 
 
   console.log({walletsquery})
-  
+
   const to8Dp = (number: any) => {
     if (number > 1) {
       const datas = _.floor(number, 8)
@@ -86,9 +86,9 @@ function WalletPage() {
 
 
 
-  const handleClick = (newAddress: any, newLabel: any, newCoin: any, newAccountId: any) => {
+  const handleClick = (newAddress: any, newLabel: any, newCoin: any, new_Id: any) => {
     setAddress(newAddress);
-    setAccountId(newAccountId)
+    setAccountId(new_Id)
     setLabel(newLabel);
     setCoin(newCoin);
     onOpen();
@@ -255,7 +255,7 @@ function WalletPage() {
                                       wallet?.coin,
                                       // supposed to be wallet.label
                                       wallet?.coin,
-                                      wallet?.accountId
+                                      wallet?._id
                                     );
                                     setIsDepositDrawerOpen(true);
                                   }}
@@ -296,7 +296,7 @@ function WalletPage() {
                                     wallet?.coin,
                                     // supposed to be wallet.label
                                     wallet?.coin,
-                                    wallet?.accountId
+                                    wallet?._id
                                   );
                                   setIsWithdrawalDrawerOpen(true);
                                 }}
