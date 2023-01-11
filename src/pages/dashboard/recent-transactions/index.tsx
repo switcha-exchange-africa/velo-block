@@ -19,6 +19,7 @@ import { useAppSelector } from '../../../helpers/hooks/reduxHooks'
 import { useGetAllTransactionsQuery } from '../../../redux/services/transactions.service'
 import RenderBalanceToUsd from '../../../components/wallet/RenderBalanceToUsd'
 import moment from "moment"
+import _ from "lodash"
 
 const RecentTransaction = () => {
     const router = useRouter()
@@ -31,14 +32,23 @@ const RecentTransaction = () => {
     const apiData = getTransactions?.data
     // console.log(user?._id)
 
-    // console.log(getTransactions)
-
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
     }
 
     const handleNextPage = () => {
         setPageNumber(pageNumber + 1)
+    }
+
+
+    const to8Dp = (number: any) => {
+        if (number > 1) {
+            const datas = _.floor(number, 8)
+            const values = datas?.toLocaleString()
+            return values  
+        } else {
+            return number
+        }    
     }
 
 
@@ -111,7 +121,7 @@ const RecentTransaction = () => {
                                         <Td fontSize="14px" textTransform="capitalize">{api?.customTransactionType}</Td>
                                         <Td fontSize="14px" fontWeight="500" textTransform="capitalize">{api?.type}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
-                                        <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
+                                        <Td fontSize="14px"  fontWeight="500">{api?.amount ? to8Dp(api?.amount) : to8Dp(api?.amount)}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px" fontWeight="500">
                                             <Flex>
                                                 <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>

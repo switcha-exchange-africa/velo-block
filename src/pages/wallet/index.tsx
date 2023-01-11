@@ -27,10 +27,7 @@ function WalletPage() {
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
-
-  
   const walletsquery: any = useGetWalletsQuery()
-  
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
@@ -114,8 +111,7 @@ function WalletPage() {
 
 
   return (
-    <DashboardLayout title="
-    Wallet">
+    <DashboardLayout title="Wallet">
 
       <Box w={'full'} p={{ md: '8', base: '' }}>
         <Box>
