@@ -11,7 +11,7 @@ import RenderLabelComponent from "../../components/dashboard/wallet/RenderLabelC
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
-import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
 // import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
@@ -20,6 +20,7 @@ import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.ser
 
 
 function WalletPage() {
+  const {user} = useAppSelector((state) => state.auth)
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,12 +28,12 @@ function WalletPage() {
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
-  const walletsquery: any = useGetWalletsQuery()
+  const walletsquery: any = useGetWalletsQuery(user?._id)
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
 
 
-
+  
   const to8Dp = (number: any) => {
     if (number > 1) {
       const datas = _.floor(number, 8)

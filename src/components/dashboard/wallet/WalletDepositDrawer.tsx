@@ -4,6 +4,7 @@ import QRCode from 'react-qr-code';
 import appAlert from '../../../helpers/appAlert';
 
 const WalletDepositDrawer = (props: any) => {
+    
     return (
         <>
             <Drawer
