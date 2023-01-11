@@ -31,7 +31,7 @@ const RecentTransaction = () => {
     const apiData = getTransactions?.data
     // console.log(user?._id)
 
-    // console.log(getTransactions)
+    console.log({apiData})
 
     const handlePreviousPage = () => {
         setPageNumber(pageNumber - 1)
@@ -111,7 +111,7 @@ const RecentTransaction = () => {
                                         <Td fontSize="14px" textTransform="capitalize">{api?.customTransactionType}</Td>
                                         <Td fontSize="14px" fontWeight="500" textTransform="capitalize">{api?.type}</Td>
                                         <Td fontSize="14px"  fontWeight="500">{api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
-                                        <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount?.toLocaleString() : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
+                                        <Td fontSize="14px"  fontWeight="500">{api?.amount ? api?.amount : api?.amount}&nbsp; {api?.currency === "USDT_TRON" ? "USDT-TRON" : api?.currency}</Td>
                                         <Td fontSize="14px" fontWeight="500">
                                             <Flex>
                                                 <RenderBalanceToUsd coin={api?.currency} balance={api?.amount} variant={true} /> <Text ml="5px"> USDT</Text>
