@@ -11,15 +11,15 @@ import RenderLabelComponent from "../../components/dashboard/wallet/RenderLabelC
 import RenderBalanceToUsd from "../../components/wallet/RenderBalanceToUsd";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
-import { useAppDispatch } from "../../helpers/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../helpers/hooks/reduxHooks";
 import { setCoinOrCash } from "../../redux/features/quick-trade/quickTradeSlice";
-// import remoteImages from "../../constants/remoteImages";
 import { useGetActivitiesQuery } from "../../redux/services/transactions.service";
 import moment from "moment"
 import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.service";
 
 
 function WalletPage() {
+  const {user} = useAppSelector((state) => state.auth)
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -27,11 +27,14 @@ function WalletPage() {
   const [isWithdrawalDrawerOpen, setIsWithdrawalDrawerOpen] = useState(false);
   const [total, setTotal] = useState(0)
   const [btcTotal, setBtcTotal] = useState(0)
-  const walletsquery: any = useGetWalletsQuery()
+  const walletsquery: any = useGetWalletsQuery(user?._id)
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
+  const [accountId, setAccountId] = useState(walletsquery?.data?.data[0]?._id)
+  console.log({address})
 
 
+  console.log({walletsquery})
 
   const to8Dp = (number: any) => {
     if (number > 1) {
@@ -83,8 +86,9 @@ function WalletPage() {
 
 
 
-  const handleClick = (newAddress: any, newLabel: any, newCoin: any) => {
+  const handleClick = (newAddress: any, newLabel: any, newCoin: any, new_Id: any) => {
     setAddress(newAddress);
+    setAccountId(new_Id)
     setLabel(newLabel);
     setCoin(newCoin);
     onOpen();
@@ -250,7 +254,8 @@ function WalletPage() {
                                       wallet?.address,
                                       wallet?.coin,
                                       // supposed to be wallet.label
-                                      wallet?.coin
+                                      wallet?.coin,
+                                      wallet?._id
                                     );
                                     setIsDepositDrawerOpen(true);
                                   }}
@@ -273,6 +278,7 @@ function WalletPage() {
                                 label={label}
                                 coin={coin}
                                 address={address}
+                                accountId={accountId}
                               />
 
 
@@ -289,7 +295,8 @@ function WalletPage() {
                                     wallet?.address,
                                     wallet?.coin,
                                     // supposed to be wallet.label
-                                    wallet?.coin
+                                    wallet?.coin,
+                                    wallet?._id
                                   );
                                   setIsWithdrawalDrawerOpen(true);
                                 }}
@@ -307,6 +314,7 @@ function WalletPage() {
                                 label={label}
                                 coin={coin}
                                 address={address}
+                                accountId={accountId}
                               />
 
 

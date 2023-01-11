@@ -34,10 +34,9 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
     const { data:eth } = useGetSellAdsQuery({arg: "ETH" , pageNumber: `${pageNumber}`})
     const { data:btc } = useGetSellAdsQuery({arg: "BTC" , pageNumber: `${pageNumber}`})
     const { data:usdt_tron } = useGetSellAdsQuery({arg: "USDT_TRON" , pageNumber: `${pageNumber}`})
-    
     const [p2pSellOrder]: any = useP2pBuyOrderMutation()
-
     const [modalData, setModalData] = useState<any>()
+
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
         const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
         return percent
@@ -48,7 +47,6 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
         const item = apiData?.data.find((obj: any) => obj._id === id);
         setModalData(item)
         if (item) {
-            // console.log("this is the modal Data, trying again ", modalData)
             onOpen()    
         }
     }
@@ -57,9 +55,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
     const amounts = 0
     const creditCoinAmounts = 0
     const [creditCoin] = useState(modalData?.cash ?? `NGN`)
-    // const [debitCoin, setDebitCoin] = useState(modalData?.coin)
     const [amountt, setAmountt] = useState<any>(amounts ? `${amounts}` : '0')
-
     const convertFromCreditCoin: any = useQuickTradeConvertQuery({ base: creditCoin.toLowerCase(), sub: modalData?.coin?.toLowerCase() == 'btc' ? 'bitcoin' : modalData?.coin?.toLowerCase() == 'eth' ? 'ethereum' : 'tether' }, { refetchOnMountOrArgChange: true })
 
     const calculateConversion = (numberAmount: number) => {
@@ -214,7 +210,7 @@ const SellCoin = ({pageNumber, handlePreviousPage, handleNextPage, handlePageRes
                                                 const orderId = response?.data?.data?.order?.orderId
                                                 router.push(`p2p/sell/${orderId}`)
                                             } else if (response?.error?.status == 400) {
-                                                appAlert.error(`${response?.error?.data?.message[0]}`)
+                                                appAlert.error(`${response?.error?.data?.message}`)
                                             } else if (response?.data?.status == 401) {
                                                 appAlert.error(`${response?.error?.data?.message}`)
                                                 router.replace('/signin')
