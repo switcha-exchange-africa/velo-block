@@ -1,14 +1,7 @@
 import { AddIcon, ArrowBackIcon, TriangleDownIcon } from "@chakra-ui/icons"
 import {
-  Box, Button, Flex, Heading,
-  Show,
-  HStack,
-  VStack,
-  Input,
-  Select,
-  FormControl,
-  FormLabel,
-  FormErrorMessage
+  Box, Button, Flex, Heading, Show, HStack, VStack,
+  Input, Select, FormControl, FormLabel, FormErrorMessage
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from "formik"
 import { useRouter } from 'next/router'
@@ -126,6 +119,7 @@ const AddBankAccounts = () => {
                                     accountNumber: values.accountNumber.toString(),
                                     code: newItem
                                 }
+
                                 const response:any = await addBank(data)
                                 if (response?.data?.status == 200 || response?.data?.status == 201 ) {
                                     appAlert.success(response?.data?.message)
@@ -140,12 +134,7 @@ const AddBankAccounts = () => {
                             validateOnMount
                         >
                             {({
-                                // handleChange,
-                                // handleBlur,
-                                // handleSubmit,
                                 isSubmitting,
-                                // values
-                                /* and other goodies */
                             }) => (
                                 <Form  >
                                     <VStack w={{ lg: '100%', md: '100%', base: '100%' }} align='start'>
@@ -171,7 +160,7 @@ const AddBankAccounts = () => {
                                             {({ field, form }: any) => (
                                                 <FormControl  pt='4' isInvalid={form.errors.accountNumber && form.touched.accountNumber}>
                                                     <FormLabel>Account Number</FormLabel>
-                                                    <Input {...field} type="number" placeholder="215xxxxx900"/>
+                                                    <Input {...field} type="text" placeholder="215xxxxx900"/>
                                                     <FormErrorMessage>{form.errors.accountNumber}</FormErrorMessage>
                                                 </FormControl>
                                             )}

@@ -16,10 +16,11 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { CheckCircleIcon } from "@chakra-ui/icons"
+import uuid from 'react-uuid';
 
 type TableComponentProps = {
     backgroundColor?: "#22C36B" | "#EB4335",
-    onClick?: () => void,
+    onClick?: any,
     buttonTitle?: string,
     apiData: any,
     handlePreviousPage?: () => void,
@@ -36,26 +37,24 @@ const TableComponent = ({
 }: TableComponentProps) => {
     
     const percentageCompletion = (completedOrder: number, adsCreated: number) => {
-        
         const percent = !adsCreated || !completedOrder ? 0 :((completedOrder / adsCreated) * 100).toFixed(2) 
         return percent
-
     }
 
 
-
+    // console.log("this is the apiData ", apiData)
 
     return (
         <>
 
             {/* for mobile screen */}
             {apiData?.data?.map((api: any) => (
-                <Box key={api?.id} mt={"2rem"} w={"full"} display={["block", "block", "none"]}>
+                <Box key={uuid()} mt={"2rem"}  display={["block", "block", "none"]}  px="0">
                     <Flex
                         alignItems="center"
                         w="100%"
                     >
-                    <Flex w={"full"} flexDirection="column">
+                    <Flex w={"full"} flexDirection="column" >
                         <Box display={"flex"} alignItems={"center"} gap="5px">
                         <Avatar
                             size={"md"}
@@ -104,11 +103,11 @@ const TableComponent = ({
                             </Box>
                             </Flex>
 
-                            <Flex alignItems="center" gap={"10px"}>
-                            <Text fontSize={"xs"} color={"#8E9BAE"}>
-                                Available
-                            </Text>
-                            <Text fontSize={"xs"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}</Text>
+                            <Flex alignItems="center" gap={"3px"}>
+                                <Text fontSize={"xs"} color={"#8E9BAE"}>
+                                    Available
+                                </Text>
+                                <Text fontSize={"11px"}>{api?.totalAmount ? api?.totalAmount.toLocaleString() : api?.totalAmount}  {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                         </Flex>
                         <Flex alignItems={"center"} gap="10px">
@@ -117,8 +116,7 @@ const TableComponent = ({
                                 {" "}
                                 Limit
                             </Text>
-                            {/* // mark */}
-                            <Text fontSize={"xs"}>{api?.minLimit ? api?.minLimit.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit.toLocaleString(): api?.maxLimit}&nbsp;{api?.coin}</Text>
+                            <Text fontSize={"xs"}>{api?.minLimit ? api?.minLimit.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit.toLocaleString(): api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Text>
                             </Flex>
                             <Box>
                             <Text
@@ -135,14 +133,13 @@ const TableComponent = ({
                         </Box>
                     </Flex>
                     <Button
-                        width={"150px"}
-                        fontSize={"12px"}
+                        width={"130px"}
+                        fontSize={"10px"}
                         bg={backgroundColor}
                         textAlign={"center"}
                         color="#FFF"
                         borderRadius={"3px"}
-                        onClick={onClick}
-                        disabled
+                        onClick={() => onClick(api?._id,  apiData)}
                     >
                         {buttonTitle}
                     </Button>
@@ -151,7 +148,7 @@ const TableComponent = ({
             ))}
 
             {/* for desktop view */}
-            <TableContainer display={["none", "none", "block"]}  paddingLeft="0">
+            <TableContainer display={["none", "none", "block"]}  paddingLeft="0" >
                 <Table variant='simple'>
                     <Thead>
                         <Tr>
@@ -165,7 +162,7 @@ const TableComponent = ({
                     </Thead>
 
                     {apiData?.data?.map((api:any) => (
-                        <Tbody key={api?.id}>
+                        <Tbody key={uuid()}>
                             <Tr>
                                 <Td paddingLeft="0">
                                     <HStack>
@@ -198,7 +195,7 @@ const TableComponent = ({
                                 <Td>
                                     <Text fontSize="14px">{api?.price ? api?.price?.toLocaleString() : api?.price}&nbsp;<Text as="span" fontSize="10px">{api?.cash}</Text></Text>
                                 </Td>
-                                <Td fontSize="14px">{api?.totalAmount ?  api?.totalAmount?.toLocaleString() : api?.totalAmount}</Td>
+                                <Td fontSize="14px">{api?.totalAmount ?  api?.totalAmount?.toLocaleString() : api?.totalAmount} {api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
                                 <Td fontSize="14px">{api?.minLimit ? api?.minLimit?.toLocaleString() : api?.minLimit}&nbsp;-&nbsp;{api?.maxLimit ? api?.maxLimit?.toLocaleString() : api?.maxLimit}&nbsp;{api?.coin === "USDT_TRON" ? "USDT-TRON" : api?.coin}</Td>
                                 <Td fontSize="14px">
                                     <Text
@@ -213,7 +210,10 @@ const TableComponent = ({
                                     </Text>
                                 </Td>
                                 <Td>
-                                    <Button onClick={onClick} color="white" disabled fontWeight="bold" bg={backgroundColor} fontSize="14px">
+                                    <Button
+                                        // isDisabled
+                                        onClick={() => onClick(api?._id, apiData)}
+                                        color="white" fontWeight="bold" bg={backgroundColor} fontSize="14px">
                                         {buttonTitle}
                                     </Button>
             
@@ -224,26 +224,30 @@ const TableComponent = ({
                 </Table>
             </TableContainer>
 
-            <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
-                <HStack >
-                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                        {apiData?.pagination?.currentPage}
-                    </Box>
-                    <Text>of</Text>
-                    <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
-                        {apiData?.pagination?.lastPage}
-                    </Box>
-                </HStack>
 
-                <HStack>
-                    <Button onClick={handlePreviousPage} disabled={apiData?.pagination?.currentPage === 1}>
-                        Prev
-                    </Button>
-                    <Button onClick={handleNextPage} disabled={apiData?.pagination?.hasNext === false}>
-                        Next
-                    </Button>    
+            {apiData?.pagination?.lastPage > 1 ? (
+                <HStack px={["0", "0px", "0px", "0px"]} borderBottom="1px solid #E2E8F0" borderTop="1px solid #E2E8F0" py="20px" mt="35px" justifyContent="space-between">
+                    <HStack >
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {apiData?.pagination?.currentPage}
+                        </Box>
+                        <Text>of</Text>
+                        <Box p="5px 10px" bg="#E2E8F0" borderRadius="7px">
+                            {apiData?.pagination?.lastPage}
+                        </Box>
+                    </HStack>
+
+                    <HStack>
+                        <Button onClick={handlePreviousPage} disabled={apiData?.pagination?.currentPage === 1}>
+                            Prev
+                        </Button>
+                        <Button onClick={handleNextPage} disabled={apiData?.pagination?.hasNext === false}>
+                            Next
+                        </Button>    
+                    </HStack>
                 </HStack>
-            </HStack>
+            ) : null}
+                
         </>
         
     )

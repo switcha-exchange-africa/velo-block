@@ -7,19 +7,29 @@ import {
     ModalContent, ModalHeader, ModalOverlay, Select, Text, useDisclosure,  FormControl, Spinner, Tooltip
 } from '@chakra-ui/react'
 import { MouseEventHandler} from 'react'
-import { useGetAddedBankQuery } from '../../../../redux/services/bank.service'
+import appAlert from '../../../../helpers/appAlert'
+import { useAppSelector } from '../../../../helpers/hooks/reduxHooks'
+import { useDeleteAddedBankMutation, useGetAddedBankBuyTypeQuery } from '../../../../redux/services/bank.service'
 import SearchInput  from './BuyStepTwoSearchFilter'
 
 
 const BuyStepTwo = (props:any) => {
-    
-    const getAddedBanks:any = useGetAddedBankQuery()
-
-    const { handlePreviousStep, handleNextStep, coin, values, setValues, banks } = props
+    const getAddedBanks: any = useGetAddedBankBuyTypeQuery()
+    const [deleteAddedBank] = useDeleteAddedBankMutation()
+    const { handlePreviousStep, handleNextStep, coin, values, setValues, paymentTimeLimit, setPaymentTimeLimit, banks } = props
     const { isOpen, onOpen, onClose } = useDisclosure()
-    
+    const { walletBalance } = useAppSelector((state) => state.accountSettings)
+
+    const renderBalance:any = (coinName: any) => {
+        const obj:any = walletBalance?.find((coin:any) => coin?.coin === coinName)
+        return obj?.balance?.toLocaleString() || 0
+    }
+
+
+
     const BuyStepTwoModal = (props: { action: MouseEventHandler<HTMLButtonElement> | undefined }) => {
         console.log(props)
+        
         return (
             <Modal isOpen={isOpen} onClose={onClose} size="lg" >
                 <ModalOverlay />
@@ -72,10 +82,32 @@ const BuyStepTwo = (props:any) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         getAddedBanksIdValues()
-        handleNextStep()
-
+        if (banks?.length === 0) {
+            appAlert.error("Payment method not added")
+        } else {
+            
+            handleNextStep()
+        }
     }
 
+
+    
+
+    const handleDelete = async (id: string) => {
+        const obj:any = getAddedBanks?.data?.data?.find((o:any) => o._id === id);
+        const data = {
+            id: obj?._id,
+            name: obj?.name,
+            accountName: obj.accountName,
+            code: obj?.code,
+            accountNumber: obj?.accountNumber
+        }
+        const resp = await deleteAddedBank(data)
+        if(resp) {
+            appAlert.success("Bank Removed")
+        }
+        getAddedBanks.refetch()
+    }
 
 
     return (
@@ -100,7 +132,7 @@ const BuyStepTwo = (props:any) => {
                                     <Text fontSize={"14px"}  fontWeight={"400"}>{coin}</Text>
                                 </InputRightElement>
                             </InputGroup>
-                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>=0 NGN</Text>
+                            <Text mt={"12px"} fontSize={"12px"} color={"#8E9BAE"} fontWeight={"600"} fontFamily={"Open Sans"}>Balance ={renderBalance(coin)} {coin}</Text>
                         </Flex>
                         
                         <HStack mt="24px"  w={["100%", "100%", "50%"]}>
@@ -165,6 +197,7 @@ const BuyStepTwo = (props:any) => {
                                                 w={"10px"}
                                                 h={"10px"}
                                                 cursor="pointer"
+                                                onClick={() => handleDelete(item._id)}
                                             />
                                         </Flex>        
                                     ))
@@ -202,19 +235,26 @@ const BuyStepTwo = (props:any) => {
                         </Box>
                         
                         <Text mt="24px" color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Payment Time Limit</Text>
-                        <Select
-                            mt="12px"
+                        
+                        <Select mt="12px"
                             w="137px"
                             bg='transparent'
                             border='0.88px solid #8E9BAE'
                             borderRadius="5px"
                             color='black'
-                            placeholder='15 Min'
-                        />
+                            value={paymentTimeLimit}
+                            onChange={(e) => {
+                                setPaymentTimeLimit(e.target.value)
+                            }
+                        }>
+                            <option value={'15'}>15 Mins</option>
+                            <option value={'30'}>30 Mins</option>
+                            <option value={'45'}>45 Mins</option>
+                        </Select>
 
                         <Flex  direction={"column"} mt={"24px"} justifyContent={"space-between"}  p={"12px"} w={"100%"} bg="#FFFFFF" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["flex", "flex", "none"]}>
                             <Flex mb="24px">
-                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                                <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee: 0.5%</Text>
                                 <Flex ml="10px" alignItems={"center"}>
                                     <InfoIcon
                                         mr={"5px"}
@@ -222,7 +262,7 @@ const BuyStepTwo = (props:any) => {
                                         w={"10px"}
                                         h={"10px"}
                                     />
-                                    <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                                    <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>{coin}</Text>
                                 </Flex>
                             </Flex>
                             
@@ -239,7 +279,7 @@ const BuyStepTwo = (props:any) => {
 
                     <Flex justifyContent={"space-between"} alignItems={"center"} left={"17%"} bottom={"0px"} p={"24px"} w={"82%"} bg="#FFFFFF" position="fixed" boxShadow={"0px -4px 11px rgba(0, 0, 0, 0.05)"} zIndex="20" display={["none", "none", "flex"]}>
                         <Flex>
-                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee:</Text>
+                            <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Estimated Fee: 0.5%</Text>
                             <Flex ml="10px" alignItems={"center"}>
                                 <InfoIcon
                                     mr={"5px"}
@@ -247,7 +287,7 @@ const BuyStepTwo = (props:any) => {
                                     w={"10px"}
                                     h={"10px"}
                                 />
-                                <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>--USDT</Text>
+                                <Text color={"#000000"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>{coin}</Text>
                             </Flex>
                         </Flex>
                         

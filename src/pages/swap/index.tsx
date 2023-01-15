@@ -47,6 +47,9 @@ const Swap = () => {
         return obj?.balance?.toLocaleString() || 0
     }
 
+
+
+    
     
 
 
@@ -208,7 +211,7 @@ const Swap = () => {
                                                 </Flex>
 
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>You will receive</Text>
-                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount.toLocaleString()} {creditCoin}</Text>
+                                                    <Text fontSize={'lg'} color={'primaryColor.900'} pb={'2'}>{convertFromDebitCoin?.data?.data?.destinationAmount.toLocaleString()} {creditCoin==="USDT_TRON" ? "USDT-TRON" : creditCoin}</Text>
                                                 </Flex>
                                                 <Flex w={'full'} justifyContent={'space-between'}> <Text fontSize={'xs'} pb={'2'}>Fee</Text>
                                                     <Text fontSize={'xs'} color={'textLightColor'} pb={'2'}>{calculateSwapFees?.data?.data?.fee} {debitCoin}</Text>

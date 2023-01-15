@@ -5,7 +5,7 @@ import React from "react"
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard'
 import DashboardLayout from '../../../layouts/dashboard/DashboardLayout';
-import RenderAdBankDetails from '../../../components/RenderAdBankDetails';
+// import RenderAdBankDetails from '../../../components/RenderAdBankDetails';
 import ConfirmSuccessfulPaymentModal from '../../../components/quick-trade/ConfirmSuccessfulPaymentModal';
 import ConfirmRelease from '../../../components/quick-trade/ConfirmRelease';
 import RenderSwitchaLogo from '../../../components/dashboard/RenderSwitchaLogo';
@@ -23,6 +23,7 @@ const NotifyTraders = () => {
     const { isOpen: isReleaseOpen, onOpen: onReleaseOpen, onClose: onReleaseClose } = useDisclosure();
     const orderDetail = useGetOrderDetailQuery(orderId, { skip: !orderId, refetchOnMountOrArgChange: true, })
     
+    // console.log("orderDetail ", orderDetail)
 
     const today = moment().valueOf()
 
@@ -92,62 +93,75 @@ const NotifyTraders = () => {
                                         </Flex>
                                         <Flex flexDirection={'column'} pr={'8'}>
                                             <Text fontSize={'xs'} color={'#64748B'}>Quantity</Text>
-                                            <Text fontSize={'sm'} >{orderDetail?.data?.data?.quantity} {orderDetail?.data?.data?.ad[0]?.coin}</Text>
+                                            <Text fontSize={'sm'} >{orderDetail?.data?.data?.quantity} {orderDetail?.data?.data?.ad[0]?.coin=== "USDT_TRON" ? "USDT-TRON" : orderDetail?.data?.data?.ad[0]?.coin}</Text>
                                         </Flex>
                                     </Flex>
                                 </Flex>
                             </Box>
 
-                            <Box w={'full'}>
-                                <Flex>
-                                    <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                    <Text fontSize={'sm'} >Transfer the funds to the seller’s account provided below</Text>
-                                </Flex>
-                                <Flex>
-                                    <Divider orientation='vertical' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} h={'40'} mx={'1.5'} pr={'2'} />
-
-
-                                    <Flex flexDirection={'column'}>
-                                        <Flex pt={'4'}>
-                                            <Flex flexDirection={'column'} pr={'8'}>
-                                                <Text fontSize={'xs'} color={'#64748B'}>Payment Method</Text>
-                                                <Text textTransform={'capitalize'} fontSize={'sm'} color={'primaryColor.900'}>{orderDetail?.data?.data?.method}</Text>
+                            {orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy' && 
+                                <Box w={'full'}>        
+                                    <Flex>
+                                        <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
+                                        <Text fontSize={'sm'} >Transfer the funds to the seller’s account provided below</Text>
+                                        </Flex>
+                                        <Flex>
+                                            <Divider orientation='vertical' borderColor={'rgba(142, 155, 174, 1)'} borderStyle={'dashed'} h={'40'} mx={'1.5'} pr={'2'} />
+                                            <Flex flexDirection={'column'}>
+                                    
+                                            <Flex pt={'4'}>
+                                                <Flex flexDirection={'column'} pr={'8'}>
+                                                    <Text fontSize={'xs'} color={'#64748B'}>Payment Method</Text>
+                                                    <Text textTransform={'capitalize'} fontSize={'sm'} color={'primaryColor.900'}>{orderDetail?.data?.data?.method}</Text>
+                                                </Flex>
                                             </Flex>
-
+                                            <Flex pt={'4'}>
+                                                <Flex flexDirection={'column'} pr={'8'}>
+                                                    <Text fontSize={'xs'} color={'#64748B'}>Account Name</Text>
+                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountName} <CopyToClipboard text={orderDetail?.data?.data?.clientAccountName}
+                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                </Flex>
+                                                <Flex flexDirection={'column'} pr={'8'}>
+                                                    <Text fontSize={'xs'} color={'#64748B'}>Account Number</Text>
+                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientAccountNumber}  <CopyToClipboard text={orderDetail?.data?.data?.clientAccountNumber}
+                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard></Text>
+                                                </Flex>
+                                                <Flex flexDirection={'column'} pr={'8'}>
+                                                    <Text fontSize={'xs'} color={'#64748B'}>Bank Name</Text>
+                                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{orderDetail?.data?.data?.clientBankName}
+                                                        <CopyToClipboard text={orderDetail?.data?.data?.clientBankName}
+                                                        onCopy={() => appAlert.success('copied to clipboard')}><Img h="20px" w="20px" pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                                </Flex>
+                                            </Flex>
                                         </Flex>
-                                        {orderDetail?.data?.data?.ad[0]?.banks && orderDetail?.data?.data?.ad[0]?.banks?.slice(0, 5)?.map((b: any) => {
-                                            return (
-                                                <div key={b}>
-                                                    <RenderAdBankDetails bankId={b} />
-                                                </div>
-                                            )
-                                        })}
-
-
                                     </Flex>
-                                </Flex>
-                            </Box>
+                                </Box>
+                            }
 
-                            <Box w={'full'}>
-                                <Flex mt="15px">
-                                    <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
-                                    <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
-                                </Flex>
-                            </Box>
+                            
                             {(orderDetail?.data?.data?.status.toLowerCase() == 'pending' && orderDetail?.data?.data?.ad[0]?.type == 'buy')  ? (
-                                <Flex>
-                                    <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
-                                        onNotifyOpen()}>Transfered and Notify Seller </Text>
+                                <>                                
+                                    <Box w={'full'}>
+                                        <Flex mt="15px">
+                                            <Text fontSize={'sm'} pr={'2'} color={'primaryColor.900'}>○</Text>
+                                            <Text fontSize={'sm'} >After transfering the funds, click on the “Transfered, notify seller” button</Text>
+                                        </Flex>
+                                    </Box>    
+                                
+                                    <Flex>
+                                        <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'} onClick={() =>
+                                            onNotifyOpen()}>Transfered and Notify Seller </Text>
 
-                                    <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data?.ad[0]} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
+                                        <ConfirmSuccessfulPaymentModal isOpen={isNotifyOpen} onClose={onNotifyClose} ad={orderDetail?.data?.data} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
-                                    <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
-                                </Flex>
+                                        <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Cancel Order</Text>
+                                    </Flex>
+                                </>
                             ) : orderDetail?.data?.data?.status.toLowerCase() != 'processing' && orderDetail?.data?.data?.status.toLowerCase() != 'expired' && (
                                 <Flex>
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
-                                    >Comfirm Release</Text>
+                                    >Confirm Release</Text>
 
                                     <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status.toLowerCase()} />
 
@@ -193,7 +207,7 @@ const NotifyTraders = () => {
                                     <Text fontWeight={'medium'} fontSize={'sm'} cursor={'pointer'} color={'white'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} bg={'primaryColor.900'}
                                         onClick={() => onReleaseOpen()}
                                     >
-                                        Comfirm Release</Text>
+                                        Confirm Release</Text>
                                         <ConfirmRelease isOpen={isReleaseOpen} onClose={onReleaseClose} id={orderDetail?.data?.data?._id} status={orderDetail?.data?.data?.status} />
                                         <Text fontWeight={'medium'} fontSize={'md'} cursor={'pointer'} color={'primaryColor.900'} w={'fit-content'} ml={'4'} mt={'8'} borderRadius={'md'} py={'2'} px={'4'} >Appeal</Text>
                                     </Flex>

@@ -59,8 +59,44 @@ export const bankApi = baseApi.injectEndpoints({
       },
     }),
 
+    deleteAddedBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `/p2p/bank/${id}`,
+          method: "DELETE",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    updateAddedBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `/p2p/bank/${id}`,
+          method: "PUT",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+
+
     getAddedBankSellType: builder.query<any, void>({
       query: () => `p2p/bank/?type=sell`,
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+
+    getAddedBankBuyType: builder.query<any, void>({
+      query: () => `p2p/bank/?type=buy`,
       transformResponse: (responseData: any) => {
         return responseData;
       },
@@ -93,6 +129,32 @@ export const bankApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    deleteUsersBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `bank/${id}`,
+          method: "DELETE",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
+    updateUsersBank: builder.mutation<any, any>({
+      query: ({id, ...rest}) => {
+        return {
+          url: `bank/${id}`,
+          method: "PUT",
+          body: rest
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
   }),
 });
 
@@ -104,7 +166,12 @@ export const {
   useAddP2pSellAdsBankMutation,
   useAddBankMutation,
   useGetAddedBankQuery,
+  useDeleteAddedBankMutation,
+  useUpdateAddedBankMutation,
   useGetAddedBankSellTypeQuery,
+  useGetAddedBankBuyTypeQuery,
   useGetUsersBankQuery,
+  useDeleteUsersBankMutation,
+  useUpdateUsersBankMutation,
   useGetAddedBankPaginationQuery
 } = bankApi;

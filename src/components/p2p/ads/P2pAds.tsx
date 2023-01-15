@@ -1,8 +1,23 @@
 import { Box, Divider, Flex, Text } from '@chakra-ui/layout'
-import { Table, TableContainer, Thead, Tbody, Tr, Th, Td} from "@chakra-ui/react"
+import { Table, TableContainer, Thead, Tbody, Tr, Th, Td, Button} from "@chakra-ui/react"
 import moment from 'moment'
+import { useRouter } from 'next/router'
+import { useAppDispatch } from '../../../helpers/hooks/reduxHooks'
+import { setSingleAds } from '../../../redux/features/accountSettings/accounSettingsSlice'
 
-export const P2pAds = ({ data }: any) => {    
+export const P2pAds = ({ data }: any) => {   
+    const router = useRouter()
+    const dispatch = useAppDispatch()
+    
+    
+    
+    const handleEdit = async (adIds: any) => {
+        const singleAds = data?.find((ads:any) => ads._id === adIds);        
+        dispatch(setSingleAds({singleAds: singleAds}))
+        router.push('/p2p/edit-ads/' + adIds)    
+    }
+
+
     return (
         <Box>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w="100%">
@@ -88,11 +103,13 @@ export const P2pAds = ({ data }: any) => {
                                         <Td pl="0" fontSize="12px">
                                             <Flex direction="column" height="100px" >
                                                 <Text mb="11px">Bank Transfer</Text>
-                                                {/* <Text >{ad?.bank[0]}</Text> */}
-                                            {ad?.bank?.filter((index:any)=> index < 2).map((filterItem:any )=> {
+                                                {/* {ad?.bank?.filter((index:any)=> index < 2).map((filterItem:any )=> {
 
-                                                return <Text key={filterItem?._id}>{filterItem?.name}</Text>
-                                            })}
+                                                    return <Text key={filterItem?._id}>{filterItem?.name}</Text>
+                                                })} */}
+
+                                                <Text >{ad?.bank[0]?.name}</Text>
+                                                <Text >{ad?.bank[1]?.name}</Text>
                                             </Flex>
                                             
                                         </Td>
@@ -112,9 +129,9 @@ export const P2pAds = ({ data }: any) => {
 
                                     <Td pl="0" fontSize="14px" color="#000000" fontWeight="600">
                                         <Flex height="100px"  direction="column">
-                                            <Text mb="11px" cursor="pointer">Download</Text>
-                                            <Text mb="11px" cursor="pointer">Edit</Text>
-                                            <Text mb="11px" cursor="pointer" color="#FF1F00">Delete</Text>
+                                            <Button px="0" isDisabled mb="11px" cursor="pointer">Download</Button>
+                                            <Button px="0" bg="transparent" mb="11px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Button>
+                                            <Button px="0" isDisabled mb="11px" cursor="pointer" color="#FF1F00">Delete</Button>
                                         </Flex>
                                             
                                     </Td>
@@ -174,8 +191,8 @@ export const P2pAds = ({ data }: any) => {
                             <Text mb="11px">Payment Method</Text>
                             <Flex direction="column" mt="20px" w="80%" height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end" justifyContent="center">
                                 <Text mb="8px">Bank Transfer</Text>
-                                {/* <Text >{ad?.bank[0]}</Text> */}
-                                {/* <Text >{ad?.bank[1]}</Text> */}
+                                <Text >{ad?.bank[0]?.name}</Text>
+                                <Text >{ad?.bank[1]?.name}</Text>
                             </Flex>
                         </Flex>
                     </Flex>
@@ -197,7 +214,7 @@ export const P2pAds = ({ data }: any) => {
                             <Text mb="11px">Actions</Text>
                             <Flex direction="column" mt="20px"  height="100px" fontSize="14px" color="#000000" fontWeight="600"  alignItems="flex-end">
                                 <Text mb="8px" cursor="pointer">Download</Text>
-                                <Text mb="8px" cursor="pointer">Edit</Text>
+                                <Text mb="8px" cursor="pointer" onClick={()=>handleEdit(ad?._id)}>Edit</Text>
                                 <Text mb="8px" cursor="pointer" color="#FF1F00">Delete</Text>
                             </Flex>
                         </Flex>

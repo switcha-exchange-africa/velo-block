@@ -12,6 +12,7 @@ export const TableContainerComponent = ({ data}: any) => {
         router.push('/p2p/order/'+orderId)
     }
     
+
     return (
         <>
             <TableContainer display={{base: "none", md: "block"}} key="" mt="60px" position="relative" w={{
@@ -52,7 +53,7 @@ export const TableContainerComponent = ({ data}: any) => {
                                         </Flex>
                                     </Td>
                                     <Td>
-                                        <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()}</Text>
+                                        <Text p="80px 0 0px" fontWeight={'bold'} mt={'2.5'} fontSize={{ base: 'sm', lg: 'md' }}>{order?.totalAmount?.toLocaleString()} {order?.cash}</Text>
                                     </Td>
                                     <Td>
                                         <Flex p="80px 0 0px" flexDirection={'column'} mt={'2.5'}>
@@ -113,7 +114,7 @@ export const TableContainerComponent = ({ data}: any) => {
                     <Flex flexDirection={'column'}>
                         <Flex fontSize={{ base: 'sm', md: 'md' }}>
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Amount</Text>
-                            <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()}</Text>
+                            <Text fontWeight={'bold'} >{order?.totalAmount?.toLocaleString()} {order?.cash}</Text>
                         </Flex>
                         <Flex fontSize={{ base: 'sm', md: 'md' }} py={'2'}>
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Counterparty</Text>
@@ -123,12 +124,12 @@ export const TableContainerComponent = ({ data}: any) => {
                             <Text fontWeight={'medium'} pr={'2'} color={'#64748B'}>Status</Text>
                             <Flex flexDirection={'column'}>
                                 <Text fontWeight={'medium'}>{order?.status}</Text>
-                                <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text>
+                                {/* <Text fontWeight={'medium'} color={'#64748B'} cursor={'pointer'} fontSize={'xs'}>Detail</Text> */}
                             </Flex>
                         </Flex>
 
-                        <Flex fontSize={{ base: 'sm', md: 'md' }}>
-                            <Text color="#FB5E04" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
+                        <Flex fontSize={{ base: 'sm', md: 'md' }} mt="20px">
+                            <Text color="#FB5E04" bg="#FB5E0440" px="5px" fontWeight="bold" onClick={() => handleClick(order?.orderId)} borderRadius="5px"  fontSize="14px">Open Trade</Text>
                         </Flex>
                     </Flex>
                 </Flex>

@@ -18,10 +18,12 @@ const P2P = () => {
       color2: "#8E9BAE"
   })
 
-  const handleOrderRoute = () => {
-    router.push("/p2p/all-ads")
+  const handleAdsRoute = () => {
+    router.push("/p2p/ads")
   }
-  
+  const handleOrdersRoute = () => {
+    router.push("/p2p/ads/orders")
+  }
     const handleSelect = (id: string) => {
         if (id === "1") {
         setSelectedId(id)
@@ -59,14 +61,13 @@ const P2P = () => {
     <DashboardLayout title="P2p">
       <Box
         width={"100%"}
-        
         height={"100vh"}
         margin={"-10px auto"}
-        padding="10px 5px"
+        padding="10px 0px"
         bg="white"
       >
-        <Flex justifyContent={"space-between"} alignItems="center">
-          <HStack px={["0", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
+        <Flex justifyContent={"space-between"} alignItems="center" >
+          <HStack px={["0px", "0px", "28px", "28px"]} mb="16px" justifyContent="space-between" alignItems="center">
             <HStack>
                 <Text cursor="pointer" fontWeight="bold" color={color.color1} onClick={()=> handleSelect("1")}>Buy</Text>
                 <Box h="16px" w="2px" bg="#8B8CA7"></Box>
@@ -74,18 +75,34 @@ const P2P = () => {
             </HStack>  
         </HStack>
         
-          <Text
-            textDecoration={"underline"}
-            color={"#FB5E04"}
-            fontSize={"16px"}
-            cursor="pointer"
-            _hover={{
-              color: "#fb5e09"
-            }}
-            onClick={handleOrderRoute}
-          >
-            See Your Ads
-          </Text>
+          <Flex mt="30px">
+            <Text
+              textDecoration={"underline"}
+              color={"#FB5E04"}
+              fontSize={"14px"}
+              cursor="pointer"
+              _hover={{
+                color: "#fb5e09"
+              }}
+              onClick={handleAdsRoute}
+            >
+              See Your Ads
+            </Text>
+
+            <Text
+              marginLeft="30px"
+              textDecoration={"underline"}
+              color={"#FB5E04"}
+              fontSize={"14px"}
+              cursor="pointer"
+              _hover={{
+                color: "#fb5e09"
+              }}
+              onClick={handleOrdersRoute}
+            >
+              See Your Orders
+            </Text>
+          </Flex>
           
         </Flex>
 

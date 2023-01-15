@@ -21,8 +21,10 @@ const Orders = () => {
     const [statusType, setStatusType] = useState(`All Status`)
     const coinsByTypeCrypto: any = useGetCoinsByTypeQuery('crypto')
     const [creditCoin, setCreditCoin] = useState(coin ?? `USDT`)
-    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+    const filterClientOrderByTypeAndStatus = useGetP2pOrderFilterForClientQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin, orderType: "quick-trade"})
     const filterMerchantOrderByTypeAndStatus = useGetP2pOrderFilterForMerchantQuery({type:(orderType==="buy/sell" ? "" : orderType), status:(statusType==="All Status" ? "" : statusType), coin: creditCoin})
+
+    // console.log("this is the client for quickTrade", filterClientOrderByTypeAndStatus)
 
     // console
 

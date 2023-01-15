@@ -4,7 +4,7 @@ import { baseApi } from "./base.service";
 export const walletApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getWallets: builder.query<any, void>({
-      query: () => `${endpoints.GET_WALLET_URL}`,
+      query: (userId) => `${endpoints.GET_WALLET_URL}?userId=${userId}`,
       transformResponse: (responseData: any) => {
         return responseData;
       },
@@ -18,11 +18,28 @@ export const walletApi = baseApi.injectEndpoints({
       },
       providesTags: ["Wallet"],
     }),
+
+    withdrawCrypto: builder.mutation<any, any>({
+      query: (body) => {
+        return {
+          url: `withdrawal/crypto`,
+          method: "POST",
+          body: { ...body },
+        };
+      },
+        transformResponse: (responseData: any) => {
+          return responseData;
+        },
+        invalidatesTags: ["Wallet"],
+      }),
+
   }),
 });
 
 export const {
+  useWithdrawCryptoMutation,
   useGetWalletsQuery,
   useLazyGetSingleWalletQuery,
+  useGetSingleWalletQuery,
   useLazyGetWalletsQuery,
 } = walletApi;

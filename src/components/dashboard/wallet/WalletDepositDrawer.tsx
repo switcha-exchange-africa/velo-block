@@ -1,10 +1,15 @@
 import { Box, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormLabel, Select, Text } from '@chakra-ui/react';
 import React from 'react';
 import QRCode from 'react-qr-code';
+import appAlert from '../../../helpers/appAlert';
+import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service';
 
 const WalletDepositDrawer = (props: any) => {
-    // const { isOpen, onOpen, onClose } = useDisclosure();ß
-    // const [show, setShow] = React.useState(false);
+    const getSingleWallet = useGetSingleWalletQuery(props?.accountId)
+    console.log({props})
+
+    console.log({getSingleWallet})
+
     return (
         <>
             <Drawer
@@ -19,18 +24,18 @@ const WalletDepositDrawer = (props: any) => {
                 <DrawerContent>
                     <DrawerCloseButton /><br />
                     <DrawerHeader mt='4'>
-                        <Text>Deposit {props.label}</Text>
+                        <Text>Deposit {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}</Text>
                     </DrawerHeader>
 
                     <DrawerBody mt={'-4'}>
                         <Text fontSize={"sm"} >
-                            Copy address or scan QR code to deposit {props.label}
+                            Copy address or scan QR code to deposit {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}
                         </Text>
                         <Flex justifyContent={'center'} my={'16'}>
                             <QRCode value="hey" />
                         </Flex>
                         <Text color={"#8E9BAE"} >
-                            {props.coin} Deposit Address
+                            {props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin} Deposit Address
                         </Text>
                         {props.coin === "USDT" && (
                             <Box marginBottom={"20px"}>
@@ -41,7 +46,7 @@ const WalletDepositDrawer = (props: any) => {
                                 </Select>
                             </Box>
                         )}
-                        <Text fontWeight="600">{props.address}</Text>
+                        <Text fontWeight="600">{getSingleWallet?.data?.data?.address}</Text>
                         <Button
                             mt={"60px"}
                             width={"100%"}
@@ -49,7 +54,8 @@ const WalletDepositDrawer = (props: any) => {
                             background={"#10192D"}
                             size={"lg"}
                             onClick={() => {
-                                navigator.clipboard.writeText(props.address);
+                                navigator.clipboard.writeText(getSingleWallet?.data?.data?.address);
+                                appAlert.success("address copied")
                             }}
                         >
                             Copy Address

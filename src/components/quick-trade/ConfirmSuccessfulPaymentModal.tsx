@@ -7,7 +7,7 @@ import remoteImages from '../../constants/remoteImages'
 import appAlert from '../../helpers/appAlert'
 import { useAppDispatch } from '../../helpers/hooks/reduxHooks'
 import { resetQuickTradePayload } from '../../redux/features/quick-trade/quickTradeSlice'
-import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
+// import { useLazyGetBankByIdQuery } from '../../redux/services/bank.service'
 import { useNotifyMerchantMutation } from '../../redux/services/p2p.service'
 import MainAppButton from '../buttons/MainAppButton'
 
@@ -43,6 +43,9 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
 
         }
     }
+
+
+    console.log('this is the add ', ad)
     return (
         <Modal size={size} closeOnOverlayClick={true} isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay
@@ -59,25 +62,67 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
                         <Text fontSize={'sm'} color={'#64748B'}>Please confirm that payment has been made to the seller. Malicious clicks WIll lead to account frozen.</Text>
                         <Divider mt={'2'} mb={'4'} orientation='horizontal' h={'2px'} borderColor={'rgba(142, 155, 174, 1)'} />
                         <Text fontWeight={'medium'} fontSize={'sm'} >Bank Transfer</Text>
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
+                        
+                        {ad?.type === "sell" ? (
+                            <>
+                                <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountName} <CopyToClipboard text={ad?.clientAccountName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
 
-                            {ad?.banks && ad?.banks.map((b: any) => {
-                                return <div key={b}> <RenderAccountName bankId={b} /></div>
-                            })}
-                        </Flex>
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
-                            {ad?.banks && ad?.banks.map((b: any) => {
-                                return <div key={b}><RenderAccountNumber bankId={b} /></div>
-                            })}
-                        </Flex>
-                        <Flex flexDirection={'column'} pt={'6'}>
-                            <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
-                            {ad?.banks && ad?.banks.map((b: any) => {
-                                return <div key={b}><RenderBankName bankId={b} /></div>
-                            })}
-                        </Flex>
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientAccountNumber} <CopyToClipboard text={ad?.clientAccountNumber}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{ad?.clientBankName} <CopyToClipboard text={ad?.clientBankName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+                            
+                            </>
+                        ) : (ad?.ad[0]?.bank?.map((item: any) => (
+                            <>
+                                    <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Recommended</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountName} <CopyToClipboard text={item?.accountName}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Account Number</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.accountNumber} <CopyToClipboard text={item?.accountNumber}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>
+
+                            <Flex flexDirection={'column'} pt={'6'}>
+                                <Text fontSize={'sm'} color={'#64748B'}>Bank Name</Text>
+                                <div>
+                                    <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{item?.name} <CopyToClipboard text={item?.name}
+                                    onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+                                </div>
+                            </Flex>      
+                                
+                                </>
+                        ))
+                                
+                        )}
+
+                        
+
                         <Flex flexDirection={'column'} pt={'6'}>
                             <Text fontSize={'sm'} color={'#64748B'}>Account opening branch</Text>
                             <Text fontSize={'sm'} >No crypto related words on payment DESCRIPTION</Text>
@@ -100,51 +145,51 @@ const ConfirmSuccessfulPaymentModal = ({ isOpen, onClose, size = { md: 'lg', bas
     )
 }
 
-export const RenderBankName = ({ bankId }: any) => {
-    const [getSingleBank] = useLazyGetBankByIdQuery()
-    const [bankName, setBankName] = React.useState('')
-    React.useEffect(() => {
-        const getBank = async () => {
-            const bank = await getSingleBank(bankId).unwrap()
-            setBankName(bank?.data?.name)
-        }
+// export const RenderBankName = ({ bankId }: any) => {
+//     const [getSingleBank] = useLazyGetBankByIdQuery()
+//     const [bankName, setBankName] = React.useState('')
+//     React.useEffect(() => {
+//         const getBank = async () => {
+//             const bank = await getSingleBank(bankId).unwrap()
+//             setBankName(bank?.data?.name)
+//         }
 
-        getBank()
+//         getBank()
 
 
-    }, [bankId, getSingleBank])
-    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-}
-export const RenderAccountName = ({ bankId }: any) => {
-    const [getSingleBank] = useLazyGetBankByIdQuery()
-    const [accountName, setAccountName] = React.useState('')
-    React.useEffect(() => {
-        const getBank = async () => {
-            const bank = await getSingleBank(bankId).unwrap()
-            setAccountName(bank?.data?.accountName)
-        }
+//     }, [bankId, getSingleBank])
+//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{bankName} <CopyToClipboard text={bankName}
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+// }
+// export const RenderAccountName = ({ bankId }: any) => {
+//     const [getSingleBank] = useLazyGetBankByIdQuery()
+//     const [accountName, setAccountName] = React.useState('')
+//     React.useEffect(() => {
+//         const getBank = async () => {
+//             const bank = await getSingleBank(bankId).unwrap()
+//             setAccountName(bank?.data?.accountName)
+//         }
 
-        getBank()
+//         getBank()
 
-    }, [bankId, getSingleBank])
-    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountName} <CopyToClipboard text={accountName}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-}
-export const RenderAccountNumber = ({ bankId }: any) => {
-    const [getSingleBank] = useLazyGetBankByIdQuery()
-    const [accountNumber, setAccountNumber] = React.useState('')
-    React.useEffect(() => {
-        const getBank = async () => {
-            const bank = await getSingleBank(bankId).unwrap()
-            setAccountNumber(bank?.data?.accountNumber)
-        }
+//     }, [bankId, getSingleBank])
+//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountName} <CopyToClipboard text={accountName}
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+// }
+// export const RenderAccountNumber = ({ bankId }: any) => {
+//     const [getSingleBank] = useLazyGetBankByIdQuery()
+//     const [accountNumber, setAccountNumber] = React.useState('')
+//     React.useEffect(() => {
+//         const getBank = async () => {
+//             const bank = await getSingleBank(bankId).unwrap()
+//             setAccountNumber(bank?.data?.accountNumber)
+//         }
 
-        getBank()
+//         getBank()
 
-    }, [bankId, getSingleBank])
-    return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountNumber} <CopyToClipboard text={accountNumber}
-        onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
-}
+//     }, [bankId, getSingleBank])
+//     return <Text alignItems={'center'} display={'flex'} fontSize={'sm'} >{accountNumber} <CopyToClipboard text={accountNumber}
+//         onCopy={() => appAlert.success('copied to clipboard')}><Img pl={'1'} src={remoteImages.copyIcon} alt='' /></CopyToClipboard> </Text>
+// }
 
 export default ConfirmSuccessfulPaymentModal

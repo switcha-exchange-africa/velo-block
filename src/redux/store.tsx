@@ -48,6 +48,7 @@ const store = configureStore({
         [newConversionAPi.reducerPath]: newConversionAPi.reducer
     },
 
+    
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {

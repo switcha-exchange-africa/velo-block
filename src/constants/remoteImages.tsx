@@ -52,8 +52,8 @@ const quickTradeMobileUnselected = 'https://switcha-production.fra1.cdn.digitalo
 const settingsMobileUnselected = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/dashboard/mobile/unselected/SETTINGS.svg';
 const swapMobileUnselected = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/dashboard/mobile/unselected/Swap.svg'
 const walletMobileUnselected = 'https://switcha-production.fra1.cdn.digitaloceanspaces.com/web-app/assets/svgs/dashboard/mobile/unselected/Wallet.svg';
-
-
+const kesLogo = "https://uxwing.com/wp-content/themes/uxwing/download/flags-landmarks/kenya-flag-icon.png"
+const ghsLogo = "https://cdn.countryflags.com/thumbs/ghana/flag-400.png"
 
 
 
@@ -104,6 +104,8 @@ const remoteImages = {
     toggleDarkModeSvg,
     usdcLogo,
     usdtLogo,
+    kesLogo,
+    ghsLogo,
     userAvatarSvg,
     vectorBar,
     vectorCamera,

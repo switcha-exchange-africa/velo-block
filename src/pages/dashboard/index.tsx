@@ -1,5 +1,5 @@
 import { HStack, Heading, Text, Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import {  useState } from "react";
 import DashboardLayout from "../../layouts/dashboard/DashboardLayout";
 import { CardData } from "../../utilities/features/data";
 import { MenuItemsCard } from "../../components/dashboard/menuCard/MenuItemsCard";
@@ -9,8 +9,9 @@ import { useGetExchangeQuery } from "../../redux/services/exchange.service";
 import { GetServerSideProps } from "next";
 import { checkValidToken } from "../../helpers/functions/checkValidToken";
 import { useRouter } from "next/router";
-
-
+import MainAppButton from "../../components/buttons/MainAppButton";
+import { useGetTransactionPinQuery } from "../../redux/services/transactions.service";
+import appAlert from "../../helpers/appAlert";
 
 
 const DashboardPage = () => {
@@ -87,6 +88,22 @@ const DashboardPage = () => {
   }
   const router = useRouter()
 
+    
+  const {data: getTransactionPin} = useGetTransactionPinQuery()
+  
+  
+
+  const checkForTransactionPin = () => {
+    if (getTransactionPin?.data ===false) {
+      appAlert.success("Set up your Withdrawal Pin")
+      router.push("/settings/security/withdrawal-pin/set-pin")
+    }
+  }
+
+  checkForTransactionPin()
+
+
+
   return (
     <DashboardLayout title="Dashboard">
       <Box >
@@ -130,8 +147,14 @@ const DashboardPage = () => {
           <Box h="16px" w="2px" bg="#8B8CA7"></Box>
           <Text cursor="pointer" fontWeight="bold" color={color.color2} onClick={() => handleSelect("2")}>Sell</Text>
         </HStack>
+
+        {/* <Button>Recent Transactions</Button> */}
+        <MainAppButton width="180px" onClick={() => router.push("dashboard/recent-transactions")}>
+          Recent Transactions
+        </MainAppButton>
       </HStack>
 
+      
       {/* to render the buy and sell component here */}
       {selectedId === "1" ? (
         <BuyCoin
@@ -140,6 +163,7 @@ const DashboardPage = () => {
           pageNumber={pageNumber}
           handlePageReset={handlePageReset}
         />
+        
       ) : (
         <SellCoin
           handlePreviousPage={handlePreviousPage}
@@ -147,6 +171,9 @@ const DashboardPage = () => {
           pageNumber={pageNumber}
           handlePageReset={handlePageReset} 
         />
+
+
+          
       )}
 
     </DashboardLayout>
