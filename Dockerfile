@@ -4,6 +4,8 @@ COPY package.json ./
 COPY yarn.lock ./
 COPY ./ ./
 # COPY env-staging_qdmdjh.txt ./.env.local
+COPY .env.staging.sample ./.env.production
+
 RUN yarn install
 RUN npm run build
 EXPOSE 4000
