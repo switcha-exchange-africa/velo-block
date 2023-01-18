@@ -35,7 +35,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
-    logout: builder.mutation<any>({
+    logout: builder.mutation<any, any>({
       query: () => {
         return {
           url: `${endpoints.LOG_OUT}`,
