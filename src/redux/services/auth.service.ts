@@ -35,12 +35,11 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
-    logout: builder.mutation<any, LoginRequest>({
-      query: (body: LoginRequest) => {
+    logout: builder.mutation<any>({
+      query: () => {
         return {
           url: `${endpoints.LOG_OUT}`,
           method: "POST",
-          body: { ...body },
         };
       },
       transformResponse: (responseData: any) => {
@@ -119,6 +118,7 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useCreateAccountMutation,
   useLoginMutation,
+  useLogoutMutation,
   useVerifyOtpMutation,
   useSendOtpQuery,
   useGetUserQuery,

@@ -17,6 +17,7 @@ import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
 import Image from "next/image";
 import { DashBoardSidBarMobileOptionComponent } from "../../components/dashboard/DashBoardSidBarMobileOptionComponent";
+import { useLogoutMutation } from "../../redux/services/auth.service";
 
 
 interface DashboardLayoutProps {
@@ -57,10 +58,14 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
     onOpen()
   }
  
+  const [logout] = useLogoutMutation()
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(removeTokenFromLocalStorage());
-    router.push('/signin')
+    const resp = await logout()
+    console.log({resp})
+
+    // router.push('/signin')
   }
 
 

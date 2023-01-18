@@ -34,7 +34,6 @@ function WalletPage() {
   console.log({address})
 
 
-  console.log({walletsquery})
 
   const to8Dp = (number: any) => {
     if (number > 1) {
