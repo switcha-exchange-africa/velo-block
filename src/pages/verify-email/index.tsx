@@ -136,7 +136,7 @@ const VerificationPage = () => {
                                                         setFieldValue('pin', e);
 
                                                     }} placeholder='' type='number' onComplete={() => {
-                                                        console.log('donnee'); setTimeout(() => {
+                                                         setTimeout(() => {
                                                             submitForm();
                                                         });
                                                     }} otp>

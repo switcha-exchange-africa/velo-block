@@ -67,14 +67,15 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
+      dispatch(removeTokenFromLocalStorage())
+      router.push('/signin')
+    } else {
+      appAlert.error("something went wrong")
+      dispatch(removeTokenFromLocalStorage())
+      router.push('/signin')
     } 
-    console.log({resp})
-
-    // router.push('/signin')
+    
   }
-
-  console.log("welcome home")
-
 
   return (
     <Flex

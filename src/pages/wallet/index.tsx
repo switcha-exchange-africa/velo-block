@@ -31,8 +31,7 @@ function WalletPage() {
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
   const [accountId, setAccountId] = useState(walletsquery?.data?.data[0]?._id)
-  console.log({address})
-
+  
 
 
   const to8Dp = (number: any) => {
