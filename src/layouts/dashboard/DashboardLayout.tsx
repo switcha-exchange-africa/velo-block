@@ -18,6 +18,7 @@ import { setWalletBalance } from "../../redux/features/accountSettings/accounSet
 import Image from "next/image";
 import { DashBoardSidBarMobileOptionComponent } from "../../components/dashboard/DashBoardSidBarMobileOptionComponent";
 import { useLogoutMutation } from "../../redux/services/auth.service";
+import appAlert from "../../helpers/appAlert";
 
 
 interface DashboardLayoutProps {
@@ -62,7 +63,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
   const handleLogout = async () => {
     // dispatch(removeTokenFromLocalStorage());
-    const resp = await logout()
+    const resp:any = await logout()
 
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
