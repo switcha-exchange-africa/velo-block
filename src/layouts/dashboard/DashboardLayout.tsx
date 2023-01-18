@@ -61,12 +61,18 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const [logout] = useLogoutMutation()
 
   const handleLogout = async () => {
-    dispatch(removeTokenFromLocalStorage());
+    // dispatch(removeTokenFromLocalStorage());
     const resp = await logout()
+
+    if(resp?.data?.status === 200) {
+      appAlert.success(resp?.data?.message)
+    } 
     console.log({resp})
 
     // router.push('/signin')
   }
+
+  console.log("welcome home")
 
 
   return (
@@ -480,7 +486,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
               marginTop={"auto"}
               display={["none", "none", "flex", "flex"]}
               cursor={'pointer'}
-              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+              onClick={handleLogout}
             >
               <Img
                 src={remoteImages.logoutSvg}
