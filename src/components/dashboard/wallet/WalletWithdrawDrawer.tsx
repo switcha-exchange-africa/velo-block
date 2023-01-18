@@ -29,15 +29,6 @@ const WalletWithdrawDrawer = (props: any) => {
         setIsNextClicked(false)
     }
 
-    // const validateAmount = (value: string, ) => {
-    //     setAmountState(value)
-    //     let error
-    //     if (!value) {
-    //         error = 'Amount should not be empty '
-    //     }
-    //     return error
-    // }
-
     const validateAddress = (value: string, ) => {
         setAddressState(value)
         let error

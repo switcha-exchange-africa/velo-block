@@ -6,9 +6,6 @@ import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service'
 
 const WalletDepositDrawer = (props: any) => {
     const getSingleWallet = useGetSingleWalletQuery(props?.accountId)
-    console.log({props})
-
-    console.log({getSingleWallet})
 
     return (
         <>
