@@ -21,6 +21,7 @@ export const authApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
     login: builder.mutation<any, LoginRequest>({
       query: (body: LoginRequest) => {
         return {
@@ -33,12 +34,27 @@ export const authApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
+    logout: builder.mutation<any, LoginRequest>({
+      query: (body: LoginRequest) => {
+        return {
+          url: `${endpoints.LOG_OUT}`,
+          method: "POST",
+          body: { ...body },
+        };
+      },
+      transformResponse: (responseData: any) => {
+        return responseData;
+      },
+    }),
+
     sendOtp: builder.query<any, any>({
       query: () => `${endpoints.RESEND_VERIFY_EMAIL_URL}`,
       transformResponse: (responseData: any) => {
         return responseData;
       },
     }),
+
     verifyOtp: builder.mutation<any, string>({
       query: (pin: string) => {
         return {
@@ -51,12 +67,14 @@ export const authApi = baseApi.injectEndpoints({
         return responseData;
       },
     }),
+
     getUser: builder.query<any, void>({
       query: () => `${endpoints.GET_USER_URL}`,
       // transformResponse: (responseData: any) => {
       //   return responseData;
       // },
     }),
+
     forgotPassword: builder.mutation<any, any>({
       query: (body) => {
         return {
