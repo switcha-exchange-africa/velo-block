@@ -36,4 +36,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 env-production.txt
+crypto.key
 env-staging.txt
+staging.txt
