@@ -48,14 +48,19 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
   useEffect(() => {
     dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
-  
-  }, [])
+  }, [dispatch, walletsquery?.data?.data])
   
   const { isOpen, onOpen, onClose } = useDisclosure()
   
 
   const handleDrawer = () => {
     onOpen()
+  }
+ 
+
+  const handleLogout = () => {
+    dispatch(removeTokenFromLocalStorage());
+    router.push('/signin')
   }
 
 
@@ -181,7 +186,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                 width={"100%"}
                 display={["flex", "flex", "flex", "flex"]}
                 cursor={'pointer'}
-                onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+                onClick={handleLogout}
                 >
                   <Img
                     src={remoteImages.logoutSvg}
