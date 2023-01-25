@@ -20,7 +20,6 @@ const RenderBalanceToUsd = ({ balance, coin, variant }: RenderBalanceToUsdProps)
             const values = datas?.toLocaleString()
             return values  
         
-            console.log("this is the value ", number)
         } else {
             return number
         }

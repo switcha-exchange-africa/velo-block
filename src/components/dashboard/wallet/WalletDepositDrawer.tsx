@@ -7,6 +7,7 @@ import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service'
 const WalletDepositDrawer = (props: any) => {
     const getSingleWallet = useGetSingleWalletQuery(props?.accountId)
 
+
     return (
         <>
             <Drawer
@@ -21,20 +22,20 @@ const WalletDepositDrawer = (props: any) => {
                 <DrawerContent>
                     <DrawerCloseButton /><br />
                     <DrawerHeader mt='4'>
-                        <Text>Deposit {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}</Text>
+                        <Text>Deposit {props?.label=== "USDT_TRON" ? "USDT-TRON" : props?.label}</Text>
                     </DrawerHeader>
 
                     <DrawerBody mt={'-4'}>
                         <Text fontSize={"sm"} >
-                            Copy address or scan QR code to deposit {props.label=== "USDT_TRON" ? "USDT-TRON" : props.label}
+                            Copy address or scan QR code to deposit {props?.label=== "USDT_TRON" ? "USDT-TRON" : props?.label}
                         </Text>
                         <Flex justifyContent={'center'} my={'16'}>
                             <QRCode value="hey" />
                         </Flex>
                         <Text color={"#8E9BAE"} >
-                            {props.coin=== "USDT_TRON" ? "USDT-TRON" : props.coin} Deposit Address
+                            {props?.coin=== "USDT_TRON" ? "USDT-TRON" : props?.coin} Deposit Address
                         </Text>
-                        {props.coin === "USDT" && (
+                        {props?.coin === "USDT" && (
                             <Box marginBottom={"20px"}>
                                 <FormLabel htmlFor="owner">Please Choose Network</FormLabel>
                                 <Select id="owner" defaultValue="segun" placeholder="Please choose network first">
