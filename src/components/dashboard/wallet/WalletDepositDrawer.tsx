@@ -5,16 +5,17 @@ import appAlert from '../../../helpers/appAlert';
 import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service';
 
 const WalletDepositDrawer = (props: any) => {
-    const getSingleWallet = useGetSingleWalletQuery(props?.accountId)
 
-
+    const getSingleWallet = useGetSingleWalletQuery(props?.accountId, {skip: props?.skip})
+    
+    
     return (
         <>
             <Drawer
-                isOpen={props.isOpen && props.isdepositOpen}
+                isOpen={props?.isOpen && props?.isdepositOpen}
                 placement="right"
-                onClose={() => { props.onClose; props.setIsDepositDrawerOpen(false) }}
-                finalFocusRef={props.btnRef}
+                onClose={() => { props?.onClose; props?.setIsDepositDrawerOpen(false) }}
+                finalFocusRef={props?.btnRef}
                 size={"sm"}
             >
                 <DrawerOverlay bg="transparent"
@@ -44,7 +45,7 @@ const WalletDepositDrawer = (props: any) => {
                                 </Select>
                             </Box>
                         )}
-                        <Text fontWeight="600">{getSingleWallet?.data?.data?.address}</Text>
+                        <Text fontWeight="600">{getSingleWallet?.data?.data?.address ? getSingleWallet?.data?.data?.address : ""}</Text>
                         <Button
                             mt={"60px"}
                             width={"100%"}
@@ -52,7 +53,7 @@ const WalletDepositDrawer = (props: any) => {
                             background={"#10192D"}
                             size={"lg"}
                             onClick={() => {
-                                navigator.clipboard.writeText(getSingleWallet?.data?.data?.address);
+                                navigator.clipboard.writeText(getSingleWallet?.data?.data?.address ? getSingleWallet?.data?.data?.address : "");
                                 appAlert.success("address copied")
                             }}
                         >
