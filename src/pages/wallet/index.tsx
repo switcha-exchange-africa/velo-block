@@ -19,7 +19,8 @@ import { useLazySwapConvertQuery } from "../../redux/services/new-conversion.ser
 
 
 function WalletPage() {
-  const {user} = useAppSelector((state) => state.auth)
+  const { user } = useAppSelector((state) => state.auth)
+  
   const [label, setLabel] = useState("Bitcoin");
   const [coin, setCoin] = useState("BTC");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,7 +32,6 @@ function WalletPage() {
   const [convertCoins] = useLazySwapConvertQuery()
   const [address, setAddress] = useState(walletsquery?.data?.data[0]?.address);
   const [accountId, setAccountId] = useState(walletsquery?.data?.data[0]?._id)
-  
 
 
   const to8Dp = (number: any) => {
@@ -81,16 +81,20 @@ function WalletPage() {
   }, [total])
 
 
-
+  const [skip, setSkip] = useState(true)
 
 
   const handleClick = (newAddress: any, newLabel: any, newCoin: any, new_Id: any) => {
+    // console.log(new_Id)
     setAddress(newAddress);
     setAccountId(new_Id)
     setLabel(newLabel);
     setCoin(newCoin);
+    setSkip(false)
     onOpen();
   };
+
+  
 
   const btnRef = useRef(null);
   const router = useRouter()
@@ -255,6 +259,7 @@ function WalletPage() {
                                       wallet?.coin,
                                       wallet?._id
                                     );
+                                    
                                     setIsDepositDrawerOpen(true);
                                   }}
                                 >
@@ -277,6 +282,7 @@ function WalletPage() {
                                 coin={coin}
                                 address={address}
                                 accountId={accountId}
+                                skip={skip}
                               />
 
 
