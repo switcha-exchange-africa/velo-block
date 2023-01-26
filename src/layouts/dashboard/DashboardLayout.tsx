@@ -17,6 +17,8 @@ import { useGetWalletsQuery } from "../../redux/services/wallet.service";
 import { setWalletBalance } from "../../redux/features/accountSettings/accounSettingsSlice";
 import Image from "next/image";
 import { DashBoardSidBarMobileOptionComponent } from "../../components/dashboard/DashBoardSidBarMobileOptionComponent";
+import { useLogoutMutation } from "../../redux/services/auth.service";
+import appAlert from "../../helpers/appAlert";
 
 
 interface DashboardLayoutProps {
@@ -48,8 +50,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
 
   useEffect(() => {
     dispatch(setWalletBalance({walletBalance: walletsquery?.data?.data}))
-  
-  }, [])
+  }, [dispatch, walletsquery?.data?.data])
   
   const { isOpen, onOpen, onClose } = useDisclosure()
   
@@ -57,7 +58,24 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
   const handleDrawer = () => {
     onOpen()
   }
+ 
+  const [logout] = useLogoutMutation()
 
+  const handleLogout = async () => {
+    // dispatch(removeTokenFromLocalStorage());
+    const resp:any = await logout()
+
+    if(resp?.data?.status === 200) {
+      appAlert.success(resp?.data?.message)
+      dispatch(removeTokenFromLocalStorage())
+      router.push('/signin')
+    } else {
+      appAlert.error("something went wrong")
+      dispatch(removeTokenFromLocalStorage())
+      router.push('/signin')
+    } 
+    
+  }
 
   return (
     <Flex
@@ -181,7 +199,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
                 width={"100%"}
                 display={["flex", "flex", "flex", "flex"]}
                 cursor={'pointer'}
-                onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+                onClick={handleLogout}
                 >
                   <Img
                     src={remoteImages.logoutSvg}
@@ -470,7 +488,7 @@ const DashboardLayout = ({ children, title }: DashboardLayoutProps) => {
               marginTop={"auto"}
               display={["none", "none", "flex", "flex"]}
               cursor={'pointer'}
-              onClick={() => { dispatch(removeTokenFromLocalStorage()); router.push('/signin') }}
+              onClick={handleLogout}
             >
               <Img
                 src={remoteImages.logoutSvg}

@@ -1,6 +1,7 @@
 //--------these are just test URLs---------
 const BASE_URL = process.env.NEXT_PUBLIC_API_ENDPOINT;
 const LOGIN_URL = "auth/login";
+const LOG_OUT = "auth/logout";
 const REGISTER_URL = "auth/signup";
 const RESEND_VERIFY_EMAIL_URL = "auth/verify-email";
 const VERIFY_EMAIL_URL = "auth/verify-email";
@@ -30,6 +31,7 @@ const GET_ALL_TRANSACTIONS = "transactions"
 const endpoints = {
   BASE_URL,
   LOGIN_URL,
+  LOG_OUT,
   REGISTER_URL,
   GET_USER_URL,
   VERIFY_EMAIL_URL,
