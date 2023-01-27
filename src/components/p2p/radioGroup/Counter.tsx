@@ -12,7 +12,7 @@ const InputCounter = ({
     addPrice, minusPrice
 }: InputContainerProps) => {
     
-  
+
     return (
         <VStack alignItems={"flex-start"}>
             <Text color={"#8E9BAE"} fontFamily={"Open Sans"} fontWeight={"600"} fontSize={"14px"}>Floating Price Margin</Text>

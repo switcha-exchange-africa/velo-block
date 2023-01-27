@@ -25,13 +25,17 @@ const SellStepOne = ({ handleNextStep, coin, setCoin, cash, setCash, price, setP
         setPrice(event.target.value)
     }
     
+    const total = Number(price)
+    
+
     const addPrice = () => {
-        setPrice((currentPrice: number)=>  currentPrice + 1)            
+        setPrice(total + 1)            
     }
 
     const  minusPrice = () => {
-        setPrice( (currentPrice:number) =>  currentPrice - 1)
+        setPrice( total - 1)
     }
+  
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
