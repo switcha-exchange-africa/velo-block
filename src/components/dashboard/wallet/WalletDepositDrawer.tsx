@@ -5,7 +5,6 @@ import appAlert from '../../../helpers/appAlert';
 import { useGetSingleWalletQuery } from '../../../redux/services/wallet.service';
 
 const WalletDepositDrawer = (props: any) => {
-
     const getSingleWallet = useGetSingleWalletQuery(props?.accountId, {skip: props?.skip})
     
     

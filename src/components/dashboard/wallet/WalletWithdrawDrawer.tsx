@@ -1,4 +1,3 @@
-// import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, FormControl, FormErrorMessage, FormLabel, Img, Input, InputGroup, InputRightElement,  Text, VStack } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
