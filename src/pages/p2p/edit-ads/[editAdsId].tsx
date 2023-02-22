@@ -229,7 +229,7 @@ const EditAds = (props:any) => {
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
       getAllAds.refetch()
-      router.push("/p2p/all-ads")
+      router.push("/p2p/ads")
     } else {
       appAlert.success(resp?.error?.data?.message)
     }
