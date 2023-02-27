@@ -164,12 +164,6 @@ const VerificationPage = () => {
                                     <MainAppButton isLoading={isSubmitting} onClick={handleSubmit} >
                                         Verify
                                     </MainAppButton>
-
-
-
-
-
-
                                 </VStack>
                             </Form>
 
