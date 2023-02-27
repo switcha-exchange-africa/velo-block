@@ -201,12 +201,12 @@ const EditAds = (props:any) => {
         return unique
     }
 
-
+    const [loading, setLoading] = useState(false)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getAddedBanksIdValues()
     getAddedBanksSellIdValues()
-
+    setLoading(true)
     const data = {
       banks: singleAds?.type=== "sell" ? sellBank : banks,
       type: singleAds?.type,
@@ -229,8 +229,10 @@ const EditAds = (props:any) => {
     if(resp?.data?.status === 200) {
       appAlert.success(resp?.data?.message)
       getAllAds.refetch()
-      router.push("/p2p/all-ads")
+      setLoading(false)
+      router.push("/p2p/ads")
     } else {
+      setLoading(false)
       appAlert.success(resp?.error?.data?.message)
     }
     
@@ -732,8 +734,8 @@ const EditAds = (props:any) => {
                   <Button borderRadius={"5px"} border={"0.88px solid #8E9BAE"} bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handleCancelStep}>
                     Cancel
                   </Button>
-                  <Button borderRadius={"5px"} type="submit" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
-                    Post
+                  <Button borderRadius={"5px"} type="submit" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} isLoading={loading} loadingText="Editing...">
+                    Edit
                   </Button>
                 </Flex>
               </Flex>
@@ -757,8 +759,8 @@ const EditAds = (props:any) => {
                 <Button borderRadius={"5px"} border={"0.88px solid #8E9BAE"} bg={"transparent"} color={"black"} p={"11px 44px"} fontSize={"14px"} onClick={handleCancelStep}>
                   Cancel
                 </Button>
-                <Button type="submit" borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} >
-                  Post
+                <Button type="submit" borderRadius={"5px"} ml="12px" bg={"#FB5E04"} color={"white"} p={"11px 44px"} fontSize={"14px"} isLoading={loading} loadingText="Editing...">
+                  Edit
                 </Button>
               </Flex>
             </Flex>
